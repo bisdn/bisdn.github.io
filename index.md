@@ -1,0 +1,3 @@
+# Welcome to basebox documentation!
+
+basebox is a...
