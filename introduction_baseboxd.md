@@ -1,4 +1,5 @@
 # Baseboxd
+## Introduction
 Baseboxd is a controller daemon integrating whitebox
 switches into Linux. Based on OpenFlow Data Path
 Abstraction (OF-DPA), it translates Linux netlink into
@@ -7,6 +8,7 @@ managed and flawlessly integrated in any existing Linux
 environment. It can be combined with CAWR for scaling
 switch capacity.
 
+## Important Points
 Baseboxd is a translator between Linux netlink and OpenFlow
 * OpenFlow 1.3 [OF-DPA 2.0](https://github.com/Broadcom-Switch/of-dpa) controller
 * Settings made persistent via etcd

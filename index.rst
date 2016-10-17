@@ -1,5 +1,5 @@
 Welcome to basebox documentation!
--------------
+---------------------------------
 
 Basebox is the BISDN Linux package for data center networks with three freely combinable elements:
         * Baseboxd is a controller daemon integrating whitebox switches into Linux.
@@ -9,6 +9,7 @@ Basebox is the BISDN Linux package for data center networks with three freely co
 Basebox can either run directly on the switch or in a separate controller machine. The solution addresses issues of orchestration, flexibilization and further automation in various scenarios.
 
 Introduction to Basebox:
+++++++++++++++++++++++++
 
 .. toctree::
       :glob:
@@ -21,6 +22,7 @@ Introduction to Basebox:
    introduction_bisdn_linux
 
 Installation and Setup:
++++++++++++++++++++++++
 
 .. toctree::
       :glob:
@@ -29,7 +31,7 @@ Installation and Setup:
    setup_topic2
 
 API:
-
+++++
 .. toctree::
       :glob:
 
