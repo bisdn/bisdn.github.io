@@ -17,7 +17,6 @@ Introduction to Basebox:
    introduction_overall_system_architecture
    introduction_baseboxd
    introduction_cawr
-   introduction_bisdn_linux
    introduction_ml2_plugin
    introduction_bisdn_linux
 
