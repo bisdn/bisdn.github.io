@@ -1,11 +1,11 @@
 # ML2 Plugin
 ## Introduction
-Basebox provides a Neutron ML2 plugin for seamless integration with OpenStack.
+Basebox provides a Neutron ([GitHub][neutron_gh], [Wiki][neutron_wiki]) ML2 plugin for seamless integration with OpenStack.
 
 ## Architecture
 OpenStack, through its Neutron service, exposes a lot of information about the virtual networking resources, which we can use to configure the hardware switches serving our OpenStack instance proactively.
 
-Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *etcd_connector* daemon.
+Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *[etcd_connector][]* daemon.
 On the other side, the *etcd_connector* daemon watches for changes to the etcd data structures and applies changes to the baseboxd networking abstraction through systemd-networkd.
 
 ```text
@@ -44,9 +44,9 @@ The information is published by writing it to an etcd cluster, where the structu
 └── physical_port_4
     └── VID_2
 ```
-To find out more about etcd please check [the Github repo](https://github.com/coreos/etcd).
+To find out more about etcd please check the [Github repo][etcd_gh] and [official documentation][etcd_docs].
 
-The implementation of our ML2 plugin extension can be found [here](https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver).
+The implementation of our ML2 plugin extension can be found [here][ml2].
 
 ## baseboxd Interface
 
@@ -72,14 +72,21 @@ The data stored in etcd is consumed by the *etcd_connector* service, running bas
 
 ```
 
-To apply configuration changes to the tap interfaces systemd-networkd must be restarted when it's configuration files are altered. The *etcd_connector* daemon runs a dedicated thread, periodically triggering an event to check if the systemd-networkd needs to be restarted. Currently in the configuration this delta time is 2 seconds. Whenever new systemd-networkd configuration files are generated, the thread restarts networkd and the VLAN tags added to the ports will activate. The removal of the tags is handled by the `bridge` command, as systemd-networkd is currently not able to remove VLAN tags. If the network configuration continuously changes networkd will be restarted at most every 2 seconds.
+To apply configuration changes to the tap interfaces systemd-networkd must be restarted when it's configuration files are altered. The *etcd_connector*. daemon runs a dedicated thread, periodically triggering an event to check if the systemd-networkd needs to be restarted. Currently in the configuration this delta time is 2 seconds. Whenever new systemd-networkd configuration files are generated, the thread restarts networkd and the VLAN tags added to the ports will activate. The removal of the tags is handled by the `bridge` command, as systemd-networkd is currently not able to remove VLAN tags. If the network configuration continuously changes networkd will be restarted at most every 2 seconds.
 
-More details on this can be found in the gitlab repository for for the [*etcd_connector*](https://gitlab.bisdn.de/basebox/vlantranslate).
+More details on this can be found in the gitlab repository for for the *etcd_connector*.
 
 ## Additional Resources
-* [Neutron ML2 Wiki](https://wiki.openstack.org/wiki/Neutron/ML2)
-* [Neutron Github](https://github.com/openstack/neutron)
-* [etcd Documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)
-* [etcd Github](https://github.com/coreos/etcd)
-* [*etcd_connector* repository](https://gitlab.bisdn.de/basebox/vlantranslate)
-* [ML2 Plugin Extension Repository](https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver)
+* [*etcd_connector* Repository][etcd_connector]
+* [etcd Documentation][etcd_docs]
+* [etcd Github][etcd_gh]
+* [Neutron Github][neutron_gh]
+* [Neutron ML2 Wiki][neutron_wiki]
+* [ML2 Plugin Extension Repository][ml2]
+
+[neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
+[neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
+[etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
+[etcd_gh]: https://github.com/coreos/etcd (etcd Github)
+[etcd_connector]: https://gitlab.bisdn.de/basebox/vlantranslate (*etcd_connector* repository)
+[ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)

@@ -68,9 +68,9 @@ On startup, CAWR first uses LLDP to detect internal links (ports between switche
 Once the internal topology is mapped it starts looking for LACP beacon messages to discover the servers connected to the switches and configure their bonds. Finally, LACP is used to continously monitor links and detect port connections and disconnection.
 
 ## Additional Resources
-1. [OF-DPA 2.0][ofdpa]
-2. [OpenFlow 1.3 specification][of]
-3. [Revised OpenFlow Library (ROFL)][rofl]
+* [OF-DPA 2.0][ofdpa]
+* [OpenFlow 1.3 specification][of]
+* [Revised OpenFlow Library (ROFL)][rofl]
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA Github link)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL Github Link)

@@ -108,13 +108,13 @@ Baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 ```
 
 ## Additional Resources
-1. [OF-DPA 2.0][ofdpa]
-2. [OpenFlow 1.3 specification][of]
-3. [etcd github][etcd_gh]
-4. [iproute2][iproute2]
-5. [Revised OpenFlow Library (ROFL)][rofl]
-6. [baseboxd github][baseboxd_gh]
-7. [libnl documentation][libnl_docs]
+* [baseboxd github][baseboxd_gh]
+* [etcd github][etcd_gh]
+* [iproute2][iproute2]
+* [libnl documentation][libnl_docs]
+* [OF-DPA 2.0][ofdpa]
+* [OpenFlow 1.3 specification][of]
+* [Revised OpenFlow Library (ROFL)][rofl]
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub Repository)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (Openflow v1.3 specification pdf)
