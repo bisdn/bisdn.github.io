@@ -5,8 +5,7 @@ Basebox provides a Neutron ML2 plugin for seamless integration with OpenStack.
 ## Architecture
 OpenStack, through its Neutron service, exposes a lot of information about the virtual networking resources, which we can use to configure the hardware switches serving our OpenStack instance proactively.
 
-Our ML2 plugin reads the available OpenStack networking information and pushes it to an etcd cluster in a format familiar to baseboxd.
-
+Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *etcd_connector* daemon.
 On the other side, the *etcd_connector* daemon watches for changes to the etcd data structures and applies changes to the baseboxd networking abstraction through systemd-networkd.
 
 ```text
@@ -33,17 +32,17 @@ The information is published by writing it to an etcd cluster, where the structu
 
 ```text
 /
-├── VID_1
-│   └── physical_port_3
+├── physical_port_1
+│   └── VID_3
 │        └── virtual_port_mac_1
-├── VID_2
-│   └── physical_port_1
-├── VID_3
-│   └── physical_port_4
+├── physical_port_2
+│   └── VID_1
+├── physical_port_3
+│   └── VID_4
 │        └── virtual_port_mac_3
 │        └── virtual_port_mac_7
-└── VID_4
-    └── physical_port_2
+└── physical_port_4
+    └── VID_2
 ```
 To find out more about etcd please check [the Github repo](https://github.com/coreos/etcd).
 
@@ -72,6 +71,8 @@ The data stored in etcd is consumed by the *etcd_connector* service, running bas
                    +-------------------------------------------------------------+
 
 ```
+
+To apply configuration changes to the tap interfaces systemd-networkd must be restarted when it's configuration files are altered. The *etcd_connector* daemon runs a dedicated thread, periodically triggering an event to check if the systemd-networkd needs to be restarted. Currently in the configuration this delta time is 2 seconds. Whenever new systemd-networkd configuration files are generated, the thread restarts networkd and the VLAN tags added to the ports will activate. The removal of the tags is handled by the `bridge` command, as systemd-networkd is currently not able to remove VLAN tags. If the network configuration continuously changes networkd will be restarted at most every 2 seconds.
 
 More details on this can be found in the gitlab repository for for the [*etcd_connector*](https://gitlab.bisdn.de/basebox/vlantranslate).
 

@@ -12,7 +12,7 @@ CAWR, as a secondary controller, sits in between baseboxd and the physical switc
                            +----------+            +
                            | baseboxd |            |
               +            +--+---+---+            |
-logical ports:|            |A | B |  C|            |
+logical ports:|            |A | B | C |            |
               +            +--+-^-+---+            | control
                                 |                  | plane
                              +--v---+              |
@@ -32,9 +32,9 @@ CAWR implements all the algorithms supporting its internal workflow while employ
 
 ## Failover
 CAWR by design expects a multi-switch configuration (currently tested with 2).
-Each server networked using basebox is expected to have a pair of interfaces in bond mode.
+Each server connected to basebox is expected to have a pair of interfaces in bond mode.
 CAWR then takes care of routing the layer 2 traffic across the physical network.
-CAWR provides failover mechanism to deliver uninterrupted operation even if one of the switches goes down.
+CAWR provides failover mechanism to deliver uninterrupted operation even if one of the switches or bond ports goes down.
 
 ```text
 /server connectivity/
@@ -62,8 +62,10 @@ CAWR provides failover mechanism to deliver uninterrupted operation even if one 
       +------+    +------+       +
 ```
 
-## LACP and Topology Discovery
-CAWR adds LACP and topology discovery functionality to the basebox setup. It detects LACP traffic and is able to automatically configure the switches while retaining the single-port abstraction presented to baseboxd. It keeps track of the devices connected across the two switches and maintains efficient layer 2 traffic forwarding between the switches, servers and uplinks.
+## Topology Discovery (LACP and LLDP)
+CAWR adds LACP and LLDP-based topology discovery to the basebox setup.
+On startup, CAWR first uses LLDP to detect internal links (ports between switches).
+Once the internal topology is mapped it starts looking for LACP beacon messages to discover the servers connected to the switches and configure their bonds. Finally, LACP is used to continously monitor links and detect port connections and disconnection.
 
 ## Additional Resources
 1. [OF-DPA 2.0][ofdpa]
