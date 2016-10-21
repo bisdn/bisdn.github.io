@@ -67,6 +67,18 @@ CAWR adds LACP and LLDP-based topology discovery to the basebox setup.
 On startup, CAWR first uses LLDP to detect internal links (ports between switches).
 Once the internal topology is mapped it starts looking for LACP beacon messages to discover the servers connected to the switches and configure their bonds. Finally, LACP is used to continously monitor links and detect port connections and disconnection.
 
+
+## Port Mapping
+As a result of creating the giant switch abstraction, CAWR maps pairs of switch interfaces to a single logical interface.
+As a rule, CAWR expects each server to be connected to basebox using two physical network interfaces. These interfaces must be members of an LACP bond, with one cable going to each of the switches. CAWR detects these bonds and exposes them to baseboxd as a single logical interface.
+The naming of this interface takes the following format:
+
+```text
+portWWXXYYZZ
+```
+
+Where WWXXYYZZ are the last 4 bytes of the bond MAC address (actor MAC address) in hexadecimal notation (on the server, see e.g. `ip link list bond0`).
+
 ## Additional Resources
 * [OF-DPA 2.0][ofdpa]
 * [OpenFlow 1.3 specification][of]
