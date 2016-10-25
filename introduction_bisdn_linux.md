@@ -23,7 +23,7 @@ Currently the BISDN Linux distribution is available for the following datacenter
 * [Open Network Install Environment (ONIE) Project Website][onie]
 * [Yocto Project Website][yocto]
 
-[onie]: http://onie.org/ (Open Network Install Environment (ONIE))
+[onie]: http://onie.org/ (Open Network Install Environment)
 [yocto]: https://www.yoctoproject.org/downloads/core/jethro20 (Yocto Project Website)
 [ofa]: https://github.com/Broadcom-Switch/of-dpa/tree/master/src/ofagent (of-agent GitHub Repository)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (OpenFlow v1.3 specification pdf)
