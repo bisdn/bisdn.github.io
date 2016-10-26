@@ -6,11 +6,11 @@ Basebox provides a Neutron ([GitHub][neutron_gh], [Wiki][neutron_wiki]) ML2 plug
 OpenStack, through its Neutron service, exposes a lot of information about the virtual networking resources, which we can use to configure the hardware switches serving our OpenStack instance proactively.
 
 Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *[etcd_connector][]* daemon.
-On the other side, the *etcd_connector* daemon watches for changes to the etcd data structures and applies changes to the baseboxd networking abstraction through systemd-networkd.
+On the other side, the *etcd_connector* daemon watches for changes to the etcd data structures and applies changes to the Baseboxd networking abstraction through systemd-networkd.
 
 ```text
 .+------------+                     +------------------+.
-++ OpenStack  |                     | baseboxd         <+
+++ OpenStack  |                     | Baseboxd         <+
 |-------------+                     +-------------------|
 || Neutron    |     +---------+     | systemd-networkd ||
 |-------------+     | etcd    |     +-------------------|
@@ -18,17 +18,17 @@ On the other side, the *etcd_connector* daemon watches for changes to the etcd d
 .+------------+     +---------+     +------------------+.
 ```
 
-## OpenStack Interface
+## OpenStack interface
 The OpenStack Neutron Modular Layer 2 (ML2) plugin is a powerful framework allowing developers to implement new functionalities that work with OpenStack's networking.
 
-As part of the basebox project we have a working implementation of an ML2 plugin extension. Its purpose is to deliver information about the OpenStack network ports and their associated VLANs to baseboxd.
+As part of the Basebox project we have a working implementation of an ML2 plugin extension. Its purpose is to deliver information about the OpenStack network ports and their associated VLANs to Baseboxd.
 
 The information made available includes:
 * VLAN IDs
 * physical network ports
 * UUIDs/MAC addresses of the virtual network ports
 
-The information is published by writing it to an etcd cluster, where the structure of the data represents the relationship between the data values. Check the example bellow:
+The information is published by writing it to an etcd cluster, where the structure of the data represents the relationship between the data values. Check the example below:
 
 ```text
 /
@@ -48,16 +48,16 @@ To find out more about etcd please check the [Github repo][etcd_gh] and [officia
 
 The implementation of our ML2 plugin extension can be found [here][ml2].
 
-## baseboxd Interface
+## Baseboxd interface
 
-The data stored in etcd is consumed by the *etcd_connector* service, running baseboxd and other basebox services. The *etcd_connector* then creates systemd-networkd configuration files, which will cause systemd-networkd to configure the tap interfaces watched by baseboxd. Subsequently, baseboxd will receive netlink event notifications informing it of any changes made to the tap interfaces.
+The data stored in etcd is consumed by the *etcd_connector* service, running Baseboxd and other Basebox services. The *etcd_connector* then creates systemd-networkd configuration files, which will cause systemd-networkd to configure the tap interfaces watched by Baseboxd. Subsequently, Baseboxd will receive netlink event notifications informing it of any changes made to the tap interfaces.
 
 ```text
 .                  +---------+---------------------------------------------------+
-                   | basebox |                                                   |
+                   | Basebox |                                                   |
                    +---------+                                                   |
 +--------------+   | +--------------+                                +--------+  |
-| etcd cluster +----->etcd_connector|                                |baseboxd|  |
+| etcd cluster +----->etcd_connector|                                |Baseboxd|  |
 +--------------+   | +-----+--------+                                +----^---+  |
                    |       |                                              |      |
                    |       |         +----------------+                   |      |
@@ -72,17 +72,17 @@ The data stored in etcd is consumed by the *etcd_connector* service, running bas
 
 ```
 
-To apply configuration changes to the tap interfaces systemd-networkd must be restarted when it's configuration files are altered. The *etcd_connector*. daemon runs a dedicated thread, periodically triggering an event to check if the systemd-networkd needs to be restarted. Currently in the configuration this delta time is 2 seconds. Whenever new systemd-networkd configuration files are generated, the thread restarts networkd and the VLAN tags added to the ports will activate. The removal of the tags is handled by the `bridge` command, as systemd-networkd is currently not able to remove VLAN tags. If the network configuration continuously changes networkd will be restarted at most every 2 seconds.
+To apply configuration changes to the tap interfaces, systemd-networkd must be restarted when its configuration files are altered. The *etcd_connector* daemon runs a dedicated thread, periodically triggering an event to check if the systemd-networkd needs to be restarted. Currently in the configuration this delta time is 2 seconds. Whenever new systemd-networkd configuration files are generated, the thread restarts networkd and the VLAN tags added to the ports will activate. The removal of the tags is handled by the `bridge` command, as systemd-networkd is currently not able to remove VLAN tags. If the network configuration continuously changes, networkd will be restarted at most every 2 seconds.
 
 More details on this can be found in the gitlab repository for for the *etcd_connector*.
 
-## Additional Resources
+## Additional resources
 * [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]
 * [etcd Github][etcd_gh]
 * [Neutron Github][neutron_gh]
 * [Neutron ML2 Wiki][neutron_wiki]
-* [ML2 Plugin Extension Repository][ml2]
+* [ML2 Plugin extension repository][ml2]
 
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
