@@ -63,7 +63,7 @@ On the kernel side, it listens to netlink events, which are triggered by changes
 |  Baseboxd  |   
 +------------+   
       |
-      | 2. OpenFlow configuration - updates to flowtables/grouptables
+      | 2. OpenFlow configuration - updates to flow tables/group tables
       |
 +-----v------+   
 |   switch   |   
