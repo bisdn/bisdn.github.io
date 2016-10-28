@@ -1,15 +1,15 @@
 # CAWR
 ## Introduction
-CAWR – which stands for Capability AWare Routing – is a supplemental shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch smoothly integrates with Baseboxd and lets you scale your effective switch capacity. It implements multi-path routing and supports multichassis link aggregation (MLAG). CAWR combines a scalable data center switching solution with high availability.
+CAWR – which stands for Capability AWare Routing – is a supplemental shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch smoothly integrates with baseboxd and lets you scale your effective switch capacity. It implements multi-path routing and supports multichassis link aggregation (MLAG). CAWR combines a scalable data center switching solution with high availability.
 
 ## Architecture
-CAWR, as a secondary controller, sits in between Baseboxd and the physical switches. Both, its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
+CAWR, as a secondary controller, sits in between baseboxd and the physical switches. Both, its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
 
 ```text
 /CAWR control plane /
 
                            +----------+            +
-                           | Baseboxd |            |
+                           | baseboxd |            |
               +            +--+---+---+            |
 logical ports:|            |A | B | C |            |
               +            +--+-^-+---+            | control
@@ -39,7 +39,7 @@ CAWR provides failover mechanism to deliver uninterrupted operation even if one 
 /server connectivity/
 
           +----------+           +
-          | Baseboxd |           | control
+          | baseboxd |           | control
           +----------+           | plane
           |   CAWR   |           |
      +--->+----------+<---+      +
@@ -69,7 +69,7 @@ Once the internal topology is mapped it starts looking for LACP beacon messages 
 
 ## Port mapping
 As a result of creating the giant switch abstraction, CAWR maps pairs of switch interfaces to a single logical interface.
-As a rule, CAWR expects each server to be connected to Basebox using two physical network interfaces. These interfaces must be members of an LACP bond, with one cable going to each of the switches. CAWR detects these bonds and exposes them to Baseboxd as a single logical interface.
+As a rule, CAWR expects each server to be connected to Basebox using two physical network interfaces. These interfaces must be members of an LACP bond, with one cable going to each of the switches. CAWR detects these bonds and exposes them to baseboxd as a single logical interface.
 The naming of this interface takes the following format:
 
 ```text

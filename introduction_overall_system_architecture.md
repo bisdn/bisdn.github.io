@@ -6,10 +6,10 @@ Basebox is higly modular. Each of its components plays an important role in buil
 ## Recommended setup
 The fully integrated configuration takes advantage of all of Basebox components.
 
-The control plane and all the logic associated with it resides within [Baseboxd][baseboxd_gh] and CAWR. They two are usually located on the same physical device or VM. Baseboxd implements all of the standard L2 and L3 n
-twork switching and routing functionality. CAWR creates a single big switch abstraction for Baseboxd and enables multi-switch scalability.
+The control plane and all the logic associated with it resides within [baseboxd][baseboxd_gh] and CAWR. They two are usually located on the same physical device or VM. baseboxd implements all of the standard L2 and L3 n
+twork switching and routing functionality. CAWR creates a single big switch abstraction for baseboxd and enables multi-switch scalability.
 
-The configuration information is stored in a highly-available and resilient [etcd][etcd_gh] cluster. Any changes to the configuration stored there are automatically propagated to Baseboxd through the [*etcd_connector*][etcd_connector]. This is why the *etcd_connector* has to be co-located with Baseboxd. This also makes the etcd our Baseboxd configuration API (for details check the API section of the documentation). On the OpenStack side, the [Neutron][neutron_gh] [ML2 plugin][ml2] writes to our etcd cluster, effectively configuring Basebox.
+The configuration information is stored in a highly-available and resilient [etcd][etcd_gh] cluster. Any changes to the configuration stored there are automatically propagated to baseboxd through the [*etcd_connector*][etcd_connector]. This is why the *etcd_connector* has to be co-located with baseboxd. This also makes the etcd our baseboxd configuration API (for details check the API section of the documentation). On the OpenStack side, the [Neutron][neutron_gh] [ML2 plugin][ml2] writes to our etcd cluster, effectively configuring Basebox.
 
 Down in the data plane we expect each OpenStack compute node to be connected to the Basebox switches with a pair of interfaces (each to a different switch). The interfaces should be configured as an LACP bond. This configuration, again, ensures high performance and adds resilience to the setup.
 
@@ -23,7 +23,7 @@ Down in the data plane we expect each OpenStack compute node to be connected to 
            +-------^------+         | +-------+--------+ |
                    |                |         |          |
 +----------------------------+      |    +----v-----+    |
-|OpenStack         |         |      |    | Baseboxd |    |
+|OpenStack         |         |      |    | baseboxd |    |
 |  +---------+-----+------+  |      |    +----+-----+    |
 |  | Neutron | ML2 Plugin |  |      |         |          |
 |  |         +------------+  |      |      +--v---+      |
@@ -45,8 +45,8 @@ Down in the data plane we expect each OpenStack compute node to be connected to 
 
 ## HA setup
 
-CAWR and Baseboxd can be run in HA mode with an active/failover-standby configuration.
-In the most recent iteration of Basebox production code this is tested using two physical controller host machines, each running its own instances of CAWR and Baseboxd.
+CAWR and baseboxd can be run in HA mode with an active/failover-standby configuration.
+In the most recent iteration of Basebox production code this is tested using two physical controller host machines, each running its own instances of CAWR and baseboxd.
 State integrity is kept by creating a 2-node etcd cluster, with an etcd instance on each hardware box. The failover is triggered by [Keepalived][kad], configured to observe if both the hosts are up.
 
 ```text
@@ -69,7 +69,7 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 | +-------+--------+         |  |         +-------+--------+ |
 |         |                  |  |                 |          |
 |    +----v-----+  +-------+ |  | +-------+  +----v-----+    |
-|    | Baseboxd |  |keep-  <------>keep-  |  | Baseboxd |    |
+|    | baseboxd |  |keep-  <------>keep-  |  | baseboxd |    |
 |    +----+-----+  |alive.d| |  | |alive.d|  +----+-----+    |
 |         |        +-------+ |  | +-------+       |          |
 |      +--v---+    |         |  |         |    +--v---+      |
@@ -81,7 +81,7 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 ```
 
 ## Additional resources
-* [Baseboxd github][baseboxd_gh]
+* [baseboxd github][baseboxd_gh]
 * [*etcd_connector* Repository][etcd_connector]
 * [etcd GitHub][etcd_gh]
 * [etcd Documentation][etcd_docs]
@@ -91,7 +91,7 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 * [OpenStack Neutron Wiki][neutron_wiki]
 
 [kad]: http://www.keepalived.org/ (Keepalived Website)
-[baseboxd_gh]: www.github.com/bisdn/basebox (abasenoxd GitHub Repository)
+[baseboxd_gh]: www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)

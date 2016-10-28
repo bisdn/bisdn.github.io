@@ -2,7 +2,7 @@
 ## Introduction
 We also offer BISDN Linux, a custom Linux-based operating
 system for selected whitebox switches. This lightweight
-distribution supports Baseboxd as well as most native
+distribution supports baseboxd as well as most native
 Linux networking tools.
 
 ## Specifications

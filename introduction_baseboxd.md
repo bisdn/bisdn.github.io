@@ -1,9 +1,9 @@
-# Baseboxd
+# baseboxd
 ## Introduction
-Baseboxd is a controller daemon integrating whitebox switches into Linux. Based on [OpenFlow Data Path Abstraction (OF-DPA)][rofl], it translates Linux [netlink][libnl_docs] into switch rules and vice versa. Our solution can be easily managed and flawlessly integrated in any existing Linux environment. It can be combined with CAWR for scaling switch capacity.
+baseboxd is a controller daemon integrating whitebox switches into Linux. Based on [OpenFlow Data Path Abstraction (OF-DPA)][rofl], it translates Linux [netlink][libnl_docs] into switch rules and vice versa. Our solution can be easily managed and flawlessly integrated in any existing Linux environment. It can be combined with CAWR for scaling switch capacity.
 
 ## Architecture
-Baseboxd communicates (upwards) with the Linux kernel over [**netlink**][libnl_docs] and (downwards) with the switch using [**OpenFlow**][of]. The Linux network stack is used to directly represent the state of the switching infrastructure. For each active network interface on a switch controlled by Baseboxd, a single Linux tap interface exists on the Basebox host operating system.
+baseboxd communicates (upwards) with the Linux kernel over [**netlink**][libnl_docs] and (downwards) with the switch using [**OpenFlow**][of]. The Linux network stack is used to directly represent the state of the switching infrastructure. For each active network interface on a switch controlled by baseboxd, a single Linux tap interface exists on the Basebox host operating system.
 
 
 ```text
@@ -14,7 +14,7 @@ Baseboxd communicates (upwards) with the Linux kernel over [**netlink**][libnl_d
       | netlink  | control plane
       |          |
 +-----v------+   |
-|  Baseboxd  |   |
+|  baseboxd  |   |
 +-----^------+   +
       |
       | OpenFlow
@@ -24,7 +24,7 @@ Baseboxd communicates (upwards) with the Linux kernel over [**netlink**][libnl_d
 +------------+   +
 ```
 
-Baseboxd is therefore an agent which, while sitting in the middle, listens for changes in the states of:
+baseboxd is therefore an agent which, while sitting in the middle, listens for changes in the states of:
 * The Switch (Openflow port state messages)
 * Linux tap interfaces (netlink messages)
 
@@ -38,7 +38,7 @@ From the switch side, it listens for OFPT_PORT_STATUS async messages, and update
       | 2. call rtnl_link_set_carrier(struct rtnl_link *link, uint8_t status)
       | /libnl function call/
 +------------+   
-|  Baseboxd  |   
+|  baseboxd  |   
 +-----^------+   
       |
       | 1. send OFPT_PORT_STATUS
@@ -50,7 +50,7 @@ From the switch side, it listens for OFPT_PORT_STATUS async messages, and update
 * complete workflow implementation pending *
 ```
 
-On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by Baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, Baseboxd will detect the change and re-configure the switch accordingly through the southbound [OpenFlow][of] interface.
+On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound [OpenFlow][of] interface.
 
 ```text
 +------------+   
@@ -60,7 +60,7 @@ On the kernel side, it listens to netlink events, which are triggered by changes
       | 1. netlink event - VLAN added
       |
 +-----v------+   
-|  Baseboxd  |   
+|  baseboxd  |   
 +------------+   
       |
       | 2. OpenFlow configuration - updates to flow tables/group tables
@@ -72,17 +72,17 @@ On the kernel side, it listens to netlink events, which are triggered by changes
 ```
 
 ### netlink
-Baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. Baseboxd then reacts by managing the corresponding hardware switch ports. Baseboxd uses the [**libnl**][libnl_docs] libraries, which provide a simple interface for sending and receiving netlink messages.
+baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the [**libnl**][libnl_docs] libraries, which provide a simple interface for sending and receiving netlink messages.
 
-Since Baseboxd responds directly to the relevant netlink messages, it is one of the intended ways to interface with Baseboxd. One may use tools such as [iproute2][] and [systemd-networkd][] to configure Baseboxd through this interface.
+Since baseboxd responds directly to the relevant netlink messages, it is one of the intended ways to interface with baseboxd. One may use tools such as [iproute2][] and [systemd-networkd][] to configure baseboxd through this interface.
 
 
 ### OpenFlow
-Baseboxd communicates with switches using the [OpenFlow protocol][of]. Our implementation uses the Broadcom OF-DPA flavour specifically. It abides by the [OF-DPA][ofdpa] table type pattern specification guidelines. Switches compatible with Broadcom's SDK come with the `OF Agent`. `OF Agent` is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
+baseboxd communicates with switches using the [OpenFlow protocol][of]. Our implementation uses the Broadcom OF-DPA flavour specifically. It abides by the [OF-DPA][ofdpa] table type pattern specification guidelines. Switches compatible with Broadcom's SDK come with the `OF Agent`. `OF Agent` is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
 
 ```text
 +--------------+  +
-|   Baseboxd   |  | controller
+|   baseboxd   |  | controller
 +------^-------+  +
        |
        |
@@ -108,7 +108,7 @@ Baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 ```
 
 ## Additional resources
-* [Baseboxd github][baseboxd_gh]
+* [baseboxd github][baseboxd_gh]
 * [etcd github][etcd_gh]
 * [iproute2][iproute2]
 * [libnl documentation][libnl_docs]
@@ -121,6 +121,6 @@ Baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL GitHub Repository)
-[baseboxd_gh]: www.github.com/bisdn/basebox (abasenoxd GitHub Repository)
+[baseboxd_gh]: www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [libnl_docs]: https://www.infradead.org/~tgr/libnl/doc/api/ (libnl API Documentation)
 [systemd-networkd]: https://github.com/systemd/systemd (systemd GitHub Repository)
