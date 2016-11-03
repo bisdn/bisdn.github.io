@@ -34,5 +34,5 @@ API:
 .. toctree::
       :glob:
 
-   api_topic1
-   api_topic2
+   api_definition
+   api_clients
