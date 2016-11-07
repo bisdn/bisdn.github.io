@@ -117,6 +117,7 @@ ip link
 Now, through the `uplink_port` port we can manage the OpenStack uplink connection and Basebox will take care of propagating the changes down to the switches.
 
 ### Configuring the OpenStack ML2 integration
+#### Install the mechanism driver
 The [Basebox ML2 mechanism driver][ml2] is provided in form of a linux package (for now only debian .deb, others coming soon).
 
 Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox_ml2_mechanism_driver` package can be installed from the command line, as follows:
@@ -174,10 +175,21 @@ example3.openstack.node.de=port3
 example4.openstack.node.de=port4
 ```
 
+#### Configure Neutron
+Modify the entry points: vi `/usr/lib/python2.7/site-packages/neutron-7.0.4-py2.7.egg-info/entry_points.txt` and insert the cawr driver.
+```
+[neutron.ml2.mechanism_drivers]
+cawr = mech-car:CarMechanismDriver
+```
+
+Add to ML2 configuration: vi `/etc/neutron/plugins/ml2/ml2_conf.ini`
+```
+mechanism_drivers = openvswitch,linuxbridge,cawr
+```
 Once the file is modified, save and quit, then restart the Neutron service.
 
 ```shell
-sudo systemctl restart neutron
+sudo systemctl restart  neutron-server.service
 ```
 
 ## Customer support
