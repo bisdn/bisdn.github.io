@@ -26,8 +26,7 @@ Installation and Setup:
 .. toctree::
       :glob:
 
-   setup_topic1
-   setup_topic2
+   setup_physical
 
 API:
 ++++
