@@ -120,9 +120,9 @@ Now, through the `uplink_port` port we can manage the OpenStack uplink connectio
 #### Install the mechanism driver
 The [Basebox ML2 mechanism driver][ml2] is provided in form of a linux package (for now only debian .deb, others coming soon).
 
-Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox_ml2_mechanism_driver` package can be installed from the command line, as follows:
+Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox-mechanism-driver` package can be installed from the command line, as follows:
 ```shell
-sudo dpkg -i basebox_ml2_mechanism_driver.deb
+sudo dpkg -i basebox-mechanism-driver_0.0.1_all.deb
 ```
 
 Once installed, the new mechanism driver must be configured. The mechanism driver generates a default config file at the following location:
@@ -176,16 +176,32 @@ example4.openstack.node.de=port4
 ```
 
 #### Configure Neutron
-Modify the entry points: vi `/usr/lib/python2.7/site-packages/neutron-7.0.4-py2.7.egg-info/entry_points.txt` and insert the cawr driver.
+Once the basebox-mechanism-driver is installed, edit the Neutron ML2 plugin configuration to enable it:
+```shell
+vi /etc/neutron/plugins/ml2/ml2_conf.ini
 ```
-[neutron.ml2.mechanism_drivers]
-cawr = mech-car:CarMechanismDriver
+and update the `mechanism_drivers` list by appending `basebox` to the end of it. The following is a working example configuration:
 ```
+[ml2]
+type_drivers = vlan,flat,local
+tenant_network_types = vlan
+mechanism_drivers = linuxbridge,basebox
 
-Add to ML2 configuration: vi `/etc/neutron/plugins/ml2/ml2_conf.ini`
+[ml2_type_flat]
+flat_networks = public
+
+[ml2_type_vlan]
+network_vlan_ranges = default:201:2000
+
+[securitygroup]
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+enable_security_group = True
+
+[linux_bridge]
+physical_interface_mappings = default:eth0
 ```
-mechanism_drivers = openvswitch,linuxbridge,cawr
-```
+Do ensure that the `vlan` `type_driver` is also enabled and configured, as in the example above.
+
 Once the file is modified, save and quit, then restart the Neutron service.
 
 ```shell
