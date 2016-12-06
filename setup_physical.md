@@ -117,7 +117,99 @@ ip link
 Now, through the `uplink_port` port we can manage the OpenStack uplink connection and Basebox will take care of propagating the changes down to the switches.
 
 ### Configuring the OpenStack ML2 integration
-Coming soon...
+#### Install the mechanism driver
+The [Basebox ML2 mechanism driver][ml2] is provided in form of a linux package (for now only debian .deb, others coming soon).
+
+Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox-mechanism-driver` package can be installed from the command line, as follows:
+```shell
+# install the pakcage
+dpkg -i basebox-mechanism-driver_0.0.1_all.deb
+# fix missing dependencies
+apt-get install -f
+```
+
+Once installed, the new mechanism driver must be configured. The mechanism driver generates a default config file at the following location:
+```
+/usr/lib/python2.7/site-packages/neutron/plugins/ml2/drivers/mech_car.conf
+```
+
+To edit the file:
+
+```shell
+cd /usr/lib/python2.7/site-packages/neutron/plugins/ml2/drivers/
+sudo vi mech_car.conf
+```
+
+The Neutron ML2 plugin assumes that the OpenStack compute nodes are configured with DNS entries.
+
+The newly generated config file has to be updated with relevant entries.
+It consists of 5 sections:
+* northbound (should remain unchanged)
+* etcd (has to be updated)
+* ssh (should remain unchanged)
+* neutron (has to be updated)
+* portmap (has to be updated)
+
+Below we can observe a sample config file with dummy values that need to be replaced.
+
+```
+[northbound]
+type=etcd
+
+[etcd]
+host=your.caros.basebox.server.de
+port=2379
+maindir=ml2_cawr
+
+[ssh]
+basebox_host=your.caros.basebox.server.de
+basebox_port=2222
+basebox_user=root
+basebox_passw=password
+basebox_dir=/etc/systemd/network/vlan/
+
+[neutron]
+hosts=example1.openstack.node.de,example2.openstack.node.de
+
+[portmap]
+example1.openstack.node.de=port1
+example2.openstack.node.de=port2
+example3.openstack.node.de=port3
+example4.openstack.node.de=port4
+```
+
+#### Configure Neutron
+Once the basebox-mechanism-driver is installed, edit the Neutron ML2 plugin configuration to enable it:
+```shell
+vi /etc/neutron/plugins/ml2/ml2_conf.ini
+```
+and update the `mechanism_drivers` list by appending `basebox` to the end of it. The following is a working example configuration:
+```
+[ml2]
+type_drivers = vlan,flat,local
+tenant_network_types = vlan
+mechanism_drivers = linuxbridge,basebox
+
+[ml2_type_flat]
+flat_networks = public
+
+[ml2_type_vlan]
+network_vlan_ranges = default:201:2000
+
+[securitygroup]
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+enable_security_group = True
+
+[linux_bridge]
+physical_interface_mappings = default:eth0
+```
+Do ensure that the "`vlan`" `type_driver` is also enabled and configured, as in the example above.
+
+Once the file is modified, save and quit, then restart the Neutron service.
+
+```shell
+sudo systemctl restart  neutron-server.service
+```
 
 ## Customer support
 If at any point during installation or configuration of your basebox setup you get stuck or have any questions, please contact our customer support via email: [support@basebox.freshdesk.com](support@basebox.freshdesk.com).
