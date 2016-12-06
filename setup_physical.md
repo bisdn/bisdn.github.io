@@ -122,7 +122,10 @@ The [Basebox ML2 mechanism driver][ml2] is provided in form of a linux package (
 
 Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox-mechanism-driver` package can be installed from the command line, as follows:
 ```shell
-sudo dpkg -i basebox-mechanism-driver_0.0.1_all.deb
+# install the pakcage
+dpkg -i basebox-mechanism-driver_0.0.1_all.deb
+# fix missing dependencies
+apt-get install -f
 ```
 
 Once installed, the new mechanism driver must be configured. The mechanism driver generates a default config file at the following location:
@@ -200,7 +203,7 @@ enable_security_group = True
 [linux_bridge]
 physical_interface_mappings = default:eth0
 ```
-Do ensure that the `vlan` `type_driver` is also enabled and configured, as in the example above.
+Do ensure that the "`vlan`" `type_driver` is also enabled and configured, as in the example above.
 
 Once the file is modified, save and quit, then restart the Neutron service.
 
