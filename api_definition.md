@@ -15,14 +15,14 @@ Basebox enforces that the data in etcd is stored in the following format:
 ```text
 /directory structure/
 
-    directory       directory   key(file)   value(file)
-        |               |           |           |
-        v               v           v           v
-/<physical_port_id>/<vlan_id>/<enabling_token> ''
+   prefix    directory       directory   key(file)   value(file)
+     |           |               |           |           |
+     v           v               v           v           v
+/<prefix>/<physical_port_id>/<vlan_id>/<enabling_token> ''
 
 ```
 ### physical_port_id
-The root etcd directory: `/` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.
+The etcd directory in `/<prefix>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.
 
 ### vlan_id
 Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique.
@@ -36,18 +36,18 @@ A physical port can exist in the configuration on its own, similarily a pair: a 
 ```text
 / etcd directory structure example /
 
-/
-├── physical_port_1
-│   └── VID_3                 <- / vlan enabled /
-│        └── enabling_token_2
-├── physical_port_2
-│   └── VID_1                 <- / vlan disabled /
-├── physical_port_3
-│   └── VID_4                 <- / vlan enabled /
-│        └── enabling_token_2
-│        └── enabling_token_3
-└── physical_port_4
-    └── VID_2                 <- / vlan disabled /
+/basebox/ports/
+              ├── physical_port_1
+              │   └── VID_3                 <- / vlan enabled /
+              │        └── enabling_token_2
+              ├── physical_port_2
+              │   └── VID_1                 <- / vlan disabled /
+              ├── physical_port_3
+              │   └── VID_4                 <- / vlan enabled /
+              │        └── enabling_token_2
+              │        └── enabling_token_3
+              └── physical_port_4
+                  └── VID_2                 <- / vlan disabled /
 ```
 
 The most important events, triggering configuration changes of the vlan configuration on the switches, is the addition and removal of `<enabling_token>` nodes to and from vlan_id directories. Currently, the *etcd connector* checkes for the number `<enabling_token>` nodes in the `<vlan_id>` directory every time a `<vlan_id>` is modified, and:
