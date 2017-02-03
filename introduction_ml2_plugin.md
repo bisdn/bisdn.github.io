@@ -88,5 +88,5 @@ More details on this can be found in the gitlab repository for for the *etcd_con
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
-[etcd_connector]: https://gitlab.bisdn.de/basebox/vlantranslate (*etcd_connector* repository)
+[etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)
 [ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)

@@ -1,6 +1,6 @@
 # CAWR
 ## Introduction
-CAWR – which stands for Capability AWare Routing – is a supplemental shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch smoothly integrates with baseboxd and lets you scale your effective switch capacity. It implements multi-path routing and supports multichassis link aggregation (MLAG). CAWR combines a scalable data center switching solution with high availability.
+CAWR – which stands for Capability AWare Routing – is a supplemental shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch integrates smoothly with baseboxd and lets you scale your effective switch capacity. It implements multi-path routing and supports multichassis link aggregation (MLAG). CAWR combines a scalable data center switching solution with high availability.
 
 ## Architecture
 CAWR, as a secondary controller, sits in between baseboxd and the physical switches. Both, its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
@@ -30,7 +30,7 @@ physical ports:| |A1| B1 |C1|        |A2| B2 |C2|  |
 CAWR implements all the algorithms supporting its internal workflow, while employing the [ROFL][rofl] library to interact with OpenFlow traffic.
 
 ## Failover
-CAWR by design expects a multi-switch configuration (currently tested with 2 switches).
+CAWR, by design, expects a multi-switch configuration (currently tested with 2 switches).
 Each server connected to Basebox is expected to have a pair of interfaces in bond mode.
 CAWR then takes care of routing the layer 2 traffic across the physical network.
 CAWR provides failover mechanism to deliver uninterrupted operation even if one of the switches or bond ports goes down.

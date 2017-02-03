@@ -28,7 +28,7 @@ baseboxd is therefore an agent which, while sitting in the middle, listens for c
 * The Switch (Openflow port state messages)
 * Linux tap interfaces (netlink messages)
 
-From the switch side, it listens for OFPT_PORT_STATUS async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and disables them when they go down *(implementation pending)*. This interaction can be observed on the illustration below.
+On the switch side, it listens for OFPT_PORT_STATUS async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and disables them when they go down *(implementation pending)*. This interaction can be observed on the illustration below.
 
 ```text
 +------------+   
@@ -121,6 +121,6 @@ baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL GitHub Repository)
-[baseboxd_gh]: www.github.com/bisdn/basebox (baseboxd GitHub Repository)
+[baseboxd_gh]: https://www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [libnl_docs]: https://www.infradead.org/~tgr/libnl/doc/api/ (libnl API Documentation)
 [systemd-networkd]: https://github.com/systemd/systemd (systemd GitHub Repository)
