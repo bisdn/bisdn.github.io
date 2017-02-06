@@ -31,7 +31,7 @@ The servers are configured to look for a local DHCP server on these interfaces. 
 
 The two Caros servers should be connected directly to one-another. This connection is used to maintain the state of the HA setup (active/stand-by). Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the left-most SFP+ socket on each server (as ilustrated).
 
-Lastly connect the second-in-the-row ethernet port (labeled `ge0p1`) on either of the Caros servers to our "management switch" (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the Caros servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network)" section for further details on the "management switch" configuration.
+Lastly connect the second-in-the-row ethernet port (labeled `ge0p1`) on both of the Caros servers to our "management switch" (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the Caros servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network)" section for further details on the "management switch" configuration.
 
 When all is connected, you may plug in the power cords and power on the servers. You may also connect console ports (labeled `console` on the server front panel) as necessary.
 

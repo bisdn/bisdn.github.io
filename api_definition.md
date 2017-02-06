@@ -54,7 +54,7 @@ The most important events, triggering configuration changes of the vlan configur
 * removes the vlan from a port if the number of `<enabling_token>` = 0
 * adds the vlan to a port if the number of `<enabling_token>` >= 1
 
-To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM UUIDs as `<enabling_token>` nodes. This way it indicates which VMs use using a given VLAN on a given server port. Also, if no VMs are using the VLAN/port combination, the coresponding enabling_token will be removed from etcd and the VLAN from the port.
+To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM UUIDs as `<enabling_token>` nodes. This way it indicates which VMs are using a given VLAN on a given server port. Also, if no VMs are using the VLAN/port combination, the coresponding enabling_token will be removed from etcd and the VLAN from the port.
 
 *(In future releases our ML2 mechanism driver will use an OpenStack VM's interfaces' MAC addresses as enabling tokens)*
 
@@ -181,5 +181,5 @@ client.delete('/<physical_port_id/<vlan_id>/<enabling_token>')
 
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
-[etcd_connector]: https://gitlab.bisdn.de/basebox/vlantranslate (*etcd_connector* repository)
+[etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)
 [ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)

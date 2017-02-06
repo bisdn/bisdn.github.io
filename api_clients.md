@@ -1,9 +1,9 @@
 # Existing API Clients - Neutron ML2 Plugin
 ## Neutron Introduction
-Neutron is the OpenStack module which manages the networking layer of OpenStack. It configures the internal Linux networking while providing an interface to the other OpenStack modules to manage it. It also provides an externally accessible APIs, including a plugin writing mechanisms.
+Neutron is the OpenStack module which manages the networking layer of OpenStack. It configures the internal Linux networking while providing an interface to the other OpenStack modules to manage it. It also provides an externally accessible API, including a plugin system.
 Basebox takes full advantage of the Neutron ML2 plugin API. Our mechanism driver for the ML2 plugin exposes VLAN and physical port configuration to Basebox using the etcd-based API.
 
-To find our more about Neutron refer to the [Neutron GitHub Repo][N_GH] and [Neutron Wiki][N_WIKI]
+To find out more about Neutron we refer the reader to the [Neutron GitHub Repo][N_GH] and [Neutron Wiki][N_WIKI]
 
 ## Modular Layer 2 Plugin
 Modular Layer 2 (ML2) is a Neutron plugin providing a framework for developers to write their own extensions. It gives the developers an API in the form of a set of abstract python classes. Most notably:
@@ -64,7 +64,7 @@ Neutron ML2 plugin will then execute these functions when adequate events happen
 * `create_port_precommit`
 * `create_port_postcommit`
 
-In our MechanismDriver implementation we use mainly `create_port_postcommit` and `delete_port_postcommit`.
+In our MechanismDriver implementation we mainly use `create_port_postcommit` and `delete_port_postcommit`.
 
 We use the `etcd` python module to write to our etcd cluster from the MechanismDriver.
 
