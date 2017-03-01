@@ -40,7 +40,7 @@ The SDN controller servers are configured to look for a local DHCP server on the
 
 #### 3. Connecting the SDN controller servers together
 The two SDN controller servers should be connected directly to one-another. This connection is used to maintain the state of the HA setup (active/stand-by). 
-o servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the bottom SFP+ socket on each server (marked gray on the connectivity graph above).
+Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the bottom SFP+ socket on each server (marked gray on the connectivity graph above).
 
 #### 4. Connecting to the Basebox switches
 Lastly connect one and only one of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
