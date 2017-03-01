@@ -1,13 +1,13 @@
 # Physical setup
 ## Prerequisites
 Before you start the configuration ensure you have the following things ready:
-- 2x SDN controller servers
-- 2x Basebox-compatible switches running BISDN Linux
-- 1x management switch with at least 4 1GB ports available (RJ45)
-- 1x SFP+ DAC cable
-- 2x QSFP DAC cable
-- 6x RJ45 network cables (at least CAT5, recommended CAT6)
-- SFP+ DAC cables to for switch-uplink and switch-server connectivity (usable ports)
+1. 2x SDN controller servers
+2. 2x Basebox-compatible switches running BISDN Linux
+3. 1x management switch with at least 4 1GB ports available (RJ45)
+4. 1x SFP+ DAC cable
+5. 2x QSFP DAC cable
+6. 6x RJ45 network cables (at least CAT5, recommended CAT6)
+7. SFP+ DAC cables to for switch-uplink and switch-server connectivity (usable ports)
 
 ## Hardware installation
 Once you have all the pieces ready, you can start rack-mounting and cabling your Basebox hardware.
@@ -87,13 +87,13 @@ Provided with the Basebox devices was a document noting the login details (and o
 
 Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via ssh. You should gain access to the SDN controller servers only though the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
 
-Next, configure the VLAN IDs to be used for tenants and failover in the cawr_config
+Next, configure the VLAN IDs to be used for tenants and failover in the cawr_config:
 
 ```shell
 cd /etc/sysconfig/
 sudo vi cawr_config.yaml
 ```
-Example of VLAN IDs configuration
+Example of VLAN IDs configuration:
 
 ```
 vlanranges:
