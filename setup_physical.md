@@ -153,7 +153,7 @@ Now, through the `uplink_port` port we can manage the OpenStack uplink connectio
 
 ### Configuring the OpenStack ML2 integration
 #### Install the mechanism driver
-The [Basebox ML2 mechanism driver][ml2] is provided in form of a Linux package (for now only debian .deb, others coming soon).
+The Basebox ML2 mechanism driver is provided in form of a Linux package (for now only debian .deb, others coming soon).
 
 Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox-mechanism-driver` package can be installed from the command line, as follows:
 ```shell
@@ -254,11 +254,9 @@ If at any point during installation or configuration of your Basebox setup you g
 * [etcd github][etcd_gh]
 * [Neutron Github][neutron_gh]
 * [Neutron ML2 Wiki][neutron_wiki]
-* [ML2 Plugin extension repository][ml2]
 
 [baseboxd_gh]: https://www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
-[ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)
 [csc]: images/controller-switch-connectivity.png (Graph of the physical switch-controller connectivity.)

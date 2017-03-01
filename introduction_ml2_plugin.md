@@ -46,7 +46,7 @@ The information is published by writing it to an etcd cluster, where the structu
 ```
 To find out more about etcd please check the [Github repo][etcd_gh] and [official documentation][etcd_docs].
 
-The implementation of our ML2 plugin extension can be found [here][ml2].
+The implementation of our ML2 plugin extension will be release as OpenSource later.
 
 ## baseboxd interface
 
@@ -82,11 +82,9 @@ More details on this can be found in the gitlab repository for for the *etcd_con
 * [etcd Github][etcd_gh]
 * [Neutron Github][neutron_gh]
 * [Neutron ML2 Wiki][neutron_wiki]
-* [ML2 Plugin extension repository][ml2]
 
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
 [etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)
-[ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)
