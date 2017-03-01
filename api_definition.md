@@ -125,9 +125,7 @@ client.read('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>', recur
 * [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]
 * [etcd Github][etcd_gh]
-* [ML2 Plugin Extension Repository][ml2]
 
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
 [etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)
-[ml2]: https://gitlab.bisdn.de/basebox/car_ml2_mecha_driver (ML2 Plugin Extension Repository)
