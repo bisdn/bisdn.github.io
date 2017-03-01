@@ -1,13 +1,13 @@
 # Physical setup
 ## Prerequisites
 Before you start the configuration ensure you have the following things ready:
-1. 2x SDN controller servers
-2. 2x Basebox-compatible switches running BISDN Linux
-3. 1x management switch with at least 4 1GB ports available (RJ45)
-4. 1x SFP+ DAC cable
-5. 2x QSFP DAC cable
-6. 6x RJ45 network cables (at least CAT5, recommended CAT6)
-7. SFP+ DAC cables to for switch-uplink and switch-server connectivity (usable ports)
+- 2x SDN controller servers
+- 2x Basebox-compatible switches running BISDN Linux
+- 1x management switch with at least 4 1GB ports available (RJ45)
+- 1x SFP+ DAC cable
+- 2x QSFP DAC cable
+- 6x RJ45 network cables (at least CAT5, recommended CAT6)
+- SFP+ DAC cables to for switch-uplink and switch-server connectivity (usable ports)
 
 ## Hardware installation
 Once you have all the pieces ready, you can start rack-mounting and cabling your Basebox hardware.
@@ -25,9 +25,9 @@ If you are using a pre-existing management switch (prerequisites item 3) to carr
 If you are introducing a dedicated switch for this role:
 - mount it and connect it before proceeding.
 
-Locate the management switch in the place most suitable for your setup's needs, bearing in mind that both the SDN controller servers and Basebox switches will be connected to it. The switch will not need to have an uplink of any sort for Basebox, however you may want to connect it to your management infractructure for configuration and monitoring purposes.
+Locate the management switch in the place most suitable for your setup's needs, bearing in mind that both the SDN controller servers and Basebox switches will be connected to it. The switch will not need to have an uplink of any sort for Basebox, however you may want to connect it to your management infrastructure for configuration and monitoring purposes.
 
-For details on configuring the management switch refer to "[Configure the management network](#configure-the-management-network)" section.
+For details on configuring the management switch refer to "[Configure the management network](#configure-the-management-network-for-control-traffic)" section.
 
 ### II. SDN controller server installation
 #### 1. Rack mounting
@@ -39,10 +39,11 @@ This is done using 2 of the 6 CAT5 RJ45 cables we prepared earlier (prerequisite
 The SDN controller servers are configured to look for a local DHCP server on these interfaces. This connection should provide our SDN controller servers with access to the OpenStack [Neutron][neutron_gh] [ML2 plugin][neutron_wiki].
 
 #### 3. Connecting the SDN controller servers together
-The two SDN controller servers should be connected directly to one-another. This connection is used to maintain the state of the HA setup (active/stand-by). Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the bottom SFP+ socket on each server (marked gray on the connectivity graph above).
+The two SDN controller servers should be connected directly to one-another. This connection is used to maintain the state of the HA setup (active/stand-by). 
+Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the bottom SFP+ socket on each server (marked gray on the connectivity graph above).
 
 #### 4. Connecting to the Basebox switches
-Lastly connect one and only one of the remaining 5 ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network)" section for further details on the management switch configuration.
+Lastly connect one and only one of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
 
 #### 5. Power on
 When all is connected, you may plug in the power cords and power on the SDN controller servers. You may also connect the IPMI ports (marked purple on the connectivity graph above) as necessary.
@@ -52,10 +53,10 @@ When all is connected, you may plug in the power cords and power on the SDN cont
 Rack mount the switches alongside your OpenStack compute nodes in a way most suitable to your setup.
 
 #### 2. Connecting the Basebox switches together
-Connect the two switches together with a pair of QSFP DAC cables (prerequisites item 5). Be aware that their location varies on switch-by-switch basis. The connectivity graph shown above presents the layout of a Quanta T3048-LY8 switch. The setup also works with just one interconenct link. Please note that when using either, one or two interconnect cables, once installed and the setup is running, they should not be unplugged. Unplugging one (or both) during runtime can result in erroneous behaviour of the setup.
+Connect the two switches together with a pair of QSFP DAC cables (prerequisites item 5). Be aware that their location varies on switch-by-switch basis. The connectivity graph shown above presents the layout of a Quanta T3048-LY8 switch. The setup also works with just one interconnect link. Please note that when using only one interconnect cable, once installed and the setup is running, it should not be unplugged. Unplugging it during runtime can result in erroneous behaviour of the setup. If two or more interconnects are installed it is safe to unplug them as long as at least one interconnection remains installed.
 
 #### 3. Connecing the Basebox switches to the SDN controllers
-Connect the management ports on both the switches with with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network)" section for further details on the management switch configuration.
+Connect the management ports on both the switches with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
 
 #### 4. Power on
 At this point the switches are installed. However, before powering them on, the management switch (i.e. the control traffic network) has to be configured (required step) and the Openstack compute node servers should be plugged into the switches (recommended step).
@@ -86,6 +87,24 @@ Provided with the Basebox devices was a document noting the login details (and o
 
 Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via ssh. You should gain access to the SDN controller servers only though the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
 
+Next, configure the VLAN IDs to be used for tenants and failover in the cawr_config
+
+```shell
+cd /etc/sysconfig/
+sudo vi cawr_config.yaml
+```
+Example of VLAN IDs configuration
+
+```
+vlanranges:
+  tenant:
+    start: 1
+    end: 2047
+  failover:
+    start: 2048
+    end: 4094
+```
+
 [baseboxd][baseboxd_gh] and CAWR can start operation without any intervention from the user at this point. Basebox can detect LACP bonds on the switch interfaces and obtain configuration information from the OpenStack ML2 integration (once this is also configured).
 
 However, the configuration of OpenStack uplink ports still remains a manual step. Any connections that go outside of the bounds of the OpenStack instance have to be declared in CAWR's main configuration file.
@@ -94,11 +113,11 @@ To configure the uplink ports, you have to log into each of the SDN controller s
 
 ```shell
 cd /etc/sysconfig/
-sudo vi car_config.yaml
+sudo vi cawr_config.yaml
 ```
 *The switches were pre-configured with unique DPIDs. They can be found on the information leaflet provided with each switch.*
 
-When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels corespond to the physical port number labels as they appear on each Basebox-attached switch. The `dpdi[n]` labels correspond to the DPID of each respective switch.
+When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpdi[n]` labels correspond to the DPID of each respective switch.
 
 Example of a standalone, single cable uplink (no port bonding):
 
@@ -134,11 +153,11 @@ Now, through the `uplink_port` port we can manage the OpenStack uplink connectio
 
 ### Configuring the OpenStack ML2 integration
 #### Install the mechanism driver
-The [Basebox ML2 mechanism driver][ml2] is provided in form of a linux package (for now only debian .deb, others coming soon).
+The [Basebox ML2 mechanism driver][ml2] is provided in form of a Linux package (for now only debian .deb, others coming soon).
 
 Once the .deb file is obtained and placed on the OpenStack Neutron host machine, the `basebox-mechanism-driver` package can be installed from the command line, as follows:
 ```shell
-# install the pakcage
+# install the package
 dpkg -i basebox-mechanism-driver_0.0.1_all.deb
 # fix missing dependencies
 apt-get install -f
@@ -228,7 +247,7 @@ sudo systemctl restart  neutron-server.service
 ```
 
 ## Customer support
-If at any point during installation or configuration of your basebox setup you get stuck or have any questions, please contact our customer support via email: [support@basebox.freshdesk.com](support@basebox.freshdesk.com).
+If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our customer support via email: [support@basebox.freshdesk.com](support@basebox.freshdesk.com).
 
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
@@ -237,7 +256,7 @@ If at any point during installation or configuration of your basebox setup you g
 * [Neutron ML2 Wiki][neutron_wiki]
 * [ML2 Plugin extension repository][ml2]
 
-[baseboxd_gh]: www.github.com/bisdn/basebox (baseboxd GitHub Repository)
+[baseboxd_gh]: https://www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
