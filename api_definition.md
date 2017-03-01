@@ -15,41 +15,43 @@ Basebox enforces that the data in etcd is stored in the following format:
 ```text
 /directory structure/
 
-   prefix    directory       directory   key(file)   value(file)
+ directory   directory       directory   key(file)   value(file)
      |           |               |           |           |
      v           v               v           v           v
 /<prefix>/<physical_port_id>/<vlan_id>/<enabling_token> ''
 
+# example:
+/basebox/ports/portAABBCCDD/42/token ''
 ```
 ### physical_port_id
 The etcd directory in `/<prefix>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.
 
+In the current version the prefix is set to `/<prefix> = /basebox/ports`. The port naming done by CAWR is described [here](introduction_cawr#port-mapping).
+
 ### vlan_id
-Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique.
+Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced.
 
 ### enabling_token
-Each vlan ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node are always `''` (empty). Since we can have the same enabling_token connected to multiple ports and multiple vlans, it is a value unique to each `<vlan_id>` directory but not neceserily globally unique.
-
-### Configuration triggers
-A physical port can exist in the configuration on its own, similarily a pair: a port and a vlan can co-exist in the etcd store without any leaf nodes. However, only if you have all three values present in the format shown by this document does Basebox configure the vlans on the switch ports.
+Each vlan ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled, in case an enabling_token exists.
 
 ```text
 / etcd directory structure example /
 
 /basebox/ports/
-              ├── physical_port_1
-              │   └── VID_3                 <- / vlan enabled /
-              │        └── enabling_token_2
-              ├── physical_port_2
-              │   └── VID_1                 <- / vlan disabled /
-              ├── physical_port_3
-              │   └── VID_4                 <- / vlan enabled /
-              │        └── enabling_token_2
-              │        └── enabling_token_3
-              └── physical_port_4
-                  └── VID_2                 <- / vlan disabled /
+              ├── portAABBCCDD
+              │   ├─── 2
+              │   │    └── enabling_token_2  <- / enables vlan 2  /
+              │   └─── 4                     <- / vlan 4 disabled /
+              ├── portAABBCCDE
+              │   └──  2                     <- / vlan 2 disabled /
+              └── portAABBCCDF
+                  └─── 3
+                       └── enabling_token_2  <- / enables vlan 2  /
+                       └── enabling_token_3  <- / enables vlan 2  /
+
 ```
 
+### Configuration triggers
 The most important events, triggering configuration changes of the vlan configuration on the switches, is the addition and removal of `<enabling_token>` nodes to and from vlan_id directories. Currently, the *etcd connector* checkes for the number `<enabling_token>` nodes in the `<vlan_id>` directory every time a `<vlan_id>` is modified, and:
 * removes the vlan from a port if the number of `<enabling_token>` = 0
 * adds the vlan to a port if the number of `<enabling_token>` >= 1
@@ -58,119 +60,65 @@ To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM
 
 *(In future releases our ML2 mechanism driver will use an OpenStack VM's interfaces' MAC addresses as enabling tokens)*
 
-## Actions
+## Example Actions
 etcd can be interacted with using a range of interfaces.
 The tested are:
 * etcdctl command line tool
 * REST interface
 * etcd-python module
 
-### Add physical_port_id
-etcdctl:
-```shell
-etcdctl mkdir /<physical_port_id>’
-```
-
-REST call:
-```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id> -XPUT -d dir=true
-```
-
-Python module function call:
-```python
-import etcd
-client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.write('/<physical_port_id>', None, dir=True)
-```
-
-### Add vlan_id
-etcdctl:
-```shell
-etcdctl mkdir /<physical_port_id>/<vlan_id>’
-```
-
-REST call:
-```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id>/<vlan_id> -XPUT -d dir=true
-```
-
-Python module function call:
-```python
-import etcd
-client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.write('/<physical_port_id>/<vlan_id>', None, dir=True)
-```
-
 ### Add enabling_token
 etcdctl:
 ```shell
-etcdctl set /<physical_port_id>/<vlan_id>/<enabling_token> ''
+etcdctl set /basebox/ports/<physical_port_id>/<vlan_id>/<enabling_token> ''
 ```
 
 REST call:
 ```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id>/<vlan_id>/<enabling_token> -XPUT -d value=""
+curl http://<etcd-host>:<etcd-port>/v2/keys/basebox/ports/<physical_port_id>/<vlan_id>/<enabling_token> -XPUT -d value=""
 ```
 
 Python module function call:
 ```python
 import etcd
 client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.write('/<physical_port_id>/<vlan_id>/<enabling_token>', '')
-```
-
-### Remove physical_port_id
-etcdctl:
-```shell
-etcdctl rmdir /<physical_port_id>
-```
-
-REST call:
-```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id>?dir=true -XDELETE
-```
-
-Python module function call:
-```python
-import etcd
-client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.delete('/<physical_port_id>', recursive=True)
-```
-
-### Remove vlan_id
-etcdctl:
-```shell
-etcdctl rmdir /<physical_port_id>/<vlan_id>
-```
-
-REST call:
-```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id>/<vlan_id>?dir=true -XDELETE
-```
-
-Python module function call:
-```python
-import etcd
-client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.delete('/<physical_port_id/<vlan_id>', recursive=True)
+client.write('/basebox/ports/<physical_port_id>/<vlan_id>/<enabling_token>', '')
 ```
 
 ### Remove enabling_token
 etcdctl:
 ```shell
-etcdctl rm /<physical_port_id>/<vlan_id>/<enabling_token>
+etcdctl rm /basebox/ports/<physical_port_id>/<vlan_id>/<enabling_token>
 ```
 
 REST call:
 ```shell
-curl http://<etcd-host>:<etcd-port>/v2/keys/<physical_port_id>/<vlan_id>/<enabling_token> -XDELETE
+curl http://<etcd-host>:<etcd-port>/v2/keys/basebox/ports/<physical_port_id>/<vlan_id>/<enabling_token> -XDELETE
 ```
 
 Python module function call:
 ```python
 import etcd
 client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
-client.delete('/<physical_port_id/<vlan_id>/<enabling_token>')
+client.delete('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>')
+```
+
+### List configuration
+etcdctl:
+```shell
+etcdctl ls --recursive /basebox/ports
+```
+
+REST call:
+```shell
+curl http://<etcd-host>:<etcd-port>/v2/keys/basebox/ports?recursive=true
+```
+
+Python module function call:
+```python
+import etcd
+client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
+client.read('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>', recursive=True)
 ```
 
 ## Additional Resources
