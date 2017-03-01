@@ -26,10 +26,10 @@ Basebox enforces that the data in etcd is stored in the following format:
 ### physical_port_id
 The etcd directory in `/<prefix>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.
 
-In the current version the prefix is set to `/<prefix> = /basebox/ports`. The port naming done by CAWR is described [here](introduction_cawr#port-mapping).
+In the current version the prefix is set to `/<prefix> = /basebox/ports`. The port naming done by CAWR is described [here](introduction_cawr.html#port-mapping).
 
 ### vlan_id
-Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Failover](introduction_cawr#Failover).
+Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Failover](introduction_cawr.html#Failover).
 
 ### enabling_token
 Each vlan ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled, in case an enabling_token exists.
