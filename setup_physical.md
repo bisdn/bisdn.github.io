@@ -151,6 +151,10 @@ ip link
 
 Now, through the `uplink_port` port we can manage the OpenStack uplink connection and Basebox will take care of propagating the changes down to the switches.
 
+### Configure using the API
+
+Basebox can be used from this point on using the [etcd API](api_definition.html).
+
 ### Configuring the OpenStack ML2 integration
 #### Install the mechanism driver
 The Basebox ML2 mechanism driver is provided in form of a Linux package (for now only debian .deb, others coming soon).
