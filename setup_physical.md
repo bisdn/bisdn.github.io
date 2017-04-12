@@ -115,7 +115,12 @@ To configure the uplink ports, you have to log into each of the SDN controller s
 cd /etc/sysconfig/
 sudo vi cawr_config.yaml
 ```
-*The switches were pre-configured with unique DPIDs. They can be found on the information leaflet provided with each switch.*
+
+When using BISDN Linux Distribution, the switches are configured with unique DPIDs. A 64 bit DPID is calculated by concatenating the 16 bit number '2902' (BISDN birthday) + the 48 bit MAC from the management interface.
+
+```
+Example DPID: 0x2902002590B21ACE, where the MAC is 00:25:90:B2:1A:CE
+```
 
 When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpid[n]` labels correspond to the DPID of each respective switch.
 
