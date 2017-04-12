@@ -2,8 +2,8 @@
 ## Prerequisites
 Before you start the configuration ensure you have the following things ready:
 1. 2x SDN controller servers
-2. 2x Basebox-compatible switches running BISDN Linux
-3. 1x management switch with at least 4 1GB ports available (RJ45)
+2. 2x Basebox-compatible switches running BISDN Linux Distribution
+3. 1x management switch with at least 4 1G ports available (RJ45)
 4. 1x SFP+ DAC cable
 5. 2x QSFP DAC cable
 6. 6x RJ45 network cables (at least CAT5, recommended CAT6)
@@ -55,7 +55,7 @@ Rack mount the switches alongside your OpenStack compute nodes in a way most sui
 #### 2. Connecting the Basebox switches together
 Connect the two switches together with a pair of QSFP DAC cables (prerequisites item 5). Be aware that their location varies on switch-by-switch basis. The connectivity graph shown above presents the layout of a Quanta T3048-LY8 switch. The setup also works with just one interconnect link. Please note that when using only one interconnect cable, once installed and the setup is running, it should not be unplugged. Unplugging it during runtime can result in erroneous behaviour of the setup. If two or more interconnects are installed it is safe to unplug them as long as at least one interconnection remains installed.
 
-#### 3. Connecing the Basebox switches to the SDN controllers
+#### 3. Connecting the Basebox switches to the SDN controllers
 Connect the management ports on both the switches with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
 
 #### 4. Power on
@@ -79,13 +79,13 @@ Once the management switch (prerequisites item 3) is in place and we have the SD
 
 The SDN controller servers are pre-configured to hand out the IP addresses and load correct images onto the switches. This is done through a DHCP server residing on the SDN controller servers, which use the vendor class identifier DHCP option to provide each switch with the correct image.
 
-To facilitate the exchange prescribed here we need to provide a dedicated layer 2 domain for the SDN controller servers and Basebox switches. For example, a dedicated vlan configured on the 4 ports of the management switch used by the four devices in question. For exact instructions refer to the documentation of the management switch used.
+To facilitate the exchange prescribed here we need to provide a dedicated layer 2 domain for the SDN controller servers and Basebox switches. For example, a dedicated VLAN configured on the 4 ports of the management switch used by the four devices in question. For exact instructions refer to the documentation of the management switch used.
 
 
 ### Configuring the controller servers
 Provided with the Basebox devices was a document noting the login details (and other crucial information) for the SDN controller servers and Basebox switches.
 
-Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via ssh. You should gain access to the SDN controller servers only though the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
+Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via SSH. You should gain access to the SDN controller servers only though the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
 
 Next, configure the VLAN IDs to be used for tenants and failover in the cawr_config:
 
@@ -117,14 +117,14 @@ sudo vi cawr_config.yaml
 ```
 *The switches were pre-configured with unique DPIDs. They can be found on the information leaflet provided with each switch.*
 
-When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpdi[n]` labels correspond to the DPID of each respective switch.
+When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpid[n]` labels correspond to the DPID of each respective switch.
 
 Example of a standalone, single cable uplink (no port bonding):
 
 ```
 externalports:
 # - [Interfacename, dpid1, port_extern_1, dpid2, port_extern_2]
-- [ uplink_port, 1,41 ]
+- [ uplink_port, 1, 41 ]
 
 ```
 
@@ -143,7 +143,7 @@ After adding the above configuration, save and quit the file, then restart the C
 sudo systemctl restart CAWR
 ```
 
-At this point, the `uplink_port` port should appear on the active controller server. It's presence can be confirmed by executing the IP command:
+At this point, the `uplink_port` port should appear on the active controller server. It's presence can be confirmed by executing the command:
 
 ```
 ip link
