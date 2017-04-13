@@ -262,8 +262,7 @@ sudo systemctl restart  neutron-server.service
 * [Neutron ML2 Wiki][neutron_wiki]
 
 
-**Customer support**
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 
 [baseboxd_gh]: https://www.github.com/bisdn/basebox (baseboxd GitHub Repository)
