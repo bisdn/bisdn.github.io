@@ -16,15 +16,14 @@ Currently the BISDN Linux distribution is available for the following datacenter
 * QuantaMesh-BMS-T3048-LY8
 * Edge-core AS5712-54X
 
-## Customer support
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
-
 ## Additional resources
 * [of-agent GitHub Repository][ofa]
 * [OF-DPA 2.0 GitGub Repository][ofdpa]
 * [OpenFlow 1.3 specification][of]
 * [Open Network Install Environment (ONIE) Project Website][onie]
 * [Yocto Project Website][yocto]
+
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [onie]: http://onie.org/ (Open Network Install Environment)
 [yocto]: https://www.yoctoproject.org/downloads/core/jethro20 (Yocto project website)
