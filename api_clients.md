@@ -78,9 +78,6 @@ We use the `delete_port_postcommit` to consume the information about the deleted
 
 This is then also picked up by our `etcd_connector` on the other baseboxd host to re-configure baseboxd.
 
-## Customer support
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
-
 ## Additional Resources
 * [Neutron GitHub][N_GH]
 * [Neutron ML2 driver API source (GitHub)][DR_API_SRC]
@@ -88,6 +85,8 @@ If at any point during installation or configuration of your Basebox setup you g
 * [Neutron ML2 Wiki][N_ML2_WIKI]
 * [Neutron plugin API developer documentation][N_P_API]
 * [Neutron Wiki][N_WIKI]
+
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [N_ML2_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [N_ML2_GH]: https://github.com/openstack/neutron/tree/master/neutron/plugins/ml2 (Neutron ML2 Plugin Main Github Repository)
