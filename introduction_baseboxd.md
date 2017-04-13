@@ -3,7 +3,7 @@
 baseboxd is a controller daemon integrating whitebox switches into Linux. Based on [OpenFlow Data Path Abstraction (OF-DPA)][rofl], it translates Linux [netlink][libnl_docs] into switch rules and vice versa. Our solution can be easily managed and flawlessly integrated in any existing Linux environment. It can be combined with CAWR for scaling switch capacity.
 
 ## Architecture
-baseboxd communicates (upwards) with the Linux kernel over [**netlink**][libnl_docs] and (downwards) with the switch using [**OpenFlow**][of]. The Linux network stack is used to directly represent the state of the switching infrastructure. For each active network interface on a switch controlled by baseboxd, a single Linux tap interface exists on the Basebox host operating system.
+baseboxd communicates (upwards) with the Linux kernel over [netlink][libnl_docs] and (downwards) with the switch using [OpenFlow][of]. The Linux network stack is used to directly represent the state of the switching infrastructure. For each active network interface on a switch controlled by baseboxd, a single Linux tap interface exists on the Basebox host operating system.
 
 
 ```text
