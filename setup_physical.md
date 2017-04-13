@@ -263,7 +263,6 @@ sudo systemctl restart  neutron-server.service
 
 
 **Customer support**
-
 If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
 
 
