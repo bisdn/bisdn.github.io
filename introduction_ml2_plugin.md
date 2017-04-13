@@ -76,6 +76,9 @@ To apply configuration changes to the tap interfaces, systemd-networkd must be r
 
 More details on this can be found in the gitlab repository for for the *etcd_connector*.
 
+## Customer support
+If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
+
 ## Additional resources
 * [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]

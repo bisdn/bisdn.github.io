@@ -79,6 +79,9 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
           v
 ```
 
+## Customer support
+If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
+
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
 * [*etcd_connector* Repository][etcd_connector]
