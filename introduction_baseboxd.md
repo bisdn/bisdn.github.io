@@ -107,9 +107,6 @@ baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 
 ```
 
-## Customer support
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
-
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
 * [etcd github][etcd_gh]
@@ -118,6 +115,8 @@ If at any point during installation or configuration of your Basebox setup you g
 * [OF-DPA 2.0][ofdpa]
 * [OpenFlow 1.3 specification][of]
 * [Revised OpenFlow Library (ROFL)][rofl]
+
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub Repository)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (Openflow v1.3 specification pdf)
