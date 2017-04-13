@@ -60,7 +60,7 @@ To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM
 
 *(In future releases our ML2 mechanism driver will use an OpenStack VM's interfaces' MAC addresses as enabling tokens)*
 
-## Example Actions
+## Example actions
 etcd can be interacted with using a range of interfaces.
 The tested are:
 * etcdctl command line tool
@@ -121,7 +121,7 @@ client = etcd.Client(host='<etcd-host>', port='<etcd-port>')
 client.read('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>', recursive=True)
 ```
 
-## Additional Resources
+## Additional resources
 * [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]
 * [etcd Github][etcd_gh]
