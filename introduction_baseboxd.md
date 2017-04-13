@@ -72,7 +72,7 @@ On the kernel side, it listens to netlink events, which are triggered by changes
 ```
 
 ### netlink
-baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the [**libnl**][libnl_docs] libraries, which provide a simple interface for sending and receiving netlink messages.
+baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the [libnl][libnl_docs] libraries, which provide a simple interface for sending and receiving netlink messages.
 
 Since baseboxd responds directly to the relevant netlink messages, it is one of the intended ways to interface with baseboxd. One may use tools such as [iproute2][] and [systemd-networkd][] to configure baseboxd through this interface.
 
