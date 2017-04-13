@@ -78,13 +78,12 @@ portWWXXYYZZ
 
 Where WWXXYYZZ are the last 4 bytes of the bond MAC address (actor MAC address) in hexadecimal notation (on the server, see e.g. `ip link list bond0`).
 
-## Customer support
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
-
 ## Additional resources
 * [OF-DPA 2.0][ofdpa]
 * [OpenFlow 1.3 specification][of]
 * [Revised OpenFlow Library (ROFL)][rofl]
+
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA Github link)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL Github Link)
