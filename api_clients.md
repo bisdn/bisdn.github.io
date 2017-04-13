@@ -78,6 +78,9 @@ We use the `delete_port_postcommit` to consume the information about the deleted
 
 This is then also picked up by our `etcd_connector` on the other baseboxd host to re-configure baseboxd.
 
+## Customer support
+If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
+
 ## Additional Resources
 * [Neutron GitHub][N_GH]
 * [Neutron ML2 driver API source (GitHub)][DR_API_SRC]
