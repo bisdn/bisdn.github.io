@@ -255,14 +255,17 @@ Once the file is modified, save and quit, then restart the Neutron service.
 sudo systemctl restart  neutron-server.service
 ```
 
-## Customer support
-If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
-
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
 * [etcd github][etcd_gh]
 * [Neutron Github][neutron_gh]
 * [Neutron ML2 Wiki][neutron_wiki]
+
+
+**Customer support**
+
+If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our [customer support](customer_support.html#customer_support).
+
 
 [baseboxd_gh]: https://www.github.com/bisdn/basebox (baseboxd GitHub Repository)
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
