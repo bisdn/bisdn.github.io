@@ -1,6 +1,6 @@
 # Physical setup
 ## Prerequisites
-Before you start the configuration ensure you have the following things ready:
+Before you start the configuration, ensure you have the following things ready:
 1. 2x SDN controller servers
 2. 2x Basebox-compatible switches running BISDN Linux Distribution
 3. 1x management switch with at least 4 1G ports available (RJ45)

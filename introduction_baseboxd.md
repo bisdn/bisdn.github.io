@@ -28,7 +28,7 @@ baseboxd is therefore an agent which, while sitting in the middle, listens for c
 * The Switch (Openflow port state messages)
 * Linux tap interfaces (netlink messages)
 
-On the switch side, it listens for OFPT_PORT_STATUS async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and disables them when they go down *(implementation pending)*. This interaction can be observed on the illustration below.
+On the switch side, it listens for OFPT_PORT_STATUS async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
 
 ```text
 +------------+   
@@ -47,7 +47,6 @@ On the switch side, it listens for OFPT_PORT_STATUS async messages, and updates 
 |   switch   |   
 +------------+   
 
-* complete workflow implementation pending *
 ```
 
 On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound [OpenFlow][of] interface.
@@ -119,7 +118,7 @@ baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub Repository)
-[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (Openflow v1.3 specification pdf)
+[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (Openflow v1.3 specification pdf)
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL GitHub Repository)

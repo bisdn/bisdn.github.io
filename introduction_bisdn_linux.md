@@ -1,20 +1,22 @@
-# BISDN Linux
+# BISDN Linux Distribution
 ## Introduction
-We also offer BISDN Linux, a custom Linux-based operating
+BISDN Linux Distribution is a custom Linux-based operating
 system for selected whitebox switches. This lightweight
 distribution supports baseboxd as well as most native
 Linux networking tools.
 
 ## Specifications
-* Based on Linux [yocto 2.0 (jethro)][yocto] operating system, kernel 3.14
+* Based on Linux [yocto 2.0 (krogoth)][yocto] operating system, kernel 4.1
 * Software built on [OF-DPA 2.0][ofdpa]
 * Deployable via [Open Network Install Environment (ONIE)][onie]
 * Using [of-agent][ofa] as the [OpenFlow][of] interface
 
 ## Compatibility
-Currently the BISDN Linux distribution is available for the following datacenter switches:
+Currently the BISDN Linux Distribution is available for the following datacenter whitebox switches:
 * QuantaMesh-BMS-T3048-LY8
 * Edge-core AS5712-54X
+* AGEMA AG8032
+* Celestica Redstone XP
 
 ## Additional resources
 * [of-agent GitHub Repository][ofa]
@@ -26,7 +28,7 @@ Currently the BISDN Linux distribution is available for the following datacenter
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [onie]: http://onie.org/ (Open Network Install Environment)
-[yocto]: https://www.yoctoproject.org/downloads/core/jethro20 (Yocto project website)
+[yocto]: https://www.yoctoproject.org/downloads/core/krogoth21 (Yocto project website)
 [ofa]: https://github.com/Broadcom-Switch/of-dpa/tree/master/src/ofagent (of-agent GitHub repository)
-[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (OpenFlow v1.3 specification pdf)
+[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (OpenFlow v1.3 specification pdf)
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub repository)
