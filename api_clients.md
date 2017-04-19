@@ -1,5 +1,5 @@
 # Existing API clients - Neutron ML2 plugin
-## Neutron Introduction
+## Neutron introduction
 Neutron is the OpenStack module which manages the networking layer of OpenStack. It configures the internal Linux networking while providing an interface to the other OpenStack modules to manage it. It also provides an externally accessible API, including a plugin system.
 Basebox takes full advantage of the Neutron ML2 plugin API. Our mechanism driver for the ML2 plugin exposes VLAN and physical port configuration to Basebox using the etcd-based API.
 
