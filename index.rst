@@ -1,4 +1,4 @@
-Welcome to basebox documentation!
+Welcome to Basebox documentation!
 ---------------------------------
 
 Basebox is the BISDN controller package for data center networks with following combinable elements:
