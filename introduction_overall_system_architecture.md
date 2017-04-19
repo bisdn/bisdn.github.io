@@ -8,7 +8,7 @@ The fully integrated configuration takes advantage of all of Basebox components.
 
 The control plane and all the logic associated with it resides within [baseboxd][baseboxd_gh] and CAWR. The two are usually located on the same physical device or VM. baseboxd implements all of the standard L2 and L3 network switching and routing functionality. CAWR creates a single big switch abstraction for baseboxd and enables multi-switch scalability.
 
-The configuration information is stored in a highly-available and resilient [etcd][etcd_gh] cluster. Any changes to the configuration stored there are automatically propagated to baseboxd through the [*etcd_connector*][etcd_connector]. This is why the *etcd_connector* has to be co-located with baseboxd. This also makes the etcd our baseboxd configuration API (for details check the API section of the documentation). On the OpenStack side, the [Neutron][neutron_gh] [ML2 plugin][neutron_wiki] writes to our etcd cluster, effectively configuring Basebox.
+The configuration information is stored in a highly-available and resilient [etcd][etcd_gh] cluster. Any changes to the configuration stored there are automatically propagated to baseboxd through the *etcd_connector*. This is why the *etcd_connector* has to be co-located with baseboxd. This also makes the etcd our baseboxd configuration API (for details check the API section of the documentation). On the OpenStack side, the [Neutron][neutron_gh] [ML2 plugin][neutron_wiki] writes to our etcd cluster, effectively configuring Basebox.
 
 Down in the data plane we expect each OpenStack compute node to be connected to the Basebox switches with a pair of interfaces (each to a different switch). The interfaces should be configured as an LACP bond. This configuration, again, ensures high performance and adds resilience to the setup.
 
@@ -81,7 +81,6 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
-* [*etcd_connector* Repository][etcd_connector]
 * [etcd GitHub][etcd_gh]
 * [etcd Documentation][etcd_docs]
 * [Keepalived Website][kad]
@@ -96,4 +95,3 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
-[etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)

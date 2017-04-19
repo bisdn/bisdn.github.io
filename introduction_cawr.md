@@ -1,29 +1,29 @@
 # CAWR
 ## Introduction
-CAWR – which stands for Capability AWare Routing – is a supplemental shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch integrates smoothly with baseboxd and lets you scale your effective switch capacity. It implements multi-path routing and supports multichassis link aggregation (MLAG). CAWR combines a scalable data center switching solution with high availability.
+CAWR – which stands for Capability AWare Routing – is a supplemental intermediate OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch integrates smoothly with baseboxd and lets you scale your effective switch capacity. CAWR implements multi-path routing and supports multichassis link aggregation (MLAG). Hence, it combines a scalable data center switching solution with high availability.
 
 ## Architecture
 CAWR, as a secondary controller, is placed in between baseboxd and the physical switches. Both, its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
 
 ```text
-/CAWR control plane /
+/CAWR architecture/
 
-                           +----------+            +
-                           | baseboxd |            |
-              +            +--+---+---+            |
-logical ports:|            |A | B | C |            |
-              +            +--+-^-+---+            | control
-                                |                  | plane
-                             +--v---+              |
-                       +-----> CAWR <-----+        |
-                       |     +------+     |        +
-                       |                  |
-                       |                  |
-                 +-----v----+        +----v-----+  +
-                 | switch X |        | switch Y |  | data
-               + +----------+        +----------+  | plane
-physical ports:| |A1| B1 |C1|        |A2| B2 |C2|  |
-               + +----------+        +----------+  +
+                            +----------+            +
+                            | baseboxd |            |
+              +             +--+---+---+            |
+logical ports:|             |A | B | C |            |
+              +             +--+-^-+---+            | control
+                                 |                  | plane
+                              +--v---+              |
+                        +-----> CAWR <-----+        |
+                        |     +------+     |        +
+                        |                  |
+                        |                  |
+                  +-----v----+        +----v-----+  +
+                  | switch X |        | switch Y |  | data
+               +  +----------+        +----------+  | plane
+physical ports:|  |A1| B1 |C1|        |A2| B2 |C2|  |
+               +  +----------+        +----------+  +
 
 ```
 
@@ -33,36 +33,36 @@ CAWR implements all the algorithms supporting its internal workflow, while emplo
 CAWR was designed to handle multi-switch configurations. The current version supports up to two switches.
 A host can be connected to each of the switches by a pair of interfaces that have bond mode configured.
 CAWR then takes care of routing the layer 2 traffic across the physical network and provides failover mechanism to deliver uninterrupted operation even if one of the switches or one of the bond ports goes down or when a cable is broken.
-To provide failover, CAWR uses specifice VLAN IDs that can be configured in the "cawr_config.yaml". Failover VLAN IDs must not be used to configure tenant networks in etcd.
+To provide failover, CAWR uses specific VLAN IDs that can be configured in the "cawr_config.yaml". Failover VLAN IDs must not be used to configure tenant networks in etcd.
 
 ```text
-/server connectivity/
+/server connectivity using bond mode/
 
-          +----------+           +
-          | baseboxd |           | control
-          +----------+           | plane
-          |   CAWR   |           |
-     +--->+----------+<---+      +
+          +----------+            +
+          | baseboxd |            | control
+          +----------+            | plane
+          |   CAWR   |            |
+     +--->+----------+<---+       +
      |                    |
      |                    |
      |                    |
-+----v-----+        +-----v----+ +
-| switch a <--------> switch b | | data
-+-----^----+        +----^-----+ | plane
-      |                  |       |
-      |    +--------+    |       |
-      |    | server |    |       |
-      |    +--------+    |       |
-      |    |  bond  |    |       |
-      |    +--------+    |       |
-      |    |P1 || P2|    |       |
-      |    +-+----+-+    |       |
-      |      |    |      |       |
-      +------+    +------+       +
++----v-----+        +-----v----+  +
+| switch a <--------> switch b |  | data
++-----^----+        +----^-----+  | plane
+      |                  |        |
+      |    +--------+    |        |
+      |    | server |    |        |
+      |    +--------+    |        |
+      |    |  bond  |    |        |
+      |    +--------+    |        |
+      |    |P1 || P2|    |        |
+      |    +-+----+-+    |        |
+      |      |    |      |        |
+      +------+    +------+        +
 ```
 
 ## Topology discovery (LACP and LLDP)
-CAWR adds LACP and LLDP-based topology discovery to the Basebox setup.
+CAWR adds LACP (IEEE 802.3ad, IEEE 802.1ax) and LLDP-based (IEEE 802.1ab) topology discovery to the Basebox setup.
 On startup, CAWR first uses LLDP to detect internal links (connections between the switches).
 Once the internal topology is mapped it starts looking for LACP beacon messages to discover the servers and their bonds connected to the switches. Finally, LACP is used to continuously monitor the link status and detect port connections and disconnections.
 
@@ -87,5 +87,5 @@ Where WWXXYYZZ are the last 4 bytes of the bond MAC address (actor MAC address) 
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA Github link)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL Github Link)
-[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf (OpenFlow v1.3 specification pdf)
+[of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (OpenFlow v1.3 specification pdf)
 

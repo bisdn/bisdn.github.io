@@ -5,7 +5,7 @@ Basebox provides a Neutron ([GitHub][neutron_gh], [Wiki][neutron_wiki]) ML2 plug
 ## Architecture
 OpenStack, through its Neutron service, exposes a lot of information about the virtual networking resources, which we can use to configure the hardware switches serving our OpenStack instance proactively.
 
-Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *[etcd_connector][]* daemon.
+Our integrated ML2 plugin reacts to every networking information change in Neutron and pushes the changes to an etcd cluster in a format familiar to the *etcd_connector* daemon.
 On the other side, the *etcd_connector* daemon watches for changes to the etcd data structures and applies changes to the baseboxd networking abstraction through systemd-networkd.
 
 ```text
@@ -53,7 +53,7 @@ The implementation of our ML2 plugin extension will be release as OpenSource lat
 The data stored in etcd is consumed by the *etcd_connector* service, running baseboxd and other Basebox services. The *etcd_connector* then creates systemd-networkd configuration files, which will cause systemd-networkd to configure the tap interfaces watched by baseboxd. Subsequently, baseboxd will receive netlink event notifications informing it of any changes made to the tap interfaces.
 
 ```text
-.                  +---------+---------------------------------------------------+
+                   +---------+---------------------------------------------------+
                    | Basebox |                                                   |
                    +---------+                                                   |
 +--------------+   | +--------------+                                +--------+  |
@@ -77,7 +77,6 @@ To apply configuration changes to the tap interfaces, systemd-networkd must be r
 More details on this can be found in the gitlab repository for for the *etcd_connector*.
 
 ## Additional resources
-* [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]
 * [etcd Github][etcd_gh]
 * [Neutron Github][neutron_gh]
@@ -89,4 +88,3 @@ More details on this can be found in the gitlab repository for for the *etcd_con
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
-[etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)

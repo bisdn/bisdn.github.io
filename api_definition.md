@@ -5,7 +5,7 @@ The Basebox configuration information is stored in a highly available [etcd][etc
 The access to this etcd cluster is open to the Basebox users and effectively provides an API for configuring Basebox.
 Using etcd as a means of configuration allows us to reliably store the configuration information, track the configuration changes and react to them.
 It stores information in a directory-like structure, and each 'directory' and 'leaf' data node holds a modification index.
-The *[etcd connector][etcd_connector]* uses this index to track changes to the data structure, thus allowing it to react to changes in as they happen.
+The *etcd connector* uses this index to track changes to the data structure, thus allowing it to react to changes in as they happen.
 
 For more specific information on etcd data structure and reading/writing mechanisms please refer to [etcd documentation][etcd_docs].
 
@@ -122,7 +122,6 @@ client.read('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>', recur
 ```
 
 ## Additional resources
-* [*etcd_connector* Repository][etcd_connector]
 * [etcd Documentation][etcd_docs]
 * [etcd Github][etcd_gh]
 
@@ -130,4 +129,3 @@ client.read('/basebox/ports/<physical_port_id/<vlan_id>/<enabling_token>', recur
 
 [etcd_docs]: https://github.com/coreos/etcd/blob/master/Documentation/docs.md (etcd Documentation)
 [etcd_gh]: https://github.com/coreos/etcd (etcd Github)
-[etcd_connector]: https://gitlab.bisdn.de/basebox/etcd_connector (*etcd_connector* repository)
