@@ -119,27 +119,30 @@ sudo vi cawr_config.yaml
 When using BISDN Linux Distribution, the switches are configured with unique DPIDs. A 64 bit DPID is calculated by concatenating the 16 bit number '2902' (BISDN birthday) + the 48 bit MAC from the management interface.
 
 ```
-Example DPID: 0x2902002590B21ACE, where the MAC is 00:25:90:B2:1A:CE
+Example DPID: 0x2902002590B21ACE, where the MAC of the switch management interface is 00:25:90:B2:1A:CE
 ```
 
-When in the CAWR config file edit the `externalports` section by adding the uplink ports. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpid[n]` labels correspond to the DPID of each respective switch.
+To add ports (e.g. for uplink) edit the `externalports` section in the file 'cawr_config.yaml'. Please note that `port_extern_[n]` labels correspond to the physical port number labels as they appear on each Basebox-attached switch. The `dpid[n]` labels correspond to the DPID of each respective switch.
 
-Example of a standalone, single cable uplink (no port bonding):
-
-```
-externalports:
-# - [Interfacename, dpid1, port_extern_1, dpid2, port_extern_2]
-- [ uplink_port, 1, 41 ]
-
-```
-
-Example of a bonded uplink port, configured using LACP (bonding must be configured on the external device providing the uplink):
+Example of a standalone, single cable uplink (no port bonding) with a port named 'configuredport1' and a MAC 'BA:BA:45:AA:AA:02' that is configured on dpid '0x290200182330dea2' and port '5'.
+The configured MAC will be displayed in baseboxd, it does not necessarily have to match the MAC of the physical port.
+LACP is ignored on all configured ports.
 
 ```
 externalports:
-# - [Interfacename, dpid1, port_extern_1, dpid2, port_extern_2]
-- [ uplink_port, 1, 41, 2, 36 ]
+# attaches a single port
+#- [interfacename, MAC, dpid, port]
+- [ configuredport1, BA:BA:45:AA:AA:02, 0x290200182330dea2, 5 ]
+```
 
+Example of a bond named 'configuredbond1' and a MAC 'AC:AC:23:CA:CA:CA' that is configured on dpid '0x290200182330dff6' and port '3' and on dpid '0x290200182330dea2' and port '4'. Configuration of a bond interface on a single switch is not supported. The configured MAC will be displayed in baseboxd, it does not necessarily have to match the MAC (MAC_actor) of the bond.
+LACP is ignored on all configured bonds.
+
+```
+externalports:
+# attaches two ports that are in a bond
+#- [interfacename, MAC, dpid1, port1, dpid2, port2]
+- [ configuredbond1, AC:AC:23:CA:CA:CA, 0x290200182330dff6, 3, 0x290200182330dea2, 4 ]
 ```
 
 After adding the above configuration, save and quit the file, then restart the CAWR service:
