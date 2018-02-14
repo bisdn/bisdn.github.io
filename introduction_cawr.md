@@ -63,8 +63,35 @@ To provide failover, CAWR uses specific VLAN IDs that can be configured in the "
 
 ## Topology discovery (LACP and LLDP)
 CAWR adds LACP (IEEE 802.3ad, IEEE 802.1ax) and LLDP-based (IEEE 802.1ab) topology discovery to the Basebox setup.
-On startup, CAWR first uses LLDP to detect internal links (connections between the switches).
-Once the internal topology is mapped it starts looking for LACP beacon messages to discover the servers and their bonds connected to the switches. Finally, LACP is used to continuously monitor the link status and detect port connections and disconnections.
+CAWR uses LLDP to detect internal links (connections between the switches) to build an initial topology. 
+Ports (bonds) that are configured in the 'externalports' field of 'cawr_config.yaml' file or on which LACP messages have been received are added to the topology as well.
+
+Example for configured port/bond in 'cawr_config.yaml':
+
+```
+externalports:
+# max length for interfacename is 15 characters; MAC has the form: 99:AA:BB:CC:DD:EE:FF;  0 is not valid for dpid or port; hex values have to start with "0x"
+
+# attaches a single port
+#- [interfacename, MAC, dpid, port]
+- [ configuredport1, AB:AB:67:BB:01:BB, 0x290200182330dff6, 47 ]
+
+# attaches a bond port
+#- [interfacename, MAC, dpid1, port1, dpid2, port2]
+- [ configuredbond1, AC:AC:23:CA:CA:CA, 0x290200182330dff6, 37, 0x290200182330dea2, 41 ]
+
+```
+
+If LLDP is configured on a server (e.g. via LLDPd) the LLDP information (system name) is used and displayed in the GUI. If host/bond mapping is set in the 'cawr_config.yaml' file, the LLDP information is ignored. If neither of the above is available, the bonds are attached to an 'unknown' host.
+
+More information about LLDPd can be found in the [LLDPd documentation][lldpd]. Below a simple example configuration file is shown (to put into /etc/lldpd.conf):
+
+```
+configure lldp tx-interval 10
+configure system interface pattern *,!eno*
+```
+
+Finally, LACP is used to continuously monitor the link status and detect port connections and disconnections on servers that have LACP enabled. Ports are removed from the topology when no LACP packets have been received within the timeout. Ports are also removed when the appropriate OpenFlow port status message has been received which is usually much faster than the average LACP trigger. Ports that have LACP configured are taken into the topology when LACP has been received which is usually slower than the OpenFlow port status message.
 
 
 ## Port mapping
@@ -82,10 +109,12 @@ Where WWXXYYZZ are the last 4 bytes of the bond MAC address (actor MAC address) 
 * [OF-DPA 2.0][ofdpa]
 * [OpenFlow 1.3 specification][of]
 * [Revised OpenFlow Library (ROFL)][rofl]
+* [LLDPd documentation][lldpd]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA Github link)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL Github Link)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (OpenFlow v1.3 specification pdf)
+[lldpd]: https://vincentbernat.github.io/lldpd/usage.html
 
