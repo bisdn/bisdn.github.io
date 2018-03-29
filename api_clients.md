@@ -19,11 +19,11 @@ As well as classes that govern the format of different layer 2 network-related i
 Each network type available through Neutron (as described [here][OSN_INTRO]) is governed by an implementation of a TypeDriver class. TypeDrivers manage type-specific network information and states.
 We have implemented our extension based on the MechanismDriver metaclass.
 Each respective MechanismDriver provides additional mechanisms which are activated by certain events within the Neutron module. In our case, we write configuration information into Basebox upon discovering changes to the VLAN configuration on the physical, Neutron-managed, server ports.
-We use the network, subnet and port context abstractions to access the relevant layer 2 network information and make it available to baseboxd through our etcd API. Read on for implementation details.
+We use the network, subnet and port context abstractions to access the relevant layer 2 network information and make it available to baseboxd through our etcd API. Continue reading for implementation details.
 
 The purpose of the Type Driver and Mechanism Driver classes are described in the wiki, [here][TD_WIKI] and [here][MD_WIKI] respectively.
 
-To find out more about the Modular Layer 2 plugin in general refer to the [ML2 GitHub Repo][N_ML2_GH] and [ML2 wiki][N_ML2_WIKI].
+To find out more about the Modular Layer 2 plugin, do refer to the [ML2 GitHub Repo][N_ML2_GH] and [ML2 wiki][N_ML2_WIKI].
 
 ## Basebox ML2 mechanism driver
 As noted in the previous section, we use the MechanismDriver interface to gain access to the Neutron information.
@@ -69,12 +69,12 @@ In our MechanismDriver implementation we mainly use `create_port_postcommit` and
 We use the `etcd` python module to write to our etcd cluster from the MechanismDriver.
 
 ### create_port_postcommit
-We use the `create_port_postcommit` to consume the information about the created ports. From the `NetworkContext`/`SubnetContext`/`PortContext` classes we extract the physical_port_id, vlan_id and virtual_port_mac_address and post it to our etcd cluster using the available API calls for adding ports, vlan IDs and mac addresses in the required format.
+We use the `create_port_postcommit` to consume the information about the created ports. From the `NetworkContext`/`SubnetContext`/`PortContext` classes we extract the physical_port_id, vlan_id and virtual_port_mac_address and post it to our etcd cluster using the available API calls for adding ports, vlan IDs and MAC addresses in the required format.
 
 This is then picked up by our `etcd_connector` on the other baseboxd host to re-configure baseboxd.
 
 ### delete_port_postcommit
-We use the `delete_port_postcommit` to consume the information about the deleted ports. From the `NetworkContext`/`SubnetContext`/`PortContext` classes we extract the physical_port_id, vlan_id and virtual_port_mac_address and post it to our etcd cluster using the available API calls for removing ports, vlan IDs and mac addresses in the outlined format.
+We use the `delete_port_postcommit` to consume the information about the deleted ports. From the `NetworkContext`/`SubnetContext`/`PortContext` classes we extract the physical_port_id, vlan_id and virtual_port_mac_address and post it to our etcd cluster using the available API calls for removing ports, vlan IDs and MAC addresses in the outlined format.
 
 This is then also picked up by our `etcd_connector` on the other baseboxd host to re-configure baseboxd.
 
@@ -86,7 +86,7 @@ This is then also picked up by our `etcd_connector` on the other baseboxd host t
 * [Neutron plugin API developer documentation][N_P_API]
 * [Neutron Wiki][N_WIKI]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during the installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [N_ML2_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [N_ML2_GH]: https://github.com/openstack/neutron/tree/master/neutron/plugins/ml2 (Neutron ML2 Plugin Main Github Repository)
