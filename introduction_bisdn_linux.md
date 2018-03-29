@@ -12,7 +12,7 @@ Linux networking tools.
 * Using [of-agent][ofa] as the [OpenFlow][of] interface
 
 ## Compatibility
-Currently the BISDN Linux Distribution is available for the following datacenter whitebox switches:
+Currently the BISDN Linux Distribution is available for the following data center whitebox switches:
 * QuantaMesh-BMS-T3048-LY8
 * Edge-core AS5712-54X
 * AGEMA AG8032
