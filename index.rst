@@ -8,7 +8,7 @@ Basebox is the BISDN controller package for data center networks with following 
         * OpenStack integration of baseboxd can be done via a Neutron ML2 plugin
 Basebox can either run directly on the switch or in a separate controller machine. The solution addresses issues of orchestration, flexibilization, high availability and further automation in various scenarios.
 
-Please find the installation guide, API definitions and additional ressources below.
+Please find the installation guide, API definitions and additional resources below.
 
 Customer support
 ++++++++++++++++
@@ -27,7 +27,7 @@ Introduction to Basebox:
    introduction_ml2_plugin
    introduction_bisdn_linux
 
-Installation and Setup:
+Installation and setup:
 +++++++++++++++++++++++
 
 .. toctree::
