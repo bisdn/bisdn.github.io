@@ -20,18 +20,18 @@ Read on for step-by-step installation instructions.
 
 ### I. Install the management switch
 If you are using a pre-existing management switch (prerequisites item 3) to carry the Basebox control traffic:
-- dedicate 4 ports to on your management switch to the Basebox setup. The 4 ports must be on the same VLAN, separating them setup from other types of traffic.
+- dedicate 4 ports on your management switch to the Basebox setup. The 4 ports must be on the same VLAN, separating the setup from other types of traffic.
 
 If you are introducing a dedicated switch for this role:
 - mount it and connect it before proceeding.
 
 Locate the management switch in the place most suitable for your setup's needs, bearing in mind that both the SDN controller servers and Basebox switches will be connected to it. The switch will not need to have an uplink of any sort for Basebox, however you may want to connect it to your management infrastructure for configuration and monitoring purposes.
 
-For details on configuring the management switch refer to "[Configure the management network](#configure-the-management-network-for-control-traffic)" section.
+For details on configuring the management switch, please refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section.
 
 ### II. SDN controller server installation
 #### 1. Rack mounting
-Rack mount the SDN controller servers. When planning their placement remember that the two units will be connected together (via an SFP+ DAC cable).
+Rack mount the SDN controller servers. When planning their placement, remember that the two units will be connected together (via an SFP+ DAC cable).
 
 #### 2. Connecting to the management network
 Each SDN controller server should have their first network port connected to the management network (marked green on the connectivity graph above).
@@ -39,21 +39,21 @@ This is done using 2 of the 6 CAT5 RJ45 cables we prepared earlier (prerequisite
 The SDN controller servers are configured to look for a local DHCP server on these interfaces. This connection should provide our SDN controller servers with access to the OpenStack [Neutron][neutron_gh] [ML2 plugin][neutron_wiki].
 
 #### 3. Connecting the SDN controller servers together
-The two SDN controller servers should be connected directly to one-another. This connection is used to maintain the state of the HA setup (active/stand-by). 
+The two SDN controller servers should be connected directly to one another. This connection is used to maintain the state of the HA setup (active/stand-by). 
 Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4), plug it into the bottom SFP+ socket on each server (marked gray on the connectivity graph above).
 
 #### 4. Connecting to the Basebox switches
-Lastly connect one and only one of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
+Finally connect one, and only one, of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
 
 #### 5. Power on
 When all is connected, you may plug in the power cords and power on the SDN controller servers. You may also connect the IPMI ports (marked purple on the connectivity graph above) as necessary.
 
 ### III. Install the Basebox switches
 #### 1. Rack mount
-Rack mount the switches alongside your OpenStack compute nodes in a way most suitable to your setup.
+Rack mount the switches alongside your OpenStack compute nodes in a way most suitable for your setup.
 
 #### 2. Connecting the Basebox switches together
-Connect the two switches together with a pair of QSFP DAC cables (prerequisites item 5). Be aware that their location varies on switch-by-switch basis. The connectivity graph shown above presents the layout of a Quanta T3048-LY8 switch. The setup also works with just one interconnect link. Please note that when using only one interconnect cable, once installed and the setup is running, it should not be unplugged. Unplugging it during runtime can result in erroneous behaviour of the setup. If two or more interconnects are installed it is safe to unplug them as long as at least one interconnection remains installed.
+Connect the two switches together with a pair of QSFP DAC cables (prerequisites item 5). Be aware that their location varies on switch-by-switch basis. The connectivity graph shown above presents the layout of a Quanta T3048-LY8 switch. The setup also works with just one interconnect link. Please note that when using only one interconnect cable, once installed and the setup is running, it should not be unplugged. Unplugging it during runtime can result in erroneous behaviour of the setup. If two or more interconnects are installed, it is safe to unplug them as long as at least one interconnection remains installed.
 
 #### 3. Connecting the Basebox switches to the SDN controllers
 Connect the management ports on both the switches with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
@@ -64,7 +64,7 @@ At this point the switches are installed. However, before powering them on, the 
 ### IV. Connect the OpenStack compute node servers
 The servers running our OpenStack instance have to be connected to the Basebox switches using SFP+ DAC cables (prerequisites item 7). The presence of 2 Basebox switches in the setup enables HA features. In order to take advantage of HA, the following must be performed on each server:
 * configure link aggregation on 2 ports (LACP, slow LACPDU rate recommended)
-* connect each of the ports in the LACP bond to an alternative switch (never to the same switch, trunking is not supported)
+* connect each of the ports in the LACP bond to an alternative switch (never to the same switch, since trunking is not supported)
 LACP bonds will be automatically detected and configured in the control plane.
 
 Non-HA configuration support is also available. One may choose to connect any OpenStack compute nodes to a Basebox switch with a single SFP+ DAC cable with no extra configuration needed on the server side.
@@ -72,20 +72,20 @@ Non-HA configuration support is also available. One may choose to connect any Op
 Repeat the above steps for each compute node.
 
 ## Configuration
-Once the setup is wired up, we can proceed to perform any configuration needed before we start all the devices and begin the operation of Basebox.
+Once the setup is wired up, you can proceed to perform any configuration needed before you start all the devices and begin the operation of Basebox.
 
 ### Configure the management network (for control traffic)
-Once the management switch (prerequisites item 3) is in place and we have the SDN controller servers and the Basebox switches connected to it we can start the configuration process.
+Once the management switch (prerequisites item 3) is in place and you have the SDN controller servers and the Basebox switches connected to it, you can start the configuration process.
 
 The SDN controller servers are pre-configured to hand out the IP addresses and load correct images onto the switches. This is done through a DHCP server residing on the SDN controller servers, which use the vendor class identifier DHCP option to provide each switch with the correct image.
 
-To facilitate the exchange prescribed here we need to provide a dedicated layer 2 domain for the SDN controller servers and Basebox switches. For example, a dedicated VLAN configured on the 4 ports of the management switch used by the four devices in question. For exact instructions refer to the documentation of the management switch used.
+To facilitate the exchange described here, you need to provide a dedicated layer 2 domain for the SDN controller servers and Basebox switches, for example, a dedicated VLAN configured on the 4 ports of the management switch used by the four devices in question. For exact instructions refer to the documentation of the management switch used.
 
 
 ### Configuring the controller servers
-Provided with the Basebox devices was a document noting the login details (and other crucial information) for the SDN controller servers and Basebox switches.
+The Basebox devices are shipped with a document providing the login details (and other crucial information) for the SDN controller servers and Basebox switches.
 
-Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via SSH. You should gain access to the SDN controller servers only though the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
+Use this information to configure your internal DHCP and DNS servers as necessary, to obtain access to the SDN controller servers via SSH. You should gain access to the SDN controller servers only through the management network connection (marked green on the graph) or using IPMI (marked purple on the graph).
 
 Next, configure the VLAN IDs to be used for tenants and failover in the cawr_config:
 
@@ -157,7 +157,7 @@ At this point, the `uplink_port` port should appear on the active controller ser
 ip link
 ```
 
-Now, through the `uplink_port` port we can manage the OpenStack uplink connection and Basebox will take care of propagating the changes down to the switches.
+Now, through the `uplink_port` port you can manage the OpenStack uplink connection, and Basebox will take care of propagating the changes down to the switches.
 
 ### Configure using the API
 
