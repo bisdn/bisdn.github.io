@@ -46,7 +46,7 @@ The information is published by writing it to an etcd cluster, where the structu
 ```
 To find out more about etcd please check the [Github repo][etcd_gh] and [official documentation][etcd_docs].
 
-The implementation of our ML2 plugin extension will be release as OpenSource later.
+The implementation of our ML2 plugin extension is planned be released as Open Source.
 
 ## baseboxd interface
 
