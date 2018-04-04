@@ -25,7 +25,7 @@ baseboxd communicates (upwards) with the Linux kernel over [netlink][libnl_docs]
 ```
 
 baseboxd is therefore an agent which, while sitting in the middle, listens for changes in the states of:
-* The Switch (Openflow port state messages)
+* The Switch (OpenFlow port state messages)
 * Linux tap interfaces (netlink messages)
 
 On the switch side, it listens for OFPT_PORT_STATUS async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
