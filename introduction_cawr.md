@@ -1,9 +1,9 @@
 # CAWR
 ## Introduction
-CAWR – which stands for Capability AWare Routing – is a supplemental intermediate OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch integrates smoothly with baseboxd and lets you scale your effective switch capacity. CAWR implements multi-path routing and supports multichassis link aggregation (MLAG). Hence, it combines a scalable data center switching solution with high availability.
+CAWR – which stands for Capability AWare Routing – is a supplemental intermediate OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. This giant switch integrates smoothly with baseboxd and lets you scale your effective switch capacity. CAWR implements multi-path routing and supports Multi-Chassis Link Aggregation (MLAG). Hence, it combines a scalable data center switching solution with high availability.
 
 ## Architecture
-CAWR, as a secondary controller, is placed in between baseboxd and the physical switches. Both, its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
+CAWR, as a secondary controller, is placed in between baseboxd and the physical switches. Both its northbound and southbound interfaces, are [OpenFlow][of] and following the [OF-DPA][ofdpa] standard.
 
 ```text
 /CAWR architecture/
