@@ -61,7 +61,7 @@ To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM
 *(In future releases our ML2 mechanism driver will use an OpenStack VM's interfaces' MAC addresses as enabling tokens)*
 
 ## Example actions
-etcd can interact with a range of interfaces.
+etcd can be interacted with using a range of interfaces.
 The tested interfaces are:
 * etcdctl command line tool
 * REST interface
