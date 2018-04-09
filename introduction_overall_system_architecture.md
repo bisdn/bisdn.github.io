@@ -1,12 +1,12 @@
 # Overall system architecture
 
 ## Introduction
-Basebox is highly modular. Each of its components plays an important role in building an efficient OpenStack networking setup. It delivers high performance alongside scalability, HA and seamless OpenStack integration, while retaining all the benefits of being fully programmable.
+Basebox is highly modular. Each of its components plays an important role in building an efficient OpenStack networking setup. It delivers high performance alongside scalability, high availability and seamless OpenStack integration, while retaining all the benefits of being fully programmable.
 
 ## Recommended setup
-The fully integrated configuration takes advantage of all of Basebox components.
+The fully integrated configuration takes advantage of all Basebox components.
 
-The control plane and all the logic associated with it resides within [baseboxd][baseboxd_gh] and CAWR. The two are usually located on the same physical device or VM. baseboxd implements all of the standard L2 and L3 network switching and routing functionality. CAWR creates a single big switch abstraction for baseboxd and enables multi-switch scalability.
+The control plane and the logic associated with it resides within [baseboxd][baseboxd_gh] and CAWR. The two are usually located on the same physical device or VM. baseboxd implements all of the standard L2 and L3 network switching and routing functionalities. CAWR creates a single big switch abstraction for baseboxd and enables multi-switch scalability.
 
 The configuration information is stored in a highly-available and resilient [etcd][etcd_gh] cluster. Any changes to the configuration stored there are automatically propagated to baseboxd through the *etcd_connector*. This is why the *etcd_connector* has to be co-located with baseboxd. This also means that etcd is the configuration API for Basebox (for details check the API section of the documentation). On the OpenStack side, the [Neutron][neutron_gh] [ML2 plugin][neutron_wiki] writes to our etcd cluster, effectively configuring Basebox.
 
