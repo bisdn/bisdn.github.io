@@ -23,7 +23,7 @@ We use the network, subnet and port context abstractions to access the relevant 
 
 The purpose of the Type Driver and Mechanism Driver classes are described in the wiki, [here][TD_WIKI] and [here][MD_WIKI] respectively.
 
-To find out more about the Modular Layer 2 plugin, do refer to the [ML2 GitHub Repo][N_ML2_GH] and [ML2 wiki][N_ML2_WIKI].
+To find out more about the Modular Layer 2 plugin, please refer to the [ML2 GitHub Repo][N_ML2_GH] and [ML2 wiki][N_ML2_WIKI].
 
 ## Basebox ML2 mechanism driver
 As noted in the previous section, we use the MechanismDriver interface to gain access to the Neutron information.
@@ -86,7 +86,7 @@ This is then also picked up by our `etcd_connector` on the other baseboxd host t
 * [Neutron plugin API developer documentation][N_P_API]
 * [Neutron Wiki][N_WIKI]
 
-**Customer support**: If at any point during the installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
 
 [N_ML2_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [N_ML2_GH]: https://github.com/openstack/neutron/tree/master/neutron/plugins/ml2 (Neutron ML2 Plugin Main Github Repository)
