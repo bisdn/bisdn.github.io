@@ -20,7 +20,7 @@ Read on for step-by-step installation instructions.
 
 ### I. Install the management switch
 If you are using a pre-existing management switch (prerequisites item 3) to carry the Basebox control traffic:
-- dedicate 4 ports on your management switch to the Basebox setup. The 4 ports must be on the same VLAN, separating the setup from other types of traffic.
+- dedicate 4 ports on your management switch to the Basebox setup. The 4 ports must be on the same VLAN, separating them from other types of traffic.
 
 If you are introducing a dedicated switch for this role:
 - mount it and connect it before proceeding.
