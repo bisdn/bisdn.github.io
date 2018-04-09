@@ -5,7 +5,7 @@ The Basebox configuration information is stored in a highly available [etcd][etc
 The access to this etcd cluster is open to the Basebox users and effectively provides an API for configuring Basebox.
 Using etcd as a means of configuration allows us to reliably store the configuration information, track the configuration changes and react to them.
 It stores information in a directory-like structure, and each 'directory' and 'leaf' data node holds a modification index.
-The *etcd connector* uses this index to track changes to the data structure, thus allowing it to react to changes in as they happen.
+The *etcd connector* uses this index to track changes to the data structure, thus allowing it to react to changes as they happen.
 
 For more specific information on etcd data structure and reading/writing mechanisms please refer to [etcd documentation][etcd_docs].
 
@@ -29,10 +29,10 @@ The etcd directory in `/<prefix>` stores a list of directories, labeled with the
 In the current version the prefix is set to `/<prefix> = /basebox/ports`. The port naming done by CAWR is described [here](introduction_cawr.html#port-mapping).
 
 ### vlan_id
-Each physical port directory can hold zero or more directories, labeled with the names of the vlan IDs: `<vlan_id>`. Since we can have the same vlan ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Configuring the controller servers](setup_physical.html#configuring-the-controller-servers) or [Failover](introduction_cawr.html#failover).
+Each physical port directory can hold zero or more directories, labeled with the names of the VLAN IDs: `<vlan_id>`. Since we can have the same VLAN ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Configuring the controller servers](setup_physical.html#configuring-the-controller-servers) or [Failover](introduction_cawr.html#failover).
 
 ### enabling_token
-Each vlan ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled, in case an enabling_token exists.
+Each VLAN ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled in case an enabling_token exists.
 
 ```text
 / etcd directory structure example /
@@ -62,7 +62,7 @@ To give a concrete example, our ML2 mechanism driver currently uses OpenStack VM
 
 ## Example actions
 etcd can be interacted with using a range of interfaces.
-The tested are:
+The tested interfaces are:
 * etcdctl command line tool
 * REST interface
 * etcd-python module
