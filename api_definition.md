@@ -2,7 +2,7 @@
 
 ## Introduction
 The Basebox configuration information is stored in a highly available [etcd][etcd_gh] cluster.
-The access to this etcd cluster is open to the Basebox users and effectively provides an API for configuring Basebox.
+The access to this etcd cluster is open to the Basebox users and effectively provides an API for configuring Basebox, via the generated systemd-networkd files.
 Using etcd as a means of configuration allows us to reliably store the configuration information, track the configuration changes and react to them.
 It stores information in a directory-like structure, and each 'directory' and 'leaf' data node holds a modification index.
 The *etcd connector* uses this index to track changes to the data structure, thus allowing it to react to changes as they happen.
@@ -15,44 +15,75 @@ Basebox enforces that the data in etcd is stored in the following format:
 ```text
 /directory structure/
 
- directory   directory       directory   key(file)   value(file)
-     |           |               |           |           |
-     v           v               v           v           v
-/<prefix>/<physical_port_id>/<vlan_id>/<enabling_token> ''
+/<maindir>/<namespace>/<portname>/<type>/<config>
 
 # example:
-/basebox/ports/portAABBCCDD/42/token ''
+/basebox/ports/portAABBCCDD/vlan/42/token ''
 ```
-### physical_port_id
-The etcd directory in `/<prefix>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.
+### namespaces
 
-In the current version the prefix is set to `/<prefix> = /basebox/ports`. The port naming done by CAWR is described [here](introduction_cawr.html#port-mapping).
+The main directory in `/<maindir>` allows for creating many subdirectories that will contain the different types of configuration that etcd_connector will accept. We name these different subdirectories as `namespaces`, and
+currently we support the `ports` namespace for setting port configuration.
 
-### vlan_id
+### portname
+The etcd directory in `/<maindir>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.  The port
+ naming done by CAWR is described [here](introduction_cawr.html#port-mapping).
+
+### type
+
+Ports can have multiple configuration options, so it is necessary to specify the type of configuration that should be applied to the port. This will vary according to namespace, in order to reduce possible collisions between 
+different configs. Currently supported under the ports namespace is the VLAN and L3 types. This will set the VLAN tags per port, and the IP addresses to each interface respectively.
+
+### config 
+
+Under the config we can specify the information we desire to configure under the port. In the following sections we describe how to configure VLANs and IP addresses on ports.
+
+#### VLANs
+
 Each physical port directory can hold zero or more directories, labeled with the names of the VLAN IDs: `<vlan_id>`. Since we can have the same VLAN ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Configuring the controller servers](setup_physical.html#configuring-the-controller-servers) or [Failover](introduction_cawr.html#failover).
 
-### enabling_token
 Each VLAN ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled in case an enabling_token exists.
+
+#### IP addresses
+
+For IP configuration, we support setting a single address on each `<physical_port_id>`. To use this field, set the `<config>` parameter as `<IP address>/<netmask>`, like the following example:
+
+```
+# example:
+/basebox/ports/portAABBCCDD/l3/10.0.0.1/24 ''
+```
 
 ```text
 / etcd directory structure example /
 
-/basebox/ports/
-              ├── portAABBCCDD
-              │   ├─── 2
-              │   │    └── enabling_token_2  <- / enables vlan 2  /
-              │   └─── 4                     <- / vlan 4 disabled /
-              ├── portAABBCCDE
-              │   └──  2                     <- / vlan 2 disabled /
-              └── portAABBCCDF
-                  └─── 3
-                       └── enabling_token_2  <- / enables vlan 2  /
-                       └── enabling_token_3  <- / enables vlan 2  /
-
+basebox
+└── ports
+    ├── portAABBCCDD
+    │   ├── l3
+    │   │   └── 10.0.0.2
+    │   │       └── 24
+    │   └── vlan
+    │       ├── 2
+    │       │   └── enabling_token '' <- / enables vlan 2  /
+    │       └── 3                     <- / vlan 3 disabled /
+    │                              
+    └── portAABBCCDE
+        ├── l3
+        │   └── 10.0.0.1
+        │       └── 24 ''             <- / Enable address on the interface  /
+        └── vlan
+            ├── 2
+            │   └── enabling_token ''
+            ├── 3
+            │   └── enabling_token ''
+            ├── 4
+            │   └── enabling_token ''
+            └── 5
+                └── enabling_token ''
 ```
 
 ### Configuration triggers
-The most important events, triggering configuration changes of the vlan configuration on the switches, is the addition and removal of `<enabling_token>` nodes to and from vlan_id directories. Currently, the *etcd connector* checks for the number `<enabling_token>` nodes in the `<vlan_id>` directory every time a `<vlan_id>` is modified, and:
+The most important events, triggering configuration changes of the vlan configuration on the switches, is the addition and removal of `<enabling_token>` nodes to and from vlan_id directories. Currently, the `etcd_connector` checks for the number `<enabling_token>` nodes in the `<vlan_id>` directory every time a `<vlan_id>` is modified, and:
 * removes the vlan from a port if the number of `<enabling_token>` = 0
 * adds the vlan to a port if the number of `<enabling_token>` >= 1
 
