@@ -148,7 +148,7 @@ externalports:
 After adding the above configuration, save and quit the file, then restart the CAWR service:
 
 ```shell
-sudo systemctl restart CAWR
+sudo systemctl restart cawr
 ```
 
 At this point, the `uplink_port` port should appear on the active controller server. It's presence can be confirmed by executing the command:
