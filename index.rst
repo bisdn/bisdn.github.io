@@ -42,3 +42,17 @@ API:
 
    api_definition
    api_clients
+
+GUI:
+++++
+.. toctree::
+      :glob:
+
+   gui/introduction
+
+Typical workflows:
+++++
+.. toctree::
+      :glob:
+
+    workflows/typical_workflows

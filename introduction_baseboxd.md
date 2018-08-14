@@ -106,6 +106,17 @@ baseboxd communicates with switches using the [OpenFlow protocol][of]. Our imple
 
 ```
 
+## Features
+
+baseboxd maps the ports on a switch (or switch abstraction, together with CAWR), in a Linux environment. These switch ports can then be configured using the same tools as the ones used to configure 
+Linux interfaces. 
+
+Currently supported features are:
+* Setting interfaces up/down
+* Adding interfaces to bridges
+* Configuring VLANs on interfaces
+* Configuring IP addresses on interfaces
+
 ## Additional resources
 * [baseboxd github][baseboxd_gh]
 * [etcd github][etcd_gh]
