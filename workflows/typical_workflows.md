@@ -35,7 +35,9 @@ basebox-api
 basebox-gui
 ```
 
-If any of these show as stopped, you can restart these services via:
+The commands to stop/start a service is similar.
+
+If any service is not running properly, you can also try a restart via:
 
 ```
 systemctl restart <service name>
@@ -64,7 +66,7 @@ the case where CAWR is running.
 Creating a bridge on the Linux environment is done via:
 
 ```
-ip link add type bridge
+ip link add <bridgename> type bridge
 ip link set <bridgename> type bridge vlan_filtering 1
 ip link set <bridgename> up
 ```
