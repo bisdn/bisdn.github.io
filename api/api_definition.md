@@ -27,7 +27,7 @@ currently we support the `ports` namespace for setting port configuration.
 
 ### portname
 The etcd directory in `/<maindir>` stores a list of directories, labeled with the names of the physical ports: `<physical_port_id>`. Each physical port ID is a unique value, only one entry per physical port can exist.  The port
- naming done by CAWR is described [here](introduction_cawr.html#port-mapping).
+ naming done by CAWR is described [here](../introduction/introduction_cawr.html#port-mapping).
 
 ### type
 
@@ -40,7 +40,7 @@ Under the config we can specify the information we desire to configure under the
 
 #### VLANs
 
-Each physical port directory can hold zero or more directories, labeled with the names of the VLAN IDs: `<vlan_id>`. Since we can have the same VLAN ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Configuring the controller servers](setup_physical.html#configuring-the-controller-servers) or [Failover](introduction_cawr.html#failover).
+Each physical port directory can hold zero or more directories, labeled with the names of the VLAN IDs: `<vlan_id>`. Since we can have the same VLAN ID enabled on multiple ports, it is a value unique to each `<physical_port_id>` directory but not globally unique. Valid VLAN IDs are in the range of 1-4095. In case you are using CAWR the range will be reduced, see [Configuring the controller servers](../setup/setup_physical.html#configuring-the-controller-servers) or [Failover](../introduction/introduction_cawr.html#failover).
 
 Each VLAN ID directory can hold zero or more files (leaf nodes), labeled: `<enabling_token>`. The contents of the node can be set to `''` (empty), since they are currently not evaluated. A VLAN ID is only enabled in case an enabling_token exists.
 
