@@ -122,13 +122,13 @@ Currently supported features are:
 * [etcd github][etcd_gh]
 * [iproute2][iproute2]
 * [libnl documentation][libnl_docs]
-* [OF-DPA 2.0][ofdpa]
+* [OF-DPA GitGub Repository][ofdpa]
 * [OpenFlow 1.3 specification][of]
 * [Revised OpenFlow Library (ROFL)][rofl]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
-[ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub Repository)
+[ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA GitHub Repository)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (Openflow v1.3 specification pdf)
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)

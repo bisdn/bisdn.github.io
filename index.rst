@@ -21,11 +21,11 @@ Introduction to Basebox:
 .. toctree::
       :glob:
 
+   introduction/introduction_bisdn_linux
    introduction/introduction_overall_system_architecture
    introduction/introduction_baseboxd
    introduction/introduction_cawr
    introduction/introduction_ml2_plugin
-   introduction/introduction_bisdn_linux
 
 Installation and setup:
 +++++++++++++++++++++++
@@ -33,6 +33,7 @@ Installation and setup:
 .. toctree::
       :glob:
 
+   setup/install_switch_image
    setup/setup_physical
 
 API:
@@ -40,6 +41,7 @@ API:
 .. toctree::
       :glob:
 
+   api/basic_commands
    api/api_definition
    api/api_clients
 
@@ -50,9 +52,3 @@ GUI:
 
    gui/introduction
 
-Typical workflows:
-++++
-.. toctree::
-      :glob:
-
-    workflows/typical_workflows
