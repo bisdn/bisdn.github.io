@@ -111,7 +111,7 @@ Where WWXXYYZZ are the last 4 bytes of the bond MAC address (actor MAC address) 
 * [Revised OpenFlow Library (ROFL)][rofl]
 * [LLDPd documentation][lldpd]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[../customer support](customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA Github link)
 [rofl]: https://www.github.com/bisdn/rofl-common (ROFL Github Link)

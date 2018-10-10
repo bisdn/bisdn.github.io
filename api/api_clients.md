@@ -86,7 +86,7 @@ This is then also picked up by our `etcd_connector` on the other baseboxd host t
 * [Neutron plugin API developer documentation][N_P_API]
 * [Neutron Wiki][N_WIKI]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [N_ML2_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [N_ML2_GH]: https://github.com/openstack/neutron/tree/master/neutron/plugins/ml2 (Neutron ML2 Plugin Main Github Repository)
@@ -96,10 +96,10 @@ This is then also picked up by our `etcd_connector` on the other baseboxd host t
 [N_WIKI]: https://wiki.openstack.org/wiki/Neutron (Neutron Module GitHub Wiki)
 [TD_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2#Type_Drivers
 [MD_WIKI]: https://wiki.openstack.org/wiki/Neutron/ML2#Mechanism_Drivers
-[TDM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L39 (TypeDriver metaclass source on GitHub)
-[MDM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L549 (MechanismDriver metaclass source on GitHub)
-[EDM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L930 (ExtensionDriver metaclass source on GitHub)
-[NCM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L160 (NetworkContext metaclass)
-[SCM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L198 (SubnetContext metaclass)
-[PCM]: https://github.com/openstack/neutron/blob/master/neutron/plugins/ml2/driver_api.py#L231 (PortContext metaclass)
+[TDM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L513 (TypeDriver metaclass source on GitHub)
+[MDM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L37 (MechanismDriver metaclass source on GitHub)
+[EDM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L1042 (ExtensionDriver metaclass source on GitHub)
+[NCM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L653 (NetworkContext metaclass)
+[SCM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L691 (SubnetContext metaclass)
+[PCM]: https://github.com/openstack/neutron-lib/blob/master/neutron_lib/plugins/ml2/api.py#L724 (PortContext metaclass)
 [OSN_INTRO]: http://docs.openstack.org/newton/networking-guide/intro-os-networking.html (OpenStack Documentation on )

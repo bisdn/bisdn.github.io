@@ -53,4 +53,8 @@ switch. Each switch port has the information about traffic statistics, configure
 The view from CAWR displays the physical topology configured, with the servers, switches, and connections between them. In the links between the servers and switches there is mapping between physical switch port and the 
 ports on the physical servers.
 
+## Additional resources
+
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
+
 [main_view]: ../images/gui_main_view.png
