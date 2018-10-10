@@ -126,7 +126,7 @@ Currently supported features are:
 * [OpenFlow 1.3 specification][of]
 * [Revised OpenFlow Library (ROFL)][rofl]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA 2.0 GitHub Repository)
 [of]: https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf (Openflow v1.3 specification pdf)

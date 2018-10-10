@@ -87,7 +87,7 @@ State integrity is kept by creating a 2-node etcd cluster, with an etcd instance
 * [OpenStack Neutron GitHub][neutron_gh]
 * [OpenStack Neutron Wiki][neutron_wiki]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [kad]: http://www.keepalived.org/ (Keepalived Website)
 [baseboxd_gh]: https://github.com/bisdn/basebox (baseboxd GitHub Repository)

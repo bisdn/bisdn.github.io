@@ -117,6 +117,8 @@ An alternate step for IP address and VLAN management can be done via the GUI, wh
 * [iproute2][iproute2]
 * [systemd-networkd][networkd]
 
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
+
 [etcd_conn]: ../api/api_definition.html
 [gui]: ../gui/introduction.html
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)

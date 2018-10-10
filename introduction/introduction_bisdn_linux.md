@@ -25,7 +25,7 @@ Currently the BISDN Linux Distribution is available for the following data cente
 * [Open Network Install Environment (ONIE) Project Website][onie]
 * [Yocto Project Website][yocto]
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](customer_support.html#customer_support)**.
+**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [onie]: http://onie.org/ (Open Network Install Environment)
 [yocto]: https://www.yoctoproject.org/downloads/core/krogoth21 (Yocto project website)
