@@ -161,7 +161,7 @@ Now, through the `uplink_port` port you can manage the OpenStack uplink connecti
 
 ### Configure using the API
 
-Basebox can be used from this point on using the [etcd API](api_definition.html).
+Basebox can be used from this point on using the [etcd API][api_definition].
 
 ### Configuring the OpenStack ML2 integration
 #### Install the mechanism driver
@@ -272,4 +272,5 @@ sudo systemctl restart  neutron-server.service
 [etcd_gh]: https://github.com/coreos/etcd (etcd GitHub repository)
 [neutron_wiki]: https://wiki.openstack.org/wiki/Neutron/ML2 (Neutron ML2 Wiki)
 [neutron_gh]: https://github.com/openstack/neutron (Neutron Github)
-[csc]: images/controller-switch-connectivity.png (Graph of the physical switch-controller connectivity.)
+[csc]: ../images/controller-switch-connectivity.png (Graph of the physical switch-controller connectivity.)
+[api_definition]: ../api/api_definition.html
