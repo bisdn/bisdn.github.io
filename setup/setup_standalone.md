@@ -1,6 +1,6 @@
 # Setup a standalone Basebox router
 
-We assume that the ONIE installation of the switch image was successful. For more information on ONIE installation please refer to the [previous section](install_switch_image.md#install-a-switch-image). 
+We assume that the ONIE installation of the switch image was successful. For more information on ONIE installation please refer to the [previous section](install_switch_image). 
 
 ## Getting started 
 
