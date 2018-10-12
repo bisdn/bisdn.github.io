@@ -34,6 +34,7 @@ Installation and setup:
       :glob:
 
    setup/install_switch_image
+   setup/setup_standalone
    setup/setup_physical
 
 API:
