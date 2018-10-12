@@ -29,7 +29,7 @@ Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove 
 Select `ONIE: Rescue` to get to the cli. Install the image via a cli command as in the example below:
 
 ```
-onie-nos-install http://example_webserver.com/ftp/pub/onie-testing/onie-bisdn-agema-ag7648-20181010.bin
+onie-nos-install http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
 ```
 
 More information about the ONIE cli can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
