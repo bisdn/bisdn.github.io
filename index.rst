@@ -2,7 +2,7 @@ Welcome to Basebox documentation!
 ---------------------------------
 
 Basebox is the BISDN controller package for data center networks with the following combinable elements:
-        * BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
+        * :ref:`introduction/introduction_bisdn_linux` is a Yocto-based operating system for selected whitebox switches
         * baseboxd is a controller daemon integrating whitebox switches into Linux
         * The CAWR controller (Capability AWare Routing) is an optional shim OpenFlow controller that creates a giant switch abstraction from a set of whitebox switches. It implements multi-path routing and multi-chassis link aggregation
         * OpenStack integration of baseboxd can be done via a Neutron ML2 plugin
