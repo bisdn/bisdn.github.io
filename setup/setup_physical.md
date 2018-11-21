@@ -1,4 +1,4 @@
-# Physical setup
+# Install BISDN Fabric
 ## Prerequisites
 Before you start the configuration, ensure you have the following things ready:
 1. 2x SDN controller servers

@@ -1,6 +1,6 @@
 # Workflows
 
-## Acessing the system
+## Accessing the system
 
 Operations with the Basebox environment require you to access the servers and switches, in order to run commands on these devices. The most common way for accessing Linux devices is using the 
 ``ssh`` command, which allows for securely entering a shell in a remote device. From one machine connected to the management network, you can execute the command:
@@ -14,7 +14,7 @@ the Basebox machines.
 
 After sucessfully logging in to the controller, you can interact with the Basebox setup. 
 
-## Integration with Linux
+## Integration into Linux
 
 ### systemd
 
@@ -113,13 +113,26 @@ systemd-networkd uses to configure interfaces. Executing the commands linked [he
 
 An alternate step for IP address and VLAN management can be done via the GUI, which you can find further information [here][gui].
 
+### gRPC interface
+
+We provide you with a gRPC interface that enables to interact with parts of the [OF-DPA API][OF-DPA API] that are not available via OpenFlow. A cli-tool named `grpc-cli` is available that can be used to interact with our gRPC endpoint.
+
+This example shows how to create a VxLAN tunnel endpoint (see the official API [here](http://broadcom-switch.github.io/of-dpa/doc/html/group__GLOFDPAAPI.html#ga713ed66d831800bede08b3cd985ead49)):
+
+```
+grpc_cli call localhost:50051 ofdpaTunnelTenantCreate "tunnel_id: 0x00001, config: { proto: OFDPA_TUNNEL_PROTO_VXLAN, virtual_network_id: 33}"
+```
+
+To have this call any effect on the switch, make sure that the `ofdpa-grpc` component is active.
+
 ## Additional resources
 * [iproute2][iproute2]
 * [systemd-networkd][networkd]
-
+* [OF-DPA API] [ofdpa_api]
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [etcd_conn]: ../api/api_definition.html
 [gui]: ../gui/introduction.html
 [iproute2]: https://wiki.linuxfoundation.org/networking/iproute2 (iproute2 Wiki)
 [networkd]: https://www.freedesktop.org/software/systemd/man/systemd.network.html (Systemd-networkd man page)
+[ofdpa_api]: http://broadcom-switch.github.io/of-dpa/doc/html/index.html
