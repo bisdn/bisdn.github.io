@@ -1,6 +1,6 @@
-# Install a switch image
+# Install BISDN Linux
 
-Installing BISDN Linux on a whitebox switch can be done via [ONIE][ONIE] installer. This page shows how to connect to the switch and guides through the installation process.
+Installing BISDN Linux on a whitebox switch can be done via the [ONIE][ONIE] installer. This page shows how to connect to the switch and guides through the installation process.
 
 ## Connect to the switch console
 
@@ -24,9 +24,9 @@ Power on the switch. During boot, press `DEL` key to enter the boot menu (there 
 
 Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
 
-### Get the image via CLI
+### Get the image via the CLI
 
-Select `ONIE: Rescue` to get to the cli. Install the image via a cli command as in the example below:
+Select `ONIE: Rescue` to get to the cli. Install the image via a cli command as in the example below. Images can be found [here][image-repository]
 
 ```
 onie-nos-install http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
@@ -74,9 +74,11 @@ How to use the console and start services, please see the next section.
 * [ONIE][ONIE]
 * [kermit website][kermit]
 * [dmidecode][dmidecode]
+* [image-repository][image-repository]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [kermit]: http://www.kermitproject.org/ (kermit website)
 [ONIE]: http://www.onie.org/ (ONIE website)
 [dmidecode]: https://wiki.ubuntuusers.de/dmidecode/ (dmidecode website)
+[image-repository]: https//repo.bisdn.de/ftp/pub/ (BISDN image repository)

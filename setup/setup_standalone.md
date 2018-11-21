@@ -1,16 +1,20 @@
-# Setup a standalone Basebox router
+# Setup a single Basebox switch or router
 
-We assume that the ONIE installation of the switch image was successful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html). 
+We assume that the ONIE installation of BISDN Linux was ssuccessful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html). 
 
 ## Getting started 
 
-Log into the switch (username: root), enable ip_routing and the switch will become a router:
+Log into the switch with the following credentials:
 
 ```
-echo 1 > /proc/sys/net/ipv4/ip_forward
+USER = "basebox"
+	
+PASSWORD = "b-isdn"
 ```
 
-BISDN Linux makes use of [systemd][systemd], so there are a handful of services that get the networking running:
+BISDN Linux, as most other Linux systems, requires to run commands that change system settings with superuser privileges. The examples below must then be run via `sudo` to succeed.
+
+BISDN Linux makes use of [systemd][systemd]. There are several services required that turn a whitebox switch into a router:
 * ofdpa
 * ofdpa-grpc
 * ofagent
@@ -24,31 +28,92 @@ systemctl start ofdpa
 systemctl stop ofdpa
 systemctl status ofdpa
 ```
+## Configure a local or remote controller
 
-BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers.
-The local OpenFlow Agent can connect to a controller endpoint specified in the file
+BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
+Run the following scripts on the whitebox switch to configure the local or remote usage:
 
+### Local baseboxd controller
+`./basebox-change-config -l baseboxd` where the default OpenFlow port `6653` is used.
+
+### Remote controller
+`./basebox-change-config -r 172.16.10.10 6653` where the IP-address and port must point to the remote controller
+
+## Verify your configuration
+
+You can check the results of your configuration in the following file: `/etc/default/ofagent`
+
+The section "OPTION=" should point to localhost (local controller) or to the remote controller and respective port that you have configured.
+
+# Verify that ip-forwarding is enabled
+
+You can use `sysctl net.ipv4.ip_forward` to check if IPv4-forwarding is enabled (net.ipv4.ip_forward = 1) or disabled (net.ipv4.ip_forward = 0). For IPv6 use the following command `sysctl net.ipv6.conf.all.forwarding`.
+
+## See the installed software components
+
+Check if the required software components are installed.
+
+### Local controller (BISDN Linux)
+
+To check whether the proper packages are installed on BISDN Linux run
+
+`opkg info service-name`
+
+The following components should be installed on the whitebox switch by default:
+`baseboxd`, `ofagent`, `ofdpa`, `ofdpa-grpc`, `grpc_cli`, `ffr`
+
+e.g.:
 ```
-/usr/default/ofagent 
+opkg info baseboxd; \
+opkg info ofagent; \
+opkg info ofdpa; \
+opkg info ofdpa-grpc; \
+opkg info frr
 ```
 
-The line `OPTIONS="-t 127.0.0.1:6653 -m"` should be changed to point to any remote controller address and TCP port number.
+### Remote controller
 
-After you have modified the file, make sure to restart the ofagent service. 
+The following components should be installed on the remote controller:
+`baseboxd`, `ffr`, `ryu-manager` (optional)
 
+## Verify the running services
+
+You can check if the respective services are running.
+
+### Local controller (BISDN Linux)
+
+The following services should be active (running) and enabled on the whitebox switch by default:
+`baseboxd`, `ofagent`, `ofdpa`, `ofdpa-grpc`
+
+### Remote controller
+
+The following components should be active (running) and enabled on the whitebox switch:
+`ofagent`, `ofdpa`, `ofdpa-grpc`
+
+The following components should be inactive and disabled on the whitebox switch:
+`baseboxd`, `ryu-manager`
+
+The following components should be active (running) and enabled on the remote controller:
+`baseboxd`, `frr`, `ryu-manager` (optional)
+
+Example for systemd commands:
 ```
-systemctl restart ofagent
+systemctl status baseboxd; \
+systemctl status ofagent; \
+systemctl status ofdpa; \
+systemctl status ofdpa-grpc; \
+systemctl status ryu-manager
 ```
 
 ## Using baseboxd
 
-Following this, start the baseboxd controller (or make sure it is running locally).
+Following this, if not started yet start baseboxd (and all required components) by:
 
 ```
-systemctl restart baseboxd
+systemctl start baseboxd
 ```
 
-After a short while (1 to 2 seconds) you should see the list of switch ports being exposed to the local host.
+After a short while (2 seconds) you should see the list of switch ports being exposed to the local host via:
 
 ```
 ip link show
@@ -64,45 +129,32 @@ journalctl -u baseboxd -f
 
 Note that this works for all other services, too. Sometimes it is particularly helpful to look at the output of the ofdpa service, as this contains some useful output from the client_drivshell command line interface.
 
-## Client tools
-Client tools enable you to interact with the OF-DPA layer. The following commands can be used to show the flow and grouptables, respectively:
+## Read the switch information via client tools
+Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
 
 ```
 client_flowtable_dump
-client_grouptable_dump
+client_grouptable_dum
+client_port_table_dump
 ```
-
-
 
 ## onlpdump
 
-This tool  can be used to show information about the attached modules. Use
+This tool can be used to show detailed information about the system/platform, the fan-control, the LEDs and the attached modules:
 
 ```
 onlpdump
 ```
+# FRRouting
 
-to see details:
-
-
-```
-  41  NONE
-  42  NONE
-  43  10GBASE-CR      Copper          2m     Amphenol          610530004         APF15510044P20  
-  44  NONE
-  45  10GBASE-SR      Fiber                  x-ion             SFP-10GSR-85      E0707240349     
-  46  NONE
-  47  10GBASE-SR      Fiber                  x-ion             SFP-10GSR-85      E0707240348     
-  48  NONE
-  49  NONE
-  50  NONE
-```
+BISDN Linux comes with [FRRouting](frr) pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide].
 
 ## Additional resources
 * [systemd GitHub Repository][systemd]
+* [FRRouting User Guide][FRRouting User Guide]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [systemd]: https://github.com/systemd/systemd (systemd on github)
-
-
+[frr]: https://github.com/FRRouting/frr (FRRouting on github)
+[FRRouting User Guide]: http://docs.frrouting.org/en/latest/ (FRRouting User Guide)
