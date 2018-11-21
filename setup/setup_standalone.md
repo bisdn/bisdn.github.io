@@ -45,10 +45,6 @@ You can check the results of your configuration in the following file: `/etc/def
 
 The section "OPTION=" should point to localhost (local controller) or to the remote controller and respective port that you have configured.
 
-# Verify that ip-forwarding is enabled
-
-You can use `sysctl net.ipv4.ip_forward` to check if IPv4-forwarding is enabled (net.ipv4.ip_forward = 1) or disabled (net.ipv4.ip_forward = 0). For IPv6 use the following command `sysctl net.ipv6.conf.all.forwarding`.
-
 ## See the installed software components
 
 Check if the required software components are installed.
