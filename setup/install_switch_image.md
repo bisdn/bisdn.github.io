@@ -66,11 +66,17 @@ BISDN Linux 1.0.0 agema-ag7648 ttyUSB0
 agema-ag7648 login:
 ```
 
-Login with username `root`. You should see the console of BISDN Linux. See the systeminformation via [dmidecode][dmidecode].
+Log into the switch with the following credentials:
+```
+USER = "basebox"
+
+PASSWORD = "b-isdn"
+```
+You should see the console of BISDN Linux. See the systeminformation via [dmidecode][dmidecode].
 
 How to use the console and start services, please see the next section.
 
-## Additional resources 
+## Additional resources
 * [ONIE][ONIE]
 * [kermit website][kermit]
 * [dmidecode][dmidecode]
