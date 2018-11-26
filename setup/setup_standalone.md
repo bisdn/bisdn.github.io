@@ -1,14 +1,14 @@
 # Setup a single Basebox switch or router
 
-We assume that the ONIE installation of BISDN Linux was ssuccessful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html). 
+We assume that the ONIE installation of BISDN Linux was ssuccessful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html).
 
-## Getting started 
+## Getting started
 
 Log into the switch with the following credentials:
 
 ```
 USER = "basebox"
-	
+
 PASSWORD = "b-isdn"
 ```
 
@@ -34,10 +34,14 @@ BISDN Linux contains the prerequisites to control the switch by either local or 
 Run the following scripts on the whitebox switch to configure the local or remote usage:
 
 ### Local baseboxd controller
-`./basebox-change-config -l baseboxd` where the default OpenFlow port `6653` is used.
+`basebox-change-config -l baseboxd` where the default OpenFlow port `6653` is used.
+
+### Local Ryu controller
+BISDN Linux allows you also to use [Ryu][Ryu] as controller. To use Ryu as controller:
+`basebox-change-config -l ryu-manager ryu.app.ofctl_rest` the last argument is the Ryu application (if you have a file for a custom application, please use the absolute path to the application file).
 
 ### Remote controller
-`./basebox-change-config -r 172.16.10.10 6653` where the IP-address and port must point to the remote controller
+`basebox-change-config -r 172.16.10.10 6653` where the IP-address and port must point to the remote controller
 
 ## Verify your configuration
 
@@ -117,7 +121,7 @@ ip link show
 
 Note that the ports that you see (port1, port2, ... port54) are numbered as on the switch. The ports are Linux tap devices by nature, and are not the real physical ports (remember, there is a separation of control and data in SDN, the tap interfaces are merely handles for the "real" physical ports on the switch. Therefore, dumping all traffic coming in to a specific port via, e.g., tcpdump, will not give the desired effect unless you have created an OpenFlow rule to literally send all traffic coming in to a certain port up to the controller. For most switches, the data rate even of a 10G port would be too high to pipe all traffic through the OpenFlow channel)
 
-You can see the output log of baseboxd by means of 
+You can see the output log of baseboxd by means of
 
 ```
 journalctl -u baseboxd -f
@@ -143,14 +147,17 @@ onlpdump
 ```
 # FRRouting
 
-BISDN Linux comes with [FRRouting](frr) pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide].
+BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide].
 
 ## Additional resources
 * [systemd GitHub Repository][systemd]
+* [FRRouting github page][frr]
 * [FRRouting User Guide][FRRouting User Guide]
+* [Ryu SDN framework][Ryu]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [systemd]: https://github.com/systemd/systemd (systemd on github)
 [frr]: https://github.com/FRRouting/frr (FRRouting on github)
 [FRRouting User Guide]: http://docs.frrouting.org/en/latest/ (FRRouting User Guide)
+[Ryu]: https://osrg.github.io/ryu/ (Ryu SDN framework)
