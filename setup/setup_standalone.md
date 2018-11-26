@@ -37,11 +37,11 @@ Run the following scripts on the whitebox switch to configure the local or remot
 `basebox-change-config -l baseboxd` where the default OpenFlow port `6653` is used.
 
 ### Local Ryu controller
-BISDN Linux allows you also to use [Ryu][Ryu] as controller. To use Ryu as controller run:
+BISDN Linux supports to use [Ryu][Ryu] as the controller:
 
 `basebox-change-config -l ryu-manager ryu.app.ofctl_rest`
 
-where the last argument is the Ryu application (if you have a file for a custom application, please use the absolute path to the application file).
+where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
 ### Remote controller
 `basebox-change-config -r 172.16.10.10 6653` where the IP-address and port must point to the remote controller
