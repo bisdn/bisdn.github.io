@@ -66,6 +66,13 @@ Routing is even easier to setup. Just configure networks on ports of your choice
 ip address add 10.20.30.1/24 dev port1
 ```
 
+Check the unicast routing table (table-id 30) via `client_flowtable_dump 30`, you should see an entry similar to
+
+```
+Table ID 30 (Unicast Routing):   Retrieving all entries. Max entries = 32768, Current entries = 1.
+--  etherType = 0x0800 vrf:mask = 0x0000:0x0000 dstIp4 = 10.20.30.0/255.255.255.0 dstIp6 = ::/:: | GoTo = 60 (ACL Policy) outPort = CONTROLLER (Reserved)  | priority = 2 hard_time = 0 idle_time = 0 cookie = 110335
+```
+
 Then add the corresponding addresses and routes to the connected hosts and that's it. For additional information please have a look at the [examples][bbd-examples].
 
 
