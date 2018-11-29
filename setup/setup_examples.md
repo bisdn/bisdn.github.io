@@ -26,14 +26,14 @@ Using the configuration below you can add both ports to a bridge (here: swbridge
 
 ### Configure bridge on the controller host
 
-1) Create a VLAN-filtering bridge (here: swbridge) on the machine where baseboxd is running (remote or local controller):
+1. Create a VLAN-filtering bridge (here: swbridge) on the machine where baseboxd is running (remote or local controller):
 
 ```
 ip link add name swbridge type bridge vlan_filtering 1
 ip link set swbridge up
 ```
 
-2) Add both ports to the bridge
+2. Add both ports to the bridge
 
 Assuming the hosts are connected to port1 and port2 on the switch, do the following:
 
@@ -45,7 +45,7 @@ ip link set port2 master swbridge
 ip link set port2 up
 ```
 
-3) Add VLAN IDs to the ports
+3. Add VLAN IDs to the ports
 
 The enable bridging on certain VIDs just add them to the ports:
 
