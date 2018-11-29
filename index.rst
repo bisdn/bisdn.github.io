@@ -35,6 +35,7 @@ Installation and setup:
 
    setup/install_switch_image
    setup/setup_standalone
+   setup/setup_examples
    setup/setup_physical
 
 API:
