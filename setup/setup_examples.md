@@ -2,25 +2,29 @@
 
 This section shows examples that help you to configure bridging and routing using baseboxd. For a more automated approach find the respective [configuration scripts][bbd-examples] on the baseboxd github.
 
-# Configure L2 switch (bridging)
+## Configure L2 switch (bridging)
 
 This example shows how to configure a simple L2 switch using baseboxd.
 
 Assume the following physical topology:
 
+```
 # +--------+       +------------+
 # |  Host  |       |   Switch   |
 # +--------+       +------------+
 #    eth1  -------->  port1
 #    eth2  -------->  port2
+```
 
 Using the configuration below you can add both ports to a bridge (here: swbridge) and create the following logical connections:
 
+```
 #  port1 \
 #         > swbridge
 #  port2 /
+```
 
-## Configure bridge on the controller host
+### Configure bridge on the controller host
 
 1) Create a VLAN-filtering bridge (here: swbridge) on the machine where baseboxd is running (remote or local controller):
 
@@ -50,11 +54,11 @@ bridge vlan add vid 2 dev port1
 bridge vlan add vid 2 dev port2
 ```
 
-## Setup the hosts
+### Setup the hosts
 
 Follow the instructions of your operating system on the host. Make sure that the ports on the host are in the same VLANs that are configured on the controller ports.
 
-# Configure routing
+## Configure routing
 
 Routing is even easier to setup. Just configure networks on ports of your choice.
 
