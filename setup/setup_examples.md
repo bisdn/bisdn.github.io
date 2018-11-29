@@ -66,7 +66,7 @@ Routing is even easier to setup. Just configure networks on ports of your choice
 ip address add 10.20.30.1/24 dev port1
 ```
 
-Then add the corresponding addresses and routes to the connected hosts and that's it. For additional information please have a look at the (examples)[bbd-examples].
+Then add the corresponding addresses and routes to the connected hosts and that's it. For additional information please have a look at the [examples][bbd-examples].
 
 
 ## Additional resources
