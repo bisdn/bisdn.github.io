@@ -75,5 +75,5 @@ Then add the corresponding addresses and routes to the connected hosts and that'
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
-[baseboxd]: https://github.com/basebox (baseboxd on github)
+[baseboxd]: https://github.com/bisdn/basebox (baseboxd on github)
 [bbd-examples]: https://github.com/bisdn/basebox/tree/master/examples (baseboxd examples on github)
