@@ -115,7 +115,7 @@ An alternate step for IP address and VLAN management can be done via the GUI, wh
 
 ### gRPC interface
 
-We provide you with a gRPC interface that enables to interact with parts of the [OF-DPA API][OF-DPA API] that are not available via OpenFlow. A cli-tool named `grpc-cli` is available that can be used to interact with our gRPC endpoint.
+We provide you with a gRPC interface that enables to interact with parts of the [OF-DPA API][ofdpa_api] that are not available via OpenFlow. A cli-tool named `grpc-cli` is available that can be used to interact with our gRPC endpoint.
 
 This example shows how to create a VxLAN tunnel endpoint (see the official API [here](http://broadcom-switch.github.io/of-dpa/doc/html/group__GLOFDPAAPI.html#ga713ed66d831800bede08b3cd985ead49)):
 
