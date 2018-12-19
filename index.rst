@@ -38,6 +38,7 @@ Installation and setup:
    setup/advanced_setup
    setup/package_management
    setup/setup_examples
+   setup/setup_examples_advanced
    setup/setup_physical
 
 API:
