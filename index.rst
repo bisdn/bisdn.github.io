@@ -40,7 +40,6 @@ Installation and setup:
    setup/setup_examples
    setup/setup_examples_advanced
    setup/setup_physical
-   setup/known_issues
 
 API:
 ++++
@@ -57,4 +56,11 @@ GUI:
       :glob:
 
    gui/introduction
+   
+Known issues:
+++++
+.. toctree::
+      :glob:
+
+   setup/known_issues
 
