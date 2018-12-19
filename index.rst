@@ -36,6 +36,7 @@ Installation and setup:
    setup/install_switch_image
    setup/setup_standalone
    setup/advanced_setup
+   setup/package_management
    setup/setup_examples
    setup/setup_physical
 
