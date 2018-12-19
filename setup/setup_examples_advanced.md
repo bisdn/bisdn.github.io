@@ -13,7 +13,7 @@ Read the current state:
 grpc_cli call localhost:50051 ofdpaSourceMacLearningGet ""
 ```
 
-# Port mirror
+# Port mirroring
 
 BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace localhost with the IP of the whitebox switch)
 ```
