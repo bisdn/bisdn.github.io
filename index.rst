@@ -15,48 +15,42 @@ Customer support
 
 If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our  :doc:`customer_support`.
 
-Introduction to Basebox:
-++++++++++++++++++++++++
+BISDN Linux:
+++++
 
 .. toctree::
       :glob:
 
    introduction/introduction_bisdn_linux
-   introduction/introduction_overall_system_architecture
-   introduction/introduction_baseboxd
-   introduction/introduction_cawr
-   introduction/introduction_ml2_plugin
+   setup/install_switch_image
+   setup/advanced_setup
+   setup/package_management
 
-Installation and setup:
-+++++++++++++++++++++++
+baseboxd:
+++++
 
 .. toctree::
       :glob:
 
-   setup/install_switch_image
+   introduction/introduction_baseboxd
    setup/setup_standalone
-   setup/advanced_setup
-   setup/package_management
    setup/setup_examples
    setup/setup_examples_advanced
-   setup/setup_physical
 
-API:
+Basebox Fabric:
 ++++
 .. toctree::
       :glob:
 
+   introduction/introduction_overall_system_architecture
+   introduction/introduction_cawr
+   introduction/introduction_ml2_plugin
+   setup/setup_physical
    api/basic_commands
    api/api_definition
    api/api_clients
-
-GUI:
-++++
-.. toctree::
-      :glob:
-
    gui/introduction
-   
+
 Known issues:
 ++++
 .. toctree::
