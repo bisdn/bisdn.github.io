@@ -1,7 +1,7 @@
 # Configure advanced features
 
 
-# Configure source-MACc learning
+# Configure source-MAC learning
 
 Run the following grpc calls to enable/disable source-MAC learning:
 ```
