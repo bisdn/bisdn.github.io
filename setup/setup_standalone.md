@@ -130,7 +130,7 @@ You can see the output log of baseboxd by means of
 journalctl -u baseboxd -f
 ```
 
-Note that this works for all other services, too. Sometimes it is particularly helpful to look at the output of the ofdpa service, as this contains some useful output from the client_drivshell command line interface.
+Note that this works for all other services, too. Sometimes it is particularly helpful to look at the output of the OF-DPA service, as this contains some useful output from the client_drivshell command line interface.
 
 ## Read the switch information via client tools
 Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
