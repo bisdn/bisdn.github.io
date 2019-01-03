@@ -1,7 +1,7 @@
 # Configure advanced features
 
 
-# Configure source-MAC learning
+## Configure source-MAC learning
 
 Run the following grpc calls to enable/disable source-MAC learning:
 ```
@@ -13,7 +13,7 @@ Read the current state:
 grpc_cli call localhost:50051 ofdpaSourceMacLearningGet ""
 ```
 
-# Port mirroring
+## Port mirroring
 
 BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace localhost with the IP of the whitebox switch)
 ```
