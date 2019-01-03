@@ -1,7 +1,7 @@
-# Overall system architecture
+# Basebox Fabric 
 
 ## Introduction
-Basebox is highly modular. Each of its components plays an important role in building an efficient OpenStack networking setup. It delivers high performance alongside scalability, high availability and seamless OpenStack integration, while retaining all the benefits of being fully programmable.
+Basebox fabric (or just Basebox) is highly modular controller. Each of its components plays an important role in building an efficient OpenStack networking setup. It delivers high performance alongside scalability, high availability and seamless OpenStack integration, while retaining all the benefits of being fully programmable.
 
 ## Recommended setup
 The fully integrated configuration takes advantage of all Basebox components.

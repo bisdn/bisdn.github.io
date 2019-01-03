@@ -1,6 +1,20 @@
-# Advanced setup
+# Advanced configuration
 
-## SFP modules
+## Managing packages via OPKG
+  
+[OPKG][opkg] is the leightweight package management system on BISDN Linux.
+
+`opkg --help` will print possible commands.
+
+The most important ones are
+```
+opkg upgrade
+opkg install <pkgs>
+opkg remove <pkgs>
+```
+to upgrade all packages or install and remove certain packages.
+
+## SFP module configuration
 
 BISDN Linux supports SFP modules (otical or active copper) as well as direct attached cables (DAC). By default, BISDN Linux has disabled auto-negotiation on all ports (AN=off). On platforms like the AG7648 by default 10G is configured on all ports.
 
@@ -44,9 +58,11 @@ client_drivshell port xe0 AN=off SP=10000
 The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
 
 ## Additional resources
+* [opkg project][opkg]
 * [OF-DPA GitGub Repository][ofdpa]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
+[opkg]: https://git.yoctoproject.org/cgit/cgit.cgi/opkg/about/ (opkg project)
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA GitHub repository)
 
