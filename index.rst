@@ -24,7 +24,6 @@ BISDN Linux:
    introduction/introduction_bisdn_linux
    setup/install_switch_image
    setup/advanced_setup
-   setup/package_management
 
 baseboxd:
 ++++

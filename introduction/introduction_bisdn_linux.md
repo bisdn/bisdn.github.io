@@ -1,4 +1,4 @@
-# BISDN Linux Distribution
+# BISDN Linux
 ## Introduction
 BISDN Linux Distribution is a custom Linux-based operating
 system for selected whitebox switches. This lightweight
