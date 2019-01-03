@@ -32,7 +32,7 @@ GRPC_TIMEOUT_SEC = 2
 
 You can access this service via ``http://<controller address>:8000``.
 
-# Views
+## Views
 
 When you start the GUI via the previously indicated address, you can see this view.
 
@@ -43,12 +43,12 @@ controllers, baseboxd and CAWR.
 
 Clicking the links to baseboxd view and CAWR view will point to the following views.
 
-## baseboxd View
+### baseboxd View
 
 This view presents the information that baseboxd reports. In the main window the topology from the single-switch (or single-switch abstraction, using CAWR) is visible. The switch ports can be visible by clicking on the icon for the 
 switch. Each switch port has the information about traffic statistics, configured VLANs and IP addresses. 
 
-## CAWR View 
+### CAWR View
 
 The view from CAWR displays the physical topology configured, with the servers, switches, and connections between them. In the links between the servers and switches there is mapping between physical switch port and the 
 ports on the physical servers.
