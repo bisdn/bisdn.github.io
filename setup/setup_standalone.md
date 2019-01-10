@@ -110,10 +110,27 @@ systemctl status ryu-manager
 
 ## Using baseboxd
 
-Following this, if not started yet start baseboxd (and all required components) by:
+baseboxd uses a config file to set e.g. [GLOG loglevels][GLOG] and OpenFlow ports. On BISDN Linux this configuration data is stored is `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
 
 ```
-systemctl start baseboxd
+### Configuration options for baseboxd
+#
+# Listening port:
+# FLAGS_port=6653
+
+### glog
+#
+# log to stderr by default:
+GLOG_logtostderr=1
+
+# verbose log level:
+# GLOG_v=0
+```
+
+After having made changes to this file, restart baseboxd:
+
+```
+systemctl restart baseboxd
 ```
 
 After a short while (2 seconds) you should see the list of switch ports being exposed to the local host via:
@@ -137,7 +154,7 @@ Client tools enable you to interact with the OF-DPA layer and can be used to cro
 
 ```
 client_flowtable_dump
-client_grouptable_dum
+client_grouptable_dump
 client_port_table_dump
 ```
 
@@ -157,6 +174,7 @@ BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRout
 * [FRRouting github page][frr]
 * [FRRouting User Guide][FRRouting User Guide]
 * [Ryu SDN framework][Ryu]
+* [GLOG How To] [GLOG]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
@@ -164,3 +182,4 @@ BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRout
 [frr]: https://github.com/FRRouting/frr (FRRouting on github)
 [FRRouting User Guide]: http://docs.frrouting.org/en/latest/ (FRRouting User Guide)
 [Ryu]: https://osrg.github.io/ryu/ (Ryu SDN framework)
+[GLOG]: http://rpg.ifi.uzh.ch/docs/glog.html (How To Use Google Logging Library)
