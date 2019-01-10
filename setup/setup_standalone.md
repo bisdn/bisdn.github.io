@@ -110,7 +110,7 @@ systemctl status ryu-manager
 
 ## Using baseboxd
 
-baseboxd uses a config file to set e.g. [GLOG loglevels][GLOG] and OpenFlow ports. On BISDN Linux this configuration data is stored is `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
+baseboxd uses a config file to set e.g. [GLOG loglevels][GLOG] and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
 
 ```
 ### Configuration options for baseboxd
