@@ -157,7 +157,6 @@ client_flowtable_dump
 client_grouptable_dump
 client_port_table_dump
 ```
-
 ## onlpdump
 
 This tool can be used to show detailed information about the system/platform, the fan-control, the LEDs and the attached modules:
@@ -169,17 +168,68 @@ onlpdump
 
 BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide].
 
+## Persisting storage of network configuration
+
+Multiple ways of storing network configuration exist in Linux. We support [systemd-networkd][systemd-networkd-mp], [FRRouting][FRRouting User Guide] for single Basebox setups. 
+For [Basebox Fabric][fabric] we also integrated a distributed [etcd-cluster][api_definition] database.
+
+### Using systemd-networkd
+
+systemd-networkd uses `.network` files to store network configuration. For details please see the [systemd-networkd man page][systemd-networkd-mp]. 
+The `.network` files (in directory `/etc/systemd/network/`) are processed in lexical order. In the example below, the file `20-port50.network` is processed first, 
+meaning that port50 will get a dedicated configuration while all other ports get the basic one. Since only the first file that matches a port is processed, 
+that also means port50 is __not__ getting the configuration for LLDP, but all other ports do (as these are configured using file `30-port.network`)
+
+```
+root@agema-ag7648:/etc/systemd/network# cat 20-port50.network 
+[Match]
+Name=port50
+
+[Network]
+Address=10.20.30.20/24
+
+root@agema-ag7648:/etc/systemd/network# cat 30-port.network 
+[Match]
+Name=port*
+
+[Network]
+LLDP=yes
+EmitLLDP=yes
+LLMNR=no
+```
+
+### Using FRR and ZEBRA
+
+When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the [ZEBRA manual][zebra_manual]. 
+The example below shows how to configure an IPv6 adress on a port.
+
+```
+hostname basebox
+log file zebra.log
+
+interface port40
+  no shutdown
+  ipv6 address 2003:db01:0:21::1/64
+  no ipv6 nd suppress-ra
+  ipv6 nd prefix 2003:db01:0:21::/64
+```
+
 ## Additional resources
 * [systemd GitHub Repository][systemd]
+* [systemd-networkd man page][systemd-networkd-mp]
 * [FRRouting github page][frr]
 * [FRRouting User Guide][FRRouting User Guide]
 * [Ryu SDN framework][Ryu]
-* [GLOG How To] [GLOG]
+* [GLOG How To][GLOG]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [systemd]: https://github.com/systemd/systemd (systemd on github)
+[systemd-networkd-mp]: https://www.freedesktop.org/software/systemd/man/systemd.network.html (systemd-networkd man page)
 [frr]: https://github.com/FRRouting/frr (FRRouting on github)
 [FRRouting User Guide]: http://docs.frrouting.org/en/latest/ (FRRouting User Guide)
 [Ryu]: https://osrg.github.io/ryu/ (Ryu SDN framework)
 [GLOG]: http://rpg.ifi.uzh.ch/docs/glog.html (How To Use Google Logging Library)
+[fabric]: ../introduction/introduction_overall_system_architecture.html
+[api_definition]: ../api/api_definition.html
+[zebra_manual]: http://docs.frrouting.org/en/latest/zebra.html (zebra manual)
