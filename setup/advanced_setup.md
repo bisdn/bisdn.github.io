@@ -1,7 +1,7 @@
 # Advanced configuration
 
 ## Managing packages via OPKG
-  
+
 [OPKG][opkg] is the leightweight package management system on BISDN Linux.
 
 `opkg --help` will print possible commands.
@@ -57,12 +57,16 @@ client_drivshell port xe0 AN=off SP=10000
 
 The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
 
+## OF-DPA script examples
+Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed in BISDN Linux.
+
 ## Additional resources
 * [opkg project][opkg]
 * [OF-DPA GitGub Repository][ofdpa]
+* [OF-DPA usage examples][ofdpa_examples]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
 
 [opkg]: https://git.yoctoproject.org/cgit/cgit.cgi/opkg/about/ (opkg project)
 [ofdpa]: https://github.com/Broadcom-Switch/of-dpa (OF-DPA GitHub repository)
-
+[ofdpa_examples]: https://github.com/Broadcom-Switch/of-dpa/tree/master/src/example
