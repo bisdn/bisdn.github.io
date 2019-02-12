@@ -10,10 +10,10 @@ The [AG7648][ag7648] switch announces a maximum of 32k entries for the unicast r
 
 ## Linux namespaces
 
-baseboxd is not compatible with [Linux namesspaces][netns]. Moving basebox's interfaces to a namespace will duplicate them.
+baseboxd is not compatible with [Linux namespaces][netns]. Moving basebox's interfaces to a namespace will duplicate them.
 
 ## Additional resources
-* [of-dpa][ofpda]
+* [of-dpa][ofdpa]
 * [netns man-page][netns]
 
 **Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
