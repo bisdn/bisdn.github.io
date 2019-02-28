@@ -1,6 +1,7 @@
 # Advanced configuration
 
 ## Managing packages via OPKG
+
 [OPKG][opkg] is the leightweight package management system on BISDN Linux.
 
 `opkg --help` will print possible commands.
@@ -14,9 +15,11 @@ opkg remove <pkgs>
 to upgrade all packages or install and remove certain packages.
 
 ## SFP module configuration
+
 BISDN Linux supports SFP modules (otical or active copper) as well as direct attached cables (DAC). By default, BISDN Linux has disabled auto-negotiation on all ports (AN=off). On platforms like the AG7648 by default 10G is configured on all ports.
 
 ### Enabling auto-negotiation
+
 To enable auto-nagotiation on ports use the `client_drivshell` tool. To enable it on port 1 run:
 
 ```
@@ -45,6 +48,7 @@ Nov 29 09:00:17 agema-ag7648 ofdpa[7389]:        xe1(  2)  up     10G  FD   SW  
 ```
 
 ### Disable auto-negotiation
+
 To disable auto-negotiation run the following command:
 
 ```
@@ -54,34 +58,7 @@ client_drivshell port xe0 AN=off SP=10000
 The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
 
 ## OF-DPA script examples
-Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed on BISDN Linux. The coresponding man pages and usage help can be displayed like this:
-
-```
-man client_flowtable_dump
-client_flowtable_dump --help
-```
-
-## Uninstall/Upgrade a running system
-The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux. The coresponding man pages and usage help can be displayed like this:
-
-```
-man onie-bisdn-uninstall
-onie-bisdn-uninstall --help
-```
-
-The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. The coresponding man pages and usage help can be displayed like this:
-
-```
-man onie-bisdn-upgrade
-onie-bisdn-upgrade --help
-```
-
-This shows an example usage:
-
-```
-onie-bisdn-upgrade http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
-```
-
+Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed in BISDN Linux.
 
 ## Additional resources
 * [opkg project][opkg]
