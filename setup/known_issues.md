@@ -12,6 +12,12 @@ The [AG7648][ag7648] switch announces a maximum of 32k entries for the unicast r
 
 baseboxd is not compatible with [Linux namespaces][netns]. Moving basebox's interfaces to a namespace will duplicate them.
 
+## Upgrade of BISDN Linux via onie-bisdn-upgrade
+
+The script `onie-bisdn-upgrade` allows to use static IP configuration instead of DHCP. However, using the current ONIE installer, there is no route set towards the gateway, so images outside the configured network or, when using the "current" option, outside the switch management network ('enp0s20f0') can not be pulled and installed automatically.
+
+Also note, that when DHCP is used an image provided by the DHCP server (option 60) will have priority over the image specified as parameter of the onie-bisdn-upgrade script.
+
 ## Additional resources
 * [of-dpa][ofdpa]
 * [netns man-page][netns]
