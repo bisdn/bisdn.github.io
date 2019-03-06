@@ -58,7 +58,33 @@ client_drivshell port xe0 AN=off SP=10000
 The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
 
 ## OF-DPA script examples
-Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed in BISDN Linux.
+Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed on BISDN Linux. The coresponding man pages and usage help can be displayed like this:
+
+```
+man client_flowtable_dump
+client_flowtable_dump --help
+```
+
+## Uninstall/Upgrade a running system
+The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux. The coresponding man pages and usage help can be displayed like this:
+
+```
+man onie-bisdn-uninstall
+onie-bisdn-uninstall -h
+```
+
+The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. The coresponding man pages and usage help can be displayed like this:
+
+```
+man onie-bisdn-upgrade
+onie-bisdn-upgrade -h
+```
+
+This shows an example usage:
+
+```
+onie-bisdn-upgrade http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
+```
 
 ## Additional resources
 * [opkg project][opkg]
