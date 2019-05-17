@@ -57,6 +57,24 @@ client_drivshell port xe0 AN=off SP=10000
 
 The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
 
+## Persistent OF-DPA port configuration
+OF-DPA port configuration can be persisted through restarts. In order to turning off auto-negotiation for the ports `xe0` and `xe1` one would run
+
+```
+client_drivshell port xe0 AN=off SP=10000
+client_drivshell port xe1 AN=off SP=10000
+```
+
+To make the commands persist one would add the following lines to the file `/etc/ofdpa/rc.soc`
+
+```
+port xe0 AN=off SP=10000
+port xe1 AN=off SP=10000
+exit
+```
+
+Note the absense of `client_drivshell` and the single `exit` statement at the end.
+
 ## OF-DPA script examples
 Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed on BISDN Linux. The coresponding man pages and usage help can be displayed like this:
 
