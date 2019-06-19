@@ -75,6 +75,14 @@ exit
 
 Note the absense of `client_drivshell` and the single `exit` statement at the end.
 
+### Enable source-mac-learning
+
+Source-mac-learning can be enabled by default by adding the following line to `/etc/ofdpa-grpc.conf`
+
+```
+--enable_srcmac_learning
+```
+
 ## OF-DPA script examples
 Some OF-DPA script examples can be found in the [OF-DPA usage examples][ofdpa_examples]. The scripts are already installed on BISDN Linux. The coresponding man pages and usage help can be displayed like this:
 
