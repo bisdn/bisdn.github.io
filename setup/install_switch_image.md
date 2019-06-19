@@ -87,4 +87,4 @@ How to use the console and start services, please see the next section.
 [kermit]: http://www.kermitproject.org/ (kermit website)
 [ONIE]: http://www.onie.org/ (ONIE website)
 [dmidecode]: https://wiki.ubuntuusers.de/dmidecode/ (dmidecode website)
-[image-repository]: https//repo.bisdn.de/ftp/pub/ (BISDN image repository)
+[image-repository]: https://repo.bisdn.de/pub/onie (BISDN image repository)
