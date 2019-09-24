@@ -35,8 +35,10 @@ client_drivshell ports
 See the journal logs:
 
 ```
-journalctl -u ofdpa -e
+journalctl -u ofdpa 
 ```
+.. cli_drep::
+
 
 Port 1 should have auto neg enabled (YES) while port 2 (and all other ports) should have set it to NO. In the example, a 1G active copper SFP is attached to port 1 and the speed has been set accordingly. All other ports have set the speed to 10G by default.
 
