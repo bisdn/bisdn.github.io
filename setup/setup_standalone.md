@@ -7,7 +7,7 @@ System Configuration
 Setup a single Basebox switch or router
 =======================================
 
-We assume that the ONIE installation of BISDN Linux was successful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html).
+We assume that the ONIE installation of BISDN Linux was successful. For more information on ONIE installation please refer to the :ref:`setup_install_sw_image`.
 
 Getting started
 ***************
@@ -130,7 +130,7 @@ The following components should be active (running) and enabled on the remote co
 Setup baseboxd
 ==============
 
-baseboxd uses a config file to set e.g. [GLOG loglevels][GLOG] and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
+baseboxd uses a config file to set e.g. :ref:`GLOG` and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
 
 .. code-block:: bash
 
@@ -152,7 +152,6 @@ After having made the necessary changes to this file, restart baseboxd:
 .. code-block:: bash
 
   systemctl restart baseboxd
-
 
 After a short while (2 seconds) you should see the list of switch ports being exposed to the local host via:
 
@@ -316,12 +315,12 @@ This tool can be used to show detailed information about the system/platform, th
 FRRouting
 *********
 
-BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide] for further information.
+BISDN Linux comes with :ref:`FRR` pre-installed. Please follow the `FRR User Guide <http://docs.frrouting.org/en/latest/>`_ for further information.
 
 Using FRR and ZEBRA
 ^^^^^^^^^^^^^^^^^^^
 
-When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the [ZEBRA manual][zebra_manual]. 
+When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the `Zebra manual <http://docs.frrouting.org/en/latest/zebra.html>`_.
 The example below shows how to configure an IPv6 adress on a port.
 
 .. code-block:: bash
@@ -335,15 +334,12 @@ The example below shows how to configure an IPv6 adress on a port.
     no ipv6 nd suppress-ra
     ipv6 nd prefix 2003:db01:0:21::/64
 
-systemd-networkd
-****************
-
 Persisting storage of network configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===========================================
 
-Multiple ways of storing network configuration exist in Linux. We support [systemd-networkd][systemd-networkd-mp], [FRRouting][FRRouting User Guide] for single Basebox setups. 
+Multiple ways of storing network configuration exist in Linux. We support :ref:"systemd-networkd" , `FRR User Guide <http://docs.frrouting.org/en/latest/>`_ for single Basebox setups. 
 
-systemd-networkd uses `.network` files to store network configuration. For details please see the [systemd-networkd man page][systemd-networkd-mp]. 
+systemd-networkd uses `.network` files to store network configuration. For details please see the `systemd-networkd <https://www.freedesktop.org/software/systemd/man/systemd.network.html>`_
 The `.network` files (in directory `/etc/systemd/network/`) are processed in lexical order. In the example below, the file `20-port50.network` is processed first, 
 meaning that port50 will get a dedicated configuration while all other ports get the basic one. Since only the first file that matches a port is processed, 
 that also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file `30-port.network`)

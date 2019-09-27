@@ -1,4 +1,4 @@
-.. _physical_testing::
+.. _physical_testing:
 
 ####################
 Install BISDN Fabric
@@ -37,7 +37,7 @@ If you are introducing a dedicated switch for this role:
 
 Locate the management switch in the place most suitable for your setup's needs, bearing in mind that both the SDN controller servers and Basebox switches will be connected to it. The switch will not need to have an uplink of any sort for Basebox, however you may want to connect it to your management infrastructure for configuration and monitoring purposes.
 
-For details on configuring the management switch, please refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section.
+For details on configuring the management switch, please refer to the :ref:`mgmt-network` section.
 
 SDN controller server installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,7 +63,7 @@ Connect the two servers with the prepared SFP+ DAC cable (prerequisites item 4),
 Connecting to the Basebox switches
 ++++++++++++++++++++++++++++++++++
 
-Finally connect one, and only one, of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
+Finally connect one, and only one, of the remaining 5 Ethernet ports (marked yellow on the connectivity graph above) on both of the SDN controller servers to the management switch (prerequisites item 3). This switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the :ref:`mgmt-network` section for further details on the management switch configuration.
 
 Power on
 ++++++++
@@ -86,7 +86,7 @@ Connect the two switches together with a pair of QSFP DAC cables (prerequisites 
 Connecting the Basebox switches to the SDN controllers
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Connect the management ports on both the switches with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the "[Configure the management network](#configure-the-management-network-for-control-traffic)" section for further details on the management switch configuration.
+Connect the management ports on both the switches with CAT6 cables (prerequisites item 6) to our management switch (prerequisites item 3). Again, the management switch will be used to carry the OpenFlow control traffic between the SDN controller servers and the Basebox switches. Refer to the :ref:`mgmt-network` section for further details on the management switch configuration.
 
 Power on
 ++++++++
@@ -97,6 +97,8 @@ Configuration
 ^^^^^^^^^^^^^
 
 Once the setup is wired up, you can proceed to perform any configuration needed before you start all the devices and begin the operation of Basebox.
+
+.. _mgmt-network:
 
 Configure the management network (for control traffic)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++

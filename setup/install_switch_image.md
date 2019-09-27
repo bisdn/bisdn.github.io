@@ -4,12 +4,12 @@
 Install BISDN Linux
 ###################
 
-Installing BISDN Linux on a whitebox switch can be done via the [ONIE][ONIE] installer. This page shows how to connect to the switch and guides through the installation process.
+Installing BISDN Linux on a whitebox switch can be done via the :term:`ONIE` installer. This page shows how to connect to the switch and guides through the installation process.
 
 Connect to the switch console
 =============================
 
-Connect the `CONSOLE` port of the switch to a computer of your choice. We recommend using the tool [kermit][kermit]. On a Linux machine install ckermit, edit a file named `.kermrc` and put in your config with the used line port.
+Connect the `CONSOLE` port of the switch to a computer of your choice. We recommend using the tool :term:`kermit`. On a Linux machine install ckermit, edit a file named `.kermrc` and put in your config with the used line port.
 
 Example of `.kermrc`:
 
@@ -34,12 +34,12 @@ Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove 
 Get the image via the CLI
 =========================
 
-Select `ONIE: Rescue` to get to the cli. Install the image via a cli command as in the example below. Images can be found [here][image-repository]
+Select `ONIE: Rescue` to get to the cli. Install the image via a cli command as in the example below. Images can be found in the `image repo <http://repo.bisdn.de/pub/onie/>`_.
 
 .. code-block:: bash
   onie-nos-install http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
 
-More information about the ONIE cli can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
+More information about the ONIE cli can be found `here <https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install>`_.
 
 Get the image via DHCP option 60
 ================================

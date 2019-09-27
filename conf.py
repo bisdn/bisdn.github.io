@@ -19,12 +19,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'basebox-user-documentation'
+project = 'basebox-user-docuementation'
 copyright = '2019, BISDN'
 author = 'BISDN'
 
 # The short X.Y version
-version = ''
+version = 'alpha'
 # The full version, including alpha/beta/rc tags
 release = ''
 
@@ -137,7 +137,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'basebox-user-documentation.tex', 'basebox-user-documentation Documentation',
+    (master_doc, 'basebox-user-documentation.tex', 'Basebox Documentation',
      'BISDN', 'manual'),
 ]
 
@@ -147,7 +147,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'basebox-user-documentation', 'basebox-user-documentation Documentation',
+    (master_doc, 'basebox-user-documentation', 'Basebox Documentation',
      [author], 1)
 ]
 
