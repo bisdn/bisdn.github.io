@@ -51,7 +51,6 @@ Setup and System Configuration
 .. toctree::
       :glob:
 
-   setup/setup_physical
    setup/install_switch_image
    setup/setup_standalone
 
