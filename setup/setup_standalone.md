@@ -1,235 +1,365 @@
-# Setup a single Basebox switch or router
+.. _setup_standalone:
 
-We assume that the ONIE installation of BISDN Linux was ssuccessful. For more information on ONIE installation please refer to the [previous section](install_switch_image.html).
+####################
+System Configuration
+####################
 
-## Getting started
+Setup a single Basebox switch or router
+=======================================
+
+We assume that the ONIE installation of BISDN Linux was successful. For more information on ONIE installation please refer to the :ref:`setup_install_sw_image`.
+
+Getting started
+***************
 
 Log into the switch with the following credentials:
 
-```
-USER = "basebox"
+.. code-block:: bash
 
-PASSWORD = "b-isdn"
-```
+  USER = "basebox" 
+  PASSWORD = "b-isdn"
 
-BISDN Linux, as most other Linux systems, requires to run commands that change system settings with superuser privileges. The examples below must then be run via `sudo` to succeed.
+BISDN Linux, as most other Linux systems, requires superuser privileges to run commands that change system settings. The examples below must then be run via `sudo` to succeed. 
+BISDN Linux makes use of [systemd][systemd]. There are several systemd-enabled services required that turn a whitebox switch into a router:
 
-BISDN Linux makes use of [systemd][systemd]. There are several services required that turn a whitebox switch into a router:
-* ofdpa
-* ofdpa-grpc
-* ofagent
-* baseboxd
-* frr
+  * ofdpa
+  * ofdpa-grpc
+  * ofagent
+  * baseboxd
+  * frr
 
 You may start/stop/query a service like for example:
 
-```
-systemctl start ofdpa
-systemctl stop ofdpa
-systemctl status ofdpa
-```
-## Configure a local or remote controller
+.. code-block:: bash
+
+  systemctl start | stop | restart | enable | disable | status SERVICE.service
+
+Configure a local or remote controller
+**************************************
 
 BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
 Run the following scripts on the whitebox switch to configure the local or remote usage:
 
-### Local baseboxd controller
-`basebox-change-config -l baseboxd` where the default OpenFlow port `6653` is used.
+* Local baseboxd controller, where the default OpenFlow port `6653` is used.
 
-### Local Ryu controller
-BISDN Linux supports to use [Ryu][Ryu] as the controller:
+.. code-block:: bash
 
-`basebox-change-config -l ryu-manager ryu.app.ofctl_rest`
+  basebox-change-config -l baseboxd 
 
-where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
+* Local Ryu controller, BISDN Linux supports to use [Ryu][Ryu] as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-### Remote controller
-`basebox-change-config -r 172.16.10.10 6653` where the IP-address and port must point to the remote controller
+.. code-block:: bash
 
-## Verify your configuration
+  basebox-change-config -l ryu-manager ryu.app.ofctl_rest
+
+* Remote controller,  where the IP-address and port must point to the remote controller.
+
+.. code-block:: bash
+
+  basebox-change-config -r <IP address> <OpenFlow Port>
+
+Verify your configuration
+*************************
 
 You can check the results of your configuration in the following file: `/etc/default/ofagent`
 
 The section "OPTION=" should point to localhost (local controller) or to the remote controller and respective port that you have configured.
 
-## See the installed software components
+See the installed software components
+*************************************
 
 Check if the required software components are installed.
 
-### Local controller (BISDN Linux)
+Local controller (BISDN Linux)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To check whether the proper packages are installed on BISDN Linux run
 
-`opkg info service-name`
+.. code-block:: bash
 
-The following components should be installed on the whitebox switch by default:
-`baseboxd`, `ofagent`, `ofdpa`, `ofdpa-grpc`, `grpc_cli`, `ffr`
+  opkg info service-name
 
-e.g.:
-```
-opkg info baseboxd; \
-opkg info ofagent; \
-opkg info ofdpa; \
-opkg info ofdpa-grpc; \
-opkg info frr
-```
+The following components should be installed on the whitebox switch by default: `baseboxd`, `ofagent`, `ofdpa`, `ofdpa-grpc`, `grpc_cli`, `frr`.
 
-### Remote controller
+.. code-block:: bash
 
-The following components should be installed on the remote controller:
-`baseboxd`, `ffr`, `ryu-manager` (optional)
+  opkg info baseboxd; \
+  opkg info ofagent; \
+  opkg info ofdpa; \
+  opkg info ofdpa-grpc; \
+  opkg info frr
 
-## Verify the running services
+Remote controller
+^^^^^^^^^^^^^^^^^
 
-You can check if the respective services are running.
+The following components should be installed and running on the remote controller: `baseboxd`, `frr`, `ryu-manager` (optional) 
 
-### Local controller (BISDN Linux)
+Verify the running software components
+**************************************
 
-The following services should be active (running) and enabled on the whitebox switch by default:
-`baseboxd`, `ofagent`, `ofdpa`, `ofdpa-grpc`
+Local controller (BISDN Linux)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-### Remote controller
+The following services should be active (running) and enabled on the whitebox switch by default
 
-The following components should be active (running) and enabled on the whitebox switch:
-`ofagent`, `ofdpa`, `ofdpa-grpc`
+  * baseboxd 
+  * ofagent
+  * ofdpa
+  * ofdpa-grpc
 
-The following components should be inactive and disabled on the whitebox switch:
-`baseboxd`, `ryu-manager`
+Remote controller
+^^^^^^^^^^^^^^^^^
 
-The following components should be active (running) and enabled on the remote controller:
-`baseboxd`, `frr`, `ryu-manager` (optional)
+The following components should be active (running) and enabled on the whitebox switch
 
-Example for systemd commands:
-```
-systemctl status baseboxd; \
-systemctl status ofagent; \
-systemctl status ofdpa; \
-systemctl status ofdpa-grpc; \
-systemctl status ryu-manager
-```
+  * ofagent
+  * ofdpa
+  * ofdpa-grpc
 
-## Using baseboxd
+The following components should be inactive and disabled on the whitebox switch
 
-baseboxd uses a config file to set e.g. [GLOG loglevels][GLOG] and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
+  * baseboxd
+  * ryu-manager
 
-```
-### Configuration options for baseboxd
-#
-# Listening port:
-# FLAGS_port=6653
+The following components should be active (running) and enabled on the remote controller
 
-### glog
-#
-# log to stderr by default:
-GLOG_logtostderr=1
+  * baseboxd
+  * frr
+  * ryu-manager
 
-# verbose log level:
-# GLOG_v=0
-```
+Setup baseboxd
+==============
 
-After having made changes to this file, restart baseboxd:
+baseboxd uses a config file to set e.g. :ref:`GLOG` and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
 
-```
-systemctl restart baseboxd
-```
+.. code-block:: bash
+
+  ### Configuration options for baseboxd
+  #
+  # Listening port:
+  # FLAGS_port=6653
+  
+  ### glog
+  #
+  # log to stderr by default:
+  GLOG_logtostderr=1
+  
+  # verbose log level:
+  # GLOG_v=0
+
+After having made the necessary changes to this file, restart baseboxd:
+
+.. code-block:: bash
+
+  systemctl restart baseboxd
 
 After a short while (2 seconds) you should see the list of switch ports being exposed to the local host via:
 
-```
-ip link show
-```
+.. code-block:: bash
 
-Note that the ports that you see (port1, port2, ... port54) are numbered as on the switch. The ports are Linux tap devices by nature, and are not the real physical ports (remember, there is a separation of control and data in SDN, the tap interfaces are merely handles for the "real" physical ports on the switch. Therefore, dumping all traffic coming in to a specific port via, e.g., tcpdump, will not give the desired effect unless you have created an OpenFlow rule to literally send all traffic coming in to a certain port up to the controller. For most switches, the data rate even of a 10G port would be too high to pipe all traffic through the OpenFlow channel)
+  ip link show
+
+Note that the ports that you see (port1, port2, ... port54) are numbered as on the switch. The ports are Linux tap devices by nature, and are not the real physical ports (remember, there is a separation of control and data in SDN, the tap interfaces are merely handles for the "real" physical ports on the switch. Therefore, dumping all traffic coming in to a specific port via, e.g., tcpdump, will not give the desired effect unless you have created an OpenFlow rule to literally send all traffic coming in to a certain port up to the controller. For most switches, the data rate even of a 10G port would be too high to pipe all traffic through the OpenFlow channel).
 
 You can see the output log of baseboxd by means of
 
-```
-journalctl -u baseboxd -f
-```
+.. code-block:: bash
+
+  journalctl -u baseboxd -f
 
 Note that this works for all other services, too. Sometimes it is particularly helpful to look at the output of the OF-DPA service, as this contains some useful output from the client_drivshell command line interface.
 
-## Read the switch information via client tools
+Configure advanced features
+===========================
+
+Configure source-MAC learning
+*****************************
+
+Run the following grpc calls to enable/disable source-MAC learning:
+
+.. code-block:: bash
+
+  grpc_cli call localhost:50051 ofdpaSourceMacLearningSet "enable: true"
+
+
+Read the current state:
+
+.. code-block:: bash
+
+  grpc_cli call localhost:50051 ofdpaSourceMacLearningGet ""
+
+.. warning:: The switch platforms not yet support the `grpc_cli` tool. This command must then be run from outside the switch.
+
+Port mirroring
+**************
+
+BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace localhost with the IP of the whitebox switch)
+
+.. code-block:: bash
+
+  grpc_cli call localhost:50051 ofdpaMirrorPortCreate "port_num: 1"
+  grpc_cli call localhost:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 2 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS}"
+  grpc_cli call localhost:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 3 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS_EGRESS}"
+
+See mirror port configuration by running the following command on the whitebox switch:
+
+.. code-block:: bash
+
+  client_mirror_port_dump
+
+Mirror ports can be deleted according to the following commands
+
+.. code-block::  bash
+
+  grpc_cli call localhost:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 2 }"
+  grpc_cli call localhost:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 3 }"
+  grpc_cli call localhost:50051 ofdpaMirrorPortDelete "port_num: 1"
+
+.. warning:: The switch platforms not yet support the `grpc_cli` tool. This command must then be run from outside the switch.
+
+Enabling auto-negotiation
+*************************
+
+To enable auto-nagotiation on ports use the `client_drivshell` tool. To enable it on port 1 run:
+
+.. code-block:: bash
+
+  client_drivshell port xe0 AN=on
+
+Use the following command to print the current port configuration to the journal:
+
+.. code-block:: bash
+
+  client_drivshell ports
+
+Port 1 should have auto neg enabled (YES) while port 2 (and all other ports) should have set it to NO. In the example, a 1G active copper SFP is attached to port 1 and the speed has been set accordingly. All other ports have set the speed to 10G by default. See the journal logs:
+
+.. code-block:: bash
+
+  $ journalctl -eu ofdpa
+            ena/    speed/ link auto    STP                  lrn  inter   max  loop
+      port  link    duplex scan neg?   state   pause  discrd ops   face frame  back
+   xe0(  1)  up      1G  FD   SW  Yes  Forward          None    F   GMII  9412
+   xe1(  2)  up     10G  FD   SW  No   Forward          None    F    SFI  9412
+
+Disable auto-negotiation
+************************
+
+To disable auto-negotiation run the following command:
+
+.. code-block:: bash
+
+  client_drivshell port xe0 AN=off SP=10000
+
+The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
+
+Persistent OF-DPA port configuration
+************************************
+
+OF-DPA port configuration can be persisted through restarts. In order to turning off auto-negotiation for the ports `xe0` and `xe1` one would run
+
+.. code-block:: bash
+
+  client_drivshell port xe0 AN=off SP=10000
+  client_drivshell port xe1 AN=off SP=10000
+
+To make the commands persist one would add the following lines to the file `/etc/ofdpa/rc.soc`
+
+.. code-block:: bash
+
+  port xe0 AN=off SP=10000
+  port xe1 AN=off SP=10000
+  exit
+
+Note the absense of `client_drivshell` and the single `exit` statement at the end.
+
+Bundled software with BISDN Linux
+=================================
+
+Client tools
+************
+
 Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
 
-```
-client_flowtable_dump
-client_grouptable_dump
-client_port_table_dump
-```
-## onlpdump
+.. code-block:: bash
+
+  client_flowtable_dump
+  client_grouptable_dump
+  client_port_table_dump
+
+onlpdump
+********
 
 This tool can be used to show detailed information about the system/platform, the fan-control, the LEDs and the attached modules:
 
-```
-onlpdump
-```
-## FRRouting
+.. code-block:: bash
 
-BISDN Linux comes with [FRRouting][frr] pre-installed. Please follow the [FRRouting User Guide][FRRouting User Guide].
+  Usage: onlpdump [OPTIONS]
+    -d   Use dump(). This is the default.
+    -s   Use show() instead of dump().
+    -r   Recursive show(). Implies -s
+    -e   Extended show(). Implies -s
+    -y   Yaml show(). Implies -s
+    -o   Dump ONIE data only.
+    -x   Dump Platform Info only.
+    -j   Dump ONIE data in JSON format.
+    -m   Run platform manager.
+    -M   Run as platform manager daemon.
+    -i   Iterate OIDs.
+    -p   Show SFP presence.
+    -t   <file>  Decode TlvInfo data.
+    -O   <oid> Dump OID.
+    -S   Decode SFP Inventory
+    -b   Decode SFP Inventory into SFF database entries.
+    -l   API Lock test.
+    -J   Decode ONIE JSON data.
+  
+FRRouting
+*********
 
-## Persisting storage of network configuration
+BISDN Linux comes with :ref:`FRR` pre-installed. Please follow the `FRR User Guide <http://docs.frrouting.org/en/latest/>`_ for further information.
 
-Multiple ways of storing network configuration exist in Linux. We support [systemd-networkd][systemd-networkd-mp], [FRRouting][FRRouting User Guide] for single Basebox setups. 
-For [Basebox Fabric][fabric] we also integrated a distributed [etcd-cluster][api_definition] database.
+Using FRR and ZEBRA
+^^^^^^^^^^^^^^^^^^^
 
-### Using systemd-networkd
-
-systemd-networkd uses `.network` files to store network configuration. For details please see the [systemd-networkd man page][systemd-networkd-mp]. 
-The `.network` files (in directory `/etc/systemd/network/`) are processed in lexical order. In the example below, the file `20-port50.network` is processed first, 
-meaning that port50 will get a dedicated configuration while all other ports get the basic one. Since only the first file that matches a port is processed, 
-that also means port50 is __not__ getting the configuration for LLDP, but all other ports do (as these are configured using file `30-port.network`)
-
-```
-root@agema-ag7648:/etc/systemd/network# cat 20-port50.network 
-[Match]
-Name=port50
-
-[Network]
-Address=10.20.30.20/24
-
-root@agema-ag7648:/etc/systemd/network# cat 30-port.network 
-[Match]
-Name=port*
-
-[Network]
-LLDP=yes
-EmitLLDP=yes
-LLMNR=no
-```
-
-### Using FRR and ZEBRA
-
-When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the [ZEBRA manual][zebra_manual]. 
+When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the `Zebra manual <http://docs.frrouting.org/en/latest/zebra.html>`_.
 The example below shows how to configure an IPv6 adress on a port.
 
-```
-hostname basebox
-log file zebra.log
+.. code-block:: bash
 
-interface port40
-  no shutdown
-  ipv6 address 2003:db01:0:21::1/64
-  no ipv6 nd suppress-ra
-  ipv6 nd prefix 2003:db01:0:21::/64
-```
+  hostname basebox
+  log file zebra.log
+  
+  interface port40
+    no shutdown
+    ipv6 address 2003:db01:0:21::1/64
+    no ipv6 nd suppress-ra
+    ipv6 nd prefix 2003:db01:0:21::/64
 
-## Additional resources
-* [systemd GitHub Repository][systemd]
-* [systemd-networkd man page][systemd-networkd-mp]
-* [FRRouting github page][frr]
-* [FRRouting User Guide][FRRouting User Guide]
-* [Ryu SDN framework][Ryu]
-* [GLOG How To][GLOG]
+Persisting storage of network configuration
+===========================================
 
-**Customer support**: If at any point during installation or configuration of your Basebox setup you get stuck or have any questions, please contact our **[customer support](../customer_support.html#customer_support)**.
+Multiple ways of storing network configuration exist in Linux. We support :ref:"systemd-networkd" , `FRR User Guide <http://docs.frrouting.org/en/latest/>`_ for single Basebox setups. 
 
-[systemd]: https://github.com/systemd/systemd (systemd on github)
-[systemd-networkd-mp]: https://www.freedesktop.org/software/systemd/man/systemd.network.html (systemd-networkd man page)
-[frr]: https://github.com/FRRouting/frr (FRRouting on github)
-[FRRouting User Guide]: http://docs.frrouting.org/en/latest/ (FRRouting User Guide)
-[Ryu]: https://osrg.github.io/ryu/ (Ryu SDN framework)
-[GLOG]: http://rpg.ifi.uzh.ch/docs/glog.html (How To Use Google Logging Library)
-[fabric]: ../introduction/introduction_overall_system_architecture.html
-[api_definition]: ../api/api_definition.html
-[zebra_manual]: http://docs.frrouting.org/en/latest/zebra.html (zebra manual)
+systemd-networkd uses `.network` files to store network configuration. For details please see the `systemd-networkd <https://www.freedesktop.org/software/systemd/man/systemd.network.html>`_
+The `.network` files (in directory `/etc/systemd/network/`) are processed in lexical order. In the example below, the file `20-port50.network` is processed first, 
+meaning that port50 will get a dedicated configuration while all other ports get the basic one. Since only the first file that matches a port is processed, 
+that also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file `30-port.network`)
+
+.. code-block:: bash
+
+  root@agema-ag7648:/etc/systemd/network# cat 20-port50.network 
+  [Match]
+  Name=port50
+  
+  [Network]
+  Address=10.20.30.20/24
+  
+  root@agema-ag7648:/etc/systemd/network# cat 30-port.network 
+  [Match]
+  Name=port*
+  
+  [Network]
+  LLDP=yes
+  EmitLLDP=yes
+  LLMNR=no
