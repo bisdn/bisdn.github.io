@@ -83,6 +83,7 @@ html_theme = 'nature'
 html_static_path = ['_static']
 html_logo='images/bisdn_logo2018_rgb_transparent.png'
 html_favicon='images/bisdn_logo2018_rgb_transparent.png'
+html_title='Basebox documentation'
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
