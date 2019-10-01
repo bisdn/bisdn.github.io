@@ -39,10 +39,19 @@ Testing Guide
     test-description/tests/l3-performance
     test-description/tests/l3-standalone
     test-description/tests/vlan
+
+########
+Examples
+########
+.. toctree::
+   :maxdepth: 1
+
+   examples/README.md
+
   
-#############
-Known issues:
-#############
+############
+Known issues
+############
 .. toctree::
    :maxdepth: 1
 
