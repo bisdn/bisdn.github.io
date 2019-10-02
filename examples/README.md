@@ -206,7 +206,7 @@ The interface `swbridge.10` also has a `.netdev` and `.network` pair of files.
 routing
 ------- 
 
-As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done tipically via `iproute2` and `systemd-networkd`, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted :ref: `FRRouting`, to support routing protocols such as BGP and OSPF. Further information can be seen in section :ref:`frrouting`.
+As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done tipically via `iproute2` and `systemd-networkd`, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted `FRRouting`, to support routing protocols such as BGP and OSPF. Further information can be seen in section :ref:`frrouting`.
 
 IPv4
 ----
@@ -313,17 +313,3 @@ So, addition and deletion of IP addresses and routes follow the same workflow as
 Adding the `-4/6` argument to the call allows to show only the desired routes/ addresses by IP protocol.
 
 For 'systemd-networkd' the configuration file is done the same way.
-
-.. _frrouting:
-
-Free Range Routing
-==================
-
-[Free Range Routing](https://github.com/FRRouting/frr), or FRR, is a routing agent for Linux/Unix plaforms, that aggregates several routing daemons, like bgpd and ospfd. 
-
-Currently FRR support in baseboxd, is only tested with bgpd, and in the Free Range Routing folder, a few configuration examples can be seen. Installing FRR can be done, on Fedora and CentOS distributions, by enabling the BISDN FRR copr repository, available [here](https://copr.fedorainfracloud.org/coprs/bisdn/frr/), or the testing version [here](https://copr.fedorainfracloud.org/coprs/bisdn/frr-testing/).
-
-networkd
-========
-
-As examples for configuration using systemd-networkd, the files are available under the networkd folder. These files will generate a configuration similar to the one configured on the bridging section.
