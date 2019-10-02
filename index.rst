@@ -1,5 +1,57 @@
 .. _basebox:
 
+############
+Introduction
+############
+
+.. toctree::
+   :maxdepth: 1
+
+   customer_support
+   introduction/introduction_bisdn_linux
+   introduction/introduction_baseboxd
+
+.. setup
+
+##############################
+Setup and System Configuration
+##############################
+
+.. toctree::
+   :maxdepth: 2
+
+   setup/install_switch_image
+   setup/setup_standalone
+
+#############
+Testing Guide
+#############
+
+.. toctree::
+    :maxdepth: 2
+
+    test-description/README.md
+    test-description/tests/bgp
+    test-description/tests/bgpv6
+    test-description/tests/ospfv2
+    test-description/tests/ospfv3
+    test-description/tests/ipv6-standalone
+    test-description/tests/l3-performance
+    test-description/tests/l3-standalone
+    test-description/tests/vlan
+  
+#############
+Known issues:
+#############
+.. toctree::
+   :maxdepth: 1
+
+   setup/known_issues
+
+########
+Glossary
+########
+
 .. glossary::
 
   OFDPA
@@ -29,54 +81,5 @@
   ONIE
   Open Network Install Environment
     `ONIE <http://onie.org/>`_ provides a network operating system install environment for bare-metal switches. 
-
-
-############
-Introduction
-############
-
-.. toctree::
-      :glob:
-
-   customer_support
-   introduction/introduction_bisdn_linux
-   introduction/introduction_baseboxd
-
-.. setup
-
-##############################
-Setup and System Configuration
-##############################
-
-.. toctree::
-      :glob:
-
-   setup/install_switch_image
-   setup/setup_standalone
-
-#############
-Testing Guide
-#############
-
-.. toctree::
-      :glob:
-
-    test-description/README.md
-    test-description/tests/bgp
-    test-description/tests/bgpv6
-    test-description/tests/ospfv2
-    test-description/tests/ospfv3
-    test-description/tests/ipv6-standalone
-    test-description/tests/l3-performance
-    test-description/tests/l3-standalone
-    test-description/tests/vlan
-  
-#############
-Known issues:
-#############
-.. toctree::
-      :glob:
-
-   setup/known_issues
 
 
