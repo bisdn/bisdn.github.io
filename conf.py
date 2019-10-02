@@ -109,6 +109,9 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
+
+    # disable white pages
+    'extraclassoptions': 'openany,oneside',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
