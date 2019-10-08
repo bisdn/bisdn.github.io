@@ -252,8 +252,8 @@ IPv4 routing in `systemd-networkd` is done using the `[Network]` and `[Route]` s
 IPv6
 ----
 
-* [server](./routing/IPv6/01-server)
-* [controller](./routing/IPv6/01-controller)
+* `server <routing/IPv6/01-server>`_
+* `controller </routing/IPv6/01-controller>`_
 
 IPv6 is supported natively in BISDN Linux and baseboxd. It provides simpler network provisioning mechanism, due to address auto-configuration and the advantage of building more recent and stable networks. 
 

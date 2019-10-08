@@ -59,7 +59,8 @@ On the switch side, it listens for `OFPT_PORT_STATUS` async messages, and update
   |   switch   |   
   +------------+   
 
-On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound [OpenFlow][of] interface.
+On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound `OpenFlow <https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf>`_ interface.
+
   
 .. _code-block:: bash
   
@@ -126,3 +127,4 @@ Currently supported features are:
   * Adding interfaces to bridges
   * Configuring VLANs on interfaces
   * Configuring IP addresses on interfaces
+
