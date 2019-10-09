@@ -4,7 +4,7 @@ Overview
 ========
 
 This chapter serves the purpose of adding baseboxd's example configurations. These examples are also available on 
-'baseboxd github page <https://github.com/bisdn/basebox/tree/master/examples>'_ as scripts to be run on the Basebox controller.
+`baseboxd github page <https://github.com/bisdn/basebox/tree/master/examples>`_ as scripts to be run on the Basebox controller.
 
 Physical Topology
 =================
@@ -14,13 +14,16 @@ These examples are designed to be used with a single switch/ controller and a si
 Bridging
 --------
 
+* `server <https://github.com/bisdn/basebox/blob/master/examples/bridging/01-server>`_
+* `controller <https://github.com/bisdn/basebox/blob/master/examples/bridging/01-controller>`_
+
 These examples describe the process of adding a VLAN-aware bridge interface to the Linux environment, and attaching ports to this bridge.
 
 Network bridges allow to create multiple network segments, forwarding packets based on Ethernet addresses. This mechanism creates then a Layer 2 domain across the configured interfaces on the bridge. 
 
 .. warning:: baseboxd supports only the VLAN-Aware bridge mode. Creating traditional bridges will result in undefined behaviour.
 
-The 'bridging example script <https://github.com/bisdn/basebox/blob/master/examples/bridging/01-controller>'_ will create the following setup on the controller.
+The `bridging example script <https://github.com/bisdn/basebox/blob/master/examples/bridging/01-controller>`_ will create the following setup on the controller.
 
 .. code-block:: bash
 
@@ -211,6 +214,9 @@ As a L3-enabled SDN controller, baseboxd can be configured for routing purposes.
 IPv4
 ----
 
+* `server <https://github.com/bisdn/basebox/blob/master/examples/routing/IPv4/01-server>`_
+* `controller <https://github.com/bisdn/basebox/blob/master/examples/routing/IPv4/01-controller>`_
+
 .. warning:: Configuring a Linux box to work as a router assumes that sysctl `net.ipv4.conf.all.forwarding=1`. BISDN Linux has this sysctl already enabled by default, but routing issues should be debugged first by checking the value for this config.
 
 Adding an IP address to a baseboxd interface is done simply by
@@ -252,8 +258,8 @@ IPv4 routing in `systemd-networkd` is done using the `[Network]` and `[Route]` s
 IPv6
 ----
 
-* `server <routing/IPv6/01-server>`_
-* `controller </routing/IPv6/01-controller>`_
+* `server <https://github.com/bisdn/basebox/blob/master/examples/routing/IPv6/01-server>`_
+* `controller <https://github.com/bisdn/basebox/blob/master/examples/routing/IPv6/01-controller>`_
 
 IPv6 is supported natively in BISDN Linux and baseboxd. It provides simpler network provisioning mechanism, due to address auto-configuration and the advantage of building more recent and stable networks. 
 
