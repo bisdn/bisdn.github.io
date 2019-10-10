@@ -276,6 +276,24 @@ Note the absense of `client_drivshell` and the single `exit` statement at the en
 Bundled software with BISDN Linux
 =================================
 
+bisdn-support
+*************
+
+The bisdn-support script enables costumers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform to BISDN. To execute run `bisdn-support` on the switch with root privileges.
+
+bisdn-change-config
+*******************
+
+Bash script for setting up the OpenFlow endpoint for the baseboxd/ryu controllers, by configuring the ofagent and baseboxd/Ryu (only in case of local controller) configuration files.
+
+.. code-block:: bash
+
+      Execution:
+        -r, --remote : $0 -r <remote controller IP address> <remote controller port>
+        -l, --local : $0 -l { baseboxd | ryu-manager APPLICATION-FILE }
+        -v, --view : view the ofagent config
+        -h, --help : print this message
+
 Client tools
 ************
 
