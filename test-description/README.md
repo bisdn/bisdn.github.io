@@ -12,7 +12,7 @@ The ftest module makes REST-calls to the salt-master containing commands to its 
 Lab setup
 =========
 
-Below is a diagram of the test setup in the BISDN lab. This test setup was designed to maximize the possibilities we have for testing, where we have a leaf-spine
+Below is a diagram of the test setup in the BISDN lab. This test setup was designed to maximise the possibilities we have for testing, where we have a leaf-spine
 architecture for the networking devices, simulating, on a smaller scale, real Data center deployments.
 
 .. image:: testbed/images/ftest_general_setup.png
@@ -29,7 +29,7 @@ ftest configuration
 ===================
 
 ftest has a configuration file, usually present in /etc/ftest/ftest.conf. This file describes the relevant configurations for proper ftest execution, since
-this tool depends on access to a postgres database, the salt-master, among others. Log level can also be changed in this file.
+this tool depends on access to a Postgres database, the salt-master, among others. Log level can also be changed in this file.
 
 For runtime configuration, ftest defines a collection of CLI arguments.
 
@@ -51,7 +51,7 @@ Test run chronology
 
 Running a single test, or a series of different tests is executed as shown in the example below containing two tests, **Test 1** and **Test 2**.
 
-* Initalize nodes (controllers, switches, servers)
+* Initialise nodes (controllers, switches, servers)
     * Provision nodes (Install and check basebox version)
       * Setup topology for test 1
         * Run test (i.e. Ping or Iperf)

@@ -20,7 +20,7 @@ This setup provides checking for connectivity between two baseboxes, running on 
 BGP configuration
 ^^^^^^^^^^^^^^^^^
 
-FRR is configured using files, tipically on the `/etc/frr/` directory. Each desired protocol has a different configuration file,
+FRR is configured using files, typically on the `/etc/frr/` directory. Each desired protocol has a different configuration file,
 where the protocol-specific information can be stored.  This folder will also hold the general configuration files for FRR itself,
 like the `daemons` file, used to set the listening addresses for the protocols and as toggle for configuration of each individual
 routing protocol/daemon.
