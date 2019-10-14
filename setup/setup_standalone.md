@@ -220,7 +220,7 @@ Mirror ports can be deleted according to the following commands
 Enabling auto-negotiation
 *************************
 
-To enable auto-nagotiation on ports use the `client_drivshell` tool. To enable it on port 1 run:
+To enable auto-negotiation on ports use the `client_drivshell` tool. To enable it on port 1 run:
 
 .. code-block:: bash
 
@@ -271,15 +271,33 @@ To make the commands persist one would add the following lines to the file `/etc
   port xe1 AN=off SP=10000
   exit
 
-Note the absense of `client_drivshell` and the single `exit` statement at the end.
+Note the absence of `client_drivshell` and the single `exit` statement at the end.
 
 Bundled software with BISDN Linux
 =================================
 
+bisdn-support
+*************
+
+The bisdn-support script enables costumers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform to BISDN. To execute run `bisdn-support` on the switch with root privileges.
+
+bisdn-change-config
+*******************
+
+Bash script for setting up the OpenFlow endpoint for the baseboxd/ryu controllers, by configuring the ofagent and baseboxd/Ryu (only in case of local controller) configuration files.
+
+.. code-block:: bash
+
+      Execution:
+        -r, --remote : $0 -r <remote controller IP address> <remote controller port>
+        -l, --local : $0 -l { baseboxd | ryu-manager APPLICATION-FILE }
+        -v, --view : view the ofagent config
+        -h, --help : print this message
+
 Client tools
 ************
 
-Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
+Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behaviour and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
 
 .. code-block:: bash
 
@@ -323,7 +341,7 @@ Using FRR and ZEBRA
 ^^^^^^^^^^^^^^^^^^^
 
 When using FRR you can also store network configuration via ZEBRA in `/etc/frr/zebra.conf`. For details please see the `Zebra manual <http://docs.frrouting.org/en/latest/zebra.html>`_.
-The example below shows how to configure an IPv6 adress on a port.
+The example below shows how to configure an IPv6 address on a port.
 
 .. code-block:: bash
 

@@ -87,7 +87,7 @@ The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux
   man onie-bisdn-uninstall
   onie-bisdn-uninstall -h
 
-The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. The coresponding man pages and usage help can be displayed like this:
+The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. The corresponding man pages and usage help can be displayed like this:
 
 .. code-block:: bash
 
