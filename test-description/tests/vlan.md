@@ -1,4 +1,4 @@
-.. _ospf:
+.. _vlan:
 
 VLAN switching
 ==============

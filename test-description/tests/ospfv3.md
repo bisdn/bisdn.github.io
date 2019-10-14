@@ -1,4 +1,4 @@
-.. _ospfv3::
+.. _ospfv3:
 
 OSPFv3 (Open Shortest Path First for IPv6 networking)
 =====================================================
@@ -58,7 +58,7 @@ on the router.
   exit
 
 OSPFv3 expected result and debugging
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Analogous to the previous protocols debugging commands, we can run the following commands to verify the configuration.
 

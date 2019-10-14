@@ -75,7 +75,7 @@ After successful installation the switch will reboot itself. Once it is booted y
   
   agema-ag7648 login:
 
-Log into the switch with the previously provided credentials (XXX add link). You should then see the console of BISDN Linux. See the system information via [dmidecode][dmidecode].
+Log into the switch with the previously provided credentials (XXX add link). You should then see the console of BISDN Linux. See the system information via `dmidecode <https://wiki.ubuntuusers.de/dmidecode/>`_.
 
 Uninstall/Upgrade a running system
 ==================================

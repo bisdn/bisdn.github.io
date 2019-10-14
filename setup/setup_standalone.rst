@@ -20,7 +20,8 @@ Log into the switch with the following credentials:
   PASSWORD = "b-isdn"
 
 BISDN Linux, as most other Linux systems, requires superuser privileges to run commands that change system settings. The examples below must then be run via `sudo` to succeed. 
-BISDN Linux makes use of [systemd][systemd]. There are several systemd-enabled services required that turn a whitebox switch into a router:
+BISDN Linux makes use of `systemd <https://github.com/systemd/systemd>`_. There are several systemd-enabled services required that turn a whitebox switch into a router:
+
 
   * ofdpa
   * ofdpa-grpc
@@ -46,7 +47,7 @@ Run the following scripts on the whitebox switch to configure the local or remot
 
   basebox-change-config -l baseboxd 
 
-* Local Ryu controller, BISDN Linux supports to use [Ryu][Ryu] as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
+* Local Ryu controller, BISDN Linux supports to use `Ryu <https://osrg.github.io/ryu/>`_ as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
 .. code-block:: bash
 
