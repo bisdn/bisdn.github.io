@@ -277,10 +277,10 @@ Note the absence of `client_drivshell` and the single `exit` statement at the en
 Bundled software with BISDN Linux
 =================================
 
-bisdn-support
+basebox-support
 *************
 
-The bisdn-support script enables costumers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform to BISDN. To execute run `bisdn-support` on the switch with root privileges.
+The basebox-support script enables costumers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform to BISDN. To execute run `basebox-support` on the switch with root privileges.
 
 bisdn-change-config
 *******************
