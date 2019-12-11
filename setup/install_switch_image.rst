@@ -27,7 +27,7 @@ On the Linux machine run `kermit`. It will connect to the console of the attache
 Install BISDN Linux via ONIE
 ============================
 
-Power on the switch. During boot, press `DEL` key to enter the boot menu (there is a prompt for that). Select ONIE to get into the ONIE menu or BISDN Linux to start BISDN Linux (this option is only available after it has been installed).
+The recommended switch image installation is done via :term:`ONIE`, a tool that allows installation of Network Operating Systems on bare metal servers. Due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively 
 
 Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
 

@@ -1,20 +1,17 @@
-.. _intro_baseboxd:
+.. _baseboxd_intro:
 
-########
-baseboxd
-########
+Baseboxd introduction
+=====================
 
 Basebox is the BISDN controller package for data center networks with the following elements:
         * The BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
         * baseboxd is a controller daemon integrating whitebox switches into Linux
 
-Introduction
-************
-
-baseboxd is a controller daemon integrating whitebox switches into Linux. Based on :term:`OpenFlow Data Path Abstraction`, it translates Linux :term:`netlink` into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
+Based on :term:`OpenFlow Data Path Abstraction`, it translates Linux :term:`netlink` into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
 
 Architecture
-************
+------------
+
 baseboxd communicates (upwards) with the Linux kernel over :term:`netlink` and (downwards) with the switch using :term:`OFDPA`. The Linux network stack is used to directly represent the state of the switching infrastructure. For each network interface on a switch controlled by baseboxd, a single Linux tap interface exists on the Basebox host operating system.
 
 .. code-block:: bash
@@ -59,8 +56,7 @@ On the switch side, it listens for `OFPT_PORT_STATUS` async messages, and update
   |   switch   |   
   +------------+   
 
-On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound `OpenFlow <https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf>`_ interface.
-
+On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound :term:`OpenFlow Data Path Abstraction` interface.
   
 .. _code-block:: bash
   
@@ -81,14 +77,14 @@ On the kernel side, it listens to netlink events, which are triggered by changes
     +------------+   
   
 netlink
-*******
+-------
 
 baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the :term:`libnl` libraries, which provide a simple interface for sending and receiving netlink messages.
 
 Since baseboxd responds directly to the relevant netlink messages, it is one of the intended ways to interface with baseboxd. One may use tools such as :term:`iproute2` and :term:`systemd-networkd` to configure baseboxd through this interface.
 
 OpenFlow
-********
+--------
 
 baseboxd communicates with switches using OpenFlow. Our implementation uses the Broadcom OF-DPA flavour specifically. It abides by the :term:`OFDPA` table type pattern specification guidelines. Switches compatible with Broadcom's SDK come with the `OF Agent`. `OF Agent` is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
 
@@ -117,14 +113,3 @@ baseboxd communicates with switches using OpenFlow. Our implementation uses the 
   +------v-------+  |
   |     ASIC     |  |
   +--------------+  +
-  
-Features
-********
-
-baseboxd maps the ports on a switch in a Linux environment. These switch ports can then be configured using the same tools as the ones used to configure Linux interfaces. 
-Currently supported features are:
-  * Setting interfaces up/down
-  * Adding interfaces to bridges
-  * Configuring VLANs on interfaces
-  * Configuring IP addresses on interfaces
-
