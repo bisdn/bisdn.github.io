@@ -1,16 +1,9 @@
 .. _ospfv3:
 
 OSPFv3 (Open Shortest Path First for IPv6 networking)
-=====================================================
+-----------------------------------------------------
 
 OSPFv3 is the protocol providing OSPF routing mechanisms for IPv6 networks.
-
-OSPFv3 setup
-^^^^^^^^^^^^
-
-.. image:: ../testbed/images/ospfv3_setup.png
-  :scale: 40 %
-  :align: center
 
 OSPFv3 configuration
 ^^^^^^^^^^^^^^^^^^^^

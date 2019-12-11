@@ -1,21 +1,9 @@
 .. _bgp:
 
 BGP (Border Gateway Protocol)
-============================
+-----------------------------
 
-Leveraging :ref:`FRR` as the routing daemon, the BGP tests will ensure the correct interaction between 
-two controllers and two servers.
-
-BGP setup
-^^^^^^^^^
-
-The configuration for the BGP tests, controller and switch, will provide the following setup:
-
-.. image:: ../testbed/images/bgp_setup.png
-  :scale: 70 %
-  :align: center
-
-This setup provides checking for connectivity between two baseboxes, running on two independent platforms, interconnected via BGP.
+Leveraging :ref:`FRR` as the routing daemon, the BGP tests will ensure the correct interaction between two controllers and two servers.
 
 BGP configuration
 ^^^^^^^^^^^^^^^^^

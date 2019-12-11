@@ -1,16 +1,7 @@
 .. _bgp6:
 
 BGPv6 (Border Gateway Protocol for IPv6 networks)
-=================================================
-
-BGPv6 setup
-^^^^^^^^^^^
-
-The test setup for BGPv6 is the one in the following figure:
-
-.. image:: ../testbed/images/bgpv6_setup.png
-  :scale: 70 %
-  :align: center
+-------------------------------------------------
 
 BGPv6 configuration
 ^^^^^^^^^^^^^^^^^^^

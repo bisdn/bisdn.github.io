@@ -1,20 +1,9 @@
 .. _ospf:
 
 OSPF (Open Shortest Path First)
-===============================
+-------------------------------
 
 OSPF is a link state routing protocol.
-
-OSPF setup
-^^^^^^^^^^
-
-The setup for OSPF follows the two leafs/two servers architecture as the BGP and BGPv6 test cases. This
-protocol is activated on a specific interface, which will then transmit packets in the broadcast domain,
-or directly to another machine, if configured as point-to-point.
-
-.. image:: ../testbed/images/ospf_setup.png
-  :scale: 40 %
-  :align: center
 
 OSPF configuration
 ^^^^^^^^^^^^^^^^^^

@@ -4,6 +4,7 @@
 Introduction
 ############
 
+.. _introduction
 .. toctree::
    :maxdepth: 1
 
@@ -11,44 +12,52 @@ Introduction
    introduction/introduction_bisdn_linux
    introduction/introduction_baseboxd
 
-.. setup
+######################
+Installation and Setup
+######################
 
-##############################
-Setup and System Configuration
-##############################
-
+.. _setup
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    setup/install_switch_image
    setup/setup_standalone
 
-#############
-Testing Guide
-#############
+#######
+Layer 1
+#######
 
-.. toctree::
-    :maxdepth: 2
-
-    test-description/README.md
-    test-description/tests/bgp
-    test-description/tests/bgpv6
-    test-description/tests/ospfv2
-    test-description/tests/ospfv3
-    test-description/tests/ipv6-standalone
-    test-description/tests/l3-performance
-    test-description/tests/l3-standalone
-    test-description/tests/vlan
-
-########
-Examples
-########
+.. _layer1
 .. toctree::
    :maxdepth: 1
 
-   examples/README.md
+   system-configuration/basebox_interfaces
 
-  
+#######
+Layer 2
+#######
+
+.. _layer2
+.. toctree::
+   :maxdepth: 1
+
+   system-configuration/introduction
+   system-configuration/bridging
+
+#######
+Layer 3
+#######
+
+.. _layer3
+.. toctree::
+   :maxdepth: 1
+
+   system-configuration/static_routing
+   system-configuration/bgp
+   system-configuration/bgpv6
+   system-configuration/ospfv2
+   system-configuration/ospfv3
+
 ############
 Known issues
 ############
