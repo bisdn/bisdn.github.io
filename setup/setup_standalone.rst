@@ -128,6 +128,8 @@ The following components should be active (running) and enabled on the remote co
   * frr
   * ryu-manager
 
+.. _baseboxd_setup:
+
 Setup baseboxd
 ==============
 

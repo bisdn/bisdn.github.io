@@ -188,8 +188,3 @@ So, addition and deletion of IP addresses and routes follow the same workflow as
 Adding the `-4/6` argument to the call allows to show only the desired routes/ addresses by IP protocol.
 
 For 'systemd-networkd' the configuration file is done the same way.
-
-ECMP (Equal-cost Multi-path Routing)
-------------------------------------
-
-
