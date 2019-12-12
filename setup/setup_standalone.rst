@@ -128,6 +128,8 @@ The following components should be active (running) and enabled on the remote co
   * frr
   * ryu-manager
 
+.. _baseboxd_setup:
+
 Setup baseboxd
 ==============
 
@@ -153,22 +155,6 @@ After having made the necessary changes to this file, restart baseboxd:
 .. code-block:: bash
 
   systemctl restart baseboxd
-
-After a short while (2 seconds) you should see the list of switch ports being exposed to the local host via:
-
-.. code-block:: bash
-
-  ip link show
-
-Note that the ports that you see (port1, port2, ... port54) are numbered as on the switch. The ports are Linux tap devices by nature, and are not the real physical ports (remember, there is a separation of control and data in SDN, the tap interfaces are merely handles for the "real" physical ports on the switch. Therefore, dumping all traffic coming in to a specific port via, e.g., tcpdump, will not give the desired effect unless you have created an OpenFlow rule to literally send all traffic coming in to a certain port up to the controller. For most switches, the data rate even of a 10G port would be too high to pipe all traffic through the OpenFlow channel).
-
-You can see the output log of baseboxd by means of
-
-.. code-block:: bash
-
-  journalctl -u baseboxd -f
-
-Note that this works for all other services, too. Sometimes it is particularly helpful to look at the output of the OF-DPA service, as this contains some useful output from the client_drivshell command line interface.
 
 Configure advanced features
 ===========================
