@@ -5,7 +5,7 @@ Overview
 
 The following sections present the intended way to configure several networking scenarios on BISDN Linux.
 
-These examples are designed to be used with up to two Basebox controllers (on-switch) and two physical servers. To increase flexiblity Linux namespaces are used to simulate multiple hosts inside the servers. All of the following examples are designed to be executed with the same physical topology, shown in the following diagram.
+These examples are designed to be used with up to two Basebox controllers (on-switch) and two physical servers. To increase flexibility Linux namespaces are used to simulate multiple hosts inside the servers. All of the following examples are designed to be executed with the same physical topology, shown in the following diagram.
 
 .. figure:: ../images/lab_setup.png
   :scale: 60 %

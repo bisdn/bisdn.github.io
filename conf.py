@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinxcontrib.spelling',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -146,6 +147,10 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+## Spelling
+spelling_word_list_filename='spelling_wordlist.txt'
+spelling_ignore_acronyms=True
 
 # -- Options for intersphinx extension ---------------------------------------
 

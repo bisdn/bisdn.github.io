@@ -20,9 +20,7 @@ configured, `/etc/frr/zebra.conf` and `/etc/frr/osfpd.conf`.
   vtysh_enable=yes
   zebra_options="  -A 127.0.0.1 -s 90000000"
 
-The zebra file will configure IP addresses on the interfaces, with the configuration snippet. IP addresses
-are configured across ftest using different mechanisms. It is not required that the same tools are used,
-just that the system is correctly configured for the connectivity tests.
+The zebra file will set IP addresses on the interfaces with the configuration snippet. It is not required that the same tools are used, just that the system is correctly configured for the connectivity tests.
 
 .. code-block:: bash
 
@@ -31,7 +29,7 @@ just that the system is correctly configured for the connectivity tests.
    ip address 10.1.1.1/24
 
 Regarding `/etc/frr/osfpd.conf`, the configuration here must specify the point-to-point parameter in the
-interface specific section, to enable the protocol on the port53 link between the two baseboxes.
+interface specific section, to enable the protocol on the port53 link between the two Basebox routers.
 The redistribute connected command is a "smart" flag by FRR, that will redistribute every network configured
 on the router.
 

@@ -133,7 +133,7 @@ The following components should be active (running) and enabled on the remote co
 Setup baseboxd
 ==============
 
-baseboxd uses a config file to set e.g. :ref:`GLOG` and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
+baseboxd uses a file to set e.g. :ref:`GLOG` and OpenFlow ports. On BISDN Linux this configuration data is stored in `/etc/default/baseboxd` and on Fedora systems in `/etc/sysconfig/baseboxd`. The example below shows the basic structure:
 
 .. code-block:: bash
 
@@ -238,7 +238,7 @@ To disable auto-negotiation run the following command:
 
   client_drivshell port xe0 AN=off SP=10000
 
-The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to check your config, please see the section above.
+The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to verify your configuration, please see the section above.
 
 Persistent OF-DPA port configuration
 ************************************
@@ -284,7 +284,7 @@ Bash script for setting up the OpenFlow endpoint for the baseboxd/ryu controller
 Client tools
 ************
 
-Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behaviour and configuration. The following commands can be used to show the flow, grouptables and ports, respectively:
+Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, group tables and ports, respectively:
 
 .. code-block:: bash
 
@@ -368,3 +368,8 @@ that also means port50 is not getting the configuration for LLDP, but all other 
   LLDP=yes
   EmitLLDP=yes
   LLMNR=no
+
+.. spelling::
+
+  config  
+  pre

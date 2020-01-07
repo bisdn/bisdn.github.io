@@ -9,10 +9,7 @@ BGPv6 configuration
 The FRR configuration for BGPv6 is stored in the same file for the IPv4 BGP configuration, `/etc/frr/bgpd.conf`. As such, the `daemons` file will look the same as the file used in the IPv4
 configuration.
 
-IPv6 addresses on the router must be manually written, as in the BGPv4 case. The main difference in the BGPv6 case is due to 
-the presence of Autoconfiguration mechanisms for IP addresses in IPv6, which allows generating a new IP address for the servers
-interfaces without having to create them manually, for they are derived from the interface's MAC addresses, and an announced
-network prefix in a router port. The IPv6 Autoconfiguration is possible via the zebra.conf configuration, like
+IPv6 addresses on the router must be manually written, as in the BGPv4 case. The main difference in the BGPv6 case is due to the presence of auto-configuration mechanisms for IP addresses in IPv6, which allows generating a new IP address for the servers interfaces without having to create them manually, for they are derived from the interface's MAC addresses, and an announced network prefix in a router port. The IPv6 auto-configuration is possible via the `zebra.conf` configuration, like
 
 .. code-block:: bash
 
@@ -23,7 +20,7 @@ network prefix in a router port. The IPv6 Autoconfiguration is possible via the 
 
 The `bgpd.conf` file configures routes and next-hops. The most relevant configuration difference to the BGP case is the required configuration for the next-hop address,
 where FRR must ensure that we are using the globally configured IP addresses, the ones present on port53, on the image. This is due to the fact that Link-Local address can also be
-used to peer across the two baseboxes, leading to possible errors. This is done via the following configurations.
+used to peer across the two Basebox routers, leading to possible errors. This is done via the following configurations.
 
 In the section `address-family ipv6`:
 

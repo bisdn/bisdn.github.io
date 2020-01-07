@@ -9,7 +9,7 @@ Installing BISDN Linux on a whitebox switch can be done via the :term:`ONIE` ins
 Connect to the switch console
 =============================
 
-Connect the `CONSOLE` port of the switch to a computer of your choice. We recommend using the tool :term:`kermit`. On a Linux machine install ckermit, edit a file named `.kermrc` and put in your config with the used line port.
+Connect the `CONSOLE` port of the switch to a computer of your choice. We recommend using the tool :term:`kermit`. On a Linux machine install ckermit, edit a file named `.kermrc` and put in your configuration with the used line port.
 
 Example of `.kermrc`:
 
@@ -46,7 +46,7 @@ Get the image via DHCP option 60
 
 Connect the management port to a DHCP server of your choice. The DHCP server uses "Vendor Class Identifier – Option 60" to tell the switch the URL of the image.
 
-Example of dnsmasq config:
+Example of dnsmasq configuration:
 
 .. code-block:: bash
 
@@ -80,7 +80,7 @@ Log into the switch with the previously provided credentials in :ref:`setup_stan
 Uninstall/Upgrade a running system
 ==================================
 
-The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux. The coresponding man pages and usage help can be displayed like this:
+The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux. The corresponding man pages and usage help can be displayed like this:
 
 .. code-block:: bash
   

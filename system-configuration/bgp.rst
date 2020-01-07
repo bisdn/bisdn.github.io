@@ -24,12 +24,10 @@ routing protocol/daemon.
   bgpd_options="   -A 127.0.0.1"
   ...
 
-The `/etc/frr/bgpd.conf` file has the protocol specific configs, where the routing information is set up. This routing
+The `/etc/frr/bgpd.conf` file has the protocol specific configurations, where the routing information is set up. This routing
 information entails all the necessary next-hops, route announcements, and route-filters needed to achieve the configuration.
 
-Setting up the IP addresses on the interfaces on the controller, according to the diagram above, can be done using iproute2
-commands. The current ftest workflow allows developers to use their preferred configuration mechanism for link creation, ip
-addressing mechanism, and others, as long as the communication to the Linux Kernel is made via the netlink interface.
+Setting up the IP addresses on the interfaces on the controller according to the diagram above, can be done using iproute2 commands. 
 
 BGP configuration overview
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -51,9 +49,7 @@ Router id and cluster id are two parameters used to identify the router we are c
    neighbor fabric ebgp-multihop 10
    neighbor 10.0.254.2 peer-group fabric
 
-The neighbor lines configure the remote peer-group we are configuring, even though we are only considering *one* next-hop. 
-As per the line `remote-as`, we must consider the same AS number for the remote endpoint, since this will enable iBGP,
-ie. BGP session across two nodes configured in the same AS. The last line will finally configure the neighbor.
+The neighbor lines specify the remote peer-group we are configuring. The `remote-as`, must match the AS number for the remote endpoint, enabling iBGP (BGP session across two nodes configured in the same AS) The last line will finally configure the neighbor.
 
 .. code-block:: bash
 
@@ -70,7 +66,7 @@ receive these networks, and learn the appropriate routes to the next-hop.
 BGP expected result and debugging
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-BGP expects a connection through the defined neighbors to port 179 by default. The connection status can be analysed via the FRR shell `vtysh`.
+BGP expects a connection through the defined neighbors to port 179 by default. The connection status can be checked via the FRR shell `vtysh`.
 
 The result of `vtysh` command, `show ip bgp sum` must be:
 
@@ -80,7 +76,7 @@ The result of `vtysh` command, `show ip bgp sum` must be:
 
 With this command, we see that a neighbor has been successfully learned, and the connection is online and stable.
 Debugging the BGP connection might be a tricky process, but guides from `cisco <https://meetings.ripe.net/ripe-44/presentations/ripe44-eof-bgp.pdf>`_.
-More information on the bgp neighbors is available via
+More information on the BGP neighbors is available via
 
 .. code-block:: bash
 
@@ -95,3 +91,7 @@ The iBGP-learned routes may be checked out if correctly installed on the kernel 
 The final debugging information to confirm must be the switch tables, where we must check if baseboxd has correctly translated
 the rules on the kernel to OpenFlow flow mods, via `client_flowtable_dump 30`. This is the sole command that must *always* be run
 on the switch. The previous commands must be run on the controller/switch, depending where baseboxd is running.
+
+.. spelling::
+
+  iBGP

@@ -21,10 +21,7 @@ configured, `/etc/frr/zebra.conf` and `/etc/frr/osfp6d.conf`.
   zebra_options="  -A 127.0.0.1 -s 90000000"
   ...
 
-The zebra file will configure IP addresses on the interfaces, with the configuration snippet. IP addresses
-are configured across ftest using different mechanisms. It is not required that the same tools are used,
-just that the system is correctly configured for the connectivity tests. The following configurations allow
-setting up the Router neighboring discover packets, and IP address autoconfiguration.
+The zebra file will configure IP addresses on the interfaces, with the configuration snippet. The following configurations allow setting up the Router neighboring discover packets and IP address auto-configuration.
 
 .. code-block:: bash
 
@@ -34,7 +31,7 @@ setting up the Router neighboring discover packets, and IP address autoconfigura
     ipv6 nd prefix 2003:db01:1::/64
 
 Regarding `/etc/frr/ospf6d.conf`, the configuration here must specify the point-to-point parameter in the
-interface specific section, to enable the protocol on the port53 link between the two baseboxes.
+interface specific section, to enable the protocol on the port53 link between the two Basebox routers.
 The redistribute connected command is a "smart" flag by FRR, that will redistribute every network configured
 on the router.
 
