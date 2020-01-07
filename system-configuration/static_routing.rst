@@ -80,7 +80,7 @@ Virtual Routing and Forwarding (VRF) is a feature in Linux allowing for the sepa
 
 Creation of VRFs in Linux is the creation of a network device, which will then serve as a master to the attached interfaces. Currently the VRF functionality is supported only on setups where a Bridge VLAN interface are slave devices to a certain VRF. This feature then extends the :ref:`svi` functionality allowing multiple routing tables.
 
-An ID for the routing table for the VRF is used to isolate all routes from the default (host) routing table. IDs can be choosen in the range of 1 to 4294967295 (2^32-1) with the exclusion of 253-255 which are used for the default routing tables.
+An ID for the routing table for the VRF is used to isolate all routes from the default (host) routing table. IDs can be chosen in the range of 1 to 4294967295 (2^32-1) with the exclusion of 253-255 which are used for the default routing tables.
 
 For more information, consult the VRF documentation inside the Linux Kernel in: https://www.kernel.org/doc/Documentation/networking/vrf.txt
 
@@ -137,9 +137,9 @@ IPv4 static routing
 Introduction
 ^^^^^^^^^^^^
 
-As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done tipically via `iproute2` and `systemd-networkd`, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted `FRRouting`, to support routing protocols such as BGP and OSPF. Further information can be seen in section :ref:`frrouting`.
+As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done typically via `iproute2` and `systemd-networkd`, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted `FRRouting`, to support routing protocols such as BGP and OSPF. Further information can be seen in section :ref:`frrouting`.
 
-.. warning:: Configuring a Linux box to work as a router assumes that sysctl `net.ipv4.conf.all.forwarding=1`. BISDN Linux has this sysctl already enabled by default, but routing issues should be debugged first by checking the value for this config.
+.. warning:: Configuring a Linux box to work as a router assumes that sysctl `net.ipv4.conf.all.forwarding=1`. BISDN Linux has this sysctl already enabled by default, but routing issues should be debugged first by checking the value for this configuration.
 
 iproute2
 ^^^^^^^^
@@ -189,7 +189,7 @@ IPv6 static routing
 Introduction
 ^^^^^^^^^^^^
 
-IPv6 is supported natively in BISDN Linux and baseboxd. It provides simpler network provisioning mechanism, due to address auto-configuration and the advantage of building more recent and stable networks. 
+IPv6 is supported in BISDN Linux and baseboxd. It provides simpler network provisioning mechanism, due to address auto-configuration and the advantage of building more recent and stable networks. 
 
 IPv6 addresses are composed of 128 bits, separated by eight groups of four hexadecimal digits, for example:
 
@@ -202,7 +202,7 @@ Prefixes for IPv6 addresses can then be represented similarly to network masks i
 
 There are some specific reserved network addresses, like the `fe80::/10` address family. This block is reserved to be used in Link-Local Unicast addresses, and, in combination with the MAC address of an interface is used to generate a non-routable address used to exchange Router and Neighbor Advertisements, for example.
 
-Similarly to IPv4, there are also some Linux `sysctls` present to control IPv6 behaviour. The forwarding sysctl, `net.ipv6.conf.all.forwarding`, is in BISDN Linux as well `1`, allowing for the switch to forward IPv6 packets. This affects as well the `net.ipv6.conf.<interface>.accept_ra` sysctl, since routers are not designed to accept Router Advertisements, and using them to configure the IPv6 address. Router advertisements (RA) are the periodically transmitted messages upon reception of Router Solicitations sent by hosts. The host then used the information present in these RA messages, like the prefixes and network parameters to auto-configure the addresses on the links and default gateway.
+Similarly to IPv4, there are also some Linux `sysctls` present to control IPv6 behavior. The forwarding sysctl, `net.ipv6.conf.all.forwarding`, is in BISDN Linux as well `1`, allowing for the switch to forward IPv6 packets. This affects as well the `net.ipv6.conf.<interface>.accept_ra` sysctl, since routers are not designed to accept Router Advertisements, and using them to configure the IPv6 address. Router advertisements (RA) are the periodically transmitted messages upon reception of Router Solicitations sent by hosts. The host then used the information present in these RA messages, like the prefixes and network parameters to auto-configure the addresses on the links and default gateway.
 
 iproute2
 ^^^^^^^^

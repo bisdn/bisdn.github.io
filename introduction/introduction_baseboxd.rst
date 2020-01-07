@@ -36,7 +36,7 @@ baseboxd is therefore an agent which, while sitting in the middle, listens for c
   * The Switch (OpenFlow port state messages)
   * Linux tap interfaces (netlink messages)
 
-On the switch side, it listens for `OFPT_PORT_STATUS` async messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
+On the switch side, it listens for `OFPT_PORT_STATUS` asynchronous messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
 
 .. code-block:: bash
 
@@ -86,7 +86,7 @@ Since baseboxd responds directly to the relevant netlink messages, it is one of 
 OpenFlow
 --------
 
-baseboxd communicates with switches using OpenFlow. Our implementation uses the Broadcom OF-DPA flavour specifically. It abides by the :term:`OFDPA` table type pattern specification guidelines. Switches compatible with Broadcom's SDK come with the `OF Agent`. `OF Agent` is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
+baseboxd communicates with switches using OpenFlow. Our implementation uses the Broadcom OF-DPA flavor specifically. It abides by the :term:`OFDPA` table type pattern specification guidelines. Switches compatible with Broadcom's SDK come with the `OF Agent`. `OF Agent` is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
 
 .. _code-block:: bash
 
