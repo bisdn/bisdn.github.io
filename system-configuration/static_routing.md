@@ -15,6 +15,9 @@ Extending the layer 2 domain to a layer 3 routed network can be done via the Swi
 
 ## iproute2
 
+**WARNING**: Despite Linux providing multiple alternatives for network configuration, iproute2 is the preferred configuration tool for BISDN Linux. The use of other tools, like ifconfig is not supported.
+{: .label .label-red }
+
 ```
 # add a link to the previously created bridge with the same VLAN as PORTX
 ip link add link ${BRIDGE} name ${BRIDGE}.${BR_VLAN} type vlan id ${BR_VLAN}
