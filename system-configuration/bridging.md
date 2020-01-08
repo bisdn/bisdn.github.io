@@ -14,6 +14,7 @@ nav_order: 8
 The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The traditional bridging mode in Linux, created without the vlan_filtering flag, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges, where each bridge port will be configured with a list of allowed VLANS.
 
 **WARNING**: baseboxd supports only the VLAN-Aware bridge mode. Creating traditional bridges will result in undefined behavior.
+{: .label .label-red }
 
 Only a single bridge is supported inside Basebox and due to the nature of VLAN-Aware bridges only one is necessary.
 
@@ -117,6 +118,7 @@ This file would configure a single slave port to the configured bridge. systemd-
 QinQ VLANs, or 802.1ad is an extension to the VLAN standard that allows multiple VLAN tags to be attached to a single frame. Using stacked VLANs, providers are able to bundle traffic tagged with different VLAN into a single Service tag.
 
 **WARNING**: Any bridge configured to forward VLAN traffic with either protocol 802.1Q or 802.1ad will only forward traffic of the selected VLAN protocol type.
+{: .label .label-red }
 
 ## iproute2
 
