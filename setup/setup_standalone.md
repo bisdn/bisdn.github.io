@@ -25,20 +25,11 @@ PASSWORD = "b-isdn"
 BISDN Linux, as most other Linux systems, requires superuser privileges to run commands that change system settings. The examples below must then be run via sudo to succeed.
 BISDN Linux makes use of [systemd](https://github.com/systemd/systemd). There are several systemd-enabled services required that turn a whitebox switch into a router:
 
-> 
-> * ofdpa
-
-
-> * ofdpa-grpc
-
-
-> * ofagent
-
-
-> * baseboxd
-
-
-> * frr
+* ofdpa
+* ofdpa-grpc
+* ofagent
+* baseboxd
+* frr
 
 You may start/stop/query a service like for example:
 
@@ -50,7 +41,6 @@ systemctl start | stop | restart | enable | disable | status SERVICE.service
 
 BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
 Run the following scripts on the whitebox switch to configure the local or remote usage:
-
 
 * Local baseboxd controller, where the default OpenFlow port 6653 is used.
 
@@ -64,7 +54,6 @@ basebox-change-config -l baseboxd
 ```
 basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
-
 
 * Remote controller,  where the IP-address and port must point to the remote controller.
 
@@ -110,49 +99,29 @@ The following components should be installed and running on the remote controlle
 
 The following services should be active (running) and enabled on the whitebox switch by default
 
-> 
-> * baseboxd
-
-
-> * ofagent
-
-
-> * ofdpa
-
-
-> * ofdpa-grpc
+* baseboxd
+* ofagent
+* ofdpa
+* ofdpa-grpc
 
 #### Remote controller
 
 The following components should be active (running) and enabled on the whitebox switch
 
-> 
-> * ofagent
-
-
-> * ofdpa
-
-
-> * ofdpa-grpc
+* ofagent
+* ofdpa
+* ofdpa-grpc
 
 The following components should be inactive and disabled on the whitebox switch
 
-> 
-> * baseboxd
-
-
-> * ryu-manager
+* baseboxd
+* ryu-manager
 
 The following components should be active (running) and enabled on the remote controller
 
-> 
-> * baseboxd
-
-
-> * frr
-
-
-> * ryu-manager
+* baseboxd
+* frr
+* ryu-manager
 
 ## Setup baseboxd
 

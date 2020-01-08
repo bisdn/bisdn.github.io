@@ -13,8 +13,6 @@ nav_exclude: true
 
 There might be discrepancies in the maximum number of entries in the unicast routing table (30) announced by [of-dpa](https://github.com/Broadcom-Switch/of-dpa) and how many it accepts.
 
-The [AG8032](https://agema.deltaww.com/UserFiles/files/AG8032%20Datasheet.pdf) switch announces a maximum of 24k entries for the unicast routing table (30), however [of-dpa](https://github.com/Broadcom-Switch/of-dpa) only takes 8k host routes and 8k network routes.
-
 The [AG7648](https://agema.deltaww.com/product-info.php?id=29) switch announces a maximum of 32k entries for the unicast routing table(30) and [of-dpa](https://github.com/Broadcom-Switch/of-dpa) takes 16k host routes and 16k network routes.
 
 ## Linux namespaces

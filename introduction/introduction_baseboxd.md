@@ -11,8 +11,8 @@ nav_order: 3
 
 Basebox is the BISDN controller package for data center networks with the following elements:
 
-    * The BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
-    * baseboxd is a controller daemon integrating whitebox switches into Linux
+* The BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
+* baseboxd is a controller daemon integrating whitebox switches into Linux
 
 Based on OpenFlow Data Path Abstraction, it translates Linux netlink into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
 
@@ -40,8 +40,8 @@ baseboxd communicates (upwards) with the Linux kernel over netlink and (downward
 
 baseboxd is therefore an agent which, while sitting in the middle, listens for changes in the states of:
     
-    * The Switch (OpenFlow port state messages)
-    * Linux tap interfaces (netlink messages)
+* The Switch (OpenFlow port state messages)
+* Linux tap interfaces (netlink messages)
 
 On the switch side, it listens for OFPT_PORT_STATUS asynchronous messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
 
