@@ -72,7 +72,7 @@ BISDN Linux 1.0.0 agema-ag7648 ttyUSB0
 agema-ag7648 login:
 ```
 
-Log into the switch with the previously provided credentials in System Configuration. You should then see the console of BISDN Linux. See the system information via [dmidecode](https://wiki.ubuntuusers.de/dmidecode/).
+Log into the switch with the credentials mentioned in the section [System Configuration](setup_standalone.md) . You should then see the console of BISDN Linux. See the system information via [dmidecode](https://wiki.ubuntuusers.de/dmidecode/).
 
 ## Uninstall/Upgrade a running system
 
