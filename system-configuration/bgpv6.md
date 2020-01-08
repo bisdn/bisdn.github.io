@@ -4,6 +4,7 @@ docname: system-configuration/bgpv6
 images: {}
 path: /system-configuration-bgpv-6
 title: BGPv6 (Border Gateway Protocol for IPv6 networks)
+nav_order: 10
 ---
 
 # BGPv6 (Border Gateway Protocol for IPv6 networks)

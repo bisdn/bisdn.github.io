@@ -4,6 +4,7 @@ docname: system-configuration/basebox_interfaces
 images: {}
 path: /system-configuration-basebox-interfaces
 title: Interfaces
+nav_order: 6
 ---
 
 # Interfaces

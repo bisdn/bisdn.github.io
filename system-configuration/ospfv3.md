@@ -4,6 +4,7 @@ docname: system-configuration/ospfv3
 images: {}
 path: /system-configuration-ospfv-3
 title: OSPFv3 (Open Shortest Path First for IPv6 networking)
+nav_order: 12
 ---
 
 # OSPFv3 (Open Shortest Path First for IPv6 networking)

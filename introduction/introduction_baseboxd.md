@@ -4,6 +4,7 @@ docname: introduction/introduction_baseboxd
 images: {}
 path: /introduction-introduction-baseboxd
 title: Baseboxd introduction
+nav_order: 3
 ---
 
 # Baseboxd introduction

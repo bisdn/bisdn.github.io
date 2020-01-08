@@ -4,6 +4,7 @@ docname: setup/setup_standalone
 images: {}
 path: /setup-setup-standalone
 title: System Configuration
+nav_order: 5
 ---
 
 # System Configuration

@@ -4,6 +4,7 @@ docname: setup/install_switch_image
 images: {}
 path: /setup-install-switch-image
 title: Install BISDN Linux
+nav_order: 4
 ---
 
 # Install BISDN Linux

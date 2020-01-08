@@ -4,6 +4,7 @@ docname: system-configuration/ospfv2
 images: {}
 path: /system-configuration-ospfv-2
 title: OSPF (Open Shortest Path First)
+nav_order: 11
 ---
 
 # OSPF (Open Shortest Path First)

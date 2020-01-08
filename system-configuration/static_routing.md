@@ -4,6 +4,7 @@ docname: system-configuration/static_routing
 images: {}
 path: /system-configuration-static-routing
 title: Switch VLAN Interface
+nav_order: 9
 ---
 
 # Switch VLAN Interface

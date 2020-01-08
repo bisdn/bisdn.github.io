@@ -4,6 +4,7 @@ docname: setup/known_issues
 images: {}
 path: /setup-known-issues
 title: Known issues
+nav_exclude: true
 ---
 
 # Known issues

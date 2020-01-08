@@ -4,6 +4,7 @@ docname: system-configuration/bridging
 images: {}
 path: /system-configuration-bridging
 title: Bridging
+nav_order: 8
 ---
 
 # Bridging

@@ -4,6 +4,7 @@ docname: system-configuration/bgp
 images: {}
 path: /system-configuration-bgp
 title: BGP (Border Gateway Protocol)
+nav_order: 10
 ---
 
 # BGP (Border Gateway Protocol)

@@ -4,6 +4,7 @@ docname: introduction/introduction_bisdn_linux
 images: {}
 path: /introduction-introduction-bisdn-linux
 title: BISDN Linux Introduction
+nav_order: 2
 ---
 
 # BISDN Linux Introduction

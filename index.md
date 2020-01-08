@@ -1,4 +1,4 @@
-# Introduction
+# BISDN Linux documentation
 
 <!-- _introduction -->
 
@@ -24,7 +24,7 @@
 
 <!-- _layer2 -->
 
-* [Overview](./system-configuration/introduction.md)
+* [Topology overview](./system-configuration/introduction.md)
 * [Bridging](./system-configuration/bridging.md)
 
 # Layer 3
