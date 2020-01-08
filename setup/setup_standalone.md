@@ -164,7 +164,7 @@ Read the current state:
 grpc_cli call localhost:50051 ofdpaSourceMacLearningGet ""
 ```
 
-**WARNING**: The switch platforms not yet support the grpc_cli tool. This command must then be run from outside the switch.
+**WARNING**: The switch platforms do not yet include or support running the grpc_cli tool. This command can only be executed from an external server with grpc_cli installed.
 {: .label .label-red }
 
 ### Port mirroring
@@ -191,7 +191,7 @@ grpc_cli call localhost:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: 
 grpc_cli call localhost:50051 ofdpaMirrorPortDelete "port_num: 1"
 ```
 
-**WARNING**: The switch platforms not yet support the grpc_cli tool. This command must then be run from outside the switch.
+**WARNING**: The switch platforms do not yet include or support running the grpc_cli tool. This command can only be executed from an external server with grpc_cli installed.
 {: .label .label-red }
 
 ### Enabling auto-negotiation
