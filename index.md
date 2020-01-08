@@ -18,7 +18,7 @@
 
 <!-- _layer1 -->
 
-* [Interfaces](./system_configuration/basebox_interfaces.md)
+* [Interfaces](./system-configuration/basebox_interfaces.md)
 
 # Layer 2
 
