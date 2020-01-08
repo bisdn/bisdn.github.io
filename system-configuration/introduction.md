@@ -16,3 +16,5 @@ These examples are designed to be used with up to two Basebox controllers (on-sw
 ![topology](/assets/img/topology.png)
 
 This architecture allows to flexibly simulate several networking configurations, across different supported BISDN Linux platforms.
+
+**WARNING**: Despite Linux providing multiple alternatives for network configuration, `iproute2` is the preferred configuration tool for BISDN Linux. The use of other tools, like `ifconfig` is not supported.
