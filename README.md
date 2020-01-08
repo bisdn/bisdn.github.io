@@ -1,11 +1,3 @@
----
-date: '2020-01-07T16:07:30.187Z'
-docname: README
-images: {}
-path: /readme
-title: README
----
-
 # Installation
 
 For Fedora platforms,
