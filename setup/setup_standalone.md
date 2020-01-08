@@ -324,9 +324,10 @@ interface port40
 Multiple ways of storing network configuration exist in Linux. We support :ref:”systemd-networkd” , [FRR User Guide](http://docs.frrouting.org/en/latest/) for single Basebox setups.
 
 systemd-networkd uses .network files to store network configuration. For details please see the [systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
-The .network files (in directory /etc/systemd/network/) are processed in lexical order. In the example below, the file 20-port50.network is processed first,
-meaning that port50 will get a dedicated configuration while all other ports get the basic one. Since only the first file that matches a port is processed,
-that also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file 30-port.network)
+The .network files (in directory /etc/systemd/network/) are processed in lexical order. Only the first file that matches is applied.
+
+In the example below, the file 20-port50.network is processed first, meaning that port50 will get a dedicated configuration while all other ports get the generic one.
+That also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file 30-port.network)
 
 ```
 root@agema-ag7648:/etc/systemd/network# cat 20-port50.network
