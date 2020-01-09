@@ -18,7 +18,7 @@ Based on OpenFlow Data Path Abstraction, it translates Linux netlink into switch
 
 ## Architecture
 
-baseboxd communicates (upwards) with the Linux kernel over netlink and (downwards) with the switch using OFDPA. The Linux network stack is used to directly represent the state of the switching infrastructure. For each network interface on a switch controlled by baseboxd, a single Linux tap interface exists on the Basebox host operating system.
+baseboxd communicates northbound with the Linux kernel via netlink and southbound with the switch using OpenFlow and the OpenFlow Data Path Abstraction interface (OFDPA). The Linux network stack is used to directly represent and modify the state of the switching infrastructure. For each switch port controlled by baseboxd, a Linux tap interface is created on the baseboxd host operating system.
 
 ```
 +------------+   +
@@ -38,9 +38,9 @@ baseboxd communicates (upwards) with the Linux kernel over netlink and (downward
 +------------+   +
 ```
 
-baseboxd is therefore an agent which, while sitting in the middle, listens for changes in the states of:
+baseboxd is therefore an agent which listens for changes in the states of:
     
-* The Switch (OpenFlow port state messages)
+* The Switch (e.g. OpenFlow port status messages)
 * Linux tap interfaces (netlink messages)
 
 On the switch side, it listens for OFPT_PORT_STATUS asynchronous messages, and updates the states of the tap ports accordingly. It creates tap interfaces for each port that is up, and deletes them when they go down. This interaction can be observed on the illustration below.
@@ -63,7 +63,7 @@ On the switch side, it listens for OFPT_PORT_STATUS asynchronous messages, and u
 +------------+
 ```
 
-On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a watched tap interface, baseboxd will detect the change and re-configure the switch accordingly through the southbound OpenFlow Data Path Abstraction interface.
+On the kernel side, it listens to netlink events, which are triggered by changes to the state of the tap interfaces. These changes are then propagated by baseboxd down to the switch. To give an example, if we enable a VLAN on a tap interface controlled by baseboxd, baseboxd detects the change and configures the flow and group tables of the switch pipeline accordingly.
 
 ```
 +------------+
@@ -85,13 +85,13 @@ On the kernel side, it listens to netlink events, which are triggered by changes
 
 ## netlink
 
-baseboxd consumes netlink messages produced by the kernel when observed tap interfaces change state. baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the libnl libraries, which provide a simple interface for sending and receiving netlink messages.
+baseboxd consumes netlink messages produced by the Linux kernel on certain events on the tap interfaces (e.g. the tap interface is added to a bridge or an IP adress is added to the tap interface). baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the libnl libraries, which provide a simple interface for sending and receiving netlink messages.
 
-Since baseboxd responds directly to the relevant netlink messages, it is one of the intended ways to interface with baseboxd. One may use tools such as iproute2 and systemd-networkd to configure baseboxd through this interface.
+Since baseboxd responds directly to the relevant netlink messages, the intended way to interface with baseboxd is using tools such as iproute2, systemd-networkd or FRR.
 
 ## OpenFlow
 
-baseboxd communicates with switches using OpenFlow. Our implementation uses the Broadcom OF-DPA flavor specifically. It abides by the OFDPA table type pattern specification guidelines. Switches compatible with Broadcom’s SDK come with the OF Agent. OF Agent is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the side of the switch.
+baseboxd communicates with switches using the OpenFlow protocol. Our implementation uses the Broadcom OF-DPA flavor specifically. OFDPA table type pattern specification guidelines are available. Switches compatible with Broadcom’s SDK come with the OF Agent. OF Agent is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the switch side.
 
 ```
 +--------------+  +
