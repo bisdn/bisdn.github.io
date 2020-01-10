@@ -11,7 +11,7 @@ nav_order: 5
 
 ## Setup a single Basebox switch or router
 
-We assume that the ONIE installation of BISDN Linux was successful. For more information on ONIE installation please refer to the Install BISDN Linux.
+We assume the ONIE installation of BISDN Linux was successful. For more information on ONIE installation please refer to the section [Install BISDN Linux](install_switch_image.html).
 
 ### Getting started
 
@@ -31,34 +31,36 @@ BISDN Linux makes use of [systemd](https://github.com/systemd/systemd). There ar
 * baseboxd
 * frr
 
-You may start/stop/query a service like for example:
+You may start/stop/query a service like this:
 
 ```
 systemctl start | stop | restart | enable | disable | status SERVICE.service
 ```
 
+where for example the command to show information about baseboxd would be `systemctl status baseboxd.service`.
+
 ### Configure a local or remote controller
 
 BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
-Run the following scripts on the whitebox switch to configure the local or remote usage:
+Run the following scripts in the BISDN Linux shell to configure the local or remote usage.
 
-* Local baseboxd controller, where the default OpenFlow port 6653 is used.
+To configure a local baseboxd controller, where the default OpenFlow port 6653 is used:
 
 ```
 basebox-change-config -l baseboxd
 ```
 
-
-* Local Ryu controller, BISDN Linux supports to use [Ryu](https://osrg.github.io/ryu/) as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
+To configure a local Ryu controller:
 
 ```
 basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
+BISDN Linux supports to use [Ryu](https://osrg.github.io/ryu/) as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-* Remote controller,  where the IP-address and port must point to the remote controller.
+To configure a remote OpenFlow controller with <IP-address> and <OpenFlow-port>:
 
 ```
-basebox-change-config -r <IP address> <OpenFlow Port>
+basebox-change-config -r <IP-address> <OpenFlow-port>
 ```
 
 ### Verify your configuration
@@ -91,13 +93,13 @@ opkg info frr
 
 #### Remote controller
 
-The following components should be installed and running on the remote controller: baseboxd, frr, ryu-manager (optional)
+The following components should be installed and running on the remote controller: baseboxd, frr, ryu-manager (optional):
 
 ### Verify the running software components
 
 #### Local controller (BISDN Linux)
 
-The following services should be active (running) and enabled on the whitebox switch by default
+The following services should be active (running) and enabled on the whitebox switch by default:
 
 * baseboxd
 * ofagent
@@ -106,26 +108,26 @@ The following services should be active (running) and enabled on the whitebox sw
 
 #### Remote controller
 
-The following components should be active (running) and enabled on the whitebox switch
+The following components should be active (running) and enabled on the whitebox switch:
 
 * ofagent
 * ofdpa
 * ofdpa-grpc
 
-The following components should be inactive and disabled on the whitebox switch
+The following components should be inactive and disabled on the whitebox switch:
 
 * baseboxd
 * ryu-manager
 
-The following components should be active (running) and enabled on the remote controller
+The following components should be active (running) and enabled on the remote controller:
 
 * baseboxd
 * frr
 * ryu-manager
 
-## Setup baseboxd
+### Setup baseboxd
 
-baseboxd uses a file to set e.g. GLOG and OpenFlow ports. On BISDN Linux this configuration data is stored in /etc/default/baseboxd and on Fedora systems in /etc/sysconfig/baseboxd. The example below shows the basic structure:
+baseboxd uses a file to store configuration data like log level and OpenFlow ports. On BISDN Linux this file is located in /etc/default/baseboxd and on Fedora systems in /etc/sysconfig/baseboxd. The example below shows the basic structure:
 
 ```
 ### Configuration options for baseboxd
@@ -142,7 +144,7 @@ GLOG_logtostderr=1
 # GLOG_v=0
 ```
 
-After having made the necessary changes to this file, restart baseboxd:
+After having made the necessary changes to this file, restart baseboxd to apply the changes:
 
 ```
 systemctl restart baseboxd
@@ -169,7 +171,7 @@ grpc_cli call localhost:50051 ofdpaSourceMacLearningGet ""
 
 ### Port mirroring
 
-BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace localhost with the IP of the whitebox switch)
+BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace localhost with the IP of the whitebox switch):
 
 ```
 grpc_cli call localhost:50051 ofdpaMirrorPortCreate "port_num: 1"
@@ -183,7 +185,7 @@ See mirror port configuration by running the following command on the whitebox s
 client_mirror_port_dump
 ```
 
-Mirror ports can be deleted according to the following commands
+Mirror ports can be deleted according to the following commands:
 
 ```
 grpc_cli call localhost:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 2 }"
@@ -196,22 +198,22 @@ grpc_cli call localhost:50051 ofdpaMirrorPortDelete "port_num: 1"
 
 ### Enabling auto-negotiation
 
-To enable auto-negotiation on ports use the client_drivshell tool. To enable it on port 1 run:
+To enable auto-negotiation on ports use the client_drivshell tool. To enable it on e.g. the first switch port simply run:
 
 ```
 client_drivshell port xe0 AN=on
 ```
 
-Use the following command to print the current port configuration to the journal:
+Use the following command to print the current port configuration:
 
 ```
 client_drivshell ports
 ```
 
-Port 1 should have auto neg enabled (YES) while port 2 (and all other ports) should have set it to NO. In the example, a 1G active copper SFP is attached to port 1 and the speed has been set accordingly. All other ports have set the speed to 10G by default. See the journal logs:
+The port xe0 (port 1) should now have auto-negotiation enabled (YES) and since AN=off is the default, all other ports should have set it to NO. In the example below, a 1G active copper SFP is attached to port 1 and the speed has been set accordingly. All other ports have set the speed to 10G by default.
 
 ```
-$ journalctl -eu ofdpa
+$ client_drivshell ports
           ena/    speed/ link auto    STP                  lrn  inter   max  loop
     port  link    duplex scan neg?   state   pause  discrd ops   face frame  back
  xe0(  1)  up      1G  FD   SW  Yes  Forward          None    F   GMII  9412
@@ -226,11 +228,11 @@ To disable auto-negotiation run the following command:
 client_drivshell port xe0 AN=off SP=10000
 ```
 
-The parameter SP takes the speed you want to configure, in the example it is 10G. For information how to verify your configuration, please see the section above.
+The parameter SP takes the speed you want to configure, in the example above it is 10G. For information how to verify your configuration, please see the section above.
 
-### Persistent OF-DPA port configuration
+### Persistent port configuration
 
-OF-DPA port configuration can be persisted through restarts. In order to turning off auto-negotiation for the ports xe0 and xe1 one would run
+Switch port configuration can be persisted across restarts. In order to turn off auto-negotiation for the ports xe0 and xe1 one would run
 
 ```
 client_drivshell port xe0 AN=off SP=10000
@@ -251,11 +253,11 @@ Note the absence of client_drivshell and the single exit statement at the end.
 
 ### basebox-support
 
-The basebox-support script enables costumers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform to BISDN. To execute run basebox-support on the switch with root privileges.
+The basebox-support script enables customers to create a tar file with the current switch state. It gathers information like port status, system logs and configuration, to ease debugging and reporting errors on the switch platform. To execute properly, please run basebox-support on the switch with root privileges.
 
 ### bisdn-change-config
 
-Bash script for setting up the OpenFlow endpoint for the baseboxd/ryu controllers, by configuring the ofagent and baseboxd/Ryu (only in case of local controller) configuration files.
+A bash script for setting up the OpenFlow endpoint for the baseboxd/ryu controllers, by configuring the ofagent and baseboxd/Ryu (only in case of local controller) configuration files.
 
 ```
 Execution:
@@ -265,9 +267,9 @@ Execution:
   -h, --help : print this message
 ```
 
-### Client tools
+### OF-DPA Client tools
 
-Client tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, group tables and ports, respectively:
+These tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, group tables and ports, respectively:
 
 ```
 client_flowtable_dump
@@ -321,12 +323,12 @@ interface port40
   ipv6 nd prefix 2003:db01:0:21::/64
 ```
 
-## Persisting storage of network configuration
+## Persisting network configuration
 
-Multiple ways of storing network configuration exist in Linux. We support :ref:”systemd-networkd” , [FRR User Guide](http://docs.frrouting.org/en/latest/) for single Basebox setups.
+Multiple ways of storing network configuration exist on Linux systems. BISDN Linux supports :ref:”systemd-networkd” , [FRR User Guide](http://docs.frrouting.org/en/latest/) for single Basebox setups.
 
-systemd-networkd uses .network files to store network configuration. For details please see the [systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
-The .network files (in directory /etc/systemd/network/) are processed in lexical order. Only the first file that matches is applied.
+systemd-networkd uses .network files to store network configuration. For details please see the [systemd-networkd manual](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
+The .network files (in directory /etc/systemd/network/) are processed in lexical order and only the first file that matches is applied.
 
 In the example below, the file 20-port50.network is processed first, meaning that port50 will get a dedicated configuration while all other ports get the generic one.
 That also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file 30-port.network)

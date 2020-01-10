@@ -13,7 +13,7 @@ Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. 
 
 ## Connect to the switch console
 
-Connect the CONSOLE port of the switch to a computer of your choice. We recommend using the tool kermit. On a Linux machine install ckermit, edit a file named .kermrc and put in your configuration with the used line port.
+Connect the CONSOLE port of the switch to a computer of your choice. We recommend using the tool kermit to connect to the switch console. If a Linux machine is used, install ckermit, edit a file named .kermrc and put in your configuration with the used line port.
 
 Example of .kermrc:
 
@@ -25,17 +25,17 @@ set flow-control xon/xoff
 connect
 ```
 
-On the Linux machine run kermit. It will connect to the console of the attached switch. Once the switch is powered on you should see the console output.
+Next, run the command `kermit`. You will be connected to the console of the attached switch. Once the switch is powered on you should see the console output.
 
 ## Install BISDN Linux via ONIE
 
-The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. Due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively
+The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively.
 
-Select ONIE: Install OS in the ONIE menu to install a switch image. To remove the image select ONIE: Uninstall OS.
+Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
 
 ## Get the image via the CLI
 
-Select ONIE: Rescue to get to the cli. Install the image via a cli command as in the example below. Images can be found in the [image repo](http://repo.bisdn.de/pub/onie/).
+Select `ONIE: Rescue` to get to the ONIE cli. Install the image via a cli command as in the example below. Images can be found in the [image repo](http://repo.bisdn.de/pub/onie/).
 
 More information about the ONIE cli can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
 
@@ -50,7 +50,7 @@ dhcp-vendorclass=set:ag7648,"onie_vendor:x86_64-ag7648-r0"
 dhcp-option=tag:ag7648,114,"http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin"
 ```
 
-In the example “example_webserver.com” is the server that must host the BISDN Linux image, the location of the actual file is then managed by the webserver (out of scope here). Any switch of type ag7648 will be given the link and is then able to fetch the said image.
+In the example “example_webserver.com” is the server that must host the BISDN Linux image, the location of the actual file is then managed by the webserver (out of scope here). Any switch of type ag7648 will be given the link and is then able to fetch the listed image.
 
 You should see a similar log on the system:
 
@@ -64,26 +64,26 @@ Preparing image archive ... OK.
 Demo Installer: platform: x86_64-agema_ag7648-r0
 ```
 
-After successful installation the switch will reboot itself. Once it is booted you should see a similar message:
+After successful installation the switch will reboot itself. Once it has finished booting you should see a similar message:
 
 ```
-BISDN Linux 1.0.0 agema-ag7648 ttyUSB0
+BISDN Linux 2.0.0 agema-ag7648 ttyUSB0
 
 agema-ag7648 login:
 ```
 
-Log into the switch with the credentials mentioned in the section [System Configuration](setup_standalone.md) . You should then see the console of BISDN Linux. See the system information via [dmidecode](https://wiki.ubuntuusers.de/dmidecode/).
+Log into the switch with the credentials mentioned in the section [System Configuration](setup_standalone.md) . You should then see the console of BISDN Linux. See the OS information via `cat /etc/os-release `.
 
 ## Uninstall/Upgrade a running system
 
-The script onie-bisdn-uninstall enables you to uninstall a running BISDN Linux. The corresponding man pages and usage help can be displayed like this:
+The script `onie-bisdn-uninstall` enables you to uninstall a running BISDN Linux. The corresponding man pages and usage help can be displayed like this:
 
 ```
 man onie-bisdn-uninstall
 onie-bisdn-uninstall -h
 ```
 
-The script onie-bisdn-upgrade enables you to upgrade a running BISDN Linux to a newer image. The corresponding man pages and usage help can be displayed like this:
+The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. Please note that your configuration will be deleted during the process except for the folder /etc/systemd/network/.The corresponding man pages and usage help can be displayed like this:
 
 ```
 man onie-bisdn-upgrade
