@@ -1,10 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/ospfv3
-images: {}
-path: /system-configuration-ospfv-3
 title: OSPFv3 (Open Shortest Path First for IPv6 networking)
-nav_order: 12
+parent: Layer 3
+nav_order: 8
 ---
 
 # OSPFv3 (Open Shortest Path First for IPv6 networking)

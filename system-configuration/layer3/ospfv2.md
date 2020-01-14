@@ -1,10 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/ospfv2
-images: {}
-path: /system-configuration-ospfv-2
 title: OSPF (Open Shortest Path First)
-nav_order: 11
+parent: Layer 3
+nav_order: 7
 ---
 
 # OSPF (Open Shortest Path First)

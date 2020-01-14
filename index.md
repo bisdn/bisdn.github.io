@@ -2,41 +2,21 @@
 
 <!-- _introduction -->
 
-* [Customer support](./customer_support.md)
-* [BISDN Linux Introduction](./introduction/introduction_bisdn_linux.md)
-* [Baseboxd introduction](./introduction/introduction_baseboxd.md)
+BISDN Linux Distribution is a custom Linux-based operating system for selected whitebox switches. This lightweight distribution supports baseboxd, FRR, as well as most native Linux networking tools.
 
-# Installation and Setup
+## Specifications
 
-<!-- _setup -->
+* Based on Linux [yocto](https://www.yoctoproject.org/software-overview/downloads/) operating system
+* Software built on [OF-DPA 3.0](https://github.com/Broadcom-Switch/of-dpa)
+* Deployable via [Open Network Install Environment (ONIE)](http://onie.org/)
+* Using [of-agent](https://github.com/Broadcom-Switch/of-dpa/tree/master/src/ofagent) as the [OpenFlow](https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-switch-v1.3.5.pdf) interface
 
-* [Install BISDN Linux](./setup/install_switch_image.md)
-* [System Configuration](./setup/setup_standalone.md)
+## Compatibility
 
+The BISDN Linux Distribution is available for the following whitebox switch platforms:
 
-# Layer 1
+* Agema AG7648
+* Edge-core AS4610 series
 
-<!-- _layer1 -->
+Download links to the latest BISDN linux switch images can always be found on [repo.bisdn.de/pub/onie](http://repo.bisdn.de/pub/onie/)
 
-* [Interfaces](./system-configuration/basebox_interfaces.md)
-
-# Layer 2
-
-<!-- _layer2 -->
-
-* [Topology overview](./system-configuration/introduction.md)
-* [Bridging](./system-configuration/bridging.md)
-
-# Layer 3
-
-<!-- _layer3 -->
-
-* [IPv4 and IPv6 static routing](./system-configuration/static_routing.md)
-* [BGP (Border Gateway Protocol)](./system-configuration/bgp.md)
-* [BGPv6 (Border Gateway Protocol for IPv6 networks)](./system-configuration/bgpv6.md)
-* [OSPF (Open Shortest Path First)](./system-configuration/ospfv2.md)
-* [OSPFv3 (Open Shortest Path First for IPv6 networking)](./system-configuration/ospfv3.md)
-
-# Known issues
-
-* [Known issues](./setup/known_issues.md)

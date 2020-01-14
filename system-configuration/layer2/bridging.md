@@ -2,9 +2,8 @@
 date: '2020-01-07T16:07:30.187Z'
 docname: system-configuration/bridging
 images: {}
-path: /system-configuration-bridging
 title: Bridging
-nav_order: 8
+parent: Layer 2
 ---
 
 # Bridging

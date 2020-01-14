@@ -4,7 +4,7 @@ docname: customer_support
 images: {}
 path: /customer-support
 title: Customer support
-nav_order: 1
+nav_order: 20
 ---
 
 # Customer support

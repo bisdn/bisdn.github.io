@@ -1,10 +1,9 @@
 ---
 date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/basebox_interfaces
+docname: system-configuration/layer1/basebox_interfaces
 images: {}
-path: /system-configuration-basebox-interfaces
 title: Interfaces
-nav_order: 6
+parent: Layer 1
 ---
 
 # Interfaces

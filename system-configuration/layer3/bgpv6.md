@@ -1,10 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/bgpv6
-images: {}
-path: /system-configuration-bgpv-6
 title: BGPv6 (Border Gateway Protocol for IPv6 networks)
-nav_order: 10
+parent: Layer 3
+nav_order: 5
 ---
 
 # BGPv6 (Border Gateway Protocol for IPv6 networks)
