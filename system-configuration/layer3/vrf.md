@@ -1,9 +1,9 @@
 ---
-title: Virtual Routing and Forwarding
+title: Virtual Routing and Forwarding (VRF)
 parent: Layer 3
 nav_order: 4
 ---
-# Virtual Routing and Forwarding
+# Virtual Routing and Forwarding (VRF)
 
 ## Introduction
 

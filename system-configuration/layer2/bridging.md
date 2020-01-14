@@ -1,9 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/bridging
-images: {}
 title: Bridging
 parent: Layer 2
+nav_order: 1
 ---
 
 # Bridging
@@ -109,25 +107,3 @@ VLAN=1-10
 ```
 
 This file would configure a single slave port to the configured bridge. systemd-networkd allows for matching all ports as well, by using the Name=port\* alternative, which would match on every baseboxd port, and enslave them all to the bridge. The VLAN=1-10 will configure the range from VLAN=1 to VLAN=10. Single values can obviously be configured as well, by specifying just a single value.
-
-# QinQ Provider Bridging (802.1ad)
-
-## Introduction
-
-QinQ VLANs, or 802.1ad is an extension to the VLAN standard that allows multiple VLAN tags to be attached to a single frame. Using stacked VLANs, providers are able to bundle traffic tagged with different VLAN into a single Service tag.
-
-**WARNING**: Any bridge configured to forward VLAN traffic with either protocol 802.1Q or 802.1ad will only forward traffic of the selected VLAN protocol type.
-{: .label .label-red }
-
-## iproute2
-
-Creation of the 802.1ad bridge is done with the following commands.
-
-```
-BRIDGE=${BRIDGE:-swbridge}
-...
-ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1 vlan_protocol 802.1ad
-ip link set ${BRIDGE} up
-```
-
-The rest of the configuration follows the same steps as the Bridging section.

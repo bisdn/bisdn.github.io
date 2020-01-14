@@ -1,4 +1,8 @@
-# BISDN Linux documentation
+---
+title: BISDN Linux introduction
+---
+
+# BISDN Linux introduction
 
 <!-- _introduction -->
 
