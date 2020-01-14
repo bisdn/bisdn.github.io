@@ -1,10 +1,7 @@
 ---
-docname: system-configuration/layer3/ipv6-static
-images: {}
-path: /system-configuration-ipv4-static
 title: IPv6 static routing
 parent: Layer 3
-nav_order: 4
+nav_order: 2
 ---
 
 # IPv6 static routing

@@ -1,7 +1,7 @@
 ---
 title: BGPv6 (Border Gateway Protocol for IPv6 networks)
 parent: Layer 3
-nav_order: 5
+nav_order: 6
 ---
 
 # BGPv6 (Border Gateway Protocol for IPv6 networks)

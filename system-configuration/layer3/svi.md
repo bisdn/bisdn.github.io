@@ -1,11 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/svi
-images: {}
-path: /system-configuration-svi
 title: Switch VLAN Interface
 parent: Layer 3
-nav_order: 1
+nav_order: 3
 ---
 
 # Switch VLAN Interface

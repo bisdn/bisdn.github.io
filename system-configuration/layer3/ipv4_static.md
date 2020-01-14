@@ -2,7 +2,7 @@
 images: {}
 title: IPv4 static routing
 parent: Layer 3
-nav_order: 3
+nav_order: 1
 ---
 
 # IPv4 static routing

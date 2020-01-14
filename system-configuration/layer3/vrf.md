@@ -1,11 +1,7 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: system-configuration/vrf
-images: {}
-path: /system-configuration-vrf
 title: Virtual Routing and Forwarding
 parent: Layer 3
-nav_order: 2
+nav_order: 4
 ---
 # Virtual Routing and Forwarding
 
