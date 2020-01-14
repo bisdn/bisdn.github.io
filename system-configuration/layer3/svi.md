@@ -1,10 +1,10 @@
 ---
-title: Switch VLAN Interface
+title: Switch VLAN Interfaces
 parent: Layer 3
 nav_order: 3
 ---
 
-# Switch VLAN Interface
+# Switch VLAN Interfaces
 
 ## Introduction
 
