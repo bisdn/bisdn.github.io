@@ -21,6 +21,9 @@ $ ip link show
 
 These interfaces can be managed via the [iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported Linux networking utility. The link state for these interfaces maps to the physical port state. Due to a limitation in the Linux kernel, the interfaces state show up as UNKNOWN or DOWN, where UNKNOWN means that the physical interface has a cable attached.
 
+**WARNING**: Despite Linux providing multiple alternatives for network configuration, iproute2 is the preferred configuration tool for BISDN Linux. The usage of other network configuration tools (e.g. ifconfig) is not covered in our documentation and might lead to unintended results.
+{: .label .label-red }
+
 To prevent ssh access from dataplane ports, the switch has an [iptables](https://linux.die.net/man/8/iptables) rule to block traffic destined to the default ssh port(TCP port 22) on all interfaces, except for the management interface. The management interface follows the Predictable Interface naming convention in Linux, and is usually enp\*.
 
 ```
@@ -32,3 +35,11 @@ COMMIT
 ```
 
 The default path for iptables configuration is ``/etc/iptables/iptables.rules`` for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
+
+# Loopback interface
+
+The loopback interface `lo` is a special type of device destined to allow the switch to communicate with itself. It is not associated with any physical device and is used to provide connectivity inside the same switch.
+
+There are two IP addresses associated by default with this interface: `127.0.0.1/8` for IPv4 and `::1/128` for IPv6 networks.
+
+It is possible to configure the loopback interface with other IPv4 and IPv6 addresses, thus providing connectivity to the loopback interface itself. In order to reach this interface, a "via" route must be present.

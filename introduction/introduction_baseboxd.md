@@ -1,13 +1,13 @@
 ---
 date: '2020-01-07T16:07:30.187Z'
-docname: introduction/introduction_baseboxd
+docname: introduction/introduction_basebox
 images: {}
-path: /introduction-introduction-baseboxd
-title: Baseboxd introduction
+path: /introduction-introduction-basebox
+title: Basebox introduction
 nav_order: 3
 ---
 
-# Baseboxd introduction
+# Basebox introduction
 
 Basebox is the BISDN controller package for data center networks with the following elements:
 
