@@ -17,8 +17,11 @@ Only the following ONIE versions are tested and supported. Installation on other
 
 | Device                 | ONIE version    |
 |------------------------|-----------------|
-| Delta AG7648           |2017.08.01-V1.12 |
-| Edgecore AS4610 series |2016.05.00.04    |
+| Delta AG7648           |[2017.08.01-V1.12](https://github.com/DeltaProducts/AG7648/tree/master/onie_image/) (Build date 20181109) |
+| Edgecore AS4610-30T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360035081033-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
+| Edgecore AS4610-54T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360033232494-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
+
+<sup>1</sup> Edgecore support account required
 
 ## Connect to the switch console
 
