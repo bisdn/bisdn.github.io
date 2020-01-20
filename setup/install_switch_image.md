@@ -11,6 +11,15 @@ nav_order: 4
 
 Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. This page shows how to connect to the switch and guides through the installation process.
 
+## Supported ONIE versions
+
+Only the following ONIE versions are tested and supported. Installation on other version may not work as expected.
+
+| Device                 | ONIE version    |
+|------------------------|-----------------|
+| Delta AG7648           |2017.08.01-V1.12 |
+| Edgecore AS4610 series |2016.05.00.04    |
+
 ## Connect to the switch console
 
 Connect the CONSOLE port of the switch to a computer of your choice. We recommend using the tool kermit to connect to the switch console. If a Linux machine is used, install ckermit, edit a file named .kermrc and put in your configuration with the used line port.
