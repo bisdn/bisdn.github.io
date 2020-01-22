@@ -9,19 +9,7 @@ nav_order: 4
 
 # Install BISDN Linux
 
-Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. This page shows how to connect to the switch and guides through the installation process.
-
-## Supported ONIE versions
-
-Only the following ONIE versions are tested and supported. Installation on other version may not work as expected.
-
-| Device                 | ONIE version    |
-|------------------------|-----------------|
-| Delta AG7648           |[2017.08.01-V1.12](https://github.com/DeltaProducts/AG7648/tree/master/onie_image/) (Build date 20181109) |
-| Edgecore AS4610-30T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360035081033-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
-| Edgecore AS4610-54T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360033232494-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
-
-<sup>1</sup> Edgecore support account required
+Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. This section shows how to connect to the switch and guides through the installation process.
 
 ## Connect to the switch console
 
@@ -37,7 +25,52 @@ set flow-control xon/xoff
 connect
 ```
 
-Next, run the command `kermit`. You will be connected to the console of the attached switch. Once the switch is powered on you should see the console output.
+## Setup ONIE 
+
+You can either install a complete ONIE or upgrade an existing ONIE. If your switch has the supported ONIE preinstalled you can skip this part and [install BISDN Linux right away](install_switch_image.md#install-bisdn-linux-via-onie) (see next section).
+
+### Supported ONIE versions
+
+Only the following ONIE versions are tested and supported. Installation on other version may not work as expected.
+
+| Device                 | ONIE version    |
+|------------------------|-----------------|
+| Delta AG7648           |[2017.08.01-V1.12](https://github.com/DeltaProducts/AG7648/tree/master/onie_image/) (Build date 20181109) |
+| Edgecore AS4610-30T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360035081033-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
+| Edgecore AS4610-54T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360033232494-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
+
+<sup>1</sup> Edgecore support account required
+
+### Install ONIE
+
+Prepare a bootable USB device and copy the proper ONIE image to it. One way is to download the .iso file given by the links above. Copy the file to the USB device like in the example below.
+
+
+This example copies the .iso of the ONIE installer for AG7648 to the USB device on sdb:
+```
+sudo dd if=20181109-onie-recovery-x86_64-delta_ag7648-r0.iso of=/dev/sdb bs=10M
+sync
+```
+
+Attach the USB device to your switch and reboot it. Enter the ONIE boot menu then press `c' to get into the grub CLI. Enter the following commands to boot from a USB device.
+
+```
+set root=(hd1)
+chainloader +1
+boot
+```
+
+The switch is going to reboot and installs ONIE from the USB device.
+
+### Update ONIE
+
+Reboot the switch. Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI. Update ONIE with the CLI command `onie-self-update` as shown below.
+
+This example updates ONIE to the supported version on the AG7648 platform:
+```
+onie-self-update -ev https://github.com/DeltaProducts/AG7648/blob/master/onie_image/20181109-onie-updater-x86_64-delta_ag7648-r0.bin
+```
+
 
 ## Install BISDN Linux via ONIE
 
@@ -45,13 +78,21 @@ The recommended switch image installation is done via ONIE, a tool that allows i
 
 Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
 
-## Get the image via the CLI
+**Note**: It is recommended to uninstall any existing OS before installing BISDN Linux. To do so boot into the ONIE boot menu and select `ONIE: Uninstall OS`
+{: .label .label-yellow }
 
-Select `ONIE: Rescue` to get to the ONIE cli. Install the image via a cli command as in the example below. Images can be found in the [image repo](http://repo.bisdn.de/pub/onie/).
+### Get the image via the CLI
 
-More information about the ONIE cli can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
+Select `ONIE: Rescue` to get to the ONIE CLI. Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
-## Get the image via DHCP option 60
+This example installs BISDN Linux v2.0.0 for the AG7648 platform:
+```
+onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v2.0.0.bin
+```
+
+More information about the ONIE CLI can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
+
+### Get the image via DHCP option 60
 
 Connect the management port to a DHCP server of your choice. The DHCP server uses “Vendor Class Identifier – Option 60” to tell the switch the URL of the image.
 
