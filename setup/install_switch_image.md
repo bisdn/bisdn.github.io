@@ -97,7 +97,7 @@ onie-bisdn-uninstall -h
 
 ## Upgrade a running system
 
-The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. Please note that your configuration will be deleted during the process except for the folder /etc/systemd/network/.The corresponding man pages and usage help can be displayed like this:
+The script `onie-bisdn-upgrade` enables you to upgrade a running BISDN Linux to a newer image. The corresponding man pages and usage help can be displayed like this:
 
 ```
 man onie-bisdn-upgrade
@@ -109,6 +109,9 @@ This shows an example usage:
 ```
 onie-bisdn-upgrade http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
 ```
+
+**Note**: All data is deleted during the upgrade process except for configuration files in /etc/systemd/network/ that apply on interfaces named `enp*`.
+{: .label .label-yellow }
 
 ## Boot into ONIE-rescue
 
