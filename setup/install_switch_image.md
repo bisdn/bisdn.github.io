@@ -27,7 +27,13 @@ connect
 
 ## Setup ONIE 
 
-You can either install a complete ONIE or upgrade an existing ONIE. If your switch has the supported ONIE preinstalled you can skip this part and [install BISDN Linux right away](install_switch_image.md#install-bisdn-linux-via-onie) (see next section).
+Check the current ONIE version of your switch by executing the following command in e.g. the ONIE-rescue shell:
+
+```
+onie-sysinfo -v
+```
+
+If your switch has the supported ONIE preinstalled you can skip this part and [install BISDN Linux right away](install_switch_image.md#install-bisdn-linux-via-onie) (see next section). In the other case you can either install a complete ONIE or upgrade an existing one.
 
 ### Supported ONIE versions
 
