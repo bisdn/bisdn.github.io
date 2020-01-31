@@ -70,14 +70,16 @@ The switch is going to reboot and installs ONIE from the USB device.
 
 ### Update ONIE
 
-Reboot the switch. Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI. Update ONIE given by <ONIE_URL> with the CLI command `onie-self-update` as shown in the example below.
+Reboot the switch. Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI. Download the .bin file given by the links above and put it onto an http server that is reachable by the switch. Start the update via the CLI command `onie-self-update` as shown in the example below.
 
 ```
-onie-self-update -ev <ONIE_URL>
+onie-self-update -v http://local-http-server/onie-updater
 ```
 
-**Note**: The ONIE CLI command can only process http URLs and does not work with https.`
+**Note**: The ONIE CLI command can only process http URLs`
 {: .label .label-yellow }
+
+More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-self-update).
 
 ## Install BISDN Linux via ONIE
 
@@ -97,10 +99,10 @@ This example installs BISDN Linux v2.0.0 for the AG7648 platform:
 onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v2.0.0.bin
 ```
 
-**Note**: The ONIE CLI command can only process http URLs and does not work with https.`
+**Note**: The ONIE CLI command can only process http URLs.`
 {: .label .label-yellow }
 
-More information about the ONIE CLI can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
+More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
 
 ### Get the image via DHCP option 60
 
