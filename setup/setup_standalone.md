@@ -81,7 +81,7 @@ To check whether the proper packages are installed on BISDN Linux run
 opkg info service-name
 ```
 
-The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, frr.
+The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, grpc_cli, frr.
 
 ```
 opkg info baseboxd; \
