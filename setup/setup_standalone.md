@@ -184,7 +184,7 @@ grpc_cli call <IP>:50051 ofdpaSourceMacLearningGet ""
 
 ### Port mirroring
 
-BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace <IP> with the IP of the whitebox switch):
+BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace <IP> with the IP of the whitebox switch or `localhost` when logged in on the switch itself):
 
 ```
 grpc_cli call <IP>:50051 ofdpaMirrorPortCreate "port_num: 1"
