@@ -66,7 +66,7 @@ chainloader +1
 boot
 ```
 
-The switch is going to reboot and installs ONIE from the USB device.
+Then select `ONIE: Embed ONIE` and the switch is going to install ONIE from the USB device.
 
 ### Update ONIE
 
