@@ -41,7 +41,8 @@ Only the following ONIE versions are tested and supported. Installation on other
 
 | Device                 | ONIE version    |
 |------------------------|-----------------|
-| Delta AG7648           |[2017.08.01-V1.12](http://repo.bisdn.de/pub/onie/agema-ag7648/onie-images/) (Build date 20181109) |
+| Delta AG5648           |[V1.00](http://repo.bisdn.de/pub/onie/agema-ag5648/onie-images/) |
+| Delta AG7648           |[2017.08.01-V1.12](http://repo.bisdn.de/pub/onie/agema-ag7648/onie-images/) |
 | Edgecore AS4610-30T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360035081033-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
 | Edgecore AS4610-54T/P  |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360033232494-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
 
