@@ -70,7 +70,23 @@ Then select `ONIE: Embed ONIE` and the switch is going to install ONIE from the 
 
 ### Update ONIE
 
-Reboot the switch. Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI. Download the .bin file given by the links above and put it onto an http server that is reachable by the switch. Start the update via the CLI command `onie-self-update` as shown in the example below.
+Reboot the switch.
+
+On switches using GRUB bootloader:
+
+Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI.
+
+On switches using U-Boot bootloader:
+
+Interrupt the U-Boot boot countdown by pressing any key and enter
+
+```
+run onie_rescue
+```
+
+to get into the ONIE CLI.
+
+Download the .bin file given by the links above and put it onto an http server that is reachable by the switch. Start the update via the CLI command `onie-self-update` as shown in the example below.
 
 ```
 onie-self-update -v http://local-http-server/onie-updater
@@ -85,14 +101,43 @@ More information about the ONIE CLI command can be found [here](https://opencomp
 
 The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively.
 
+On switches using GRUB bootloader:
+
 Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
 
-**Note**: It is recommended to uninstall any existing OS before installing BISDN Linux. To do so boot into the ONIE boot menu and select `ONIE: Uninstall OS`
+On switches using U-Boot bootloader:
+
+Interrupt the U-Boot boot countdown by pressing any key and enter
+
+```
+run onie_install
+```
+
+to install a switch image. To remove the image, enter
+```
+run onie_uninstall
+```
+
+**Note**: It is recommended to uninstall any existing OS before installing BISDN Linux.
 {: .label .label-yellow }
 
 ### Get the image via the CLI
 
-Select `ONIE: Rescue` to get to the ONIE CLI. Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
+On switches using GRUB bootloader:
+
+Enter the ONIE boot menu then select `ONIE: Rescue` to get into the ONIE CLI.
+
+On switches using U-Boot bootloader:
+
+Interrupt the U-Boot boot countdown by pressing any key and enter
+
+```
+run onie_rescue
+```
+
+to get into the ONIE CLI.
+
+Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
 This example installs BISDN Linux v2.0.0 for the AG7648 platform:
 ```
