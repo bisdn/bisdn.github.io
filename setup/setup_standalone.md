@@ -81,7 +81,7 @@ To check whether the proper packages are installed on BISDN Linux run
 opkg info service-name
 ```
 
-The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, frr.
+The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, grpc_cli, frr.
 
 ```
 opkg info baseboxd; \
@@ -179,12 +179,9 @@ Read the current state:
 grpc_cli call <IP>:50051 ofdpaSourceMacLearningGet ""
 ```
 
-**WARNING**: The switch platforms do not yet include or support running the grpc_cli tool. This command can only be executed from an external server with grpc_cli installed.
-{: .label .label-red }
-
 ### Port mirroring
 
-BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace <IP> with the IP of the whitebox switch):
+BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace <IP> with the IP of the whitebox switch or `localhost` when logged in on the switch itself):
 
 ```
 grpc_cli call <IP>:50051 ofdpaMirrorPortCreate "port_num: 1"
@@ -205,9 +202,6 @@ grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { por
 grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 3 }"
 grpc_cli call <IP>:50051 ofdpaMirrorPortDelete "port_num: 1"
 ```
-
-**WARNING**: The switch platforms do not yet include or support running the grpc_cli tool. This command can only be executed from an external server with grpc_cli installed.
-{: .label .label-red }
 
 ### Enabling auto-negotiation
 
