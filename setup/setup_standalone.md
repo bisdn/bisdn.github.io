@@ -256,6 +256,30 @@ exit
 
 Note the absence of client_drivshell and the single exit statement at the end.
 
+### TTL controls
+
+BISDN Linux has a default configuration file under `/etc/ofdpa/rc.soc` controlling both the Broadcom SDK and OF-DPA.
+
+The file has the following control by default,
+
+```
+SwitchControl L3UcastTtl1ToCpu=1
+```
+
+To enable routing packets with TTL=1 to CPU. 
+The following command
+
+```
+client_drivshell SwitchControl L3UcastTtl1ToCpu=1
+```
+
+Will activate the same behaviour on the switch in a non-persistent way.
+To print the currently set value, you can run:
+
+```
+client_drivshell SwitchControl L3UcastTtl1ToCpu
+```
+
 ## Bundled software with BISDN Linux
 
 ### basebox-support
