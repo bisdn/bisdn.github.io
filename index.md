@@ -19,6 +19,7 @@ BISDN Linux Distribution is a custom Linux-based operating system for selected w
 
 The BISDN Linux Distribution is available for the following whitebox switch platforms:
 
+* Delta AG5648
 * Delta AG7648
 * Edgecore AS4610 series
 
