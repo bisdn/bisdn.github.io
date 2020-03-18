@@ -39,6 +39,34 @@ systemctl start | stop | restart | enable | disable | status SERVICE.service
 
 where for example the command to show information about baseboxd would be `systemctl status baseboxd.service`.
 
+### System and component versions
+
+Checking the versions of packages, like the ones listed above, can be done using
+
+```
+sudo opkg info <package name>
+```
+
+You can also print all installed packages with their associated versions with
+```
+sudo opkg list_installed
+```
+
+For the current version of baseboxd, simply run
+```
+baseboxd --version
+```
+
+List information about the BISDN Linux release with
+```
+cat /etc/os-release
+```
+
+And information about the build date and linux kernel can be found via
+```
+uname -a
+```
+
 ### Configure a local or remote controller
 
 BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
