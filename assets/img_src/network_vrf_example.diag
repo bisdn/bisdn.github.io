@@ -1,0 +1,15 @@
+nwdiag {
+  network network-1 {
+    address = "10.0.10.0/24"
+
+    server1 [address = "10.0.10.1, eno2, VLAN=10", width = 200];
+    switch [address = "10.0.10.2, port2, VLAN=10", width=200]
+  }
+
+  network network-2 {
+    address = "10.0.20.0/24"
+
+    server2 [address = "10.0.20.1, eno3, VLAN=20", width = 200];
+    switch [address = "10.0.20.2, port3, VLAN=20", width=200]
+  }
+}
