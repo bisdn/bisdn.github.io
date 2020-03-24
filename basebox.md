@@ -1,22 +1,18 @@
 ---
-date: '2020-01-07T16:07:30.187Z'
-docname: introduction/introduction_basebox
-images: {}
-path: /introduction-introduction-basebox
-title: Basebox introduction
-nav_order: 3
+title: Basebox
+nav_order: 2
 ---
 
-# Basebox introduction
+# Basebox
 
-Basebox is the BISDN controller package for data center networks with the following elements:
+Basebox is the BISDN SDN controller bundle for data center networks with the following elements:
 
 * The BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
 * baseboxd is a controller daemon integrating whitebox switches into Linux
 
 Based on OpenFlow Data Path Abstraction, it translates Linux netlink into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
 
-## Architecture
+## Architecture Overview
 
 baseboxd communicates northbound with the Linux kernel via netlink and southbound with the switch using OpenFlow and the OpenFlow Data Path Abstraction interface (OFDPA). The Linux network stack is used to directly represent and modify the state of the switching infrastructure. For each switch port controlled by baseboxd, a Linux tap interface is created on the baseboxd host operating system.
 
@@ -85,7 +81,7 @@ On the kernel side, it listens to netlink events, which are triggered by changes
 
 ## netlink
 
-baseboxd consumes netlink messages produced by the Linux kernel on certain events on the tap interfaces (e.g. the tap interface is added to a bridge or an IP adress is added to the tap interface). baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the libnl libraries, which provide a simple interface for sending and receiving netlink messages.
+baseboxd consumes netlink messages produced by the Linux kernel on certain events on the tap interfaces (e.g. the tap interface is added to a bridge or an IP address is added to the tap interface). baseboxd then reacts by managing the corresponding hardware switch ports. baseboxd uses the libnl libraries, which provide a simple interface for sending and receiving netlink messages.
 
 Since baseboxd responds directly to the relevant netlink messages, the intended way to interface with baseboxd is using tools such as iproute2, systemd-networkd or FRR.
 

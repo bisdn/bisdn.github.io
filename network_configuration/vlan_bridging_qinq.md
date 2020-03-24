@@ -1,10 +1,9 @@
 ---
-title: QinQ Provider Bridging (802.1ad)
-parent: Layer 2
-nav_order: 2
+title: VLAN Bridging QinQ (802.1ad)
+parent: Network Configuration
 ---
 
-# QinQ Provider Bridging (802.1ad)
+# VLAN Bridging QinQ (802.1ad)
 
 ## Introduction
 

@@ -1,10 +1,10 @@
 ---
-title: Bridging
-parent: Layer 2
+title: VLAN Bridging (802.1q)
+parent: Network Configuration
 nav_order: 1
 ---
 
-# Bridging
+# VLAN Bridging (802.1q)
 
 ## Introduction
 

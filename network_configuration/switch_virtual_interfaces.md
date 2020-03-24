@@ -1,14 +1,13 @@
 ---
-title: Switch VLAN Interfaces
-parent: Layer 3
-nav_order: 3
+title: Switch Virtual Interfaces (SVI)
+parent: Network Configuration
 ---
 
-# Switch VLAN Interfaces
+# Switch Virtual Interfaces (SVI)
 
 ## Introduction
 
-Extending the layer 2 domain to a layer 3 routed network can be done via the Switch VLAN Interfaces (SVI). These interfaces allow for routing inter-VLAN traffic, removing the need for an external router. Attaching these interfaces to the bridge will provide as well a gateway for a certain VLAN. There is a 1:1 mapping between a VLAN and a SVI. Creating these interfaces is done with the following commands, after creation and port attachment to the bridge.
+Extending the layer 2 domain to a layer 3 routed network can be done via the Switch Virtual Interfaces (SVI). These interfaces allow for routing inter-VLAN traffic, removing the need for an external router. Attaching these interfaces to the bridge will provide as well a gateway for a certain VLAN. There is a 1:1 mapping between a VLAN and a SVI. Creating these interfaces is done with the following commands, after creation and port attachment to the bridge.
 
 ## iproute2
 

@@ -1,13 +1,18 @@
 ---
-title: Interfaces
-parent: Layer 1
+title: Network Configuration
+parent: Getting Started
+nav_order: 5
 ---
 
-# Interfaces
+# Getting started with network configuration
+
+Before starting with actually configuring the switch interfaces, you should first familiarise yourself with how interfaces are created and how they fit into the BISDN Linux architecture.
+
+## Interfaces
 
 BISDN Linux maps the physical ports on the switch with an abstract representation via [tuntap](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) interfaces. These interfaces are special Linux software only devices, that are bound to a userspace program, specifically baseboxd for the case in BISDN Linux.
 
-If the [System configuration](.setup/setup_standalone.html#system-configuration) setup for baseboxd is followed correctly, then the following output is expected.
+If you followed the instructions from [Configure Baseboxd](configure_baseboxd.md), you should now be able to display all ports.
 
 ```
 $ ip link show
@@ -36,10 +41,62 @@ COMMIT
 
 The default path for iptables configuration is ``/etc/iptables/iptables.rules`` for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
-# Loopback interface
+## Loopback interface
 
 The loopback interface `lo` is a special type of device destined to allow the switch to communicate with itself. It is not associated with any physical device and is used to provide connectivity inside the same switch.
 
 There are two IP addresses associated by default with this interface: `127.0.0.1/8` for IPv4 and `::1/128` for IPv6 networks.
 
 It is possible to configure the loopback interface with other IPv4 and IPv6 addresses, thus providing connectivity to the loopback interface itself. In order to reach this interface, a "via" route must be present.
+
+# Network configuration with iproute2
+
+To configure an interface on the switch, you have to configure the corresponding port (tap interface) created by baseboxd. If for example you have connected "port1" of the switch to "eno2" of your server and want to test a simple ping between these two, you can assign IP addresses to both interfaces in a very similar way:
+
+On the switch:
+```
+root@agema-ag7648: ip address add 192.168.0.1/24 dev port1
+```
+
+On the server:
+```
+root@myserver: ip address add 192.168.0.2/24 dev eno2
+```
+
+You should now be able to ping the IP address configured on "port1" on your switch from your server:
+
+On the server:
+```
+root@myserver: ping 192.168.0.1
+```
+
+To configure more complex scenarios, please refer to the [Network Configuration](../network_configuration.md) section.
+
+
+# Persisting network configuration with systemd-networkd
+
+Multiple ways of storing network configuration exist on Linux systems. BISDN Linux supports [systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html) , [FRR User Guide](http://docs.frrouting.org/en/latest/) for single Basebox setups.
+
+systemd-networkd uses .network files to store network configuration. For details please see the [systemd-networkd manual](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
+The .network files (in directory /etc/systemd/network/) are processed in lexical order and only the first file that matches is applied.
+
+In the example below, the file 20-port50.network is processed first, meaning that port50 will get a dedicated configuration while all other ports get the generic one.
+That also means port50 is not getting the configuration for LLDP, but all other ports do (as these are configured using file 30-port.network)
+
+```
+root@agema-ag7648:/etc/systemd/network# cat 20-port50.network
+[Match]
+Name=port50
+
+[Network]
+Address=10.20.30.20/24
+
+root@agema-ag7648:/etc/systemd/network# cat 30-port.network
+[Match]
+Name=port*
+
+[Network]
+LLDP=yes
+EmitLLDP=yes
+LLMNR=no
+```

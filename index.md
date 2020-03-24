@@ -1,10 +1,9 @@
 ---
-title: BISDN Linux introduction
+title: BISDN Linux
+nav_order: 1
 ---
 
-# BISDN Linux introduction
-
-<!-- _introduction -->
+# BISDN Linux
 
 BISDN Linux Distribution is a custom Linux-based operating system for selected whitebox switches. This lightweight distribution supports baseboxd, FRR, as well as most native Linux networking tools.
 
