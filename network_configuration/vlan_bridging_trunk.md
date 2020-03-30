@@ -7,7 +7,7 @@ parent: Network Configuration
 
 ## Introduction
 
-A trunk port is a simply a port that can carry more than one VLAN. We say that
+A "trunk port" describes a port that can forward more than one VLAN. We say that
 the port is trunked into several VLANs. This enables us to use a single port as
 an entry point for all VLANs configured on a switch, instead of one port per
 VLAN. The trunk port tags incoming packets and forwards them to their designated
@@ -150,4 +150,3 @@ Bridge=swbridge
 VLAN=2
 VLAN=3
 ```
-
