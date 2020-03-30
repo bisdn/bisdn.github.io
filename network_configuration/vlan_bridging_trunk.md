@@ -14,7 +14,7 @@ VLAN. The trunk port tags incoming packets and forwards them to their designated
 VLAN.
 
 Conversely, an access port is the special case where a trunk port has a single
-VLAN as its Native VLAN (PVID).
+VLAN as its Native VLAN (PVID) and adds this PVID to all untagged packets it forwards.
 
 ## Example switch with uplink
 The example configuration below shows a switch connected to a server with two
