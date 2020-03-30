@@ -78,7 +78,7 @@ ip link del swbridge
 The configuration with systemd-networkd can be done by placing the following files,
 under the /etc/systemd/networkd directory. The first line of the snippet is
 the file name.
-The first two files create the bridge and adds VLAN 101 to it, completely
+The first two files create the bridge and add VLAN 2 and 3 to it, completely
 analogous to ``iproute2``
 
 ```
