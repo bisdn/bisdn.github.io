@@ -4,27 +4,54 @@ parent: Platform Configuration
 nav_order: 1
 ---
 
-### Port mirroring
+## Port mirroring
 
-BISDN Linux supports the configuration of mirror ports. Add mirror ports like that (replace <IP> with the IP of the whitebox switch or `localhost` when logged in on the switch itself):
+BISDN Linux supports the configuration of mirror ports. Mirrored ports replicate incoming/outgoing traffic, according to their configuration flag. The supported port mirroring flags are the following:
+
+* `OFDPA_MIRROR_PORT_TYPE_INGRESS`: Only ingress traffic is mirrored
+* `OFDPA_MIRROR_PORT_TYPE_EGRESS`: Only egress traffic is mirrored
+* `OFDPA_MIRROR_PORT_TYPE_INGRESS_EGRESS`: Both ingress and egress traffic are mirrored
+
+The following example shows how to mirror ingress traffic from port 2 to port 8 in a switch, as shown in this figure:
+
+![Port mirroring example](/assets/img/port_mirror_example.png)
+
+### Adding mirror ports
+
+Add port 8 as a mirror port:
 
 ```
-grpc_cli call <IP>:50051 ofdpaMirrorPortCreate "port_num: 1"
-grpc_cli call <IP>:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 2 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS}"
-grpc_cli call <IP>:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 3 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS_EGRESS}"
+grpc_cli call <IP>:50051 ofdpaMirrorPortCreate "port_num: 8"
 ```
 
-See mirror port configuration by running the following command on the whitebox switch:
+Where `<IP>` is the IP of the whitebox switch (`localhost` when logged in locally to the switch).
+
+Then, set port 2 as the mirror source and configure the port type to only mirror ingress traffic:
+
+```
+grpc_cli call <IP>:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 8 }, mirror_src_port_num: { port_num: 2 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS}"
+```
+
+### Verifying mirror port configuration 
+
+See the mirror port configuration by running the following command on the whitebox switch:
 
 ```
 client_mirror_port_dump
 ```
 
-Mirror ports can be deleted according to the following commands:
+Mirrored traffic cannot be captured on the switch mirror ports. Hence, to verify that traffic is being mirrored, we need to capture traffic on the server port that is connected to the mirror switch port. Within the example from the figure, the following command should be executed on `server2`:
 
 ```
-grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 2 }"
-grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 1 }, mirror_src_port_num: { port_num: 3 }"
-grpc_cli call <IP>:50051 ofdpaMirrorPortDelete "port_num: 1"
+sudo tcpdump -i eno8
+```
+
+### Deleting mirror ports
+
+The port mirror configuration can be deleted with the following commands:
+
+```
+grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { port_num: 8 }, mirror_src_port_num: { port_num: 2 }"
+grpc_cli call <IP>:50051 ofdpaMirrorPortDelete "port_num: 8"
 ```
 
