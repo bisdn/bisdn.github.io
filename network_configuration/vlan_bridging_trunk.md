@@ -136,7 +136,8 @@ Bridge=swbridge
 PVID=3
 EgressUntagged=3
 ```
-Configuring PVID for a port will enable the VLAN ID for ingress as well.
+Configuring PVID for a port will enable the VLAN ID for ingress as well, as
+stated in the [documentation for systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.network.html#PVID=)
 
 The trunk port is created with the following network file.
 
