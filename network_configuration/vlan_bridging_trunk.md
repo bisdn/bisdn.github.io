@@ -21,7 +21,7 @@ The example configuration below shows a switch connected to a server with two
 access ports and a trunk port for the uplink connection.
 ![vlan_trunk_image](/assets/img/vlan_trunk_network.svg)
 
-PVID=2 and PVID=3 is configured on the access ports ``port2`` and ``port3``
+PVID=2 and PVID=3 are configured on the access ports ``port2`` and ``port3``
 respectively. Additionally egress traffic is ungagged on these ports so the
 server are not aware of the VLAN.
 VLAN=2 and VLAN=3 is set on the trunk port ``port54``.
