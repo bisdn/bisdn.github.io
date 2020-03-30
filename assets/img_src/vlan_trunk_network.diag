@@ -1,15 +1,26 @@
 nwdiag {
-  network uplink {
-      switch [address="port54, VLAN=2, VLAN=3"];
+  network {
+      switch1 [address="port54, VLAN=2, VLAN=3"];
+      switch2 [address="port54, VLAN=2, VLAN=3"];
   }
   network {
       address = "VLAN=2"
-      server;
-      switch [address = "port2, PVID=2"];
+      server1;
+      switch1 [address = "port2, PVID=2"];
   }
   network {
       address = "VLAN=3"
-      server;
-      switch [address = "port3, PVID=3"];
+      server1;
+      switch1 [address = "port3, PVID=3"];
+  }
+  network {
+      address = "VLAN=2"
+      server2;
+      switch2 [address = "port2, PVID=2"];
+  }
+  network {
+      address = "VLAN=3"
+      server2;
+      switch2 [address = "port3, PVID=3"];
   }
 }

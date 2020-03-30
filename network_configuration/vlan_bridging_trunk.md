@@ -10,16 +10,19 @@ parent: Network Configuration
 A "trunk port" describes a port that can forward more than one VLAN. We say that
 the port is trunked into several VLANs. This enables us to use a single port as
 an entry point for all VLANs configured on a switch, instead of one port per
-VLAN. The trunk port tags incoming packets and forwards them to their designated
 VLAN.
 
 Conversely, an access port is the special case where a trunk port has a single
 VLAN as its Native VLAN (PVID) and adds this PVID to all untagged packets it forwards.
 
 ## Example switch with uplink
-The example configuration below shows a switch connected to a server with two
-access ports and a trunk port for the uplink connection.
+The example configuration below shows two switches connected with trunk ports.
+Both switches are connected to a server via two access ports.
 ![vlan_trunk_image](/assets/img/vlan_trunk_network.svg)
+
+Note that the both switches are identically configured, so although we only
+provide configuration for a single server and a single switch, the configuration
+applies to both ``switch1`` and ``switch2``.
 
 PVID=2 and PVID=3 are configured on the access ports ``port2`` and ``port3``
 respectively. Additionally egress traffic is ungagged on these ports so the
