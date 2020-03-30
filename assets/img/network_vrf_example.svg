@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox="0 0 648 444" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>nwdiag {
+  network network-1 {
+    address = "10.0.10.0/24"
+
+    server1 [address = "10.0.10.1, eno2, VLAN=10", width = 200];
+    switch [address = "10.0.10.2, port2, VLAN=10", width=200]
+  }
+
+  network network-2 {
+    address = "10.0.20.0/24"
+
+    server2 [address = "10.0.20.1, eno3, VLAN=20", width = 200];
+    switch [address = "10.0.20.2, port3, VLAN=20", width=200]
+  }
+}
+</desc>
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="200" x="155" y="162" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="200" x="403" y="162" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="200" x="155" y="306" />
+  <path d="M 131 103 L 627 103 A2,4 0 0 1 627 111 L 131 111 A2,4 0 0 1 131 103" fill="rgb(0,0,0)" style="filter:url(#filter_blur)" />
+  <path d="M 131 247 L 627 247 A2,4 0 0 1 627 255 L 131 255 A2,4 0 0 1 131 247" fill="rgb(0,0,0)" style="filter:url(#filter_blur)" />
+  <path d="M 128 100 L 624 100 A2,4 0 0 1 624 108 L 128 108 A2,4 0 0 1 128 100" fill="rgb(185,203,228)" stroke="rgb(0,0,0)" />
+  <path d="M 624 108 A2,4 0 0 1 624 100" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 100 L 624 100" fill="none" stroke="none" />
+  <path d="M 376 35 L 376 100" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 244 L 624 244 A2,4 0 0 1 624 252 L 128 252 A2,4 0 0 1 128 244" fill="rgb(185,203,228)" stroke="rgb(0,0,0)" />
+  <path d="M 624 252 A2,4 0 0 1 624 244" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 128 244 L 624 244" fill="none" stroke="none" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="93.0" y="103">network-1</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="72" x="84.0" y="116">10.0.10.0/24</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="93.0" y="247">network-2</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="72" x="84.0" y="260">10.0.20.0/24</text>
+  <path d="M 252 108 L 252 156" fill="none" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="291.0" y="123">10.0.10.1</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="24" x="276.0" y="136">eno2</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="285.0" y="149">VLAN=10</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="200" x="152" y="156" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="252.0" y="182">server1</text>
+  <path d="M 500 108 L 500 156" fill="none" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="539.0" y="123">10.0.10.2</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="527.0" y="136">port2</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="533.0" y="149">VLAN=10</text>
+  <path d="M 500 196 L 500 244" fill="none" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="539.0" y="211">10.0.20.2</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="527.0" y="224">port3</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="533.0" y="237">VLAN=20</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="200" x="400" y="156" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="500.0" y="182">switch</text>
+  <path d="M 252 252 L 252 300" fill="none" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="54" x="291.0" y="267">10.0.20.1</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="24" x="276.0" y="280">eno3</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="285.0" y="293">VLAN=20</text>
+  <rect fill="rgb(255,255,255)" height="40" stroke="rgb(0,0,0)" width="200" x="152" y="300" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="252.0" y="326">server2</text>
+</svg>
