@@ -69,20 +69,20 @@ Run the following scripts in the BISDN Linux shell to configure the local or rem
 To configure a local baseboxd controller, where the default OpenFlow port 6653 is used:
 
 ```
-basebox-change-config -l baseboxd
+sudo basebox-change-config -l baseboxd
 ```
 
 To configure a local Ryu controller:
 
 ```
-basebox-change-config -l ryu-manager ryu.app.ofctl_rest
+sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
 BISDN Linux supports to use [Ryu](https://osrg.github.io/ryu/) as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
 To configure a remote OpenFlow controller with <IP-address> and <OpenFlow-port>:
 
 ```
-basebox-change-config -r <IP-address> <OpenFlow-port>
+sudo basebox-change-config -r <IP-address> <OpenFlow-port>
 ```
 
 ### Verify your configuration
@@ -169,5 +169,5 @@ GLOG_logtostderr=1
 After having made the necessary changes to this file, restart baseboxd to apply the changes:
 
 ```
-systemctl restart baseboxd
+sudo systemctl restart baseboxd
 ```
