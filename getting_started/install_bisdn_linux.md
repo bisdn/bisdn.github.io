@@ -50,12 +50,12 @@ to get into the ONIE CLI.
 
 Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
-This example installs BISDN Linux v2.0.0 for the AG7648 platform:
+This example installs BISDN Linux v3.0.0 for the AG7648 platform:
 ```
-onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v2.0.0.bin
+onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v3.0.0.bin
 ```
 
-**Note**: The ONIE CLI command can only process http URLs.`
+**Note**: The ONIE CLI command can only process http URLs.
 {: .label .label-yellow }
 
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
