@@ -91,62 +91,6 @@ You can check the results of your configuration in the following file: /etc/defa
 
 The section “OPTION=” should point to localhost (local controller) or to the remote controller and respective port that you have configured.
 
-### See the installed software components
-
-Check if the required software components are installed.
-
-#### Local controller (BISDN Linux)
-
-To check whether the proper packages are installed on BISDN Linux run
-
-```
-opkg info service-name
-```
-
-The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, grpc_cli, frr.
-
-```
-opkg info baseboxd; \
-opkg info ofagent; \
-opkg info ofdpa; \
-opkg info ofdpa-grpc; \
-opkg info frr
-```
-
-#### Remote controller
-
-The following components should be installed and running on the remote controller: baseboxd, frr, ryu-manager (optional):
-
-### Verify the running software components
-
-#### Local controller (BISDN Linux)
-
-The following services should be active (running) and enabled on the whitebox switch by default:
-
-* baseboxd
-* ofagent
-* ofdpa
-* ofdpa-grpc
-
-#### Remote controller
-
-The following components should be active (running) and enabled on the whitebox switch:
-
-* ofagent
-* ofdpa
-* ofdpa-grpc
-
-The following components should be inactive and disabled on the whitebox switch:
-
-* baseboxd
-* ryu-manager
-
-The following components should be active (running) and enabled on the remote controller:
-
-* baseboxd
-* frr
-* ryu-manager
-
 ### Setup baseboxd
 
 baseboxd uses a file to store configuration data like log level and OpenFlow ports. On BISDN Linux this file is located in /etc/default/baseboxd and on Fedora systems in /etc/sysconfig/baseboxd. The example below shows the basic structure:
