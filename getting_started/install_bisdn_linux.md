@@ -87,10 +87,12 @@ Preparing image archive ... OK.
 Demo Installer: platform: x86_64-agema_ag7648-r0
 ```
 
+### Post installation
+
 After successful installation the switch will reboot itself. Once it has finished booting you should see a similar message:
 
 ```
-BISDN Linux 2.0.0 agema-ag7648 ttyUSB0
+BISDN Linux 3.0.0 agema-ag7648 ttyUSB0
 
 agema-ag7648 login:
 ```
