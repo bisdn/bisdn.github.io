@@ -75,7 +75,7 @@ To configure more complex scenarios, please refer to the [Network Configuration]
 
 # Persisting network configuration with systemd-networkd
 
-Multiple ways of storing network configuration exist on Linux systems. BISDN Linux supports [systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html) , [FRR User Guide](http://docs.frrouting.org/en/latest/) for single Basebox setups.
+Multiple ways of storing network configuration exist on Linux systems. BISDN Linux supports [systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html) for single Basebox setups.
 
 systemd-networkd uses .network files to store network configuration. For details please see the [systemd-networkd manual](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
 The .network files (in directory /etc/systemd/network/) are processed in lexical order and only the first file that matches is applied.
