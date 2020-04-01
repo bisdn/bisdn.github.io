@@ -63,10 +63,13 @@ uname -a
 
 ### Configure a local or remote controller
 
-BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
-Run the following scripts in the BISDN Linux shell to configure the local or remote usage.
+BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller, with BISDN Linux currently supporting baseboxd and [Ryu](https://osrg.github.io/ryu/).
 
-To configure a local baseboxd controller, where the default OpenFlow port 6653 is used:
+Run the following scripts in the BISDN Linux shell to configure the local or remote controller.
+
+#### Local controller
+
+To configure a local baseboxd controller using the default OpenFlow port 6653:
 
 ```
 sudo basebox-change-config -l baseboxd
@@ -77,9 +80,14 @@ To configure a local Ryu controller:
 ```
 sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
-BISDN Linux supports to use [Ryu](https://osrg.github.io/ryu/) as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
+where `ryu.app.ofctl_rest` is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-To configure a remote OpenFlow controller with <IP-address> and <OpenFlow-port>:
+Please note, that with Ryu the integration of system networking events is not supported, as that is a feature from baseboxd.
+{: .label .label-yellow }
+
+#### Remote controller
+
+To configure a remote OpenFlow controller with \<IP-address\> and \<OpenFlow-port\>:
 
 ```
 sudo basebox-change-config -r <IP-address> <OpenFlow-port>
