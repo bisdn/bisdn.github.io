@@ -63,7 +63,7 @@ uname -a
 
 ### Configure a local or remote controller
 
-BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller, with BISDN Linux currently supporting baseboxd and [Ryu](https://osrg.github.io/ryu/).
+BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller, with BISDN Linux currently supporting [baseboxd](https://github.com/bisdn/basebox) and [Ryu](https://osrg.github.io/ryu/).
 
 Run the following scripts in the BISDN Linux shell to configure the local or remote controller.
 
