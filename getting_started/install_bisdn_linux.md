@@ -29,7 +29,7 @@ to install a switch image. To remove the image, enter
 run onie_uninstall
 ```
 
-The BISDN image can be obtained either through the [ONIE CLI](#get-the-image-via-the-cli) or through a [DHCP server](#get-the-image-via-dhcp-option-60). Both methods are described below.
+The BISDN image can be installed either via the [ONIE CLI](#get-the-image-via-the-cli) or through a [DHCP server](#get-the-image-via-dhcp-option-60). Both methods are described below.
 
 **Note**: It is recommended to uninstall any existing OS before installing BISDN Linux.
 {: .label .label-yellow }
