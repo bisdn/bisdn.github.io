@@ -29,6 +29,8 @@ to install a switch image. To remove the image, enter
 run onie_uninstall
 ```
 
+The BISDN image can be installed either via the [ONIE CLI](#get-the-image-via-the-cli) or through a [DHCP server](#get-the-image-via-dhcp-option-60). Both methods are described below.
+
 **Note**: It is recommended to uninstall any existing OS before installing BISDN Linux.
 {: .label .label-yellow }
 
@@ -50,12 +52,12 @@ to get into the ONIE CLI.
 
 Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
-This example installs BISDN Linux v2.0.0 for the AG7648 platform:
+This example installs BISDN Linux v3.0.0 for the AG7648 platform:
 ```
-onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v2.0.0.bin
+onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v3.0.0.bin
 ```
 
-**Note**: The ONIE CLI command can only process http URLs.`
+**Note**: The ONIE CLI command can only process http URLs.
 {: .label .label-yellow }
 
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
@@ -85,10 +87,12 @@ Preparing image archive ... OK.
 Demo Installer: platform: x86_64-agema_ag7648-r0
 ```
 
+### Post installation
+
 After successful installation the switch will reboot itself. Once it has finished booting you should see a similar message:
 
 ```
-BISDN Linux 2.0.0 agema-ag7648 ttyUSB0
+BISDN Linux 3.0.0 agema-ag7648 ttyUSB0
 
 agema-ag7648 login:
 ```

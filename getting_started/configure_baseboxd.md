@@ -63,26 +63,34 @@ uname -a
 
 ### Configure a local or remote controller
 
-BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller.
-Run the following scripts in the BISDN Linux shell to configure the local or remote usage.
+BISDN Linux contains the prerequisites to control the switch by either local or remote OpenFlow controllers. The default configuration is a local controller, with BISDN Linux currently supporting [baseboxd](https://github.com/bisdn/basebox) and [Ryu](https://osrg.github.io/ryu/).
 
-To configure a local baseboxd controller, where the default OpenFlow port 6653 is used:
+Run the following scripts in the BISDN Linux shell to configure the local or remote controller.
+
+#### Local controller
+
+To configure a local baseboxd controller using the default OpenFlow port 6653:
 
 ```
-basebox-change-config -l baseboxd
+sudo basebox-change-config -l baseboxd
 ```
 
 To configure a local Ryu controller:
 
 ```
-basebox-change-config -l ryu-manager ryu.app.ofctl_rest
+sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
-BISDN Linux supports to use [Ryu](https://osrg.github.io/ryu/) as the controller, where the last argument is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
+where `ryu.app.ofctl_rest` is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-To configure a remote OpenFlow controller with <IP-address> and <OpenFlow-port>:
+Please note, that with Ryu the integration of system networking events is not supported, as that is a feature from baseboxd.
+{: .label .label-yellow }
+
+#### Remote controller
+
+To configure a remote OpenFlow controller with \<IP-address\> and \<OpenFlow-port\>:
 
 ```
-basebox-change-config -r <IP-address> <OpenFlow-port>
+sudo basebox-change-config -r <IP-address> <OpenFlow-port>
 ```
 
 ### Verify your configuration
@@ -90,62 +98,6 @@ basebox-change-config -r <IP-address> <OpenFlow-port>
 You can check the results of your configuration in the following file: /etc/default/ofagent
 
 The section “OPTION=” should point to localhost (local controller) or to the remote controller and respective port that you have configured.
-
-### See the installed software components
-
-Check if the required software components are installed.
-
-#### Local controller (BISDN Linux)
-
-To check whether the proper packages are installed on BISDN Linux run
-
-```
-opkg info service-name
-```
-
-The following components should be installed on the whitebox switch by default: baseboxd, ofagent, ofdpa, ofdpa-grpc, grpc_cli, frr.
-
-```
-opkg info baseboxd; \
-opkg info ofagent; \
-opkg info ofdpa; \
-opkg info ofdpa-grpc; \
-opkg info frr
-```
-
-#### Remote controller
-
-The following components should be installed and running on the remote controller: baseboxd, frr, ryu-manager (optional):
-
-### Verify the running software components
-
-#### Local controller (BISDN Linux)
-
-The following services should be active (running) and enabled on the whitebox switch by default:
-
-* baseboxd
-* ofagent
-* ofdpa
-* ofdpa-grpc
-
-#### Remote controller
-
-The following components should be active (running) and enabled on the whitebox switch:
-
-* ofagent
-* ofdpa
-* ofdpa-grpc
-
-The following components should be inactive and disabled on the whitebox switch:
-
-* baseboxd
-* ryu-manager
-
-The following components should be active (running) and enabled on the remote controller:
-
-* baseboxd
-* frr
-* ryu-manager
 
 ### Setup baseboxd
 
@@ -169,5 +121,5 @@ GLOG_logtostderr=1
 After having made the necessary changes to this file, restart baseboxd to apply the changes:
 
 ```
-systemctl restart baseboxd
+sudo systemctl restart baseboxd
 ```
