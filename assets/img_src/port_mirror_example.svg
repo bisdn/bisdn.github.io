@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 234.5 259.16"
+   version="1.1"
+   id="svg65"
+   sodipodi:docname="port_mirror_example.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   width="234.5"
+   height="259.16">
+  <metadata
+     id="metadata69">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>blockdiag</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     id="namedview67"
+     showgrid="true"
+     inkscape:zoom="1.0555556"
+     inkscape:cx="-158.52386"
+     inkscape:cy="189.73637"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg65"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4580"
+       originx="-384.25"
+       originy="-135.92" />
+  </sodipodi:namedview>
+  <defs
+     id="defs_block">
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4726"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <filter
+       height="1.5039999"
+       id="filter_blur"
+       inkscape:collect="always"
+       width="1.1575"
+       x="-0.078749999"
+       y="-0.252">
+      <feGaussianBlur
+         id="feGaussianBlur3780"
+         inkscape:collect="always"
+         stdDeviation="4.2" />
+    </filter>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4726-6"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4726-9"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+  </defs>
+  <title
+     id="title5">blockdiag</title>
+  <desc
+     id="desc7">nwdiag {
+  network network-1 {
+
+    server1 [address = &quot;eno2&quot;, width = 200];
+    switch [address = &quot;port2&quot;, width = 200]
+  }
+
+  network network-2 {
+    server2 [address = &quot;eno8&quot;, width = 200];
+    switch [address = &quot;port8&quot;, width = 200]
+  }
+}
+</desc>
+  <rect
+     height="40"
+     style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;filter:url(#filter_blur)"
+     width="200"
+     x="18.75"
+     y="113.08"
+     id="rect11" />
+  <path
+     d="m -256.25,51.08 h 496"
+     id="path23"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:none" />
+  <path
+     d="m -256.25,195.08 h 496"
+     id="path31"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:none" />
+  <rect
+     height="40"
+     style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;filter:url(#filter_blur)"
+     width="200"
+     x="15.75"
+     y="10.08"
+     id="rect9" />
+  <text
+     style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000"
+     lengthAdjust="spacing"
+     font-size="11"
+     font-style="normal"
+     font-weight="normal"
+     textLength="24"
+     x="276"
+     y="136"
+     id="text39"
+     transform="translate(-136.49235,-71.533124)">eno2</text>
+  <rect
+     style="fill:#ffffff;stroke:#000000"
+     height="40"
+     width="200"
+     x="15.75"
+     y="10.08"
+     id="rect41" />
+  <text
+     style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000"
+     lengthAdjust="spacing"
+     font-size="11"
+     font-style="normal"
+     font-weight="normal"
+     textLength="42"
+     x="252"
+     y="182"
+     id="text43"
+     transform="translate(-136.28519,-145.92)">server1</text>
+  <path
+     d="m 115.75,50.08 v 57"
+     id="path45"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000"
+     sodipodi:nodetypes="cc" />
+  <text
+     font-size="11"
+     font-style="normal"
+     font-weight="normal"
+     textLength="30"
+     x="527"
+     y="136"
+     id="text47"
+     lengthAdjust="spacing"
+     transform="translate(-384.25,-36.92)"
+     style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000">port2</text>
+  <text
+     font-size="11"
+     font-style="normal"
+     font-weight="normal"
+     textLength="30"
+     x="527"
+     y="224"
+     id="text51"
+     lengthAdjust="spacing"
+     style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000"
+     transform="translate(-384.25,-56.92)">port8</text>
+  <g
+     id="g5392"
+     transform="translate(-384.25,-48.92)">
+    <rect
+       id="rect53"
+       y="156"
+       x="400"
+       width="200"
+       height="40"
+       style="fill:#ffffff;stroke:#000000" />
+    <text
+       id="text55"
+       y="182"
+       x="500"
+       textLength="36"
+       font-weight="normal"
+       font-style="normal"
+       font-size="11"
+       lengthAdjust="spacing"
+       style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000">switch</text>
+  </g>
+  <text
+     style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000"
+     lengthAdjust="spacing"
+     font-size="11"
+     font-style="normal"
+     font-weight="normal"
+     textLength="24"
+     x="276"
+     y="280"
+     id="text59"
+     transform="translate(-136.49235,-81.409696)">eno8</text>
+  <g
+     id="g5384"
+     transform="translate(-139.25,-96.92)">
+    <rect
+       id="rect13"
+       y="306"
+       x="155"
+       width="200"
+       style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;filter:url(#filter_blur)"
+       height="40" />
+    <rect
+       id="rect61"
+       y="300"
+       x="152"
+       width="200"
+       height="40"
+       style="fill:#ffffff;stroke:#000000" />
+    <text
+       id="text63"
+       y="326"
+       x="252"
+       textLength="42"
+       font-weight="normal"
+       font-style="normal"
+       font-size="11"
+       lengthAdjust="spacing"
+       style="font-style:normal;font-weight:normal;font-size:11px;font-family:sans-serif;text-anchor:middle;fill:#000000">server2</text>
+  </g>
+  <path
+     style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL)"
+     d="m 110.75,55.08 v 45"
+     id="path4582"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot4866"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     transform="translate(-327.88158,-64.11625)"><flowRegion
+       id="flowRegion4868"><rect
+         id="rect4870"
+         width="235"
+         height="60"
+         x="370"
+         y="114" /></flowRegion><flowPara
+       id="flowPara4872"
+       style="font-size:13.33333302px;fill:#ff0000">0101010</flowPara></flowRoot>  <path
+     style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL-2)"
+     d="m 110.75,150.08 v 45.3833"
+     id="path4582-1"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot4866-3"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     transform="translate(-327.88158,31.0754)"><flowRegion
+       id="flowRegion4868-6"><rect
+         id="rect4870-06"
+         width="235"
+         height="60"
+         x="370"
+         y="114" /></flowRegion><flowPara
+       id="flowPara4872-2"
+       style="font-size:13.33333302px;fill:#ff0000">0101010</flowPara></flowRoot>  <flowRoot
+     xml:space="preserve"
+     id="flowRoot5319"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     transform="translate(-295.19737,-171.55158)"><flowRegion
+       id="flowRegion5321"><rect
+         id="rect5323"
+         width="225"
+         height="95"
+         x="455"
+         y="304" /></flowRegion><flowPara
+       id="flowPara5325"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';fill:#ff0000">(mirror)</flowPara></flowRoot>  <flowRoot
+     xml:space="preserve"
+     id="flowRoot5319-6"
+     style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     transform="translate(-295.19737,-239.81474)"><flowRegion
+       id="flowRegion5321-1"><rect
+         id="rect5323-8"
+         width="225"
+         height="95"
+         x="455"
+         y="304" /></flowRegion><flowPara
+       id="flowPara5325-7"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic';fill:#ff0000">(source)</flowPara></flowRoot>  <path
+     d="m 115.75,146.58 v 57"
+     id="path45-3"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000"
+     sodipodi:nodetypes="cc" />
+</svg>

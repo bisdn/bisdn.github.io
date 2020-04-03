@@ -1,0 +1,12 @@
+nwdiag {
+  network network-1 {
+
+    server1 [address = "eno2", width = 200];
+    switch [address = "port2", width = 200]
+  }
+
+  network network-2 {
+    server2 [address = "eno8", width = 200];
+    switch [address = "port8", width = 200]
+  }
+}
