@@ -82,7 +82,7 @@ sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
 where `ryu.app.ofctl_rest` is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-Please note, that with Ryu the integration of Linux networking events is not supported, as that is a feature from baseboxd.
+Please note, that with Ryu the integration of Linux networking (netlink) events is not supported, as that is a feature from baseboxd.
 {: .label .label-yellow }
 
 #### Remote controller
