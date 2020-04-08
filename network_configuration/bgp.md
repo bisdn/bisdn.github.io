@@ -3,11 +3,15 @@ title: Border Gateway Protocol (BGP)
 parent: Network Configuration
 ---
 
-# Border Gateway Protocol for IPv4 networks
+# Border Gateway Protocol
 
-Leveraging FRR as the routing daemon, the BGP tests will ensure the correct interaction between two controllers and two servers.
+## Introduction
 
-## BGP configuration
+The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was originally designed to support IPv4 networks in [RFC4721](https://tools.ietf.org/html/rfc4271.html), and later extended to support other protocols, such as IPv6, in [RFC2858](https://tools.ietf.org/html/rfc2858.html). Contrary to OSPF, where its IPv4 and IPv6 are defined in FRR with different daemons/files, the FRR BGP daemon can be configured for both protocols. Its complete documentation for FRR can be found [here](http://docs.frrouting.org/en/latest/bgp.html). 
+
+In this section, we provide examples on how to configure BGP for both [IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in BISDN Linux.
+
+## BGP for IPv4 networks
 
 FRR is configured using files, typically on the /etc/frr/ directory. Each desired protocol has a different configuration file,
 where the protocol-specific information can be stored.  This folder will also hold the general configuration files for FRR itself,
@@ -30,7 +34,7 @@ information entails all the necessary next-hops, route announcements, and route-
 
 Setting up the IP addresses on the interfaces on the controller according to the diagram above, can be done using iproute2 commands.
 
-## BGP configuration overview
+### BGP configuration overview
 
 ```
 router bgp 65000
@@ -63,7 +67,7 @@ network 10.1.5.0/24
 The last lines on the configuration file specify the networks that must be announced to the other peer. The other node will
 receive these networks, and learn the appropriate routes to the next-hop.
 
-## BGP expected result and debugging
+### BGP expected result and debugging
 
 BGP expects a connection through the defined neighbors to port 179 by default. The connection status can be checked via the FRR shell vtysh.
 
@@ -91,11 +95,9 @@ The final debugging information to confirm must be the switch tables, where we m
 the rules on the kernel to OpenFlow flow mods, via client_flowtable_dump 30. This is the sole command that must *always* be run
 on the switch. The previous commands must be run on the controller/switch, depending where baseboxd is running.
 
-# Border Gateway Protocol for IPv6 networks
+## BGP for IPv6 networks
 
-## BGP configuration
-
-The FRR configuration for BGPv6 is stored in the same file for the IPv4 BGP configuration, /etc/frr/bgpd.conf. As such, the daemons file will look the same as the file used in the IPv4
+The FRR configuration for BGPv6 is stored in the same file as for the IPv4 BGP configuration, /etc/frr/bgpd.conf. As such, the daemons file will look the same as the file used in the IPv4
 configuration.
 
 IPv6 addresses on the router must be manually written, as in the BGPv4 case. The main difference in the BGPv6 case is due to the presence of auto-configuration mechanisms for IP addresses in IPv6, which allows generating a new IP address for the servers interfaces without having to create them manually, for they are derived from the interface’s MAC addresses, and an announced network prefix in a router port. The IPv6 auto-configuration is possible via the zebra.conf configuration, like
@@ -133,6 +135,6 @@ router bgp 65000
   no bgp default ipv4-unicast
 ```
 
-## BGPv6 expected result and debugging
+### BGPv6 expected result and debugging
 
 The commands and notes mentioned in the BGP (Border Gateway Protocol) section are still relevant for this case.

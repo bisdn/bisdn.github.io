@@ -3,11 +3,16 @@ title: Open Shortest Path First (OSPF)
 parent: Network Configuration
 ---
 
-# Open Shortest Path First for IPv4 networking (OSPFv2)
+# Open Shortest Path First
 
-OSPF is a link state routing protocol.
+## Introduction
 
-## OSPF configuration
+The Open Shortest Path First (OSPF) protocol is a link state routing protocol. Its IPv4 networking version is specified as [OSPFv2](https://tools.ietf.org/html/rfc2328) and the IPv6 version is defined as [OSPFv3](https://tools.ietf.org/html/rfc5340). 
+Both versions can be configured using FRR and their full documentation is available for both [OSPFv2](http://docs.frrouting.org/en/latest/ospfd.html) and [OSPFv3](http://docs.frrouting.org/en/latest/ospf6d.html) versions, respectively.
+
+This section provides an overview on how to configure both versions on BISDN Linux.
+
+## OSPFv2 configuration
 
 OSPF must first be enabled in /etc/frr/daemons file. The relevant files for this test case must then be
 configured, /etc/frr/zebra.conf and /etc/frr/osfpd.conf.
@@ -46,7 +51,7 @@ router ospf
 exit
 ```
 
-## OSPF expected result and debugging
+### OSPF expected result and debugging
 
 Analogous to the previous protocols debugging commands, we can run the following commands to verify the configuration.
 
@@ -58,11 +63,7 @@ ip route
 (vtysh) show ip ospf neighbors
 ```
 
-# Open Shortest Path First for IPv6 networking (OSPFv3)
-
-OSPFv3 is the protocol providing OSPF routing mechanisms for IPv6 networks.
-
-## OSPFv3 configuration
+## OSPFv3
 
 OSPFv3 must first be enabled in /etc/frr/daemons file. The relevant files for this test case must then be
 configured, /etc/frr/zebra.conf and /etc/frr/osfp6d.conf.
@@ -103,7 +104,7 @@ router ospf6
 exit
 ```
 
-## OSPFv3 expected result and debugging
+### OSPFv3 expected result and debugging
 
 Analogous to the previous protocols debugging commands, we can run the following commands to verify the configuration.
 

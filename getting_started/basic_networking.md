@@ -1,5 +1,5 @@
 ---
-title: Network Configuration
+title: Basic Networking
 parent: Getting Started
 nav_order: 5
 ---
