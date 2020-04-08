@@ -97,7 +97,7 @@ on the switch. The previous commands must be run on the controller/switch, depen
 
 ## BGP for IPv6 networks
 
-The FRR configuration for BGPv6 is stored in the same file for the IPv4 BGP configuration, /etc/frr/bgpd.conf. As such, the daemons file will look the same as the file used in the IPv4
+The FRR configuration for BGPv6 is stored in the same file as for the IPv4 BGP configuration, /etc/frr/bgpd.conf. As such, the daemons file will look the same as the file used in the IPv4
 configuration.
 
 IPv6 addresses on the router must be manually written, as in the BGPv4 case. The main difference in the BGPv6 case is due to the presence of auto-configuration mechanisms for IP addresses in IPv6, which allows generating a new IP address for the servers interfaces without having to create them manually, for they are derived from the interface’s MAC addresses, and an announced network prefix in a router port. The IPv6 auto-configuration is possible via the zebra.conf configuration, like
