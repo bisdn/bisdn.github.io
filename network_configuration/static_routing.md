@@ -7,7 +7,7 @@ parent: Network Configuration
 
 ## Introduction
 
-As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done typically via iproute2 and systemd-networkd, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted FRRouting, to support routing protocols such as BGP and OSPF. Further information can be seen in section FRRouting.
+As a L3-enabled SDN controller, baseboxd can be configured for routing purposes. Examples in this part are added to show how IP addresses (IPv4 and IPv6) and routes can be attached to certain interfaces. Managing static routes is done typically via iproute2 and systemd-networkd, and the following sections will describe this in more detail. For dynamic routing, BISDN adopted FRRouting, to support routing protocols such as BGP and OSPF.
 
 **WARNING**: Configuring a Linux box to work as a router assumes that sysctl net.ipv4.conf.all.forwarding=1. BISDN Linux has this sysctl already enabled by default, but routing issues should be debugged first by checking the value for this configuration.
 {: .label .label-red }
