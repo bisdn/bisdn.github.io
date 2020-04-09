@@ -10,14 +10,11 @@ Basebox is the BISDN SDN controller bundle for data center networks with the fol
 * The BISDN Linux Distribution is a Yocto-based operating system for selected whitebox switches
 * baseboxd is a controller daemon integrating whitebox switches into Linux
 
-Based on [OpenFlow Data Path
-Abstraction (OF-DPA)](http://broadcom-switch.github.io/of-dpa/doc/html/index.html), it translates Linux netlink into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
+Based on [OpenFlow Data Path Abstraction (OF-DPA)](http://broadcom-switch.github.io/of-dpa/doc/html/index.html), it translates Linux netlink into switch rules. Our solution can be easily managed and flawlessly integrated in any existing Linux environment.
 
 ## Architecture Overview
 
-baseboxd communicates northbound with the Linux kernel via netlink and
-southbound with the switch using OpenFlow and the OpenFlow Data Path Abstraction
-interface (OF-DPA). The Linux network stack is used to directly represent and modify the state of the switching infrastructure. For each switch port controlled by baseboxd, a Linux tap interface is created on the baseboxd host operating system.
+baseboxd communicates northbound with the Linux kernel via netlink and southbound with the switch using OpenFlow and the OpenFlow Data Path Abstraction interface (OF-DPA). The Linux network stack is used to directly represent and modify the state of the switching infrastructure. For each switch port controlled by baseboxd, a Linux tap interface is created on the baseboxd host operating system.
 
 ```
 +------------+   +
