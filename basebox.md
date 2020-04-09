@@ -87,7 +87,7 @@ Since baseboxd responds directly to the relevant netlink messages, the intended 
 
 ## OpenFlow
 
-baseboxd communicates with switches using the OpenFlow protocol. Our implementation uses the Broadcom OF-DPA flavor specifically, which is based on [OpenFlow 1.3.4](https://www.opennetworking.org/wp-content/uploads/2014/10/openflow-switch-v1.3.4.pdf). [OF-DPA 2.0 table type pattern specification](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) guidelines are available. Switches compatible with Broadcom’s SDK come with the OF Agent. OF Agent is a daemon which serves the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the switch side.
+baseboxd communicates with switches using the OpenFlow protocol. Our implementation uses the Broadcom OF-DPA flavor specifically, which is based on [OpenFlow 1.3.4](https://www.opennetworking.org/wp-content/uploads/2014/10/openflow-switch-v1.3.4.pdf). [OF-DPA 2.0 table type pattern specification](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) guidelines are available. Switches compatible with Broadcom’s SDK come with the OF Agent. OF Agent is a daemon which provides the OpenFlow connection between the control plane, and the Broadcom-implemented data plane. It enforces the table type pattern specification on the switch side.
 
 ```
 +--------------+  +
