@@ -8,16 +8,18 @@ nav_order: 1
 
 ## Introduction
 
-The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The traditional bridging mode in Linux, created without the vlan_filtering flag, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges, where each bridge port will be configured with a list of allowed VLANS.
+In Linux systems, a bridge acts like a virtual switch that interconnects different network interfaces in the same host. Linux bridging supports VLAN filtering, which allows the configuration of different VLANs on the bridge configured ports.
+
+The traditional bridging mode in Linux, created without VLAN filtering, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges.
 
 **WARNING**: baseboxd supports only the VLAN-Aware bridge mode. Creating traditional bridges will result in undefined behavior.
 {: .label .label-red }
 
-Only a single bridge is supported inside Basebox and due to the nature of VLAN-Aware bridges only one is necessary.
+Only a single bridge is supported inside Basebox and due to the nature of VLAN-Aware bridges only one is necessary. The following subsections contain instructions for configuring bridges using [iproute2](#iproute2) and [systemd-networkd](#systemd-networkd).
 
 ## iproute2
 
-Bridge creation is done with the following command.
+Bridge creation is done with the following command:
 
 ```
 BRIDGE=${BRIDGE:-swbridge}
@@ -26,7 +28,7 @@ ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1
 ip link set ${BRIDGE} up
 ```
 
-The default, or primary VLAN identifier (PVID) is used to tag incoming traffic that does not have any VLAN tag. By using the vlan_default_pvid flag on creation, this value can be adjusted (default=1).
+The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The default, or primary VLAN identifier (PVID) is used to tag incoming traffic that does not have any VLAN tag. By using the vlan_default_pvid flag on creation, this value can be adjusted (default=1).
 
 To enslave interfaces to bridges refer to the following commands. The management interface should not be bridged with the rest of the baseboxd interfaces.
 
