@@ -12,7 +12,7 @@ In Linux systems, a bridge acts like a virtual switch that interconnects differe
 
 The traditional bridging mode in Linux, created without VLAN filtering, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges.
 
-**WARNING**: baseboxd supports only the VLAN-Aware bridge mode. Creating traditional bridges will result in undefined behavior.
+**WARNING**: baseboxd supports only the VLAN-aware bridge mode. Creating traditional bridges will result in undefined behavior.
 {: .label .label-red }
 
 Only a single bridge is supported inside Basebox and due to the nature of VLAN-Aware bridges only one is necessary. The following subsections contain instructions for configuring bridges using [iproute2](#iproute2) and [systemd-networkd](#systemd-networkd).
