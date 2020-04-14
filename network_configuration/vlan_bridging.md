@@ -8,7 +8,7 @@ nav_order: 1
 
 ## Introduction
 
-In Linux systems, a bridge acts like a virtual switch that interconnects different network interfaces in the same host. Linux bridging supports VLAN filtering, which allows the configuration of different VLANs on the bridge configured ports.
+In Linux systems, a bridge acts like a virtual switch that interconnects different network interfaces on the same host. Linux bridging supports VLAN filtering, which allows the configuration of different VLANs on the bridge ports.
 
 The traditional bridging mode in Linux, created without VLAN filtering, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges.
 
@@ -261,4 +261,3 @@ Bridge=swbridge
 VLAN=2
 VLAN=3
 ```
-
