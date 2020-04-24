@@ -156,7 +156,7 @@ Parameters for new meter
 
 ```
 
-The following example adds a two rate tree color meter (TrTCM) with ID 20000 measured in Kbps, with a CIR of 100000 Kbps (100 Mbps), a CBS of 3000 KB, a PIR of 900000 Kbps (900 Mbps), and a PBS of 5000 KB:
+The following example adds a two rate three color meter (TrTCM) with ID 20000 measured in Kbps, with a CIR of 100000 Kbps (100 Mbps), a CBS of 3000 KB, a PIR of 900000 Kbps (900 Mbps), and a PBS of 5000 KB:
 
 ```
 ofdpa_meter_cli.py -a 20000 --color --mode trtcm --cir 100000 --cbs 3000 --pir 900000 --pbs 5000
