@@ -141,7 +141,7 @@ ofdpa_meter_cli.py --help
 
 #### Adding a meter
 
-Meters are add through the `-a` option, followed by the desired meter id. The meter type, rate unit, and band rate/burst size can then be specified as input:
+Meters are added through the `-a` option, followed by the desired meter id. The meter type, rate unit, and band rate/burst size can then be specified as input:
 ```
 Parameters for new meter
 
