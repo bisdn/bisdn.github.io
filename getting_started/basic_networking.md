@@ -17,12 +17,18 @@ If you followed the instructions from [Configure Baseboxd](configure_baseboxd.md
 ```
 $ ip link show
 ...
-8: port1: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
-    link/ether 3e:25:b2:29:0e:40 brd ff:ff:ff:ff:ff:ff
-9: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
-  link/ether 82:21:77:4b:1c:69 brd ff:ff:ff:ff:ff:ff
+7: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 32:95:cf:c7:63:04 brd ff:ff:ff:ff:ff:ff
+8: port3: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/ether 7e:e0:17:0d:3e:de brd ff:ff:ff:ff:ff:ff
+9: port4: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/ether ee:9f:66:17:6a:71 brd ff:ff:ff:ff:ff:ff
+10: port5: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 86:86:c7:a7:2c:df brd ff:ff:ff:ff:ff:ff
   ...
 ```
+
+Moreover, baseboxd sets the carrier state on the tap devices to reflect the physical link state. If you set a switch port up where there is no link (i.e. either no cable attached, or link set down on the other side), ther will be ``NO-CARRIER``as seen above for ``port4``. 
 
 These interfaces can be managed via the [iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported Linux networking utility. The link state for these interfaces maps to the physical port state. Due to a limitation in the Linux kernel, the interfaces state show up as UNKNOWN or DOWN, where UNKNOWN means that the physical interface has a cable attached.
 
