@@ -41,6 +41,19 @@ COMMIT
 
 The default path for iptables configuration is ``/etc/iptables/iptables.rules`` for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
+The tap interfaces have their link speed and duplex settings reported via ethtool, visible via
+
+```
+$ ethtool port1
+Settings for port1:
+        ....
+        Speed: 25000Mb/s
+        Duplex: Full
+```
+
+**WARNING**: The link speed setting is currently only read-only via ethtool. Configuring the link speed as in [Disable auto-negotiation](.setup/setup_standalone.html#disable-auto-negotiation) updates the ethtool reported speed and duplex settings.
+
+
 ## Loopback interface
 
 The loopback interface `lo` is a special type of device destined to allow the switch to communicate with itself. It is not associated with any physical device and is used to provide connectivity inside the same switch.
