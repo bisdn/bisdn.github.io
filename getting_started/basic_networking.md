@@ -46,13 +46,25 @@ The physical link configuration (e.g. link speed) is reflected to the tap interf
 ```
 $ ethtool port1
 Settings for port1:
-        ....
+        Supported ports: [ ]
+        Supported link modes:   Not reported
+        Supported pause frame use: No
+        Supports auto-negotiation: No
+        Supported FEC modes: Not reported
+        Advertised link modes:  Not reported
+        Advertised pause frame use: No
+        Advertised auto-negotiation: No
+        Advertised FEC modes: Not reported
         Speed: 25000Mb/s
         Duplex: Full
+        Port: Twisted Pair
+        PHYAD: 0
+        Transceiver: internal
+        Auto-negotiation: off
+        MDI-X: Unknown
 ```
 
 **WARNING**: All link configurations shown in ethtool are currently read-only and can not be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect to the ASIC). Configuring the link speed as in [Disable auto-negotiation](.setup/setup_standalone.html#disable-auto-negotiation) however, will updates the ethtool reported speed.
-
 
 ## Loopback interface
 
