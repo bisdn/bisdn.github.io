@@ -41,7 +41,7 @@ COMMIT
 
 The default path for iptables configuration is ``/etc/iptables/iptables.rules`` for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
-The tap interfaces have their link speed and duplex settings reported via ethtool, visible via
+The physical link configuration (e.g. link speed) is reflected to the tap interface and can be checked using ethtool:
 
 ```
 $ ethtool port1
