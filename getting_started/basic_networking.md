@@ -51,7 +51,7 @@ Settings for port1:
         Duplex: Full
 ```
 
-**WARNING**: The link speed setting is currently only read-only via ethtool. Configuring the link speed as in [Disable auto-negotiation](.setup/setup_standalone.html#disable-auto-negotiation) updates the ethtool reported speed and duplex settings.
+**WARNING**: All link configurations shown in ethtool are currently read-only and can not be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect to the ASIC). Configuring the link speed as in [Disable auto-negotiation](.setup/setup_standalone.html#disable-auto-negotiation) however, will updates the ethtool reported speed.
 
 
 ## Loopback interface
