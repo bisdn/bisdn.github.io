@@ -26,6 +26,8 @@ Depending on the switch and the link partner, we have observed the following beh
 
 - Intel X552 10 GbE SFP+ network cards do not support auto-negotiation. This causes the link to take more than 30 seconds to come up when the port is set to autonegotiation.
 
+- The 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) only support advertising 1G, so the speed will be limited to 1G regardless of the link partner's ability.
+
 - The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) only support advertising up to 10G, so the speed will be limited to 10G regardless of the link partner's ability.
 
-In both of these cases forcing the port to the desired speed works as expected.
+In all of these cases forcing the port on the switch to the desired speed works as expected.
