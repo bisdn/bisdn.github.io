@@ -28,16 +28,6 @@ You can also check which links are attached to the bridge like this:
 9: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 100 
 14: port7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 100 
 15: port8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 100 
-
-:~$ bridge vlan
-port    vlan ids
-swbridge 1 PVID Egress Untagged
-
-port2    1 PVID Egress Untagged
-
-port7    1 PVID Egress Untagged
-
-port8    1 PVID Egress Untagged
 ```
 
 After this initial setup the bridge multicast database should look like this:
