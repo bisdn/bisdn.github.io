@@ -3,17 +3,17 @@ title: IMGP/MDB Snooping
 parent: Network Configuration
 ---
 
-Linux acts a fully Layer 2 Multicast switch, and there are routing daemons capable of turning Linux into a Multicast router.
+BISDN Linux itself is capable of acting as a layer 2 multicast switch and with the help of frr can also be turned into a full fledged multicast router.
 
-Multicast group membership is handled by multicast routers and switches, using the Internet Group Management Protocol (IGMP) or Multicast Listener Discovery (MLD) protocols.  Both protocols report the interest of a host to receive a data stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a technique that allows multicast switches to be maintain a map of which links need IP multicast transmission.
+In multicast switches and routers, the multicast group membership is managed by utilising the Internet Group Management Protocol (IGMP) or Multicast Listener Discovery (MLD). Both protocols report the interest of a host to receive a data stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a technique that allows multicast switches to maintain a map of which links need to receive IP multicast transmissions.
 
 # Linux Configuration
 
-As mentioned before Linux implements IGMP/MLD snooping at a kernel level, and baseboxd listens to the changes on the bridge multicast database triggered by IGMP/MLD snooping.
+Linux implements IGMP/MLD snooping at the kernel level, and baseboxd listens for the changes (netlink messages) to the bridge multicast database triggered by IGMP/MLD snooping.
 
-To enable multicast switching to work on a Basebox router, we connect the ports that will have Multicast receivers with a bridge. The bridge device then receives the IGMP/MLD notifications and baseboxd configures the new entry to the ASIC.
+To enable multicast switching in BISDN Linux, we first have to connect the ports that will have multicast senders or receivers with a bridge. The bridge device will then receive the IGMP/MLD notifications and baseboxd will configure the new entries on the ASIC.
 
-We create a bridge with the following parameters (refer to [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
+We first create the bridge with some ports attached like described above (for instructions on how to do that, please refer to [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q):
 
 ```
 7: swbridge: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -21,7 +21,7 @@ We create a bridge with the following parameters (refer to [VLAN Bridging](netwo
     bridge forward_delay 1500 hello_time 200 max_age 2000 ageing_time 30000 stp_state 0 priority 32768 vlan_filtering 1 vlan_protocol 802.1Q bridge_id 8000.c6:65:bb:67:62:64 designated_root 8000.c6:65:bb:67:62:64 root_port 0 root_path_cost 0 topology_change 0 topology_change_detected 0 hello_timer    0.00 tcn_timer    0.00 topology_change_timer    0.00 gc_timer   66.56 vlan_default_pvid 1 vlan_stats_enabled 0 group_fwd_mask 0 group_address 01:80:c2:00:00:00 mcast_snooping 1 mcast_router 1 mcast_query_use_ifaddr 0 mcast_querier 1 mcast_hash_elasticity 16 mcast_hash_max 4096 mcast_last_member_count 2 mcast_startup_query_count 2
 ```
 
-And with the following configurations:
+You can also check which links are attached to the bridge like this:
 
 ```
 :~$ bridge link
@@ -40,7 +40,7 @@ port7    1 PVID Egress Untagged
 port8    1 PVID Egress Untagged
 ```
 
-We see the following contents on the bridge multicast database.
+After this initial setup the bridge multicast database should look like this:
 
 ```
 :~$ bridge mdb
@@ -53,7 +53,7 @@ We see the following contents on the bridge multicast database.
 7: swbridge  swbridge  ff02::1:ff67:6264  temp  vid 1
 ```
 
-After receiving an IGMP Membership report on port7, through snooping this report, the multicast database in the bridge has this new entry,
+After receiving an IGMP membership report on port7, the bridge multicast database gets this new entry:
 ```
 :~$ bridge mdb
 7: swbridge  port7  225.1.2.3  temp  vid 1
