@@ -17,9 +17,6 @@ Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/daemons`.
 
 ```
 ripd=yes
-...
-ripd_options="   --daemon -A 127.0.0.1"
-...
 ```
 
 Configuring the daemon is done via the `/etc/frr/ripd.conf`.
