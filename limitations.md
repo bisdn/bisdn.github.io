@@ -5,6 +5,10 @@ nav_order: 8
 
 # Limitations
 
+## Agema-5648 PCIe Bus error
+
+The driver for the PCI bus crashes and the controller does not receive any traffic, which will cause the platform to completely stop working until restarted.
+
 ## Table size differences
 
 There might be discrepancies in the maximum number of entries in the unicast routing table (30) announced by [of-dpa](https://github.com/Broadcom-Switch/of-dpa) and how many it accepts.
