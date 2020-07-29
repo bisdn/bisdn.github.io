@@ -54,11 +54,7 @@ If a host if attached to port7, and it is interested in receiving a certain mult
 ```
 ## Advanced configurations
 
-When creating the bridge via iproute2, using the 
-
-```
-:~$ ip link add swbridge type bridge OPTIONS
-```
+When using iproute2 instead of systemd-networkd to create a bridge, there are a couple of additional options for more fine grained configuration that are worth noting in this context.
 
 We can use these specific multicast configurations to control parameters like snooping or IGMP/MLD protocol versions. The following options are truncated and meant as an example, please consult [man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/) for more information.
 
