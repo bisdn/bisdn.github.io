@@ -1,13 +1,15 @@
 ---
-title: IMGP/MDB Snooping
+title: IMGP/MLD Snooping
 parent: Network Configuration
 ---
+
+# IGMP/MLD Snooping
 
 BISDN Linux itself is capable of acting as a layer 2 multicast switch and with the help of frr can also be turned into a full fledged multicast router.
 
 In multicast switches and routers, the multicast group membership is managed by utilising the Internet Group Management Protocol (IGMP) or Multicast Listener Discovery (MLD). Both protocols report the interest of a host to receive a data stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a technique that allows multicast switches to maintain a map of which links need to receive IP multicast transmissions.
 
-# Linux Configuration
+## Linux Configuration
 
 Linux implements IGMP/MLD snooping at the kernel level, and baseboxd listens for the changes (netlink messages) to the bridge multicast database triggered by IGMP/MLD snooping.
 
@@ -43,7 +45,8 @@ After this initial setup the bridge multicast database should look like this:
 7: swbridge  swbridge  ff02::1:ff67:6264  temp  vid 1
 ```
 
-After receiving an IGMP membership report on port7, the bridge multicast database gets this new entry:
+If a host if attached to port7, and it is interested in receiving a certain multicast stream for the multicast group `225.1.2.3`, it will send an IGMP notification to the switch. Via IGMP snooping, Linux then ensures that the multicast database is correctly updated and the new entry is visible:
+
 ```
 :~$ bridge mdb
 7: swbridge  port7  225.1.2.3  temp  vid 1
@@ -54,6 +57,8 @@ When creating the bridge via iproute2, using the
 ```
 :~$ ip link add swbridge type bridge OPTIONS
 ```
+
+## Advanced configurations
 
 We can use these specific multicast configurations to control parameters like snooping or IGMP/MLD protocol versions. The following options are truncated and meant as an example, please consult [man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/) for more information.
 
