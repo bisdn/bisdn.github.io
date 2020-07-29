@@ -49,8 +49,14 @@ If a host if attached to port7, and it is interested in receiving a certain mult
 
 ```
 :~$ bridge mdb
-7: swbridge  port7  225.1.2.3  temp  vid 1
-...
+7: swbridge  port7     225.1.2.3  temp  vid 1
+7: swbridge  port7     ff02::1:ff62:d400  temp  vid 1
+7: swbridge  port8     ff02::1:ff62:d401  temp  vid 1
+7: swbridge  swbridge  ff02::1:3  temp  vid 1
+7: swbridge  swbridge  ff02::1:ff00:0  temp  vid 1
+7: swbridge  swbridge  ff02::2  temp  vid 1
+7: swbridge  swbridge  ff02::6a  temp  vid 1
+7: swbridge  swbridge  ff02::1:ff67:6264  temp  vid 1
 ```
 ## Advanced configurations
 
