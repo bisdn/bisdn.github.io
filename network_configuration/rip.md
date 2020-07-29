@@ -13,14 +13,11 @@ Routing Information Protocol (RIP) is one the oldest routing protocols available
 
 ## FRR configuration
 
-Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/zebra.conf`.
+Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/daemons`.
 
 ```
-zebra=yes
 ripd=yes
 ...
-vtysh_enable=yes
-zebra_options="  -A 127.0.0.1 -s 90000000"
 ripd_options="   --daemon -A 127.0.0.1"
 ...
 ```

@@ -13,14 +13,11 @@ The Enhanced Interior Gateway Routing Protocol is a distance-vector routing prot
 
 ## FRR configuration
 
-Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/zebra.conf`.
+Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/daemons`.
 
 ```
-zebra=yes
 eigrpd=yes
 ...
-vtysh_enable=yes
-zebra_options="  -A 127.0.0.1 -s 90000000"
 eigrpd_options=" --daemon -A 127.0.0.1"
 ...
 ```
