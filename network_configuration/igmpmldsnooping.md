@@ -60,15 +60,6 @@ If a host if attached to port7, and it is interested in receiving a certain mult
 ```
 ## Advanced configurations
 
-When using iproute2 instead of systemd-networkd to create a bridge, there are a couple of additional options for more fine grained configuration that are worth noting in this context.
+When using iproute2 instead of systemd-networkd to create a bridge, there are a couple of additional options for more fine grained configuration that are worth noting.
 
-We can use these specific multicast configurations to control parameters like snooping or IGMP/MLD protocol versions. The following options are truncated and meant as an example, please consult [man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/) for more information.
-
-```
-OPTIONS:
- mcast_snooping 
- mcast_router 
- mcast_querier 
- mcast_igmp_version IGMP_VERSION
- mcast_mld_version MLD_VERSION
-```
+We can use these specific multicast configurations to control parameters like snooping or IGMP/MLD protocol versions. The options are available to consult in [man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/).
