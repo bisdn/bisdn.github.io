@@ -8,6 +8,15 @@ nav_order: 8
 ## Agema-5648 PCIe Bus error
 
 The driver for the PCI bus crashes and the controller does not receive any traffic, which will cause the platform to completely stop working until restarted.
+By running dmesg, the following logs are available to confirm the presence of the error.
+
+```
+[11411.162858] pcieport 0000:00:01.0: AER: Uncorrected (Non-Fatal) error received: 0000:01:00.0
+[11411.172328] linux-kernel-bde 0000:01:00.0: AER: PCIe Bus Error: severity=Uncorrected (Non-Fatal), type=Transaction Layer, (Requester ID)
+[11411.186059] linux-kernel-bde 0000:01:00.0: AER:   device [14e4:b967] error status/mask=00004000/00000000
+[11411.196670] linux-kernel-bde 0000:01:00.0: AER:    [14] CmpltTO                (First)
+[11411.205600] pcieport 0000:00:01.0: AER: Device recovery successful
+```
 
 ## Table size differences
 
