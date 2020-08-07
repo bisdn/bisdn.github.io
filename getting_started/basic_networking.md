@@ -17,14 +17,27 @@ If you followed the instructions from [Configure Baseboxd](configure_baseboxd.md
 ```
 $ ip link show
 ...
-8: port1: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
-    link/ether 3e:25:b2:29:0e:40 brd ff:ff:ff:ff:ff:ff
-9: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
-  link/ether 82:21:77:4b:1c:69 brd ff:ff:ff:ff:ff:ff
+8: port1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether ea:db:2b:c1:f6:06 brd ff:ff:ff:ff:ff:ff
+9: port2: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 96:98:0a:8c:0d:a2 brd ff:ff:ff:ff:ff:ff
   ...
 ```
 
-These interfaces can be managed via the [iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported Linux networking utility. The link state for these interfaces maps to the physical port state.
+These interfaces can be managed via the [iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported Linux networking utility. The link state for these interfaces maps to the physical port state. Note that by default all data plane ports are disabled, so in order to see the physical port state a port needs to be enabled.
+
+
+```
+$ sudo ip link set port1 up
+$ sudo ip link set port2 up
+$ ip link show
+...
+8: port1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether ea:db:2b:c1:f6:06 brd ff:ff:ff:ff:ff:ff
+9: port2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+    link/ether 96:98:0a:8c:0d:a2 brd ff:ff:ff:ff:ff:ff
+  ...
+```
 
 **WARNING**: Despite Linux providing multiple alternatives for network configuration, iproute2 is the preferred configuration tool for BISDN Linux. The usage of other network configuration tools (e.g. ifconfig) is not covered in our documentation and might lead to unintended results.
 {: .label .label-red }
