@@ -7,8 +7,7 @@ nav_order: 8
 
 ## Agema-5648 PCIe Bus error
 
-The driver for the PCI bus crashes and the controller does not receive any traffic, which will cause the platform to completely stop working until restarted.
-By running dmesg, the following logs are available to confirm the presence of the error.
+The driver for the PCI bus may report an error leading to the controller not receiving any traffic and causing the platform to completely stop working until restarted. This is a sporadic bug and can be verified by running dmesg where the following logs are available to confirm the presence of the error.
 
 ```
 [...] pcieport 0000:00:01.0: AER: Uncorrected (Non-Fatal) error received: 0000:01:00.0
