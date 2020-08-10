@@ -11,19 +11,33 @@ The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was 
 
 In this section, we provide examples on how to configure BGP for both [IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in BISDN Linux.
 
-## BGP for IPv4 networks
+## BGP configuration overview
 
-FRR is configured using files, typically on the /etc/frr/ directory. Each desired protocol has a different configuration file,
-where the protocol-specific information can be stored.  This folder will also hold the general configuration files for FRR itself,
-like the daemons file, used to set the listening addresses for the protocols and as toggle for configuration of each individual
-routing protocol/daemon.
+The FRR configuration files can be found in the /etc/frr/ directory. Each
+routing protocol is handeled by a specifc frr daemon (e.g. bgpd, ripd or eigrpd)
+and can be configured via a specific configuration file. To get started with
+BGP, we first need to enable the corresponding daemon `bgpd` in
+/etc/frr/daemons by replacing the default `no` with `yes`.
 
 ```
 ...
 bgpd=yes
 ...
 ```
-### BGP configuration overview
+
+### BGP for IPv4 networks
+
+In the following configuration example for BGP IPv4, we are going to use the
+topology shown below. It consists of two switches and two servers, which will
+all act as BGP routers and establish BGP sessions with all of their connected
+neighbors. The two servers are not directly connected to each other and both
+have a specific subnet configured to their loopback interface, which they will
+announce via iBGP to their directly connected switch. The switches are connected
+to each other via eBGP and should announce all connected routes they receive
+(including the before mentioned subnet on the loopback interface) to their
+neighbors. After establishing all BGP sessions, both servers should receive
+routes via the two switches as nexthops to the subnets configured on the
+loopback interfaces.
 
 ```
  +-------------------------------------------------------------+        +----------------------------------------------------------------+
@@ -51,9 +65,11 @@ bgpd=yes
  +-------------------------------------------------------------+       +-----------------------------------------------------------------+
 ```
 
-Setting up the IP addresses on the interfaces on the switches and servers according to the diagram above, can also be done with frr by using zebra (which is enabled by default).
+Setting up the IP addresses on the interfaces on the switches and servers
+according to the diagram above, can also be done with frr by using zebra (which
+is enabled by default).
 
-`switch-1 /etc/frr/zerba.conf`
+`switch-1 /etc/frr/zebra.conf`
 ```
 interface port7
   ip address 10.0.1.1/24
@@ -61,7 +77,7 @@ interface port54
   ip address 10.0.0.1/24
 ```
 
-`switch-2 /etc/frr/zerba.conf`
+`switch-2 /etc/frr/zebra.conf`
 ```
 interface port7
   ip address 10.0.2.1/24
@@ -69,7 +85,7 @@ interface port54
   ip address 10.0.0.2/24
 ```
 
-`server-1 /etc/frr/zerba.conf`
+`server-1 /etc/frr/zebra.conf`
 ```
 interface eno7
   ip address 10.0.1.2/24
@@ -77,7 +93,7 @@ interface lo
   ip address 10.0.100.2/32
 ```
 
-`server-2 /etc/frr/zerba.conf`
+`server-2 /etc/frr/zebra.conf`
 ```
 interface eno7
   ip address 10.0.2.2/24
@@ -85,12 +101,14 @@ interface lo
   ip address 10.0.101.2/32
 ```
 
-The /etc/frr/bgpd.conf file has the protocol specific configurations, where the routing information is set up. This routing
-information entails all the necessary next-hops, route announcements, and route-filters needed to achieve the configuration.
+The /etc/frr/bgpd.conf file has the protocol specific configurations, where the
+routing information is set up. This routing information entails all the
+necessary next-hops, route announcements, and route-filters needed to achieve
+the configuration.
 
 The parameter `router bgp <AS>` is the first configuration for bgpd, where we
 define the Autonomous System (AS) for the routing daemon.  The `router id`
-parameters is used to identify the router we are configuring and has to be
+parameter is used to identify the router we are configuring and has to be
 unique within the system.  The `neighbor` lines configure the remote peer and
 how to connect to it. The `remote-as`, must match the AS number for the remote
 endpoint.  The option `ebgp-multihop 1` is used to ensure that the connection
@@ -171,7 +189,19 @@ corresponding flowtable entries can be seen when running `client_flowtable_dump
 For further debugging using `vtysh`, please refer to the official frr
 documentation.
 
-## BGP for IPv6 networks
+### BGP for IPv6 networks
+
+In the following configuration example for BGP IPv6, we are going to use the
+topology shown below. It consists of two switches and two servers, which will
+all act as BGP routers and establish BGP sessions with all of their connected
+neighbors. The two servers are not directly connected to each other and both
+have a specific subnet configured to their loopback interface, which they will
+announce via iBGP to their directly connected switch. The switches are connected
+to each other via eBGP and should announce all connected routes they receive
+(including the before mentioned subnet on the loopback interface) to their
+neighbors. After establishing all BGP sessions, both servers should receive
+routes via the two switches as nexthops to the subnets configured on the
+loopback interfaces.
 
 ```
  +-------------------------------------------------------------+        +----------------------------------------------------------------+
@@ -200,9 +230,11 @@ documentation.
  +-------------------------------------------------------------+       +-----------------------------------------------------------------+
 ```
 
-Setting up the IP addresses on the interfaces on the switches and servers according to the diagram above, can also be done with frr by using zebra (which is enabled by default).
+Setting up the IP addresses on the interfaces on the switches and servers
+according to the diagram above, can also be done with frr by using zebra (which
+is enabled by default).
 
-`switch-1 /etc/frr/zerba.conf`
+`switch-1 /etc/frr/zebra.conf`
 ```
 interface port7
   ip address 2001:0db8:0000:0001::0001/64
@@ -210,7 +242,7 @@ interface port54
   ip address 2001:0db8::0001/64
 ```
 
-`switch-2 /etc/frr/zerba.conf`
+`switch-2 /etc/frr/zebra.conf`
 ```
 interface port7
   ip address 2001:0db8:0000:0002::0001/64
@@ -218,7 +250,7 @@ interface port54
   ip address 2001:0db8::0002/64
 ```
 
-`server-1 /etc/frr/zerba.conf`
+`server-1 /etc/frr/zebra.conf`
 ```
 interface eno7
   ip address 2001:0db8:0000:0001::0002/64
@@ -226,7 +258,7 @@ interface lo
   ip address 2001:0db8:0000:0100::0001/64
 ```
 
-`server-2 /etc/frr/zerba.conf`
+`server-2 /etc/frr/zebra.conf`
 ```
 interface eno7
   ip address 2001:0db8:0000:0002::0002/64
@@ -239,7 +271,7 @@ information entails all the necessary next-hops, route announcements, and route-
 
 The parameter `router bgp <AS>` is the first configuration for bgpd, where we
 define the Autonomous System (AS) for the routing daemon.  The `router id`
-parameters is used to identify the router we are configuring and has to be
+parameter is used to identify the router we are configuring and has to be
 unique within the system.  The `neighbor` lines configure the remote peer and
 how to connect to it. The `remote-as`, must match the AS number for the remote
 endpoint.  The option `ebgp-multihop 1` is used to ensure that the connection
