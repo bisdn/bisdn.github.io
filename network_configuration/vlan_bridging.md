@@ -144,7 +144,7 @@ environments.
 Bridge creation is done with the following command.
 
 ```
-ip link add name swbridge type bridge vlan_filtering 1 vlan_default_pvid none
+ip link add name swbridge type bridge vlan_filtering 1 vlan_default_pvid 0
 ip link set swbridge up
 ```
 
