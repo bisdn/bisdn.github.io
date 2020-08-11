@@ -5,6 +5,18 @@ nav_order: 8
 
 # Limitations
 
+## Agema-5648 PCIe Bus error
+
+The driver for the PCI bus may report an error leading to the controller not receiving any traffic and causing the platform to completely stop working until restarted. This is a sporadic bug and can be verified by running dmesg where the following logs are available to confirm the presence of the error.
+
+```
+[...] pcieport 0000:00:01.0: AER: Uncorrected (Non-Fatal) error received: 0000:01:00.0
+[...] linux-kernel-bde 0000:01:00.0: AER: PCIe Bus Error: severity=Uncorrected (Non-Fatal), type=Transaction Layer, (Requester ID)
+[...] linux-kernel-bde 0000:01:00.0: AER:   device [14e4:b967] error status/mask=00004000/00000000
+[...] linux-kernel-bde 0000:01:00.0: AER:    [14] CmpltTO                (First)
+[...] pcieport 0000:00:01.0: AER: Device recovery successful
+```
+The message `AER: Device recovery successful` shown above is misleading, since the Error can only be resolved by fully rebooting the switch itself.
 ## Table size differences
 
 There might be discrepancies in the maximum number of entries in the unicast routing table (30) announced by [of-dpa](https://github.com/Broadcom-Switch/of-dpa) and how many it accepts.
