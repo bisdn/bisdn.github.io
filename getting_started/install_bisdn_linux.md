@@ -8,6 +8,9 @@ nav_order: 3
 
 Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. This section shows how to connect to the switch and guides through the installation process.
 
+**WARNING**: Installing a BISDN Linux image requires a stable internet connection. To do this, please attach a network cable to the `Management` port of your switch.
+{: .label .label-red }
+
 ## Install BISDN Linux via ONIE
 
 The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively.

@@ -40,3 +40,5 @@ Run kermit with the following command:
 ```
 kermit .kermrc
 ```
+
+After following this page, you can continue to the [ONIE installation](install_onie.md), or if your switch already has ONIE installed then [Install BISDN Linux](install_bisdn_linux.md).
