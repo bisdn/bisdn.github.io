@@ -1,13 +1,13 @@
 ---
-title: Spanning Tree (xSTP)
+title: Spanning Tree (STP)
 parent: Network Configuration
 ---
 
-# Spanning Tree (xSTP)
+# Spanning Tree (STP)
 
 ## Introduction
 
-The Spanning Tree Protocol (STP) is a protocol meant to build loop-less topologies in L2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure and test the STP implementation available in Linux.
+The Spanning Tree Protocol (STP) is a protocol meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure and test the STP implementation available in Linux.
 
 **WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). For current network topologies, RSTP is the protocol more commonly used. For RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd).
 {: .label .label-yellow }
@@ -32,8 +32,8 @@ We can see the ports that are configured in bridges, along with their STP state,
 
 ```
 agema-ag4610:~$ bridge link
-15: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master br0 state forwarding priority 32 cost 2
-16: port3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master br0 state forwarding priority 32 cost 3
+15: port2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 2
+16: port3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 2
 ```
 
 After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. The following example shows the output of a `brctl` command:
@@ -79,6 +79,7 @@ Meant as an improvement to the original STP standard, RSTP improves Spanning Tre
 
 There is currently no RSTP support in the Linux Kernel and therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure and manage RSTP.
 
+mstpd is managed by systemd and is disabled by default. For documentation on how to manage the service refer to [systemd getting started](https://docs.bisdn.de/getting_started/configure_baseboxd.html#getting-started).
 
 ## RSTP configuration
 
@@ -88,7 +89,7 @@ The same topology as above is considered in this scenario.
 ip link add name swbridge type bridge vlan_filtering 1
 ```
 
-mstpd takes over the stp_state flag and instead of setting it to 1 (referring to the Kernel implementation), it will be set to 2 (referring to the Userspace implementation of STP, in this case handled by mstpd). 
+The stp_state flag has three possible values: 0, 1, 2. By choosing 1 then the Kernel implementation of STP will be used, and when choosing 2 then there is a Userspace implementation of STP. Enabling mstpd will set this value to 2 on the bridges.
 
 The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
