@@ -10,15 +10,15 @@ parent: Network Configuration
 The Spanning Tree Protocol (STP) is a protocol meant to build loop-less topologies in L2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure and test the STP implementation available in Linux.
 
 **WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). For current network topologies, RSTP is the protocol more commonly used. For RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd).
-{: .label .label-red }
+{: .label .label-yellow }
 
-## STP Configuration Instruction
+## STP Configuration Instructions
 
 For configuring STP we assume the following configuration. In this document only the switch configuration is shown.
 
 ![Topology](/assets/img/stp-topology.png)
 
-Creation of the bridge is the as follows:
+An STP-enabled bridge can be created using iproute2 with the following command:
 
 ```
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
@@ -36,7 +36,7 @@ agema-ag4610:~$ bridge link
 16: port3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master br0 state forwarding priority 32 cost 3
 ```
 
-After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. The following command shows example output of a command.
+After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. The following example shows the output of a `brctl` command:
 
 ```
 agema-ag4610:/home/basebox# brctl showstp swbridge
@@ -94,7 +94,7 @@ The following steps of configuring the ports and attaching them to the bridge ca
 
 ## RSTP operation
 
-After setting up the bridge and bridge ports, the RSTP state on the bridge can be managed over the `mstpdctl` utility. The following command shows example output of commands.
+After setting up the bridge and bridge ports, the RSTP state on the bridge can be managed over the `mstpdctl` utility. The following command shows an example command output.
 
 ```
 agema-ag4610:/home/basebox# mstpctl showbridge
@@ -123,5 +123,4 @@ agema-ag4610:/home/basebox# mstpctl showport swbridge port7
 agema-ag461-:/home/basebox# mstpctl showport swbridge port8
    port8 8.002 forw 2.000.6E:F8:F4:3D:E3:D7 2.000.6E:F8:F4:3D:E3:D7 8.002 Desg
 ```
-
 
