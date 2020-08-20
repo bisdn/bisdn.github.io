@@ -1,9 +1,9 @@
 ---
-title: Spanning Tree (STP)
+title: Spanning Tree Protocol (STP)
 parent: Network Configuration
 ---
 
-# Spanning Tree (STP)
+# Spanning Tree Protocol (STP)
 
 ## Introduction
 
@@ -83,19 +83,21 @@ mstpd is managed by systemd and is disabled by default. For documentation on how
 
 ## RSTP configuration
 
-The same topology as above is considered in this scenario.
+When `mstpd` is enabled, any configured bridge will have STP enabled by default. Therefore, it is not required to specify the `stp_state` flag when creating a bridge:
 
 ```
 ip link add name swbridge type bridge vlan_filtering 1
 ```
 
-The stp_state flag has three possible values: 0, 1, 2. By choosing 1 then the Kernel implementation of STP will be used, and when choosing 2 then there is a Userspace implementation of STP. Enabling mstpd will set this value to 2 on the bridges.
 
 The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
 ## RSTP operation
 
 After setting up the bridge and bridge ports, the RSTP state on the bridge can be managed over the `mstpdctl` utility. The following command shows an example command output.
+
+**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`.
+{: .label .label-yellow }
 
 ```
 agema-ag4610:/home/basebox# mstpctl showbridge
@@ -124,4 +126,3 @@ agema-ag4610:/home/basebox# mstpctl showport swbridge port7
 agema-ag461-:/home/basebox# mstpctl showport swbridge port8
    port8 8.002 forw 2.000.6E:F8:F4:3D:E3:D7 2.000.6E:F8:F4:3D:E3:D7 8.002 Desg
 ```
-
