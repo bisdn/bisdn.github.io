@@ -11,13 +11,13 @@ nav_order: 5
 
 ## Introduction
 
-Power over Ethernet (PoE) is a technique that allows providing electric power and data over an Ethernet cable. The original PoE standard (IEEE 802.3af) supplies up to 15.4 W per port, and was increased to 25.5 W with a revision to the standard (802.3at).
+Power over Ethernet (PoE) is a technique that allows providing electric power and data over an ethernet cable. The original PoE standard (IEEE 802.3af) supplied up to 15.4 W per port, but the revision of the standard (802.3at) increased it to 25.5 W.
 
-Two types of devices supporting PoE are considered regarding PoE capabilities: the *Power Sourcing Equipment (PSE)* which are the devices capable of providing power on the cable; and the *Powered Device (PD)* are devices that consume energy provided by PoE. Some BISDN Linux supported switches can act as a Power Sourcing Equipment.  
+Two types of devices supporting PoE are considered regarding PoE capabilities: the *Power Sourcing Equipment (PSE)*, which are the devices capable of providing power on the cable; and the *Powered Device (PD)*, which are devices that consume energy provided by PoE. Some BISDN Linux supported switches can act as a Power Sourcing Equipment (please refer to the platform specification provided by your vendor).  
 
 ## Configuration
 
-BISDN Linux comes with an application `poectl` that allows for PoE configuration.
+BISDN Linux comes with the command line utility `poectl`, which provides a simple and convenient way to configure PoE.
 
 ```
 :~$ poectl -h
@@ -43,7 +43,7 @@ Usage of the poectl application is done by running the following command:
 :~$ poectl [OPTIONS] PORT | all
 ```
 
-To enable PoE on a port follow the following command:
+To enable PoE on a port run the following command:
 
 ```
 :~$ poectl -e port2
