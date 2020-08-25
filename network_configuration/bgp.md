@@ -11,130 +11,367 @@ The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was 
 
 In this section, we provide examples on how to configure BGP for both [IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in BISDN Linux.
 
-## BGP for IPv4 networks
+## BGP configuration overview
 
-FRR is configured using files, typically on the /etc/frr/ directory. Each desired protocol has a different configuration file,
-where the protocol-specific information can be stored.  This folder will also hold the general configuration files for FRR itself,
-like the daemons file, used to set the listening addresses for the protocols and as toggle for configuration of each individual
-routing protocol/daemon.
+The FRR configuration files can be found in the /etc/frr/ directory. Each
+routing protocol is handeled by a specifc frr daemon (e.g. bgpd, ripd or eigrpd)
+and can be configured via a specific configuration file. To get started with
+BGP, we first need to enable the corresponding daemon `bgpd` in
+/etc/frr/daemons by replacing the default `no` with `yes`.
 
 ```
-zebra=yes
+...
 bgpd=yes
-ospfd=no
 ...
-vtysh_enable=yes
-zebra_options="  -A 127.0.0.1 -s 90000000"
-bgpd_options="   -A 127.0.0.1"
-...
+```
+
+### BGP for IPv4 networks
+
+In the following configuration example for BGP IPv4, we are going to use the
+topology shown below. It consists of two switches and two servers, which will
+all act as BGP routers and establish BGP sessions with all of their connected
+neighbors. The two servers are not directly connected to each other and both
+have a specific subnet configured to their loopback interface, which they will
+announce via iBGP to their directly connected switch. The switches are connected
+to each other via eBGP and should announce all connected routes they receive
+(including the before mentioned subnet on the loopback interface) to their
+neighbors. After establishing all BGP sessions, both servers should receive
+routes via the two switches as nexthops to the subnets configured on the
+loopback interfaces.
+
+```
+ +-------------------------------------------------------------+        +----------------------------------------------------------------+
+ |                                                          +--+        +--+                                                             |
+ |                                                          |  |        |  |                                                             |
+ |                                              10.0.0.1/24 |  +--------+  | 10.0.0.2/24                                                 |
+ |                 switch-1                          port54 |  |  eBGP  |  | port54                   switch-2                           |
+ |  10.0.1.1/24                                             +--+        +--+                                                 10.0.2.1/24 |
+ |  +---+                                                      |        |                                                    +---+       |
+ |  |   | port7                                      ASN 65000 |        | ASN 65001                                    port7 |   |       |
+ +--+-+-+------------------------------------------------------+        +----------------------------------------------------+-+-+-------+
+      |                                                                                                                        |
+      |                                                                                                                        |
+      |iBGP                                                                                                                    |iBGP
+      |                                                                                                                        |
+      |                                                                                                                        |
+ +--+-+-+------------------------------------------------------+       +-----------------------------------------------------+-+-+-------+
+ |  |   | eno7                                       ASN 65000 |       |  ASN 65001                                     eno7 |   |       |
+ |  +---+                    +---+                             |       |             +---+                                   +---+       |
+ |  10.0.1.2/24    server-1  | lo|                             |       |             | lo|            server-2               10.0.2.2/24 |
+ |                           +---+                             |       |             +---+                                               |
+ |                           10.0.100.2/32                     |       |             10.0.101.2/32                                       |
+ |                                                             |       |                                                                 |
+ |                                                             |       |                                                                 |
+ +-------------------------------------------------------------+       +-----------------------------------------------------------------+
+```
+
+Setting up the IP addresses on the interfaces on the switches and servers
+according to the diagram above, can also be done with frr by using zebra (which
+is enabled by default).
+
+`switch-1 /etc/frr/zebra.conf`
+```
+interface port7
+  ip address 10.0.1.1/24
+interface port54
+  ip address 10.0.0.1/24
+```
+
+`switch-2 /etc/frr/zebra.conf`
+```
+interface port7
+  ip address 10.0.2.1/24
+interface port54
+  ip address 10.0.0.2/24
+```
+
+`server-1 /etc/frr/zebra.conf`
+```
+interface eno7
+  ip address 10.0.1.2/24
+interface lo
+  ip address 10.0.100.2/32
+```
+
+`server-2 /etc/frr/zebra.conf`
+```
+interface eno7
+  ip address 10.0.2.2/24
+interface lo
+  ip address 10.0.101.2/32
+```
+
+The /etc/frr/bgpd.conf file has the protocol specific configurations, where the
+routing information is set up. This routing information entails all the
+necessary next-hops, route announcements, and route-filters needed to achieve
+the configuration.
+
+The parameter `router bgp <AS>` is the first configuration for bgpd, where we
+define the Autonomous System (AS) for the routing daemon.  The `router id`
+parameter is used to identify the router we are configuring and has to be
+unique within the system.  The `neighbor` lines configure the remote peer and
+how to connect to it. The `remote-as`, must match the AS number for the remote
+endpoint.  The option `ebgp-multihop 1` is used to ensure that the connection
+between the two routers from different AS (otherwise it would be iBGP and hops
+do not matter in iBGP connections) is a direct one without any additonal
+routing hops. For more detailed descriptions and all available options please
+refer to the frr documentation linked on top.
+
+`switch-1 /etc/frr/bgpd.conf`
+```
+router bgp 65000
+bgp router-id 10.0.1.1
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor left ebgp-multihop 1
+  neighbor 10.0.1.2 peer-group left
+  neighbor switch peer-group
+  neighbor switch remote-as 65001
+  neighbor switch ebgp-multihop 1
+  neighbor 10.0.0.2 peer-group switch
+  redistribute connected
+```
+
+`switch-2 /etc/frr/bgpd.conf`
+```
+router bgp 65001
+bgp router-id 10.0.2.1
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor left ebgp-multihop 1
+  neighbor 10.0.2.2 peer-group left
+  neighbor switch peer-group
+  neighbor switch remote-as 65000
+  neighbor switch ebgp-multihop 1
+  neighbor 10.0.0.1 peer-group switch
+  redistribute connected
+```
+
+`server-1 /etc/frr/bgpd.conf`
+```
+router bgp 65000
+bgp router-id 10.0.1.2
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor left ebgp-multihop 1
+  neighbor 10.0.1.1 peer-group left
+  network 10.0.100.2/32
+```
+
+`server-2 /etc/frr/bgpd.conf`
+```
+router bgp 65001
+bgp router-id 10.0.2.2
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor left ebgp-multihop 1
+  neighbor 10.0.2.1 peer-group left
+  network 10.0.101.2/32
+```
+
+The last lines on the configuration file specify the networks that should be
+announced to the other peer. The other node will receive these networks, and
+learn the appropriate routes to the next-hop. For this example we just use
+`redistribute connected` to announce all routes from all connected routers.
+
+After configuring all servers and switches, frr needs to be restarted to pick
+up the new configuration and apply it. Baseboxd will then pick up these changes
+via the corresponding netlink events and forward this configuration do the ASIC.
+
+The routes received on the switch can be checked by using `ip route` and the
+corresponding flowtable entries can be seen when running `client_flowtable_dump
+30` (where 30 is the table for unicast routing entries)
+
+For further debugging using `vtysh`, please refer to the official frr
+documentation.
+
+### BGP for IPv6 networks
+
+In the following configuration example for BGP IPv6, we are going to use the
+topology shown below. It consists of two switches and two servers, which will
+all act as BGP routers and establish BGP sessions with all of their connected
+neighbors. The two servers are not directly connected to each other and both
+have a specific subnet configured to their loopback interface, which they will
+announce via iBGP to their directly connected switch. The switches are connected
+to each other via eBGP and should announce all connected routes they receive
+(including the before mentioned subnet on the loopback interface) to their
+neighbors. After establishing all BGP sessions, both servers should receive
+routes via the two switches as nexthops to the subnets configured on the
+loopback interfaces.
+
+```
+ +-------------------------------------------------------------+        +----------------------------------------------------------------+
+ |                                                          +--+        +--+                                                             |
+ |                                                          |  |        |  |                                                             |
+ |                                       2001:0db8::0001/64 |  +--------+  | 2001:0db8::0002/64                                          |
+ |                 switch-1                          port54 |  |  eBGP  |  | port54                   switch-2                           |
+ |  2001:0db8:0000:0001::0001/64                            +--+        +--+                              2001:0db8:0000:0002::0001/64   |
+ |  +---+                                                      |        |                                                    +---+       |
+ |  |   | port7                                      ASN 65000 |        | ASN 65001                                    port7 |   |       |
+ +--+-+-+------------------------------------------------------+        +----------------------------------------------------+-+-+-------+
+      |                                                                                                                        |
+      |                                                                                                                        |
+      |iBGP                                                                                                                    |iBGP
+      |                                                                                                                        |
+      |                                                                                                                        |
+ +--+-+-+------------------------------------------------------+       +-----------------------------------------------------+-+-+-------+
+ |  |   | eno7                                       ASN 65000 |       |  ASN 65001                                     eno7 |   |       |
+ |  +---+                                                      |       |                                                     +---+       |
+ |  2001:0db8:0000:0001::0002/64                               |       |                                  2001:0db8:0000:0002::0002/64   |
+ |                           +---+                             |       |             +---+                                               |
+ |                 server-1  | lo|                             |       |             | lo|            server-2                           |
+ |                           +---+                             |       |             +---+                                               |
+ |                           2001:0db8:0000:0100::0001/64      |       |             2001:0db8:0000:0101::0001/64                        |
+ |                                                             |       |                                                                 |
+ +-------------------------------------------------------------+       +-----------------------------------------------------------------+
+```
+
+Setting up the IP addresses on the interfaces on the switches and servers
+according to the diagram above, can also be done with frr by using zebra (which
+is enabled by default).
+
+`switch-1 /etc/frr/zebra.conf`
+```
+interface port7
+  ip address 2001:0db8:0000:0001::0001/64
+interface port54
+  ip address 2001:0db8::0001/64
+```
+
+`switch-2 /etc/frr/zebra.conf`
+```
+interface port7
+  ip address 2001:0db8:0000:0002::0001/64
+interface port54
+  ip address 2001:0db8::0002/64
+```
+
+`server-1 /etc/frr/zebra.conf`
+```
+interface eno7
+  ip address 2001:0db8:0000:0001::0002/64
+interface lo
+  ip address 2001:0db8:0000:0100::0001/64
+```
+
+`server-2 /etc/frr/zebra.conf`
+```
+interface eno7
+  ip address 2001:0db8:0000:0002::0002/64
+interface lo
+  ip address 2001:0db8:0000:0101::0001/64
 ```
 
 The /etc/frr/bgpd.conf file has the protocol specific configurations, where the routing information is set up. This routing
 information entails all the necessary next-hops, route announcements, and route-filters needed to achieve the configuration.
 
-Setting up the IP addresses on the interfaces on the controller according to the diagram above, can be done using iproute2 commands.
+The parameter `router bgp <AS>` is the first configuration for bgpd, where we
+define the Autonomous System (AS) for the routing daemon.  The `router id`
+parameter is used to identify the router we are configuring and has to be
+unique within the system.  The `neighbor` lines configure the remote peer and
+how to connect to it. The `remote-as`, must match the AS number for the remote
+endpoint.  The option `ebgp-multihop 1` is used to ensure that the connection
+between the two routers from different AS (otherwise it would be iBGP and hops
+do not matter in iBGP connections) is a direct one without any additonal
+routing hops. For more detailed descriptions and all available options please
+refer to the frr documentation linked on top.
 
-### BGP configuration overview
-
+`switch-1 /etc/frr/bgpd.conf`
 ```
 router bgp 65000
- bgp router-id 10.0.254.1
- bgp cluster-id 10.0.254.1
- bgp log-neighbor-changes
-```
-
-router BGP <AS> is the first configuration for bgpd, where we define the Autonomous System (AS) for the routing daemon.
-Router id and cluster id are two parameters used to identify the router we are configuring.
-
-```
-neighbor fabric peer-group
-neighbor fabric remote-as 65000
-neighbor fabric ebgp-multihop 10
-neighbor 10.0.254.2 peer-group fabric
-```
-
-The neighbor lines specify the remote peer-group we are configuring. The remote-as, must match the AS number for the remote endpoint, enabling iBGP (BGP session across two nodes configured in the same AS) The last line will finally configure the neighbor.
-
-```
-network 10.1.0.0/24
-network 10.1.1.0/24
-network 10.1.2.0/24
-network 10.1.3.0/24
-network 10.1.4.0/24
-network 10.1.5.0/24
-```
-
-The last lines on the configuration file specify the networks that must be announced to the other peer. The other node will
-receive these networks, and learn the appropriate routes to the next-hop.
-
-### BGP expected result and debugging
-
-BGP expects a connection through the defined neighbors to port 179 by default. The connection status can be checked via the FRR shell vtysh.
-
-The result of vtysh command, show ip bgp sum must be:
-
-```
-(vtysh) show ip bgp sum
-```
-
-With this command, we see that a neighbor has been successfully learned, and the connection is online and stable.
-Debugging the BGP connection might be a tricky process, but guides from [cisco](https://meetings.ripe.net/ripe-44/presentations/ripe44-eof-bgp.pdf).
-More information on the BGP neighbors is available via
-
-```
-(vtysh) show ip bgp neighbors
-```
-
-The iBGP-learned routes may be checked out if correctly installed on the kernel via
-
-```
-ip route
-```
-
-The final debugging information to confirm must be the switch tables, where we must check if baseboxd has correctly translated
-the rules on the kernel to OpenFlow flow mods, via client_flowtable_dump 30. This is the sole command that must *always* be run
-on the switch. The previous commands must be run on the controller/switch, depending where baseboxd is running.
-
-## BGP for IPv6 networks
-
-The FRR configuration for BGPv6 is stored in the same file as for the IPv4 BGP configuration, /etc/frr/bgpd.conf. As such, the daemons file will look the same as the file used in the IPv4
-configuration.
-
-IPv6 addresses on the router must be manually written, as in the BGPv4 case. The main difference in the BGPv6 case is due to the presence of auto-configuration mechanisms for IP addresses in IPv6, which allows generating a new IP address for the servers interfaces without having to create them manually, for they are derived from the interface’s MAC addresses, and an announced network prefix in a router port. The IPv6 auto-configuration is possible via the zebra.conf configuration, like
-
-```
-interface port1
-  no shutdown
-  no ipv6 nd suppress-ra
-  ipv6 nd prefix 2003:db01:1::/64
-```
-
-The bgpd.conf file configures routes and next-hops. The most relevant configuration difference to the BGP case is the required configuration for the next-hop address,
-where FRR must ensure that we are using the globally configured IP addresses, the ones present on port53, on the image. This is due to the fact that Link-Local address can also be
-used to peer across the two Basebox routers, leading to possible errors. This is done via the following configurations.
-
-In the section address-family ipv6:
-
-```
-neighbor {{neigh}} route-map set-nexthop in
-```
-
-And in another section,
-
-```
-route-map set-nexthop permit 10
-  set ipv6 next-hop peer-address
-  set ipv6 next-hop prefer-global
-```
-
-Another useful parameter for BGPv6 is shutting down the default address family for IPv4, this way ensuring that configuration will
-tune the BGPv6 parameters, via
-
-```
-router bgp 65000
+bgp router-id 1.1.1.1
+  timers bgp 1 3
   no bgp default ipv4-unicast
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor 2001:0db8:0000:0001::0002 peer-group left
+  address-family ipv6
+    neighbor 2001:0db8:0000:0001::0002 activate
+  exit-address-family
+  neighbor switch peer-group
+  neighbor switch remote-as 65001
+  neighbor 2001:0db8::0002 peer-group switch
+  address-family ipv6
+    redistribute connected
+    neighbor 2001:0db8::0002 activate
+  exit-address-family
 ```
 
-### BGPv6 expected result and debugging
+`switch-2 /etc/frr/bgpd.conf`
+```
+router bgp 65001
+bgp router-id 2.2.2.2
+  timers bgp 1 3
+  no bgp default ipv4-unicast
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor 2001:0db8:0000:0002::0002 peer-group left
+  address-family ipv6
+    neighbor 2001:0db8:0000:0002::0002 activate
+  exit-address-family
+  neighbor switch peer-group
+  neighbor switch remote-as 65000
+  neighbor 2001:0db8::0001 peer-group switch
+  address-family ipv6
+    redistribute connected
+    neighbor 2001:0db8::0001 activate
+  exit-address-family
+```
 
-The commands and notes mentioned in the BGP (Border Gateway Protocol) section are still relevant for this case.
+`server-1 /etc/frr/bgpd.conf`
+```
+router bgp 65000
+bgp router-id 3.3.3.3
+  timers bgp 1 3
+  no bgp default ipv4-unicast
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor  2001:0db8:0000:0001::0001 peer-group left
+  address-family ipv6
+    neighbor  2001:0db8:0000:0001::0001 activate
+  exit-address-family
+  address-family ipv6
+    network 2001:0db8:0000:0100::0001/64
+  exit-address-family
+```
+
+`server-2 /etc/frr/bgpd.conf`
+```
+router bgp 65001
+bgp router-id 4.4.4.4
+  timers bgp 1 3
+  no bgp default ipv4-unicast
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor  2001:0db8:0000:0002::0001 peer-group left
+  address-family ipv6
+    neighbor  2001:0db8:0000:0002::0001 activate
+  exit-address-family
+  address-family ipv6
+    network 2001:0db8:0000:0101::0001/64
+  exit-address-family
+```
+
+For ipv6 routing only configurations (like the one show above), we use the `no
+bgp default ipv4-unicast` option to specifically disable ipv4 peering.
+The last lines on the configuration file specify the networks that should be
+announced to the other peer. The other node will receive these networks, and
+learn the appropriate routes to the next-hop. For this example we use
+`redistribute connected` to announce all routes from all connected routers on
+the switches and only announce the specifc network configured on the loopback
+interface in the servers.
+
+After configuring all servers and switches, frr needs to be restarted to pick
+up the new configuration and apply it. Baseboxd will then pick up these changes
+via the corresponding netlink events and forward this configuration do the ASIC.
+
+The routes received on the switch can be checked by using `ip route` and the
+corresponding flowtable entries can be seen when running `client_flowtable_dump
+30` (where 30 is the table for unicast routing entries)
+
+For further debugging using `vtysh`, please refer to the official frr
+documentation.
