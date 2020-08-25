@@ -19,6 +19,8 @@ Two types of devices supporting PoE are considered regarding PoE capabilities: t
 
 BISDN Linux comes with the command line utility `poectl`, which provides a simple and convenient way to configure PoE.
 
+### Usage
+
 ```
 :~$ poectl -h
 poectl for enable, disable, status and measurements of PoE ports
@@ -37,11 +39,7 @@ poectl for enable, disable, status and measurements of PoE ports
   -mP  PoE power
 ```
 
-Usage of the poectl application is done by running the following command:
-
-```
-:~$ poectl [OPTIONS] PORT | all
-```
+### Examples
 
 To enable PoE on a port run the following command:
 
