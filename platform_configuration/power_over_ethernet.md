@@ -11,7 +11,7 @@ nav_order: 5
 
 ## Introduction
 
-Power over Ethernet (PoE) is a technique that allows providing electric power and data over an ethernet cable. The original PoE standard (IEEE 802.3af) supplied up to 15.4 W per port, but the revision of the standard (802.3at) increased it to 25.5 W.
+Power over Ethernet (PoE) is a technique that allows providing electric power and data over an ethernet cable. The original PoE standard (IEEE 802.3af) supplied up to 15.4 W per port, but the revision of the standard (802.3at) increased it to 25.5 W, and the newest revision 802.3bt-2018 increased the maximum to 71 W by using all four pairs.
 
 Two types of devices supporting PoE are considered regarding PoE capabilities: the *Power Sourcing Equipment (PSE)*, which are the devices capable of providing power on the cable; and the *Powered Device (PD)*, which are devices that consume energy provided by PoE. Some BISDN Linux supported switches can act as a Power Sourcing Equipment (please refer to the platform specification provided by your vendor).  
 
