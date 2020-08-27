@@ -110,7 +110,7 @@ ip link add name swbridge type bridge vlan_filtering 1
 ```
 
 
-The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
+The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](https://docs.bisdn.de/network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
 ## RSTP operation
 
@@ -146,4 +146,3 @@ agema-ag4610:/home/basebox# mstpctl showport swbridge port7
 agema-ag461-:/home/basebox# mstpctl showport swbridge port8
    port8 8.002 forw 2.000.6E:F8:F4:3D:E3:D7 2.000.6E:F8:F4:3D:E3:D7 8.002 Desg
 ```
-
