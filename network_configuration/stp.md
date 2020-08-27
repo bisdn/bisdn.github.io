@@ -7,14 +7,14 @@ parent: Network Configuration
 
 ## Introduction
 
-The Spanning Tree Protocol (STP) is a protocol meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure and test the STP implementation available in Linux.
+The Spanning Tree Protocol (STP) is meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure the STP implementation available in Linux.
 
-**WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). For current network topologies, RSTP is the protocol more commonly used. For RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd).
+**WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). In most modern network topologies RSTP is used because it provides significantly faster recovery in case of topology changes. To configure RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd) instead of the default STP implementation in the Linux kernel.
 {: .label .label-yellow }
 
 ## STP Configuration Instructions
 
-For configuring STP we assume the following configuration. In this document only the switch configuration is shown.
+The STP configuration examples below assume the following topology. Throughout all examples given here, only the switch configuration side is shown.
 
 ![Topology](/assets/img/stp-topology.png)
 
@@ -44,7 +44,7 @@ STP=1
 Name=swbridge
 ```
 
-The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
+The necessary commands for configuring and attaching the ports to the bridge are documented here: [VLAN Bridging](https://docs.bisdn.de/network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
 ## STP operation
 
@@ -99,7 +99,7 @@ Meant as an improvement to the original STP standard, RSTP improves Spanning Tre
 
 There is currently no RSTP support in the Linux Kernel and therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure and manage RSTP.
 
-mstpd is managed by systemd and is disabled by default. For documentation on how to manage the service refer to [systemd getting started](https://docs.bisdn.de/getting_started/configure_baseboxd.html#getting-started).
+mstpd is managed by systemd and is disabled by default. For documentation on how to manage systemd services please refer to [systemd getting started](https://docs.bisdn.de/getting_started/configure_baseboxd.html#getting-started).
 
 ## RSTP configuration
 
@@ -114,9 +114,9 @@ The following steps of configuring the ports and attaching them to the bridge ca
 
 ## RSTP operation
 
-After setting up the bridge and bridge ports, the RSTP state on the bridge can be managed over the `mstpdctl` utility. The following command shows an example command output.
+After setting up the bridge and its ports, the RSTP state on the bridge can be managed with the `mstpdctl` utility. The following command shows an example command output.
 
-**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`. For a bridge control tool use `mstpctl` instead.
+**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`. Use `mstpctl` instead.
 {: .label .label-yellow }
 
 ```
