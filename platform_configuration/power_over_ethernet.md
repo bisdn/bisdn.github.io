@@ -41,13 +41,13 @@ poectl for enable, disable, status and measurements of PoE ports
 
 ### Examples
 
-To enable PoE on a port run the following command:
+To enable PoE on all ports run the following command:
 
 ```
-:~$ poectl -e port2
+:~$ poectl -e all
 ```
 
-To disable PoE on a port:
+To disable PoE on a certain port:
 
 ```
 :~$ poectl -d port2
