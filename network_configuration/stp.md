@@ -24,6 +24,26 @@ An STP-enabled bridge can be created using iproute2 with the following command:
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
+or by copying following systemd-networkd configuration files into the /etc/systemd/networkd directory and restarting the `systemd-networkd` systemd-service.
+```
+10-swbridge.netdev:
+
+[NetDev]
+Name=swbridge
+Kind=bridge
+
+[Bridge]
+VLANFiltering=1
+STP=1
+```
+
+```
+10-swbridge.network:
+
+[Match]
+Name=swbridge
+```
+
 The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
 ## STP operation
@@ -96,7 +116,7 @@ The following steps of configuring the ports and attaching them to the bridge ca
 
 After setting up the bridge and bridge ports, the RSTP state on the bridge can be managed over the `mstpdctl` utility. The following command shows an example command output.
 
-**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`.
+**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`. For a bridge control tool use `mstpctl` instead.
 {: .label .label-yellow }
 
 ```
@@ -126,3 +146,4 @@ agema-ag4610:/home/basebox# mstpctl showport swbridge port7
 agema-ag461-:/home/basebox# mstpctl showport swbridge port8
    port8 8.002 forw 2.000.6E:F8:F4:3D:E3:D7 2.000.6E:F8:F4:3D:E3:D7 8.002 Desg
 ```
+
