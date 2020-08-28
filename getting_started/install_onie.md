@@ -12,7 +12,7 @@ Check the current ONIE version of your switch by executing the following command
 onie-sysinfo -v
 ```
 
-If your switch has the supported ONIE preinstalled you can skip this part and [Install BISDN Linux](install_bisdn_linux.md) right away. In the other case you can either install a complete ONIE or upgrade an existing one.
+If your switch has the supported ONIE preinstalled you can skip this part and [Install BISDN Linux](/getting_started/install_bisdn_linux.md) right away. In the other case you can either install a complete ONIE or upgrade an existing one.
 
 ### Supported ONIE versions
 
