@@ -21,7 +21,7 @@ On switches using U-Boot bootloader:
 Interrupt the U-Boot boot countdown by pressing any key and enter
 
 ```
-run onie_install
+setenv onie_boot_reason install && boot
 ```
 
 to install a switch image. To remove the image, enter
