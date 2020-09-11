@@ -96,3 +96,18 @@ BISDN Linux 3.0.0 agema-ag7648 ttyUSB0
 
 agema-ag7648 login:
 ```
+
+## Backup files/folders across installations
+
+To backup files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file.
+
+This file supports a simple syntax to configure a custom list of files to keep during system upgrade:
+
+- absolute paths to files or directories to keep:
+e.g. "/etc/default/user-backup.txt"
+
+- prefixed paths with a "-" for configuration files to NOT keep:
+e.g. "-/etc/hostname"
+
+- comments, like this block, prefixed with #.
+
