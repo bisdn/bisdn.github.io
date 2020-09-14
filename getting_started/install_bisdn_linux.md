@@ -99,7 +99,7 @@ agema-ag7648 login:
 
 ## Backup files/folders across installations
 
-To backup files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. BISDN Linux keeps by default the following files/ directories:
+To backup files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. By default BISDN Linux keeps the following files/ directories:
 
 ```
 /home/basebox/.ssh/
@@ -120,4 +120,3 @@ e.g. "/etc/default/user-backup.txt"
 e.g. "-/etc/hostname"
 
 - comments prefixed with #.
-
