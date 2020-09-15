@@ -110,7 +110,7 @@ ip link add name swbridge type bridge vlan_filtering 1
 ```
 
 
-The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](https://docs.bisdn.de/network_configuration/vlan_bridging.html#vlan-bridging-8021q).
+The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](/network_configuration/vlan_bridging.html#vlan-bridging-8021q).
 
 ## RSTP operation
 
