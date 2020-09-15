@@ -99,17 +99,7 @@ agema-ag7648 login:
 
 ## Backup files/folders across installations
 
-To backup files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. By default BISDN Linux keeps the following files/ directories:
-
-```
-/home/basebox/.ssh/
-/etc/passwd
-/etc/shadow
-/etc/group
-/etc/sudoers.d
-/etc/systemd/network/
-/etc/ofdpa-grpc.conf
-```
+By default BISDN Linux keeps files/directories based on packages' configuration file lists (located at `/var/lib/opkg/info/*.conffiles`) and the list in `/etc/default/system-backup.txt`.
 
 This `user-backup.txt` file supports a simple syntax to configure a custom list of files to keep during system upgrade:
 
