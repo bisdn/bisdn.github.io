@@ -99,7 +99,9 @@ agema-ag7648 login:
 
 ## Backup files/folders across installations
 
-By default BISDN Linux keeps files/directories based on packages' configuration file lists (located at `/var/lib/opkg/info/*.conffiles`) and the list in `/etc/default/system-backup.txt`. This `user-backup.txt` file supports a simple syntax to configure a custom list of files to keep during system upgrade:
+By default BISDN Linux keeps files/directories based on packages' configuration file lists (located at `/var/lib/opkg/info/*.conffiles`) and the list in `/etc/default/system-backup.txt`.
+
+To backup files additional files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. This `user-backup.txt` file supports a simple syntax to configure a custom list of files to keep during system upgrade:
 
 - absolute paths to files or directories to keep:
 e.g. "/etc/default/user-backup.txt"
