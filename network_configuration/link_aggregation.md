@@ -122,19 +122,19 @@ To configure the scenario described and shown above, we first create the two bon
 `/etc/systemd/network/20-bond1.netdev`
 ```
 [NetDev]
-Name="bond1"
-Kind="bond"
+Name=bond1
+Kind=bond
 [Bond]
-Mode="802.3ad"
+Mode=802.3ad
 ```
 
 `/etc/systemd/network/20-bond2.netdev`
 ```
 [NetDev]
-Name="bond2"
-Kind="bond"
+Name=bond2
+Kind=bond
 [Bond]
-Mode="802.3ad"
+Mode=802.3ad
 ```
 
 To enslave the links to their corresponding bonds, we set their network configuration to match on the name of the bond we created before:
@@ -142,30 +142,30 @@ To enslave the links to their corresponding bonds, we set their network configur
 `/etc/systemd/network/30-port7.network`
 ```
 [Match]
-Name="port7"
+Name=port7
 [Network]
-Bond="bond1"
+Bond=bond1
 ```
 `/etc/systemd/network/30-port8.network`
 ```
 [Match]
-Name="port8"
+Name=port8
 [Network]
-Bond="bond1"
+Bond=bond1
 ```
 `/etc/systemd/network/30-port52.network`
 ```
 [Match]
-Name="port52"
+Name=port52
 [Network]
-Bond="bond2"
+Bond=bond2
 ```
 `/etc/systemd/network/30-port54.network`
 ```
 [Match]
-Name="port54"
+Name=port54
 [Network]
-Bond="bond2"
+Bond=bond2
 ```
 
 To allow traffic forwarding between the two bonds we created, we create a bridge and attache them to it:
@@ -173,13 +173,13 @@ To allow traffic forwarding between the two bonds we created, we create a bridge
 `/etc/systemd/network/10-swbridge.network`
 ```
 [Match]
-Name="swbridge"
+Name=swbridge
 ```
 `/etc/systemd/network/10-swbridge.netdev`
 ```
 [NetDev]
-Name="swbridge"
-Kind="bridge"
+Name=swbridge
+Kind=bridge
 [Bridge]
 DefaultPVID=1
 VLANFiltering=1
@@ -187,16 +187,16 @@ VLANFiltering=1
 `/etc/systemd/network/20-bond1.network`
 ```
 [Match]
-Name="bond1"
+Name=bond1
 [Network]
-Bridge="swbridge"
+Bridge=swbridge
 ```
 `/etc/systemd/network/20-bond2.network`
 ```
 [Match]
-Name="bond2"
+Name=bond2
 [Network]
-Bridge="swbridge"
+Bridge=swbridge
 ```
 
 To apply all of this configuration, we just restart systemd-networkd on the switches.
@@ -209,24 +209,24 @@ To configure the servers, we can follow the same structure for creating the syst
 `/etc/systemd/network/20-bond1.netdev`
 ```
 [NetDev]
-Name="bond1"
-Kind="bond"
+Name=bond1
+Kind=bond
 [Bond]
-Mode="802.3ad"
+Mode=802.3ad
 ```
 `/etc/systemd/network/30-eno7.network`
 ```
 [Match]
-Name="eno7"
+Name=eno7
 [Network]
-Bond="bond1"
+Bond=bond1
 ```
 `/etc/systemd/network/30-eno8.network`
 ```
 [Match]
-Name="eno8"
+Name=eno8
 [Network]
-Bond="bond1"
+Bond=bond1
 ```
 
 After creating all configuring both switches and both servers with the commands shown above, we can now assign IP addresses to the bond interfaces on the servers and start pinging each other:
@@ -234,16 +234,16 @@ After creating all configuring both switches and both servers with the commands 
 `server-1: /etc/systemd/network/20-bond1.network`
 ```
 [Match]
-Name="bond1"
+Name=bond1
 [Network]
-Address="10.0.3.1/24"
+Address=10.0.3.1/24
 ```
 `server-2: /etc/systemd/network/20-bond1.network`
 ```
 [Match]
-Name="bond1"
+Name=bond1
 [Network]
-Address="10.0.3.2/24"
+Address=10.0.3.2/24
 ```
 
 To apply all of this configuration, we just restart systemd-networkd on the servers.
