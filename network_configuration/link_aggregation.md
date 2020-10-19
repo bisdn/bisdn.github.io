@@ -7,7 +7,7 @@ parent: Network Configuration
 
 ## Introduction
 
-Link Aggregation is used to combine multiple physical network links into one logical bond to aggregate bandwidth and/or provide redundancy. There are numerous names for link aggregation including teaming, bundling and trunking, but to align with the default term used in the systemd-networkd context, we will use bonding to refer to it in this documentation. 
+Link Aggregation is used to combine multiple physical network links into one logical bond to aggregate bandwidth and/or provide redundancy. There are numerous names for link aggregation including teaming, bundling and trunking, but to align with the default term used in the systemd-networkd context, we will use bonding to refer to it in this documentation. For more details about bonding in Linux, please refer to the official [kernel documentation](https://www.kernel.org/doc/Documentation/networking/bonding.txt).
 
 ## Suported bonding modes
 BISDN Linux currently supports bonding interfaces (excluding the management interface) in the bond modes `balanced-rr`, `active-backup` and `802.3.ad`:
