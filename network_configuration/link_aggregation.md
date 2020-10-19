@@ -21,7 +21,13 @@ In this section, we provide examples on how to configure bonding using [iproute2
 
 ## Example bonding configuration topology
 
-In the following configuration examples, we are going to use the topology shown below. It consists of two switches which are directly connected to each other on port 52 and 54. These two interfaces are then bonded using bond mode `802.3.ad` to achieve redundancy and bandwidth aggregation at the same time. The bond created is called bond2 on each side. Additionally each switch has port 7 and 8 bonded the same way into bond1 and these links are directly connected to servers which are considered source and sink for this configuration scenario. The servers themselves also use LACP to create bond1 out of their interfaces eno7 and eno8. To finally be able to send traffic between the two servers, all bonds on the switches are attached to a bridge called `swbridge` and each bond1 interface on the servers gets an IP address that should be reachable from the corresponding other server via the two switches in between.
+In the following configuration examples, we are going to use the topology shown below. It consists of two switches which are directly connected to each other on port 52 and 54. These two interfaces are then bonded using bond mode `802.3.ad` to achieve redundancy and bandwidth aggregation at the same time. The created bond is called `bond2` on each side.
+
+Additionally, each switch has port 7 and 8 bonded the same way into `bond1`. These links are directly connected to servers, which are considered source and sink for this scenario. 
+To be able to send traffic between the two servers, all bonds on the switches are attached to a bridge called `swbridge`.
+
+The servers themselves also use LACP to create `bond1` out of their interfaces `eno7` and `eno8`.
+Each `bond1` interface on the servers gets an IP address that should be reachable from the opposite server via the two switches in between.
 
 ```
  +-------------------------------------------+   +-------------------------------------------+
