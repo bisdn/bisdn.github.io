@@ -63,7 +63,7 @@ Each `bond1` interface on the servers gets an IP address that should be reachabl
 
 ## Bonding configuration with iproute2
 
-To configure the scenario described and shown above, we first create the two bond devices themselves on both switches:
+To configure the scenario described and shown above, we first create the two bond devices themselves on both switches (all commands have to be run with root privileges):
 
 ```
 ip link add bond1 type bond
@@ -130,7 +130,7 @@ With these two addresses assigned, both servers should now be able to reach each
 
 ## Bonding configuration with systemd-networkd
 
-To configure the scenario described and shown above, we first create the two bond devices themselves on both switches by creating corresponding .netdev files for systemd-networkd:
+To configure the scenario described and shown above, we first create the two bond devices themselves on both switches by creating corresponding .netdev files for systemd-networkd (to create these files, you need root privileges):
 
 `/etc/systemd/network/20-bond1.netdev`
 ```
