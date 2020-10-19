@@ -7,7 +7,14 @@ parent: Network Configuration
 
 ## Introduction
 
-Link Aggregation is used to combine multiple physical network links into one logical bond to aggregate bandwidth and/or provide redundancy. There are numerous names for link aggregation including teaming, bundling and trunking, but to align with the default term used in the systemd-networkd context, we will use bonding to refer to it in this documentation. BISDN Linux currently support bonding interfaces (excluding the management interface) in the bond modes `balanced-rr`, `active-backup` and `802.3.ad`. The mode `balanced-rr` is one of the simplest bonding configurations and provides aggregated bandwidth, but no redundancy. In contrast to that, `active-backup` provides only redundancy, but does not aggregate the bandwidth of the links used. In most data center bonding use cases, the mode `802.3ad` (which is also often refer to as `LACP` bonding) is used to achieve bandwidth aggregation as well as failover redundancy at the same time. In this bond mode the `Link Aggregation Control Protocol` (LACP) is used to monitor the link state out-of-band while distributing all outgoing packets over all active links.
+Link Aggregation is used to combine multiple physical network links into one logical bond to aggregate bandwidth and/or provide redundancy. There are numerous names for link aggregation including teaming, bundling and trunking, but to align with the default term used in the systemd-networkd context, we will use bonding to refer to it in this documentation. 
+
+## Suported bonding modes
+BISDN Linux currently supports bonding interfaces (excluding the management interface) in the bond modes `balanced-rr`, `active-backup` and `802.3.ad`:
+
+- `balanced-rr`: is one of the simplest bonding configurations and provides aggregated bandwidth, but no redundancy;
+- `active-backup`: provides only redundancy, but does not aggregate the bandwidth of the links used;
+-  `802.3ad`: Used in most data center bonding use cases (which is also often referred to as `LACP` bonding). `802.3ad` is used to achieve bandwidth aggregation as well as failover redundancy at the same time. In this bond mode, the `Link Aggregation Control Protocol` (LACP) is used to monitor the link state out-of-band while distributing all outgoing packets over all active links.
 
 In this section, we provide examples on how to configure bonding using [iproute2](#bonding-configuration-with-iproute2) and [systemd-networkd](#bonding-configuration-with-systemd-networkd) networks in BISDN Linux.
 
