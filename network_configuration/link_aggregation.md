@@ -76,7 +76,7 @@ ip link set bond1 type bond mode 802.3ad
 ip link set bond2 type bond mode 802.3ad
 ```
 
-To enslave the links to their corresponding bonds, we first set them down and then update their configuration my setting their master to the bond we created before:
+To enslave the links to their corresponding bonds, we first set them down and then update their configuration by setting their master to the bond we created before:
 ```
 # configure switch to server link
 ip link set port7 down
@@ -90,7 +90,7 @@ ip link set port54 down
 ip link set port54 master bond2
 ```
 
-To allow traffic forwarding between the two bonds we created, we create a bridge and attache them to it:
+To allow traffic forwarding between the two bonds we created, we create a bridge and attach them to it:
 ```
 ip link add name swbridge type bridge vlan_filtering 1 vlan_default_pvid 1
 ip link set swbridge up
@@ -181,7 +181,7 @@ Name=port54
 Bond=bond2
 ```
 
-To allow traffic forwarding between the two bonds we created, we create a bridge and attache them to it:
+To allow traffic forwarding between the two bonds we created, we create a bridge and attach them to it:
 
 `/etc/systemd/network/10-swbridge.network`
 ```
@@ -242,7 +242,7 @@ Name=eno8
 Bond=bond1
 ```
 
-After creating all configuring both switches and both servers with the commands shown above, we can now assign IP addresses to the bond interfaces on the servers and start pinging each other:
+After creating all configuration on both switches and both servers with the commands shown above, we can now assign IP addresses to the bond interfaces on the servers and start pinging each other:
 
 `server-1: /etc/systemd/network/20-bond1.network`
 ```
@@ -265,3 +265,4 @@ systemctl restart systemd-networkd
 ```
 
 With these two addresses assigned, both servers should now be able to reach each other.
+
