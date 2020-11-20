@@ -38,7 +38,8 @@ sudo dd if=20181109-onie-recovery-x86_64-delta_ag7648-r0.iso of=/dev/sdb bs=10M
 sync
 ```
 
-**NOTE** For installing ONIE on AG5648 platform please follow the instructions on github (see link above).
+**NOTE**: For installing ONIE on AG5648 platform please follow the instructions on github (see link above).
+{: .label .label-yellow }
 
 Attach the USB device to your switch and reboot it. Enter the ONIE boot menu then press `c' to get into the grub CLI. Enter the following commands to boot from a USB device.
 
