@@ -24,7 +24,7 @@ client_flowtable_dump -s 60
 ```
 
 The visualization of these statistics enables users to monitor network traffic by creating fine-grained OpenFlow match-based flow entries.
-These table entries can be installed without any additional action on matched packets, thus being passively used for statistical purposes.
+These table entries can be installed without any action on matched packets (for passive statistics collection) or they can be configured to be sent to the controller (`baseboxd`). The latter allows packets to be seen in the kernel space, e.g. when using `tcpdump` on the created Linux tap interfaces.
 
 The `ofdpa_acl_flow_cli.py` tool can be used to manage the traffic monitoring ACL table entries. This tool receives as command line arguments the flow match fields and respective values, alongside with the add/delete operation identifier, `-a/--add` and `-d/--delete`, respectively.
 A list of all the supported fields can be consulted through the `--help` option:
@@ -33,7 +33,8 @@ A list of all the supported fields can be consulted through the `--help` option:
 ofdpa_acl_flow_cli.py --help
 ```
 
-To easily identify the installed flows, the `cookie` attribute can be set on each flow. This allows the deletion of table entries by only specifying its cookie identifier (instead of all matching attributes).
+The `controller` attribute adds the send to controller instruction to new flows.
+Moreover, to easily identify the installed flows, the `cookie` attribute can be set on each flow. This allows the deletion of table entries by only specifying its cookie identifier (instead of all matching attributes).
 Yet, this attribute needs to be uniquely set for each flow, as it will not be possible to delete two or more flows with the identifier.
 
 Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](/basebox.md#openflow).
@@ -64,6 +65,8 @@ ofdpa_acl_flow_cli.py -a --etherType 0x800 --sourceIp4 192.168.1.0 --sourceIp4Ma
 # Cookie is set to 10001.
 ofdpa_acl_flow_cli.py -a --etherType 0x86dd --ipProto 0x11 --destL4Port 5000 --vlanId 0x100a --vlanIdMask 0x1fff --cookie 10001
 
+# Send ingress traffic from port 8 to the controller
+ofdpa_acl_flow_cli.py -a --inPort 8 --inPortMask 0xffffffff --controller --cookie 10002
 ```
 
 #### Deleting flows
@@ -74,6 +77,7 @@ The following commands delete the previously created flows:
 ofdpa_acl_flow_cli.py -d --inPort 7 --inPortMask 0xffffffff
 ofdpa_acl_flow_cli.py -d --cookie 10000
 ofdpa_acl_flow_cli.py -d --cookie 10001
+ofdpa_acl_flow_cli.py -d --cookie 10002
 ```
 
 
