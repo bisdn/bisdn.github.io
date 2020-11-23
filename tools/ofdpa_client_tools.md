@@ -59,8 +59,8 @@ ofdpa_acl_flow_cli.py -a --inPort 7 --inPortMask 0xffffffff
 # IPv4 traffic from the 192.168.1.0/24 subnet. Flow cookie is set to 10000
 ofdpa_acl_flow_cli.py -a --etherType 0x800 --sourceIp4 192.168.1.0 --sourceIp4Mask 255.255.255.0 --cookie 10000
 
-# IPv6 UDP traffic with destination port 5000 from VLAN 10 with an exact VLAN mask. 
-# Note the VLAN_VID_PRESENT flag (0x1000) on both VLAN ID/mask values, according to the OFDPA specification. 
+# IPv6 UDP traffic with destination port 5000 from VLAN 10 with an exact VLAN mask.
+# Note the VLAN_VID_PRESENT flag (0x1000) on both VLAN ID/mask values, according to the OFDPA specification.
 # Cookie is set to 10001.
 ofdpa_acl_flow_cli.py -a --etherType 0x86dd --ipProto 0x11 --destL4Port 5000 --vlanId 0x100a --vlanIdMask 0x1fff --cookie 10001
 
@@ -218,12 +218,12 @@ ofdpa_color_table_cli.py -a --color green
 # Yellow traffic gets its DSCP value set to 4
 ofdpa_color_table_cli.py -a --color yellow --dscp 4
 # Red traffic is dropped
-ofdpa_color_table_cli.py -a --color red --clearAction 
+ofdpa_color_table_cli.py -a --color red --clearAction
 ```
 
 #### Deleting existing entries
 
-Existing table entries can be deleted individually, by matching their color and index, or as a group, by matching an index. In the latter case, all green/yellow/red flows with the given index are deleted. 
+Existing table entries can be deleted individually, by matching their color and index, or as a group, by matching an index. In the latter case, all green/yellow/red flows with the given index are deleted.
 
 Flows are deleted using the `-d` option:
 
@@ -238,7 +238,7 @@ ofdpa_color_table_cli.py -d --index 1 --all
 ofdpa_color_table_cli.py -d --color green --index 1
 ofdpa_color_table_cli.py -d --color yellow --index 1
 ofdpa_color_table_cli.py -d --color red --index 1
-``` 
+```
 
 ### Send traffic to meters
 
