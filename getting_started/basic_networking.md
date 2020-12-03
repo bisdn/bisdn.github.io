@@ -12,7 +12,7 @@ Before starting with actually configuring the switch interfaces, you should firs
 
 BISDN Linux maps the physical ports on the switch with an abstract representation via [tuntap](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) interfaces. These interfaces are special Linux software only devices, that are bound to a userspace program, specifically baseboxd for the case in BISDN Linux.
 
-If you followed the instructions from [Configure Baseboxd](configure_baseboxd.md), you should now be able to display all ports.
+If you followed the instructions from [Configure Baseboxd](/getting_started/configure_baseboxd.md), you should now be able to display all ports.
 
 ```
 $ ip link show
@@ -77,7 +77,7 @@ Settings for port1:
         MDI-X: Unknown
 ```
 
-**WARNING**: All link configurations shown in ethtool are currently read-only and can not be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect to the ASIC). Configuring the link speed as in [Disable auto-negotiation](.setup/setup_standalone.html#disable-auto-negotiation) however, will updates the ethtool reported speed.
+**WARNING**: All link configurations shown in ethtool are currently read-only and can not be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect to the ASIC). Configuring the link speed as in [Disable auto-negotiation](/platform_configuration/auto_negotiation.md#disable-auto-negotiation) however, will updates the ethtool reported speed.
 
 ## Loopback interface
 
@@ -108,7 +108,7 @@ On the server:
 root@myserver: ping 192.168.0.1
 ```
 
-To configure more complex scenarios, please refer to the [Network Configuration](../network_configuration.md) section.
+To configure more complex scenarios, please refer to the [Network Configuration](/network_configuration.md) section.
 
 
 # Persisting network configuration with systemd-networkd

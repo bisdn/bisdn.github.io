@@ -8,6 +8,9 @@ nav_order: 3
 
 Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. This section shows how to connect to the switch and guides through the installation process.
 
+**WARNING**: Installing a BISDN Linux image requires a stable internet connection. To do this, please attach a network cable to the `Management` port of your switch.
+{: .label .label-red }
+
 ## Install BISDN Linux via ONIE
 
 The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively.
@@ -52,9 +55,9 @@ to get into the ONIE CLI.
 
 Install the image via a CLI command as in the example below. All images are hosted in our [image repo](http://repo.bisdn.de/) while released images can be directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
-This example installs BISDN Linux v3.0.0 for the AG7648 platform:
+This example installs BISDN Linux v3.3.0 for the AG7648 platform:
 ```
-onie-nos-install http://repo.bisdn.de.s3-eu-central-1.amazonaws.com/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v3.0.0.bin
+onie-nos-install http://repo.bisdn.de/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v3.3.0.bin
 ```
 
 **Note**: The ONIE CLI command can only process http URLs.
@@ -92,7 +95,7 @@ Demo Installer: platform: x86_64-agema_ag7648-r0
 After successful installation the switch will reboot itself. Once it has finished booting you should see a similar message:
 
 ```
-BISDN Linux 3.0.0 agema-ag7648 ttyUSB0
+BISDN Linux 3.3.0 agema-ag7648 ttyUSB0
 
 agema-ag7648 login:
 ```

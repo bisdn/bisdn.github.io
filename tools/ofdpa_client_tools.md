@@ -36,7 +36,7 @@ ofdpa_acl_flow_cli.py --help
 To easily identify the installed flows, the `cookie` attribute can be set on each flow. This allows the deletion of table entries by only specifying its cookie identifier (instead of all matching attributes).
 Yet, this attribute needs to be uniquely set for each flow, as it will not be possible to delete two or more flows with the identifier.
 
-Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](/basebox.html#openflow).
+Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](/basebox.md#openflow).
 For example, adding the following entry will result an error:
 
 ```
