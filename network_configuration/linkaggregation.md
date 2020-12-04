@@ -7,12 +7,12 @@ parent: Network Configuration
 
 ## Introduction
 
-Link Aggregation, or bonding, is a feature that allows to aggregate several network interfaces into a single virtual interface, known as a bond. Bonding interfaces together allows for channel redundancy, in case of link failure for example; or to aggregate bandwidth.
+Link Aggregation, or bonding, is a feature that allows to aggregate several network interfaces into a single virtual interface, known as a bond. Bonding interfaces allows for channel redundancy and is used to protect against link failure or to aggregate bandwidth.
 
 BISDN Linux bonds can work in one of the following modes:
- - Round Robin (bond mode 0) which sequentially transmits packets on the available interfaces.
- - Active Backup (bond mode 1) where only one slave of the bond is active.
- - 802.3AD LACP (bond mode 4) referring to dynamic link aggregation.
+ - Round Robin (bond mode 0) which distributes packets evenly across all available bonded interfaces.
+ - Active Backup (bond mode 1) where only one slave of the bond is active and the other one is only used a backup in case of failure.
+ - 802.3AD LACP (bond mode 4) referring to dynamic link aggregation and providing link failure redundancy as well as bandwidth aggregation
 
 For further explanation of bond modes refer to [bonding documentation](https://wiki.linuxfoundation.org/networking/bonding)
 
