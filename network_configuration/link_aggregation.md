@@ -266,3 +266,8 @@ systemctl restart systemd-networkd
 
 With these two addresses assigned, both servers should now be able to reach each other.
 
+## Known Limitations
+
+- `802.3ad` currently only supports the `layer2` transmit hash policy.
+- `balanced-rr` is only supported on Tomahawk based devices like Agema AG5648.
+- `balanced-rr` does not handle link failures properly.
