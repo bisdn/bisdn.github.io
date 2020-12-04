@@ -26,7 +26,10 @@ client_flowtable_dump -s 60
 The visualization of these statistics enables users to monitor network traffic by creating fine-grained OpenFlow match-based flow entries.
 These table entries can be installed without any action on matched packets (for passive statistics collection) or they can be configured to be sent to the controller (`baseboxd`).
 
-Packets sent to the controller can be seen in the kernel space, e.g. when using `tcpdump` on the created Linux tap interfaces, as they are not directly forwarded through their egress port. However, these packets are still forwarded to its egress destination by the controller. Nonetheless, this comes with the cost of adding two additional bandwidth-limited hops on the packets' path (when compared to the switch ASIC) thus increasing their latency.
+Packets sent to the controller can be seen in the kernel space, e.g. when using `tcpdump` on the created Linux tap interfaces, as they are not directly forwarded through their egress port. However, these packets are still forwarded to its egress destination by the controller.
+
+**Warning**: Forwarding packets to controller comes with the cost of adding two additional bandwidth-limited and slower hops on the packets' path (when compared to the switch ASIC). While testing, we observed an increase of latency per packet by two orders of magnitude, as well as the increase of the switch CPU load.
+{: .label .label-yellow }
 
 The `ofdpa_acl_flow_cli.py` tool can be used to manage the traffic monitoring ACL table entries. This tool receives as command line arguments the flow match fields and respective values, alongside with the add/delete operation identifier, `-a/--add` and `-d/--delete`, respectively.
 A list of all the supported fields can be consulted through the `--help` option:
