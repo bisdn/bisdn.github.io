@@ -7,6 +7,8 @@ nav_order: 8
 
 ## Agema-5648 PCIe Bus error
 
+**A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
+
 The driver for the PCI bus may report an error leading to the controller not receiving any traffic and causing the platform to completely stop working until restarted. This is a sporadic bug and can be verified by running dmesg where the following logs are available to confirm the presence of the error.
 
 ```
