@@ -24,7 +24,12 @@ client_flowtable_dump -s 60
 ```
 
 The visualization of these statistics enables users to monitor network traffic by creating fine-grained OpenFlow match-based flow entries.
-These table entries can be installed without any additional action on matched packets, thus being passively used for statistical purposes.
+These table entries can be installed without any action on matched packets (for passive statistics collection) or they can be configured to be sent to the controller (`baseboxd`).
+
+Packets sent to the controller can be seen in the kernel space, e.g. when using `tcpdump` on the created Linux tap interfaces, as they are not directly forwarded through their egress port. However, these packets are still forwarded to its egress destination by the controller.
+
+**Warning**: Forwarding packets to controller comes with the cost of adding two additional bandwidth-limited and slower hops on the packets' path (when compared to the switch ASIC). While testing, we observed an increase of latency per packet by two orders of magnitude, as well as the increase of the switch CPU load.
+{: .label .label-yellow }
 
 The `ofdpa_acl_flow_cli.py` tool can be used to manage the traffic monitoring ACL table entries. This tool receives as command line arguments the flow match fields and respective values, alongside with the add/delete operation identifier, `-a/--add` and `-d/--delete`, respectively.
 A list of all the supported fields can be consulted through the `--help` option:
@@ -33,8 +38,12 @@ A list of all the supported fields can be consulted through the `--help` option:
 ofdpa_acl_flow_cli.py --help
 ```
 
-To easily identify the installed flows, the `cookie` attribute can be set on each flow. This allows the deletion of table entries by only specifying its cookie identifier (instead of all matching attributes).
+The `controller` attribute adds the send to controller instruction to new flows.
+Moreover, to easily identify the installed flows, the `cookie` attribute can be set on each flow. This allows the deletion of table entries by only specifying its cookie identifier (instead of all matching attributes).
 Yet, this attribute needs to be uniquely set for each flow, as it will not be possible to delete two or more flows with the identifier.
+
+**Warning**: Do not forget to delete flows sent to controller after they are not needed anymore. Packets sent to controller are processed through the switch CPU and not the ASIC, leading to higher latency and limited bandwidth.
+{: .label .label-yellow }
 
 Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](/basebox.md#openflow).
 For example, adding the following entry will result an error:
@@ -59,11 +68,13 @@ ofdpa_acl_flow_cli.py -a --inPort 7 --inPortMask 0xffffffff
 # IPv4 traffic from the 192.168.1.0/24 subnet. Flow cookie is set to 10000
 ofdpa_acl_flow_cli.py -a --etherType 0x800 --sourceIp4 192.168.1.0 --sourceIp4Mask 255.255.255.0 --cookie 10000
 
-# IPv6 UDP traffic with destination port 5000 from VLAN 10 with an exact VLAN mask. 
-# Note the VLAN_VID_PRESENT flag (0x1000) on both VLAN ID/mask values, according to the OFDPA specification. 
+# IPv6 UDP traffic with destination port 5000 from VLAN 10 with an exact VLAN mask.
+# Note the VLAN_VID_PRESENT flag (0x1000) on both VLAN ID/mask values, according to the OFDPA specification.
 # Cookie is set to 10001.
 ofdpa_acl_flow_cli.py -a --etherType 0x86dd --ipProto 0x11 --destL4Port 5000 --vlanId 0x100a --vlanIdMask 0x1fff --cookie 10001
 
+# Send ingress traffic from port 8 to the controller
+ofdpa_acl_flow_cli.py -a --inPort 8 --inPortMask 0xffffffff --controller --cookie 10002
 ```
 
 #### Deleting flows
@@ -74,6 +85,7 @@ The following commands delete the previously created flows:
 ofdpa_acl_flow_cli.py -d --inPort 7 --inPortMask 0xffffffff
 ofdpa_acl_flow_cli.py -d --cookie 10000
 ofdpa_acl_flow_cli.py -d --cookie 10001
+ofdpa_acl_flow_cli.py -d --cookie 10002
 ```
 
 
@@ -218,12 +230,12 @@ ofdpa_color_table_cli.py -a --color green
 # Yellow traffic gets its DSCP value set to 4
 ofdpa_color_table_cli.py -a --color yellow --dscp 4
 # Red traffic is dropped
-ofdpa_color_table_cli.py -a --color red --clearAction 
+ofdpa_color_table_cli.py -a --color red --clearAction
 ```
 
 #### Deleting existing entries
 
-Existing table entries can be deleted individually, by matching their color and index, or as a group, by matching an index. In the latter case, all green/yellow/red flows with the given index are deleted. 
+Existing table entries can be deleted individually, by matching their color and index, or as a group, by matching an index. In the latter case, all green/yellow/red flows with the given index are deleted.
 
 Flows are deleted using the `-d` option:
 
@@ -238,7 +250,7 @@ ofdpa_color_table_cli.py -d --index 1 --all
 ofdpa_color_table_cli.py -d --color green --index 1
 ofdpa_color_table_cli.py -d --color yellow --index 1
 ofdpa_color_table_cli.py -d --color red --index 1
-``` 
+```
 
 ### Send traffic to meters
 
