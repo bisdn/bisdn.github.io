@@ -130,6 +130,40 @@ sudo journalctl -fu ofdpa
 Apr 14 12:37:59 agema-ag7648 ofdpa[10452]: ofdbFlowPolicyAclEntryValidate: Invalid ethertype for IPv6 match fields.
 ```
 
+## Traffic capture with tcpdump
+
+The `switch_tcpdump` tool allows users to capture traffic on the switch port network interfaces created by `baseboxd` seen in BISDN Linux, e.g. `port1`.
+Internally, this is done by adding an ACL table entry matching on the desired ingress port with the [ACL table entry management tool](#acl-table-entry-management) and sending its traffic to controller, capturing traffic with `tcpdump`, and then deleting the created entry from the ACL table.
+
+Since captured traffic is sent to controller, matched packets are not routed directly through the ASIC, therefore we do not recommend doing performance measurements with this tool.
+
+The output of the traffic capture can be written to a file or printed it directly in the command line. In addition, it is possible to filter captured traffic using [the same filter syntax as `tcpdump`](https://www.tcpdump.org/manpages/pcap-filter.7.html).
+
+**Note**: This tool needs to be executed with super user privileges.
+{: .label .label-yellow }
+
+
+### Examples
+
+Capturing traffic in `port2` without writing to a file until user interruption (e.g. until the user presses CTRL-C):
+
+```
+switch_tcpdump --inPort port2 --stdout
+```
+
+Capture ICMP traffic in `port2` and write the output to `icmp_traffic.pcap` until this file reaches 100 MB:
+
+```
+switch_tcpdump --inPort port2 --filePath icmp_traffic.pcap --maxSize 100 --filters icmp
+```
+
+Capture TCP traffic in `port2` and write the output to `tcp_traffic.pcap` during 10 seconds:
+
+```
+switch_tcpdump --inPort port2 --filePath tcp_traffic.pcap --timeout 10 --filters tcp
+```
+
+
 ## Metering
 
 To enforce quality of service (QoS) mechanisms, incoming switch traffic can be classified by assigning different traffic classes and colors to processed packets according to the [DiffServ model](https://tools.ietf.org/html/rfc2475).
