@@ -55,3 +55,6 @@ grpc_cli call <IP>:50051 ofdpaMirrorSourcePortDelete "mirror_dst_port_num: { por
 grpc_cli call <IP>:50051 ofdpaMirrorPortDelete "port_num: 8"
 ```
 
+### Port mirroring of bonded interfaces
+
+Port mirroring works with physical ports, not logical ports, so to mirror the full traffic of a bonded interface all the individual bond members need to be mirrored. These can be either mirrored 1:1 to additional ports, or all bond members mirrored to one port.
