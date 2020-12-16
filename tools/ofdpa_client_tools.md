@@ -132,7 +132,7 @@ Apr 14 12:37:59 agema-ag7648 ofdpa[10452]: ofdbFlowPolicyAclEntryValidate: Inval
 
 ## Traffic capture with tcpdump
 
-The `switch_tcpdump` tool allows users to capture traffic on the switch port network interfaces created by `baseboxd` seen in BISDN Linux, e.g. `port1`.
+The `switch_tcpdump` tool allows users to capture ingress traffic on the switch port network interfaces created by `baseboxd` seen in BISDN Linux, e.g. `port1`.
 Internally, this is done by adding an ACL table entry matching on the desired ingress port with the [ACL table entry management tool](#acl-table-entry-management) and sending its traffic to controller, capturing traffic with `tcpdump`, and then deleting the created entry from the ACL table.
 
 Since captured traffic is sent to controller, matched packets are not routed directly through the ASIC, therefore we do not recommend doing performance measurements with this tool.
