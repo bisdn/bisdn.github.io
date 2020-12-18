@@ -57,3 +57,6 @@ exit
 
 Note the absence of client_drivshell and the single exit statement at the end.
 
+### Auto-negotiation and bonded interfaces
+
+Auto-negotiation is a property of physical ports, while bond interfaces are logical ports. So any auto-negotiation configuration needs to be set for the individual bond members.
