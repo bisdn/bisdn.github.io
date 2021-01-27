@@ -78,6 +78,7 @@ router-2:
 As shared virtual IPv4 address you could use 10.0.0.1/32 (please be aware to NOT
 specifically set the /32 netmask in the keepalived.conf since this will be added
 automatically).
+
 To find out more about how to configure IPv4 addresses in BISDN Linux, please
 refer to the section in [getting started](https://docs.bisdn.de/getting_started/basic_networking.html#persisting-network-configuration-with-systemd-networkd).
 We recommend to not use frr zebra in combination with keepalived, since both
@@ -86,3 +87,7 @@ lead to race conditions in the configuration of interfaces (making those service
 depend on each other sounds like an easy solution here, but since their purpose
 is very different in each configuration and frr has it's very own internal
 service startup management, we think those two should stay independent).
+
+To start your new configuration, just run `systemctl start keepalived` and if
+you want to enable VRRP even after reboot, you should run `systemctl enable
+keealived`.
