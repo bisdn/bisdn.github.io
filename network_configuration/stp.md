@@ -216,7 +216,7 @@ swbridge list of known MSTIs:
 ```
 
 To abstract the mapping between MSTIs and VLANs, each VLAN ID (vid) needs to be
-assigned to a forwarding id (fid) (the name of the fid does not have to match
+assigned to a filtering id (fid) (the name of the fid does not have to match
 the id of the VLAN), which will then in turn each be assigned to an mstid.
 
 Mapping VID to FID:
