@@ -219,7 +219,12 @@ To abstract the mapping between MSTIs and VLANs, each VLAN ID (vid) needs to be
 assigned to a filtering id (fid) (the name of the fid does not have to match
 the id of the VLAN), which will then in turn each be assigned to an mstid.
 
-Mapping VID to FID:
+Mapping FID to VID (please make sure to put FID and VID in the correct order):
+
+```
+Usage: mstpctl setvid2fid <bridge> <FID>:<VIDs List> [<FID>:<VIDs List> ...]
+  Set VIDs-to-FIDs allocation
+```
 
 ```
 root@accton-as4610:~# mstpctl showvid2fid swbridge
@@ -234,7 +239,12 @@ swbridge VID-to-FID allocation table:
   FID 3: 3
 ```
 
-Mapping FID to MSTID:
+Mapping MSTID to FID (please make sure to put MSTID and FID in the correct order):
+
+```
+Usage: mstpctl setfid2mstid <bridge> <mstid>:<FIDs List> [<mstid>:<FIDs List> ...]
+  Set FIDs-to-MSTIDs allocation
+```
 
 ```
 root@accton-as4610:~# mstpctl showfid2mstid swbridge
