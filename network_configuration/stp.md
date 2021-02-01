@@ -146,3 +146,159 @@ agema-ag4610:/home/basebox# mstpctl showport swbridge port7
 agema-ag461-:/home/basebox# mstpctl showport swbridge port8
    port8 8.002 forw 2.000.6E:F8:F4:3D:E3:D7 2.000.6E:F8:F4:3D:E3:D7 8.002 Desg
 ```
+
+# Multiple Spanning Tree Protocol (MSTP)
+
+## Introduction
+
+Multiple Spanning Tree Protocol extends the functionality of classical STP by
+the ability to create Multiple Spanning Tree Instances (MSTIs). These spanning
+tree instances can be managed independently per VLAN. Each VLAN has to be
+managed in exactly one MSTI, while one MSTI may manage multiple VLANs at the
+same time. Additionally MSTP defines "Regions" as a group of MSTP enabled
+bridges that share the same "Configuration Name" and "Configuration Digest".
+Each MSTI is managed individually in each region and all regions are managed
+within one Common Internal Spanning Tree (CIST).
+MSTP is defined in 802.1s as an extension to 802.1Q. Please refer to the
+standard for all the details and the specification of MSTP.
+Similar to RSTP, there is currently no MSTP support in the Linux Kernel and
+therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure
+and manage it. Since the mstpd.service is disabled by default, it has to be
+started and enabled before MSTP can be configured and used.
+
+
+## MSTP configuration
+
+To enable MSTP on a STP enabled bridge, you need to force the STP version of the
+bridge to mstp (instead of "rstp", which would be used by default when mstpd is
+managing the bridge). Assuming your bridge is named "swbridge", this can be done
+by running:
+
+```
+root@accton-as4610:~# mstpctl setforcevers swbridge mstp
+root@accton-as4610:~# mstpctl showbridge swbridge
+swbridge CIST info
+  enabled         yes
+  bridge id       8.000.5A:56:E3:62:AF:A7
+  designated root 8.000.5A:56:E3:62:AF:A7
+  regional root   8.000.5A:56:E3:62:AF:A7
+  root port       none
+  path cost     0          internal path cost   0
+  max age       20         bridge max age       20
+  forward delay 15         bridge forward delay 15
+  tx hold count 6          max hops             20
+  hello time    2          ageing time          300
+  force protocol version     mstp
+  time since topology change 54
+  topology change count      0
+  topology change            no
+  topology change port       None
+  last topology change port  None
+```
+
+In the next step, you should create as many individual trees (MSTIs) as you need
+to manage the VLANs bridged by each switch. Assuming you bridge `VLAN 2` and
+`VLAN 3` and want to manage the spanning trees of those individually, you can
+create two trees (MSTIs) named `2` and `3` (the names do not have to match the
+VLANs you want to mange in them and can be choosen in the range between 1-65,
+while 0 is already created by default to manage all VLANs not mapped to any
+other tree).
+
+```
+root@accton-as4610:~# mstpctl showmstilist swbridge
+swbridge list of known MSTIs:
+ 0
+root@accton-as4610:~# mstpctl createtree swbridge 2
+root@accton-as4610:~# mstpctl createtree swbridge 3
+root@accton-as4610:~# mstpctl showmstilist swbridge
+swbridge list of known MSTIs:
+ 0 2 3
+```
+
+To abstract the mapping between MSTIs and VLANs, each VLAN ID (vid) needs to be
+assigned to a filtering id (fid) (the name of the fid does not have to match
+the id of the VLAN), which will then in turn each be assigned to an mstid.
+
+Mapping FID to VID (please make sure to put FID and VID in the correct order):
+
+```
+Usage: mstpctl setvid2fid <bridge> <FID>:<VIDs List> [<FID>:<VIDs List> ...]
+  Set VIDs-to-FIDs allocation
+```
+
+```
+root@accton-as4610:~# mstpctl showvid2fid swbridge
+swbridge VID-to-FID allocation table:
+  FID 0: 1-4094
+root@accton-as4610:~# mstpctl setvid2fid swbridge 2:2
+root@accton-as4610:~# mstpctl setvid2fid swbridge 3:3
+root@accton-as4610:~# mstpctl showvid2fid swbridge
+swbridge VID-to-FID allocation table:
+  FID 0: 1,4-4094
+  FID 2: 2
+  FID 3: 3
+```
+
+Mapping MSTID to FID (please make sure to put MSTID and FID in the correct order):
+
+```
+Usage: mstpctl setfid2mstid <bridge> <mstid>:<FIDs List> [<mstid>:<FIDs List> ...]
+  Set FIDs-to-MSTIDs allocation
+```
+
+```
+root@accton-as4610:~# mstpctl showfid2mstid swbridge
+swbridge FID-to-MSTID allocation table:
+  MSTID 0: 0-4095
+root@accton-as4610:~# mstpctl setfid2mstid swbridge 2:2
+root@accton-as4610:~# mstpctl setfid2mstid swbridge 3:3
+root@accton-as4610:~# mstpctl showfid2mstid swbridge
+swbridge FID-to-MSTID allocation table:
+  MSTID 0: 0-1,4-4095
+  MSTID 2: 2
+  MSTID 3: 3
+```
+
+If you want to manage multiple switches in one MST region, you have to make sure
+that the mst configuration IDs ("Configuration Name" - by default created based on
+the MAC of the bridge that is manged), as well as the configuration itself
+("Configuration Digest" - digest of the mstp configuration applied on the
+bridge) are the same on all switches within that MST region. If you configured
+multiple switches with the commands shown above, your configuration might look
+similar to this ("Configuration Name" will be different for you):
+
+```
+root@accton-as4610-1:~# mstpctl showmstconfid swbridge
+swbridge MST Configuration Identifier:
+  Format Selector:      0
+  Configuration Name:   5A56E362AFA7
+  Revision Level:       0
+  Configuration Digest: 8A9442199657EA49D1124EA768B5D9A2
+```
+
+```
+root@accton-as4610-2:~# mstpctl showmstconfid swbridge
+swbridge MST Configuration Identifier:
+  Format Selector:      0
+  Configuration Name:   3B567362AFB1
+  Revision Level:       0
+  Configuration Digest: 8A9442199657EA49D1124EA768B5D9A2
+```
+
+To place both switches in the same MST region, you can set the "Configuration
+Names" on all switches to e.g. "12345" by running (where "1" is the "Revision
+Level" here):
+
+```
+root@accton-as4610-1/2:~# mstpctl showmstconfid swbridge
+root@accton-as4610-1/2:~# mstpctl setmstconfid swbridge 1 12345
+root@accton-as4610-1/2:~# mstpctl showmstconfid swbridge
+swbridge MST Configuration Identifier:
+  Format Selector:      0
+  Configuration Name:   12345
+  Revision Level:       1
+  Configuration Digest: 8A9442199657EA49D1124EA768B5D9A2
+```
+
+After applying this configuration, each MSTI will be managed individually within
+each MST region and all connected MST regions will be managed in one CIST.
