@@ -10,6 +10,9 @@ parent: Network Configuration
 The Spanning Tree Protocol (STP) is meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure the STP implementation available in Linux.
 
 **WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). In most modern network topologies RSTP is used because it provides significantly faster recovery in case of topology changes. To configure RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd) instead of the default STP implementation in the Linux kernel.
+{: .label .label-red}
+
+**Note**: BISDN Linux ships with [mstpd](https://github.com/mstpd/mstpd) disabled. Every STP enabled bridge will use the kernel implementation of STP, and can be managed using `brctl`. If mstpd is enabled (and running), STP will be enabled and handled by mstpd in user-space on EVERY bridge created.
 {: .label .label-yellow }
 
 ## STP Configuration Instructions
@@ -56,7 +59,8 @@ agema-ag4610:~$ bridge link
 16: port3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 2
 ```
 
-After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. The following example shows the output of a `brctl` command:
+After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. A complete reference can be found on the [brctl man page](https://linux.die.net/man/8/brctl).
+The following example shows the output of a `brctl` command:
 
 ```
 agema-ag4610:/home/basebox# brctl showstp swbridge
