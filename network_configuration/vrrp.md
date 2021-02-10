@@ -21,7 +21,7 @@ The keepalived configuration file can be found in the /etc/keepalived/
 directory. The /etc/keepalived/samples/ subdirectory contains a lot of examples
 on how different scenarios can be configured, but please be aware that your
 switch platform may not be able to run all of these scenarios out-of-the-box
-since not all of the needed software is installed or even available. To get
+since not all of the needed software is installed, or even available. To get
 started with keepalived, the following section provides a simple scenario in
 which a IPv4 address is shared between two switches/routers. This example could
 be used as base to configure a redundant router as gateway on spine switches in
