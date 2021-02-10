@@ -25,7 +25,7 @@ since not all of the needed software is installed or even available. To get
 started with keepalived, the following section provides a simple scenario in
 which a IPv4 address is shared between two switches/routers. This example could
 be used as base to configure a redundant router as gateway on spine switches in
-a typical leave-spine network architecture.
+a typical leaf-spine network architecture.
 
 ## VRRP IPv4 - shared virtual IP example
 
