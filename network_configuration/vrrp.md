@@ -58,7 +58,7 @@ you should also make sure to set a unique `{{ virtual_router_id }}` for each
 vrrp_instance.  Finally you need to replace `{{ virtual_ip }}` with the IPv4
 address that you want to use as the shared virtual IP on the `{{ interface }}`
 configured earlier. 
-Although the above mentioned configuration already is a fully function
+Although the above mentioned configuration already is a fully functional
 keepalived.conf, it is not sufficient for running VRRP between multiple routers.
 In addition to the configuration for VRRP in keepalived.conf, you need to make
 sure that all routers are able to communicate with each other and exchange VRRP
