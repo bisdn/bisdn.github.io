@@ -10,7 +10,7 @@ Before starting with actually configuring the switch interfaces, you should firs
 
 ## Interfaces
 
-BISDN Linux maps the physical ports on the switch with an abstract representation via [tuntap](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) interfaces. These interfaces are special Linux software only devices, that are bound to a userspace program, specifically baseboxd for the case in BISDN Linux.
+BISDN Linux maps the physical ports on the switch with an abstract representation via [tuntap](https://www.kernel.org/doc/Documentation/networking/tuntap.txt) interfaces. These interfaces are special Linux software only devices, that are bound to a userspace program, specifically baseboxd in the case of BISDN Linux.
 
 If you followed the instructions from [Configure Baseboxd](/getting_started/configure_baseboxd.md), you should now be able to display all ports.
 
@@ -42,7 +42,7 @@ $ ip link show
 **WARNING**: Despite Linux providing multiple alternatives for network configuration, iproute2 is the preferred configuration tool for BISDN Linux. The usage of other network configuration tools (e.g. ifconfig) is not covered in our documentation and might lead to unintended results.
 {: .label .label-red }
 
-To prevent ssh access from dataplane ports, the switch has an [iptables](https://linux.die.net/man/8/iptables) rule to block traffic destined to the default ssh port(TCP port 22) on all interfaces, except for the management interface. The management interface follows the Predictable Interface naming convention in Linux, and is usually enp\*.
+To prevent ssh access from dataplane ports, the switch has an [iptables](https://linux.die.net/man/8/iptables) rule to block traffic destined to the default ssh port (TCP port 22) on all interfaces, except for the management interface. The management interface follows the Predictable Interface naming convention in Linux, and is usually enp\*.
 
 ```
 :INPUT ACCEPT [176:40142]
@@ -77,7 +77,7 @@ Settings for port1:
         MDI-X: Unknown
 ```
 
-**WARNING**: All link configurations shown in ethtool are currently read-only and can not be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect to the ASIC). Configuring the link speed as in [Disable auto-negotiation](/platform_configuration/auto_negotiation.md#disable-auto-negotiation) however, will updates the ethtool reported speed.
+**WARNING**: All link configurations shown in ethtool are currently read-only and cannot be modified (meaning any changes done with ethtool will not be forwarded to the physical link, but just be shown on the tap interfaces without having any effect on the ASIC). Configuring the link speed as in [Disable auto-negotiation](/platform_configuration/auto_negotiation.md#disable-auto-negotiation) however, will update the ethtool reported speed.
 
 ## Loopback interface
 
@@ -89,7 +89,7 @@ It is possible to configure the loopback interface with other IPv4 and IPv6 addr
 
 # Network configuration with iproute2
 
-To configure an interface on the switch, you have to configure the corresponding port (tap interface) created by baseboxd. If for example you have connected "port1" of the switch to "eno2" of your server and want to test a simple ping between these two, you can assign IP addresses to both interfaces in a very similar way:
+To configure an interface on the switch, you have to configure the corresponding port (tap interface) created by baseboxd. If, for example, you have connected "port1" of the switch to "eno2" of your server and want to test a simple ping between these two, you can assign IP addresses to both interfaces in a very similar way:
 
 On the switch:
 ```

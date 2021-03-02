@@ -13,11 +13,11 @@ Installing BISDN Linux on a whitebox switch can be done via the ONIE installer. 
 
 ## Install BISDN Linux via ONIE
 
-The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot as used, respectively.
+The recommended switch image installation is done via ONIE, a tool that allows installation of Network Operating Systems on bare metal servers. This will prevent issues due to the bootloader difference between x86 and ARM platforms, where GRUB and coreboot are used, respectively.
 
 On switches using GRUB bootloader:
 
-Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image select `ONIE: Uninstall OS`.
+Select `ONIE: Install OS` in the ONIE menu to install a switch image. To remove the image, select `ONIE: Uninstall OS`.
 
 On switches using U-Boot bootloader:
 
@@ -104,7 +104,7 @@ agema-ag7648 login:
 
 By default BISDN Linux keeps files/directories based on packages' configuration file lists (located at `/var/lib/opkg/info/*.conffiles`) and the list in `/etc/default/system-backup.txt`.
 
-To backup files additional files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. This `user-backup.txt` file supports a simple syntax to configure a custom list of files to keep during system upgrade:
+To back up additional files when installing a new BISDN Linux version, use the `/etc/default/user-backup.txt` file. This `user-backup.txt` file supports a simple syntax to configure a custom list of files to keep during system upgrade:
 
 - absolute paths to files or directories to keep:
 e.g. "/etc/default/user-backup.txt"

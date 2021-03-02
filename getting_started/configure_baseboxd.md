@@ -14,9 +14,11 @@ Log into the switch with the following credentials:
 USER = "basebox"
 PASSWORD = "b-isdn"
 ```
-You should then see the console of BISDN Linux. You can also display the OS information by running `cat /etc/os-release `.
+
+You should then see the console of BISDN Linux. You can also display the OS information by running `cat /etc/os-release`.
 
 BISDN Linux, as most other Linux systems, requires superuser privileges to run commands that change system settings. The examples below must then be run via sudo to succeed.
+
 BISDN Linux makes use of [systemd](https://github.com/systemd/systemd). There are several systemd-enabled services required that turn a whitebox switch into a router:
 
 * ofdpa
@@ -82,7 +84,7 @@ sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
 where `ryu.app.ofctl_rest` is the Ryu application. If you have a file for a custom application, please use the absolute path to the application file.
 
-Please note, that with Ryu the integration of Linux networking (netlink) events is not supported, as that is a feature from baseboxd.
+Please note that with Ryu the integration of Linux networking (netlink) events is not supported, as that is a feature from baseboxd.
 {: .label .label-yellow }
 
 #### Remote controller
