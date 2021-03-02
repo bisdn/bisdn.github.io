@@ -4,7 +4,7 @@ parent: Getting Started
 nav_order: 2
 ---
 
-## Install ONIE 
+## Install ONIE
 
 Check the current ONIE version of your switch by executing the following command in e.g. the ONIE-rescue shell:
 
@@ -16,7 +16,7 @@ If your switch has the supported ONIE preinstalled you can skip this part and [I
 
 ### Supported ONIE versions
 
-Only the following ONIE versions are tested and supported. Installation on other version may not work as expected.
+Only the following ONIE versions are tested and supported. Installation on other versions may not work as expected.
 
 | Device                 | Bootloader | ONIE version    |
 |------------------------|------------|-----------------|
@@ -41,7 +41,7 @@ sync
 **NOTE**: For installing ONIE on AG5648 platform please follow the instructions on github (see link above).
 {: .label .label-yellow }
 
-Attach the USB device to your switch and reboot it. Enter the ONIE boot menu then press `c' to get into the grub CLI. Enter the following commands to boot from a USB device.
+Attach the USB device to your switch and reboot it. Enter the ONIE boot menu then press `c` to get into the grub CLI. Enter the following commands to boot from a USB device.
 
 ```
 set root=(hd1)
@@ -75,7 +75,7 @@ Download the .bin file given by the links above and put it onto an http server t
 onie-self-update -v http://local-http-server/onie-updater
 ```
 
-**Note**: The ONIE CLI command can only process http URLs`
+**Note**: The ONIE CLI command can only process http URLs.
 {: .label .label-yellow }
 
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-self-update).
