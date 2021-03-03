@@ -15,7 +15,7 @@ Linux implements IGMP/MLD snooping at the kernel level, and baseboxd listens for
 
 To enable multicast switching in BISDN Linux, we first have to connect the ports that will have multicast senders or receivers with a bridge. The bridge device will then receive the IGMP/MLD notifications and baseboxd will configure the new entries on the ASIC.
 
-We first create the bridge with some ports attached like described above (for instructions on how to do that, please refer to [VLAN Bridging](/network_configuration/vlan_bridging.md#vlan-bridging-8021q):
+We first create the bridge with some ports attached like described above (for instructions on how to do that, please refer to [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q):
 
 ```
 7: swbridge: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000

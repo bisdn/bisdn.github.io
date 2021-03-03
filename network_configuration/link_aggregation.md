@@ -26,8 +26,8 @@ BISDN Linux currently supports bonding interfaces (excluding the management inte
 
 In this section, we provide examples on how to configure bonding using [iproute2](#bonding-configuration-with-iproute2) and [systemd-networkd](#bonding-configuration-with-systemd-networkd) networks in BISDN Linux.
 
-Please note, that configuring [PoE](/platform_configuration/ power_over_ethernet.md#power-over-ethernet-poe) must be done on the physical bonded slave interfaces.
-[Auto-Negotiation](/platform_configuration/auto_negotiation.md#enabling-auto-negotiation) configuration is also applied only to these interfaces.
+Please note, that configuring [PoE](../platform_configuration/power_over_ethernet.md#power-over-ethernet-poe) must be done on the physical bonded slave interfaces.
+[Auto-Negotiation](../platform_configuration/auto_negotiation.md#enabling-auto-negotiation) configuration is also applied only to these interfaces.
 {: .label .label-yellow }
 
 ## Example bonding configuration topology
