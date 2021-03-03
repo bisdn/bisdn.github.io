@@ -47,7 +47,7 @@ STP=1
 Name=swbridge
 ```
 
-The necessary commands for configuring and attaching the ports to the bridge are documented here: [VLAN Bridging](/network_configuration/vlan_bridging.md#vlan-bridging-8021q).
+The necessary commands for configuring and attaching the ports to the bridge are documented here: [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
 ## STP operation
 
@@ -103,7 +103,7 @@ Meant as an improvement to the original STP standard, RSTP improves Spanning Tre
 
 There is currently no RSTP support in the Linux Kernel and therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure and manage RSTP.
 
-mstpd is managed by systemd and is disabled by default. For documentation on how to manage systemd services please refer to [systemd getting started](/getting_started/configure_baseboxd.md#getting-started).
+mstpd is managed by systemd and is disabled by default. For documentation on how to manage systemd services please refer to [systemd getting started](../getting_started/configure_baseboxd.md#getting-started).
 
 ## RSTP configuration
 
@@ -114,7 +114,7 @@ ip link add name swbridge type bridge vlan_filtering 1
 ```
 
 
-The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](/network_configuration/vlan_bridging.html#vlan-bridging-8021q).
+The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
 ## RSTP operation
 

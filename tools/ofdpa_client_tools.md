@@ -45,7 +45,7 @@ Yet, this attribute needs to be uniquely set for each flow, as it will not be po
 **Warning**: Do not forget to delete flows sent to controller after they are not needed anymore. Packets sent to controller are processed through the switch CPU and not the ASIC, leading to higher latency and limited bandwidth.
 {: .label .label-yellow }
 
-Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](/basebox.md#openflow).
+Each packet can only be matched on one flow entry, so the table flow rules need to be correctly defined. In addition, when adding/deleting table entries, the [OFDPA table type pattern (TTP) guidelines](https://github.com/Broadcom-Switch/of-dpa/blob/master/OFDPAS-ETP100-R.pdf) must be followed, as previously mentioned in the [Basebox introductory section](../basebox.md#openflow).
 For example, adding the following entry will result an error:
 
 ```
