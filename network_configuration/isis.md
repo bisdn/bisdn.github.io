@@ -8,7 +8,7 @@ parent: Network Configuration
 ## Introduction
 
 IS-IS is an interior gateway protocol (IGP) widely used in large backbone
-provider networks and is defined in [ISO/IEC 10589:2002](https://www.iso.org/standard/30932.htm://www.iso.org/standard/30932.html).
+provider networks and is defined in [ISO/IEC 10589:2002](https://www.iso.org/standard/30932.html).
 Within BISDN Linux, IS-IS can be configured and managed with the FRR daemon
 [isisd](http://docs.frrouting.org/en/latest/isisd.html).
 
