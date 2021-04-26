@@ -189,3 +189,27 @@ using the two in-between routers switch-1 and switch-2 as hops.
 
 For all possible configuration options within isisd in FRR, please refer to the
 official FRR documentation [here](http://docs.frrouting.org/en/latest/isisd.html)
+
+## Cisco Interoperability
+
+When connecting Cisco routers and switches running BISDN Linux and FRR with ISIS, it is essential to correctly configure
+the `metric` setting. Per default, the Cisco Routers have the `metric-style narrow` configuration,
+while FRR chooses the wide metrics. Refer to [CISCO docs](https://www.cisco.com/c/en/us/support/docs/ip/integrated-intermediate-system-to-intermediate-system-is-is/13795-is-is-ip-config.html) for further documentation on configuring Cisco routers with ISIS. For specific information on `metric-syle` configurations, refer to [CISCO](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-l1.html#wp1681001735) and [FRR](http://docs.frrouting.org/en/latest/isisd.html#clicmd-metric-style[narrow|transition|wide]).
+
+Below is a sample configuration to connect the BISDN Linux FRR to a Cisco Router.
+
+```
+interface GigabitEthernet0/0/0
+ description Connection to Switch
+ ip address 10.0.1.1 255.255.255.0
+ ip router isis 1   
+ negotiation auto
+!                         
+interface GigabitEthernet0/0/1
+...
+!
+router isis 1
+ net 49.0001.0000.0004.00
+ metric-style wide
+!
+```
