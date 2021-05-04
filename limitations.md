@@ -45,3 +45,7 @@ Depending on the switch and the link partner, we have observed the following beh
 - The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) only support advertising up to 10G, so the speed will be limited to 10G regardless of the link partner's ability.
 
 In all of these cases forcing the port on the switch to the desired speed works as expected.
+
+## Missing routes for EIGRP with flapping ports
+
+As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
