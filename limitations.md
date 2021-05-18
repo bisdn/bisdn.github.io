@@ -51,7 +51,7 @@ Depending on the switch and the link partner, we have observed the following beh
 
 - There is an issue in the current Broadcom SDK where the 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) will not transfer packets when autonegotiating down to 1G after being configured for 10G. Forcing the speed to 1G with disabled autonegotiation avoids this issue.
 
-- The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treatit as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
+- The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treat it as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
 
 In all of these cases forcing the port on the switch to the desired speed works as expected.
 
