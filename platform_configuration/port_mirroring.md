@@ -12,6 +12,11 @@ BISDN Linux supports the configuration of mirror ports. Mirrored ports replicate
 * `OFDPA_MIRROR_PORT_TYPE_EGRESS`: Only egress traffic is mirrored
 * `OFDPA_MIRROR_PORT_TYPE_INGRESS_EGRESS`: Both ingress and egress traffic are mirrored
 
+Please note that when mirroring ports with different maximum link speeds (e.g. a 10G
+port mirrored to a 1G port), the highest common link speed (1G for the
+aforementioned example) will be used for both ports.
+{: .label .label-yellow }
+
 The following example shows how to mirror ingress traffic from port 2 to port 8 in a switch, as shown in this figure:
 
 ![Port mirroring example](/assets/img/port_mirror_example.png)
