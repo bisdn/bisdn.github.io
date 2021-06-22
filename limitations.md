@@ -5,6 +5,12 @@ nav_order: 8
 
 # Limitations
 
+## No VxLAN support on Accton AS4610
+We do not support VXLAN on Accton-AS4610 due to the fact that the Broadcom SDK
+does not define any of the required registers for VXLAN being present in the
+appropriate register tables for Helix 4.
+
+
 ## Agema-5648 PCIe Bus error
 
 **A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
