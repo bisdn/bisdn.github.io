@@ -144,7 +144,7 @@ VLAN=300
 The configuration files for ``switch2`` are identical to those of ``switch1``
 with the exception of port names (``port_a`` and ``port_b`` become ``port_d``
 and ``port_c``, and the IPv4 addresses for the VTEP, Remote and Local will
-switch. Therefore the files below will be listed without an explanation.
+switch. Therefore the files below are shown without additional explanation.
 
 ```
 20-swbridge.netdev:
