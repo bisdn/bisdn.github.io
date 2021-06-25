@@ -127,7 +127,7 @@ Remote=192.168.0.2
 MacLearning=True
 ```
 
- Tag ``vlan=300`` on ``vxlan50000`` and attach it to ``swbridge``. Set
+ Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to ``swbridge``. Set
  ``port_b`` to be the BindCarrier.
 ```
 300-vxlan50000.network:
