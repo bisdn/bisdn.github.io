@@ -105,7 +105,7 @@ Address=192.168.0.1/24
 ```
 
 Create vxlan ``vxlan50000`` and set local and remote VXLAN Tunnel
-endpoints(VTEPs). Enable MacLearning to discover remote MAC addresses
+Endpoints(VTEPs). Enable MacLearning to discover remote MAC addresses
 ```
 300-vxlan50000.netdev:
 
