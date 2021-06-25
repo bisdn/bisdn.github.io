@@ -7,10 +7,7 @@ parent: Network Configuration
 # VxLAN
 
 ## Introduction
-Virtual Extensible LAN (VXLAN) is a distributed layer 2 switching entity that
-works by creating layer 2 tunnels between VXLAN Tunnel endpoints (VTEPs), and
-tries to fix the scalability issues in large distributed deployments. VxLAN
-offers 16 million logical networks (12-bit VNID).
+Virtual eXtensible LAN (VXLAN) is a network overlay encapsulation protocol that aims to extend and distribute layer 2 networks on top of layer 3 topologies. Using a 12-bit Virtual Network Identifier (VNI) it allow to separate about 16 million logical network domains.
 
 The official VXLAN documentation can be found in
 [RFC 7348](https://datatracker.ietf.org/doc/html/rfc7348)
@@ -145,4 +142,3 @@ Bridge=swbridge
 [BridgeVLAN]
 VLAN=300
 ```
-
