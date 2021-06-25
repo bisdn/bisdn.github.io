@@ -30,7 +30,7 @@ does not define any of the required registers for VXLAN being present in the
 appropriate register tables for Helix 4.
 
 
-## Simple VxlAN configuration
+## Sample VxlAN configuration
 
 #  +-----------------------------------------------+         +-----------------------------------------------+
 #  |                       switch1                 |         |    switch2                                    |
