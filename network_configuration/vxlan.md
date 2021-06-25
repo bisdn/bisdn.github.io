@@ -52,7 +52,7 @@ The configuration give below will create a VXLAN tunnel with VNID=50000 between
 
 ## systemd-networkd
 The configuration with systemd-networkd can be done with the following files,
-simply add them to the ``/etc/systemd/networkd`` directory.
+simply add them to the ``/etc/systemd/networkd`` directory on ``switch1``.
 
 Create bridge ``swbridge``, tag it on ``vlan=300`` and set it up.
 ```
@@ -140,3 +140,87 @@ Bridge=swbridge
 [BridgeVLAN]
 VLAN=300
 ```
+
+The configuration files for ``switch2`` are identical to those of ``switch1``
+with the exception of port names (``port_a`` and ``port_b`` become ``port_d``
+and ``port_c``, and the IPv4 addresses for the VTEP, Remote and Local will
+switch. Therefore the files below will be listed without an explanation.
+
+```
+20-swbridge.netdev:
+
+[NetDev]
+Name=swbridge
+Kind=bridge
+
+[Bridge]
+VLANFiltering=1
+DefaultPVID=none
+```
+
+```
+20-swbridge.network:
+
+[Match]
+Name=swbridge
+
+[BridgeVLAN]
+VLAN=300
+```
+
+```
+10-port_d.network:
+
+[Match]
+Name=port_d
+
+[Network]
+Bridge=swbridge
+
+[BridgeVLAN]
+PVID=300
+EgressUntagged=300
+```
+
+```
+10-port_c.network:
+
+[Match]
+Name=port_c
+
+[Network]
+VXLAN=vxlan50000
+Address=192.168.0.2/24
+```
+
+```
+300-vxlan50000.netdev:
+
+[NetDev]
+Name=vxlan50000
+Kind=vxlan
+
+[VXLAN]
+VNI=50000
+DestinationPort=4789
+Local=192.168.0.2
+Remote=192.168.0.1
+MacLearning=True
+```
+
+```
+300-vxlan50000.network:
+
+[Match]
+Name=vxlan50000
+
+[Network]
+BindCarrier=port_b
+Bridge=swbridge
+
+[BridgeVLAN]
+VLAN=300
+```
+
+Reboot the switches(recommended) or restart systemd-networkd for the
+configuration to take effect.
