@@ -46,7 +46,7 @@ information.
 #  |  | port_a |                                   |         |                               | port_d   |    |
 #  +--+-+-+----------------------------------------+         +-----------------------------------+-+-+-------+
 
-The configuration give below will create a VXLAN tunnel with VNID=50000 between
+The configuration give below will create a VXLAN overlay with VNI=50000 between
 ``port_b`` on ``switch1`` and ``port_c`` on ``switch2``. ``port_a`` and
 ``port_d`` will have layer 2 connectivity.
 
