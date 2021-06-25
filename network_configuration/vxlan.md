@@ -121,8 +121,12 @@ Remote=192.168.0.2
 MacLearning=True
 ```
 
- Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to ``swbridge``. Set
- ``port_b`` to be the BindCarrier to bind the behaviour and state (up/down) of ``vxlan50000`` to its underlying interface.
+Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
+``swbridge``. Set ``port_b`` to be the BindCarrier to bind the behaviour and
+state (up/down) of ``vxlan50000`` to its underlying interface.
+``DestinationPort`` configures the destination UDP port to the IANA standard.
+If no port set systemd will use the default Linux kernel value 8472.
+
 ```
 300-vxlan50000.network:
 
