@@ -24,12 +24,6 @@ section as documented in
 information.
 {: .label .label-red }
 
-##
-We do not support VXLAN on Accton-AS4610 due to the fact that the Broadcom SDK
-does not define any of the required registers for VXLAN being present in the
-appropriate register tables for Helix 4.
-
-
 ## Sample VxlAN configuration
 
 #  +-----------------------------------------------+         +-----------------------------------------------+
