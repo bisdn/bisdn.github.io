@@ -125,7 +125,11 @@ Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
 ``swbridge``. Set ``port_b`` to be the BindCarrier to bind the behaviour and
 state (up/down) of ``vxlan50000`` to its underlying interface.
 ``DestinationPort`` configures the destination UDP port to the IANA standard.
-If no port set systemd will use the default Linux kernel value 8472.
+If no port is set systemd will use the default Linux kernel value 8472.
+
+**WARNING**: baseboxd currently sets the local VTEP Termination port to 4789,
+which means that every remote VTEP must use ``DestinationPort``=4789.
+{: .label .label-yellow }
 
 ```
 300-vxlan50000.network:
