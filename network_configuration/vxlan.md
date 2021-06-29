@@ -29,7 +29,7 @@ information.
 #  +-----------------------------------------------+         +-----------------------------------------------+
 #  |                       switch1                 |         |    switch2                                    |
 #  |   +--------------+                   +--------+         +--------+                   +------------+     |
-#  |   | vxlan50000   +-------------------+ port_b +---------+ port_c +-------------------+ vxlan50000 |     |
+#  |   | vxlan50000   +-------------------+ port54 +---------+ port54 +-------------------+ vxlan50000 |     |
 #  |   ++-------------+    192.168.0.1/24 +--------|  vxlan  |--------+  192.168.0.2/24   +--------+---+     |
 #  |    |                                          |         |                                     |         |
 #  |    | VLAN 300                                 |         |                           LAN 300   |         |
@@ -43,11 +43,11 @@ information.
 #  |    |     |                                    |         |                                |    |         |
 #  |    | Untag VLAN                               |         |                          Untag VLAN |         |
 #  |  +-+------+                                   |         |                               +-----+----+    |
-#  |  | port_a |                                   |         |                               | port_d   |    |
+#  |  | port2  |                                   |         |                               | port2    |    |
 #  +--+-+-+----------------------------------------+         +-----------------------------------+-+-+-------+
 
 The configuration give below will create a VXLAN overlay with VNI=50000 between
-``port_b`` on ``switch1`` and ``port_c`` on ``switch2``. The layer 2 domain containing ``port_a`` and ``port_d`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
+``port54`` on ``switch1`` and ``port54`` on ``switch2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
 The configuration with systemd-networkd can be done with the following files,
@@ -76,12 +76,12 @@ Name=swbridge
 VLAN=300
 ```
 
-Add VLAN tag ``VLAN=300`` on ``port_a`` incoming traffic, untag the outgoing one, attach it to ``swbridge`` and set it up.
+Add VLAN tag ``VLAN=300`` on ``port2`` incoming traffic, untag the outgoing one, attach it to ``swbridge`` and set it up.
 ```
-10-port_a.network:
+10-port2.network:
 
 [Match]
-Name=port_a
+Name=port2
 
 [Network]
 Bridge=swbridge
@@ -91,12 +91,12 @@ PVID=300
 EgressUntagged=300
 ```
 
-Add ip address 192.168.0.1/24 to ``port_b``, define it as underlying interface for netdev vxlan50000 (created below) and set it up.
+Add ip address 192.168.0.1/24 to ``port54``, define it as underlying interface for netdev vxlan50000 (created below) and set it up.
 ```
-10-port_b.network:
+10-port54.network:
 
 [Match]
-Name=port_b
+Name=port54
 
 [Network]
 VXLAN=vxlan50000
@@ -120,7 +120,7 @@ Remote=192.168.0.2
 ```
 
 Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
-``swbridge``. Set ``port_b`` to be the BindCarrier to bind the behaviour and
+``swbridge``. Set ``port54`` to be the BindCarrier to bind the behaviour and
 state (up/down) of ``vxlan50000`` to its underlying interface.
 ``DestinationPort`` configures the destination UDP port to the IANA standard.
 If no port is set systemd will use the default Linux kernel value 8472.
@@ -136,7 +136,7 @@ which means that every remote VTEP must use ``DestinationPort``=4789.
 Name=vxlan50000
 
 [Network]
-BindCarrier=port_b
+BindCarrier=port54
 Bridge=swbridge
 
 [BridgeVLAN]
@@ -144,8 +144,7 @@ VLAN=300
 ```
 
 The configuration files for ``switch2`` are identical to those of ``switch1``
-with the exception of port names (``port_a`` and ``port_b`` become ``port_d``
-and ``port_c``, and the IPv4 addresses for the VTEP, Remote and Local will
+with the execption that the IPv4 addresses for the VTEP, Remote and Local will
 switch. Therefore the files below are shown without additional explanation.
 
 ```
@@ -171,10 +170,10 @@ VLAN=300
 ```
 
 ```
-10-port_d.network:
+10-port2.network:
 
 [Match]
-Name=port_d
+Name=port2
 
 [Network]
 Bridge=swbridge
@@ -185,10 +184,10 @@ EgressUntagged=300
 ```
 
 ```
-10-port_c.network:
+10-port54.network:
 
 [Match]
-Name=port_c
+Name=port54
 
 [Network]
 VXLAN=vxlan50000
@@ -217,7 +216,7 @@ MacLearning=True
 Name=vxlan50000
 
 [Network]
-BindCarrier=port_b
+BindCarrier=port54
 Bridge=swbridge
 
 [BridgeVLAN]
