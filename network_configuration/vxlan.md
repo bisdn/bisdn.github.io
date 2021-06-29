@@ -47,14 +47,13 @@ information.
 #  +--+-+-+----------------------------------------+         +-----------------------------------+-+-+-------+
 
 The configuration give below will create a VXLAN overlay with VNI=50000 between
-``port_b`` on ``switch1`` and ``port_c`` on ``switch2``. ``port_a`` and
-``port_d`` will have layer 2 connectivity.
+``port_b`` on ``switch1`` and ``port_c`` on ``switch2``. The layer 2 domain containing ``port_a`` and ``port_d`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
 The configuration with systemd-networkd can be done with the following files,
 simply add them to the ``/etc/systemd/networkd`` directory on ``switch1``.
 
-Create bridge ``swbridge``, tag it on ``vlan=300`` and set it up.
+Create bridge ``swbridge``, tag it with ``VLAN=300`` and set it up.
 ```
 20-swbridge.netdev:
 
@@ -77,7 +76,7 @@ Name=swbridge
 VLAN=300
 ```
 
-Tag ``vlan=300`` on ``port_a``, attach it to ``swbridge`` and set it up.
+Add VLAN tag ``VLAN=300`` on ``port_a`` incoming traffic, untag the outgoing one, attach it to ``swbridge`` and set it up.
 ```
 10-port_a.network:
 
@@ -92,7 +91,7 @@ PVID=300
 EgressUntagged=300
 ```
 
-Add ``vxlan=50000`` to ``port_c``, configure an IPv4 address, and set it up.
+Add ip address 192.168.0.1/24 to ``port_b``, define it as underlying interface for netdev vxlan50000 (created below) and set it up.
 ```
 10-port_b.network:
 
@@ -104,7 +103,7 @@ VXLAN=vxlan50000
 Address=192.168.0.1/24
 ```
 
-Create vxlan ``vxlan50000`` and set local and remote VXLAN Tunnel
+Create netdev ``vxlan50000`` for VXLAN with the VNI 50000 and set local and remote VXLAN Tunnel
 Endpoints(VTEPs).
 ```
 300-vxlan50000.netdev:
