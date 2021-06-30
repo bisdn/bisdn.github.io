@@ -122,8 +122,9 @@ Remote=192.168.0.2
 Forward VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
 ``swbridge``. Bind ``port54`` as the carrier device to align the behaviour and
 state (up/down) of ``vxlan50000`` to its underlying interface.
-``DestinationPort`` configures the destination UDP port to the IANA standard.
-If no port is set systemd will use the default Linux kernel value 8472.
+``DestinationPort`` sets the destination UDP port to follow the IANA standard
+from [rfc7348](https://datatracker.ietf.org/doc/html/rfc7348). If no port is
+set systemd will use the default Linux kernel value 8472.
 
 **WARNING**: baseboxd currently sets the local VTEP Termination port to 4789,
 which means that every remote VTEP must use ``DestinationPort``=4789.
