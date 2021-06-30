@@ -49,7 +49,7 @@ Depending on the switch and the link partner, we have observed the following beh
 
 - The 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) only support advertising 1G, so the speed will be limited to 1G regardless of the link partner's ability.
 
-- There is an issue in the current Broadcom SDK where the 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) will not transfer packets when autonegotiating down to 1G after being configured for 10G. Forcing the speed to 1G with disabled autonegotiation avoids this issue.
+- There is an issue in the Broadcom SDK version 6.5.21 and following, which affects all BISDN Linux releases after 3.7, where the 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) will not transfer packets when autonegotiating down to 1G after being configured for 10G. Forcing the speed to 1G with disabled autonegotiation avoids this issue.
 
 - The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treat it as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
 
