@@ -49,3 +49,17 @@ In all of these cases forcing the port on the switch to the desired speed works 
 ## Missing routes for EIGRP with flapping ports
 
 As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
+
+## Port state sync issue on boot caused by OF-DPA
+
+All releases of BISDN Linux prior to version 4.0 suffer from an issue where
+port state might end up out of sync if network configuration is applied during,
+or shortly after, booting up, e.g. using systemd-networkd.
+
+This is caused by a race in OF-DPA, where OF-DPA first initializes ports with
+their current state, and only then registers notifications about port state
+changes.
+
+Any port state changes happening between the initial read out and the
+successful registration of the handler will be missed.
+
