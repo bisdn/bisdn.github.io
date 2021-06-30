@@ -122,7 +122,7 @@ Remote=192.168.0.2
 Forward VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
 ``swbridge``. Bind ``port54`` as the carrier device to align the behaviour and
 state (up/down) of ``vxlan50000`` to its underlying interface.
-``DestinationPort`` sets the destination UDP port to follow the IANA standard
+``DestinationPort=4789`` sets the destination UDP port to follow the IANA standard
 from [rfc7348](https://datatracker.ietf.org/doc/html/rfc7348). If no port is
 set systemd will use the default Linux kernel value 8472.
 
