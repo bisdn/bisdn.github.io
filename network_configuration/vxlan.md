@@ -119,8 +119,8 @@ Local=192.168.0.1
 Remote=192.168.0.2
 ```
 
-Allow VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
-``swbridge``. Set ``port54`` to be the BindCarrier to bind the behaviour and
+Forward VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
+``swbridge``. Bind ``port54`` as the carrier device to align the behaviour and
 state (up/down) of ``vxlan50000`` to its underlying interface.
 ``DestinationPort`` configures the destination UDP port to the IANA standard.
 If no port is set systemd will use the default Linux kernel value 8472.
