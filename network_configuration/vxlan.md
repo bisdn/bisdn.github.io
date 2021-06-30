@@ -223,5 +223,4 @@ Bridge=swbridge
 VLAN=300
 ```
 
-Reboot the switches(recommended) or restart systemd-networkd for the
-configuration to take effect.
+Restart systemd-networkd or reboot the switches to apply network configuration.
