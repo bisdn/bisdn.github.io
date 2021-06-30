@@ -206,7 +206,6 @@ VNI=50000
 DestinationPort=4789
 Local=192.168.0.2
 Remote=192.168.0.1
-MacLearning=True
 ```
 
 ```
