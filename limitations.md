@@ -53,13 +53,12 @@ As documented in the currently open upstream FRR issue [#7299](https://github.co
 ## Port state sync issue on boot caused by OF-DPA
 
 All releases of BISDN Linux prior to version 4.0 suffer from an issue where
-port state might end up out of sync if network configuration is applied during,
-or shortly after, booting up. This occurs, for instance, when systemd-networkd
-is used to configure network interfaces.
+the port state might end up out of sync
 
 This is caused by a race in OF-DPA, where OF-DPA first initializes ports with
 their current state, and only then registers the linkscan handler, which
-is responsible for updating OF-DPA's port state.
+is responsible for updating OF-DPA's port state. This creates a window where
+OF-DPA will miss any physical link state changes happening.
 
 Any port state changes happening between the initial read out and the
 successful registration of the handler will be missed.
