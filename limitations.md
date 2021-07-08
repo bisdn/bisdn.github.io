@@ -62,3 +62,19 @@ OF-DPA will miss any physical link state changes happening.
 
 Any port state changes happening between the initial read out and the
 successful registration of the handler will be missed.
+
+The port sync issue may be identified by the link inability to set a port up
+even though the port is connected. Using port2 as an example we run
+
+```
+ip link set port2 up
+ip link show port2
+
+port2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+```
+
+Which shows ``NO-CARRIER`` and ``state DOWN``. You can resolve the issue by
+using the OF-DPA api to first disable and then enable the port again.
+
+``client_drivshell port 2 Enable=false``
+``client_drivshell port 2 Enable=true``
