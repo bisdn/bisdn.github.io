@@ -50,7 +50,7 @@ In all of these cases forcing the port on the switch to the desired speed works 
 
 As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
 
-## Port state sync issue on boot caused by OF-DPA
+## Ports connected during boot may sometimes show as having no carrier in Linux
 
 All releases of BISDN Linux prior to version 4.0 suffer from an issue where
 the port state might end up out of sync
