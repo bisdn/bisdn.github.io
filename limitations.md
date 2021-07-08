@@ -5,6 +5,10 @@ nav_order: 9
 
 # Limitations
 
+## No support for VXLAN and STP on bonded interfaces
+Currently VXLAN is not supported on bonded interfaces. The same is true for the
+spanning tree protocols STP, RSTP and MSTP.
+
 ## Agema-5648 PCIe Bus error
 
 **A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
