@@ -53,7 +53,7 @@ As documented in the currently open upstream FRR issue [#7299](https://github.co
 ## Ports connected during boot may sometimes show as having no carrier in Linux
 
 All releases of BISDN Linux prior to version 3.7.3 suffer from an issue where
-the port state might end up out of sync
+the port state might end up out of sync.
 
 This is caused by a race in OF-DPA, where OF-DPA first initializes ports with
 their current state, and only then registers the linkscan handler, which
