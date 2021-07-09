@@ -19,6 +19,9 @@ section as documented in
 [systemd-netdev](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Group=)
 {: .label .label-yellow }
 
+**WARNING**: baseboxd does not yet support VXLAN on bonded interfaces.
+{: .label .label-yellow }
+
 **WARNING**: The Accton AS4610 platform does not have VxLAN support. See our
 [Limitations page](/limitations.md#No-VxLAN-support-on-Accton-AS4610) for more
 information.
