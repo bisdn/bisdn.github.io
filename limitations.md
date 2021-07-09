@@ -5,6 +5,9 @@ nav_order: 8
 
 # Limitations
 
+## No VxLAN support on Accton AS4610
+The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
+
 ## Agema-5648 PCIe Bus error
 
 **A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
