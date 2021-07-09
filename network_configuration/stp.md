@@ -15,6 +15,9 @@ The Spanning Tree Protocol (STP) is meant to build loop-less topologies in Layer
 **Note**: BISDN Linux ships with [mstpd](https://github.com/mstpd/mstpd) disabled. Every STP enabled bridge will use the kernel implementation of STP, and can be managed using `brctl`. If mstpd is enabled (and running), STP will be enabled and handled by mstpd in user-space on EVERY bridge created.
 {: .label .label-yellow }
 
+**WARNING**: baseboxd does not yet support STP on bonded interfaces.
+{: .label .label-yellow }
+
 ## STP Configuration Instructions
 
 The STP configuration examples below assume the following topology. Throughout all examples given here, only the switch configuration side is shown.
