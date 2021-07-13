@@ -49,3 +49,32 @@ In all of these cases forcing the port on the switch to the desired speed works 
 ## Missing routes for EIGRP with flapping ports
 
 As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
+
+## Ports connected during boot may sometimes show as having no carrier in Linux
+
+All releases of BISDN Linux prior to version 3.7.3 suffer from an issue where
+the port state might end up out of sync.
+
+This is caused by a race in OF-DPA, where OF-DPA first initializes ports with
+their current state, and only then registers the linkscan handler, which
+is responsible for updating OF-DPA's port state. This creates a window where
+OF-DPA will miss any physical link state changes happening.
+
+Any port state changes happening between the initial read out and the
+successful registration of the handler will be missed.
+
+The port sync issue may be identified by the link's inability to set a port up
+even though the port is connected. Using port2 as an example we run
+
+```
+ip link set port2 up
+ip link show port2
+
+port2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc pfifo_fast state DOWN mode DEFAULT group default qlen 1000
+```
+
+Which shows ``NO-CARRIER`` and ``state DOWN``. You can resolve the issue by
+using the OF-DPA api to first disable and then enable the port again.
+
+``client_drivshell port 2 Enable=false``
+``client_drivshell port 2 Enable=true``
