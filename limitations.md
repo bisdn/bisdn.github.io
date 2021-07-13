@@ -63,7 +63,7 @@ OF-DPA will miss any physical link state changes happening.
 Any port state changes happening between the initial read out and the
 successful registration of the handler will be missed.
 
-The port sync issue may be identified by the link inability to set a port up
+The port sync issue may be identified by the link's inability to set a port up
 even though the port is connected. Using port2 as an example we run
 
 ```
