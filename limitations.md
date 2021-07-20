@@ -10,9 +10,7 @@ Currently VXLAN is not supported on bonded interfaces. The same is true for the
 spanning tree protocols STP, RSTP and MSTP.
 
 ## No VxLAN support on Accton AS4610
-We do not support VXLAN on Accton-AS4610 due to the fact that the Broadcom SDK
-does not define any of the required registers for VXLAN being present in the
-appropriate register tables for Helix 4.
+The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
 ## Agema-5648 PCIe Bus error
 
