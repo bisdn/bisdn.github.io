@@ -15,9 +15,9 @@ The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 ## DHCP issue on Accton-AS 4610
 
 There is a bug that causes DHCP packets to not get forwarded properly, and this
-issue generally takes several days of switch uptime before appearing. The only
-known permanent fix for this is to disable multicast by setting
-''FLAGS_multicast=false'' in the [baseboxd configuration file](../getting_started/configure_baseboxd.html#setup-baseboxd).
+issue may appear in as little as a few minutes or take several days of switch
+uptime. The only known permanent fix for this is to disable multicast by
+setting ''FLAGS_multicast=false'' in the [baseboxd configuration file](../getting_started/configure_baseboxd.html#setup-baseboxd).
 Rebooting the switch will only temporarily resolve the issue.
 
 ## Agema-5648 PCIe Bus error
