@@ -18,6 +18,12 @@ The switch may sometimes stop forwarding DHCP packets correctly. The
 only known workaround (starting with BISDN Linux v4.0) is to
 [disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
 
+## Celestica Questone 2A: port LEDs and fan noise
+
+On Celestica Questone 2A port LEDs do not light up when a link is established.
+LED support will be implemented in a future update. Also the fans may spin at
+100%, which can be resolved by having both PSUs connected and powered on.
+
 ## Agema-5648 PCIe Bus error
 
 **A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
