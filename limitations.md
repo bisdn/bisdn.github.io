@@ -19,7 +19,7 @@ only known workaround (starting with BISDN Linux v4.0) is to
 [disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
 
 ## Celestica Questone 2A port LEDs
-On Celestica Questone 2A port LEDs do not light up when a link is established.
+On Celestica Questone 2A port LEDs currently do not light up when a link is established.
 LED support will be implemented in a future update.
 
 ## Celestica Questone 2A fans spinning at 100%
