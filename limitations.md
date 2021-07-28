@@ -22,9 +22,9 @@ only known workaround (starting with BISDN Linux v4.0) is to
 On Celestica Questone 2A port LEDs do not light up when a link is established.
 LED support will be implemented in a future update.
 
-## Celestica Questone 2A fan issue
-The fans on the Celestica Questone 2A may spin at 100%, which can be resolved
-by having both PSUs connected and powered on.
+## Celestica Questone 2A fans spinning at 100%
+The fans on the Celestica Questone 2A may spin at 100%, which might be resolved
+by checking that both PSUs are connected and have power.
 
 ## Agema-5648 PCIe Bus error
 
