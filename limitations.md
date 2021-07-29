@@ -14,9 +14,9 @@ The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
 ## DHCP packets not forwarded correctly
 
-The switch may sometimes stop forwarding DHCP packets correctly. uptime. The
+The switch may sometimes stop forwarding DHCP packets correctly. The
 only known workaround (starting with BISDN Linux v4.0) is to
-[disable multicast](network_configuration/igmpmldsnooping.md#enablingdisabling-multicast)
+[disable multicast](network_configuration/igmpmldsnooping.md#enablingdisabling-multicast).
 
 ## Agema-5648 PCIe Bus error
 
