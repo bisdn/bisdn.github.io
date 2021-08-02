@@ -11,5 +11,5 @@ The bundle-debug-info script enables customers to create a tar file with the cur
 bundle-debug-info
 ```
 
-**Note**: In all BISDN Linux release prior 4.0 the `bundle-debug-info` tool is called `basebox-support` and has a slightly decreased functionality.
+**Note**: In BISDN Linux releases prior to 4.0, the `bundle-debug-info` tool was called `basebox-support` and lacked some of the functionality of the new tool.
 {: .label .label-yellow }
