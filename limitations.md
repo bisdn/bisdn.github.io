@@ -25,8 +25,7 @@ LED support will be implemented in a future update.
 
 ## Celestica Questone 2A fans spinning at 100%
 
-The fans on the Celestica Questone 2A may spin at 100%, which might be resolved
-by checking that both PSUs are connected and have power.
+Please ensure that both PSUs are connected and have power. The switch will fall back to a fail-safe mode with all fans spinning at 100% if only one of the PSUs is available.
 
 ## Agema-5648 PCIe Bus error
 
