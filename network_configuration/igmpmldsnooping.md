@@ -1,5 +1,5 @@
 ---
-title: IGMP/MLD Snooping
+title: IGMP/MLD Snooping (Multicast)
 parent: Network Configuration
 ---
 
@@ -8,6 +8,10 @@ parent: Network Configuration
 BISDN Linux itself is capable of acting as a layer 2 multicast switch and with the help of frr can also be turned into a full fledged multicast router.
 
 In multicast switches and routers, the multicast group membership is managed by utilising the Internet Group Management Protocol (IGMP) or Multicast Listener Discovery (MLD). Both protocols report the interest of a host to receive a data stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a technique that allows multicast switches to maintain a map of which links need to receive IP multicast transmissions.
+
+## Enabling/disabling IGMP/MLD Snooping
+
+Multicast is enabled by default, but can be disabled by setting ''FLAGS_multicast=false'' in the [baseboxd configuration file](../getting_started/configure_baseboxd.html#setup-baseboxd).
 
 ## Linux Configuration
 

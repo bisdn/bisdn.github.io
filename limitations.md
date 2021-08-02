@@ -12,6 +12,12 @@ spanning tree protocols STP, RSTP and MSTP.
 ## No VxLAN support on Accton AS4610
 The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
+## DHCP packets not forwarded correctly
+
+The switch may sometimes stop forwarding DHCP packets correctly. The
+only known workaround (starting with BISDN Linux v4.0) is to
+[disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
+
 ## Agema-5648 PCIe Bus error
 
 **A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
