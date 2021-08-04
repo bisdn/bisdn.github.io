@@ -108,8 +108,14 @@ baseboxd uses a file to store configuration data like log level and OpenFlow por
 ```
 ### Configuration options for baseboxd
 #
+# Enable multicast supporrt:
+# FLAGS_multicast=true
+#
 # Listening port:
 # FLAGS_port=6653
+#
+# gRPC listening port:
+# FLAGS_ofdpa_grpc_port=50051
 
 ### glog
 #

@@ -1,9 +1,31 @@
 ---
 title: Limitations
-nav_order: 8
+nav_order: 9
 ---
 
 # Limitations
+
+## No support for VXLAN and STP on bonded interfaces
+Currently VXLAN is not supported on bonded interfaces. The same is true for the
+spanning tree protocols STP, RSTP and MSTP.
+
+## No VxLAN support on Accton AS4610
+The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
+
+## DHCP packets not forwarded correctly
+
+The switch may sometimes stop forwarding DHCP packets correctly. The
+only known workaround (starting with BISDN Linux v4.0) is to
+[disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
+
+## Celestica Questone 2A port LEDs do not light up
+
+On Celestica Questone 2A port LEDs currently do not light up when a link is established.
+LED support will be implemented in a future update.
+
+## Celestica Questone 2A fans spinning at 100%
+
+Please ensure that both PSUs are connected and have power. The switch will fall back to a fail-safe mode with all fans spinning at 100% if only one of the PSUs is available.
 
 ## Agema-5648 PCIe Bus error
 
@@ -42,7 +64,9 @@ Depending on the switch and the link partner, we have observed the following beh
 
 - The 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) only support advertising 1G, so the speed will be limited to 1G regardless of the link partner's ability.
 
-- The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) only support advertising up to 10G, so the speed will be limited to 10G regardless of the link partner's ability.
+- There is an issue in the Broadcom SDK version 6.5.21 and following, which affects all BISDN Linux releases after 3.7, where the 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) will not transfer packets when autonegotiating down to 1G after being configured for 10G. Forcing the speed to 1G with disabled autonegotiation avoids this issue.
+
+- The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treat it as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
 
 In all of these cases forcing the port on the switch to the desired speed works as expected.
 
