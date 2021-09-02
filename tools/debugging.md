@@ -15,6 +15,12 @@ First check that all necessary services are up and running, with the following c
 systemctl status <service>
 ```
 
+To follow the logs from the service, use the following command. Check `man journalctl` for more information on the arguments.
+
+```
+journalctl -u <service>
+```
+
 To debug the status on the ports, check `onlpdump -S` to get the state on the port. Similar output can be seen below. If the port information does not correspond to the physical connections, debug the physical connection by adding another cable or try another module, if available.
 
 ```
@@ -25,13 +31,13 @@ Port  Type            Media   Status  Len    Vendor            Model            
 51  1GBASE-CX       Copper          1m            SFP-10G-DAC     
 ```
 
+When trying to configure a feature, please remember to verify if the version you are checking does support the feature. Additionally, is a list of feature limitations [here](https://docs.bisdn.de/limitations.html).
 
 ## Debug files
 
 ### baseboxd debug files
 
 baseboxd is packaged with the following configuration file `/etc/default/baseboxd`, visible below.
-
 
 ```
 ### Configuration options for baseboxd
