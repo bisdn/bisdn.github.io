@@ -9,7 +9,7 @@ For debug purposes, refer to this page for instructions in enabling the debug op
 
 ## Debug instructions
 
-First check that all necessary services are up and running, with the following command. To ensure proper operation of BISDN Linux, baseboxd, ofdpa and ofagent must be running.
+First check that all necessary services are up and running with the following command. To ensure proper operation of BISDN Linux, ``baseboxd``, ``ofdpa``, ``ofdpa-grpc`` and ``ofagent`` must be running.
 
 ```
 systemctl status <service>
@@ -62,7 +62,7 @@ GLOG_logtostderr=1
 
 The relevant options for enabling debug logs in baseboxd is the `GLOG_v=0` value. By increasing the value in this configuration option, more detailed debug information will be outputted.
 
-Finer grained control of logging can be done by replacing the `GLOG_v=` configuration. When passing the baseboxd module names to `GLOG_vmodule`, which correspond to the class names, specific logging for that component will be activated with the specified logging level. The following command exemplifies how to configure this value.
+When passing the baseboxd module names to `GLOG_vmodule`, which correspond to the class names, specific logging for that component will be activated with the specified logging level. The following command exemplifies how to configure this value.
 
 ```
 GLOG_vmodule=<module name>=<log level>
