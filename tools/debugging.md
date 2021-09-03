@@ -60,7 +60,7 @@ GLOG_logtostderr=1
 # GLOG_v=0
 ```
 
-The relevant options for enabling debug logs in baseboxd is the `GLOG_v=0` value. By increasing the value in this configuration option, more detailed debug information will be outputted.
+The relevant options for enabling debug logs in baseboxd is the `GLOG_v=0` value. By increasing the value in this configuration option, more detailed debug information will be outputted. The accepted values are `GLOG_v=[1..5]`.
 
 When passing the baseboxd module names to `GLOG_vmodule`, which correspond to the class names, specific logging for that component will be activated with the specified logging level. The following command exemplifies how to configure this value.
 
