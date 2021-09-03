@@ -108,7 +108,7 @@ baseboxd uses a file to store configuration data like log level and OpenFlow por
 ```
 ### Configuration options for baseboxd
 #
-# Enable multicast supporrt:
+# Enable multicast support:
 # FLAGS_multicast=true
 #
 # Listening port:
