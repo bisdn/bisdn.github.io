@@ -116,3 +116,121 @@ ip -6 route list
 Adding the -4/6 argument to the call allows to show only the desired routes/ addresses by IP protocol.
 
 For ‘systemd-networkd’ the configuration file is done the same way.
+
+## Static route example
+
+Here we will give a simple example of using static routes on four nodes. Two
+switches and two server, as shown on the figure below.
+
+#
+#  +-------------------------------------------+   +-------------------------------------------+
+#  | switch1                                   |   | switch 2                                  |
+#  |                                           |   |                                           |
+#  |     10.0.1.1/24            10.0.3.1/24    |   |     10.0.3.2/24            10.0.2.1/24    |
+#  |+------------------+   +------------------+|   |+------------------+   +------------------+|
+#  ||      port2       |   |      port54      ||   ||     port54       |   |    port2         ||
+#  ++------------------+---+------------------++   ++------------------+---+------------------++
+#            |                       |                       |                     |
+#            |                       |                       |                     |
+#            |                       +-----------------------+                     |
+#            |                                                                     |
+#            |                                                                     |
+#            |                                                                     |
+#  ++-----------------------------+                             +----------+-------+----------++
+#  ||      eno2        |          |                             |          |      eno2        ||
+#  |+------------------+          |                             |          +------------------+|
+#  |       10.0.1.2/24            |                             |                 10.0.2.2/24  |
+#  |                              |                             |                              |
+#  | server1                      |                             | server2                      |
+#  +------------------------------+                             +------------------------------+
+#
+
+# Setup switch1
+
+Set ``port2`` up and add ip address 10.0.1.1/24.
+
+```
+/etc/systemd/network/30-port_left.network"
+
+Match:
+  Name: port_left
+Network:
+  Address: 10.0.1.1/24
+```
+
+Set ``port54`` up, add ip address 10.0.3.1 and add route to subnet 10.0.2.0/24
+on ``sever2``.
+
+```
+/etc/systemd/network/30-port_switch.network
+
+Match:
+  Name: port_switch
+Network:
+  Address: 10.0.3.1/24
+Route:
+  Destination: 10.0.2.0/24
+  Gateway: 10.0.3.2
+```
+
+# Setup switch2
+
+Set ``port2`` up and add ip address 10.0.2.1/24.
+
+```
+/etc/systemd/network/30-port_left.network"
+
+Match:
+  Name: port_left
+Network:
+  Address: 10.0.2.1/24
+```
+
+Set ``port54`` up, add ip address 10.0.3.2 and add route to subnet 10.0.1.0/24
+on ``sever1``.
+
+```
+/etc/systemd/network/30-port_switch.network
+
+Match:
+  Name: port_switch
+Network:
+  Address: 10.0.3.2/24
+Route:
+  Destination: 10.0.1.0/24
+  Gateway: 10.0.3.1
+```
+
+# Setup server1
+
+Add ip address 10.0.1.2/24 to ``eno2`` and route to subnet 10.0.2.0/24 on
+``server2``.
+
+```
+/etc/systemd/network/30-eno2.network"
+Match:
+  Name: eno2
+Network:
+  Address: 10.0.1.2/24
+Route:
+  Destination: 10.0.2.0/24
+  Gateway: 10.0.1.1
+```
+
+# Setup server2
+
+Add ip address 10.0.2.2/24 to ``eno2`` and route to subnet 10.0.1.0/24 on
+``server1``.
+
+```
+/etc/systemd/network/30-eno2.network"
+Match:
+  Name: eno2
+Network:
+  Address: 10.0.2.2/24
+Route:
+  Destination: 10.0.1.0/24
+  Gateway: 10.0.2.1
+```
+
+Restart systemd-networkd or reboot the switches to apply network configuration.
