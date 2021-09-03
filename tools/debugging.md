@@ -9,6 +9,8 @@ For debug purposes, refer to this page for instructions in enabling the debug op
 
 ## Debug instructions
 
+When trying to configure a feature, please remember to verify if the version and plaform being tested does support the feature. There is a list of feature limitations [here](https://docs.bisdn.de/limitations.html).
+
 First check that all necessary services are up and running with the following command. To ensure proper operation of BISDN Linux, ``baseboxd``, ``ofdpa``, ``ofdpa-grpc`` and ``ofagent`` must be running.
 
 ```
@@ -30,8 +32,6 @@ Port  Type            Media   Status  Len    Vendor            Model            
 ...
 51  1GBASE-CX       Copper          1m            SFP-10G-DAC     
 ```
-
-When trying to configure a feature, please remember to verify if the version you are checking does support the feature. Additionally, is a list of feature limitations [here](https://docs.bisdn.de/limitations.html).
 
 ## Debug files
 
