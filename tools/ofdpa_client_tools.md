@@ -12,6 +12,7 @@ These tools enable you to interact with the OF-DPA layer and can be used to cros
 client_flowtable_dump
 client_grouptable_dump
 client_port_table_dump
+client_drivhsell
 ```
 
 ## ACL table entry management
@@ -116,7 +117,6 @@ To troubleshoot errors on flow operations, the verbose setting from the `OFDB` m
 # OPTIONS="-c 1 -c 2 -d 2"
 OPTIONS="-c 4 -d 4"
 ```
-
 These changes are applied by restarting the `ofdpa` service:
 
 ```
@@ -294,4 +294,224 @@ The following example matches IPv4 traffic from the 10.0.0.1 address, sends it t
 
 ```
 ofdpa_acl_flow_cli.py -a --cookie 10000 --etherType 0x800 --sourceIp4 10.0.0.1 --sourceIp4Mask 255.255.255.255 --meterId 20000 --gotoTable 65
+```
+
+## client_drivshell
+``client_drivshell`` executes a BCM command via the
+[OF-DPA API](https://github.com/Broadcom-Switch/of-dpa/blob/master/src/include/ofdpa_api.h)
+The BCM command is not publicly documented, but calling the command with the
+``help`` flag produces the following output:
+
+```
+client_drivshell help
+Help: Type help "command" for detailed command usage
+Help: Upper case letters signify minimal match
+
+Commands common to all modes:
+	?                   Display list of commands
+	ASSert              Assert
+	Attach              Attach SOC device(s)
+	BackGround          Execute a command in the background.
+	break               place to hang a breakpoint
+	BroadSync           Manage Time API BroadSync endpoints
+	CASE                Execute command based on string match
+	CD                  Change current working directory
+	cint                Enter the C interpreter
+	ClearScreen         Clear terminal output
+	CONFig              Configure Management interface
+	CONSole             Control console options
+	CoPy                Copy a file
+	CPUDB               Update the CPU database
+	CTEcho              Send an echo request using CPUTRANS
+	CTInstall           Set up transport pointers in CPU transports
+	CTSetup             Modify the CPUTRANS setup
+	DATE                Set or display current date
+	DBDump              Dump the current StackTask CPUDB
+	DBParse             Parse a line of CPUDB dumped code
+	DeBug               Enable/Disable debug output
+	DELAY               Put CLI task in a busy-wait loop for some amount of time
+	DEVice              Device add/remove
+	DISPatch            BCM Dispatch control.
+	Echo                Echo command line
+	EXIT                Exit the current shell (and possibly reset)
+	EXPR                Evaluate infix expression
+	FLASHINIT           Initialize on board flash as a file system
+	FLASHSYNC           Sync up on board flash with file system
+	FOR                 Execute a series of commands in a loop
+	Help                Print this list OR usage for a specific command
+	HISTory             List command history
+	IF                  Conditionally execute commands
+	IPROCRead           Read from IPROC Area
+	IPROCWrite          Write to IPROC Area
+	JOBS                List current background jobs
+	KILL                Terminate a background job
+	LED                 Control/Load LED processor
+	LOCal               Create/Delete a variable in the local scope
+	LOG                 Enable/Disable logging and set log file
+	LOOP                Execute a series of commands in a loop
+	LS                  List current directory
+	MCSCmd              Execute cmd on uC
+	MCSDump             Create MCS dumpfile
+	MCSLoad             Load hexfile to MCS memory
+	MCSMsg              Start/stop messaging with MCs
+	MCSStatus           Show MCS fault status
+	MCSTimeStamp        Print MCS timestamp data
+	MKDIR               Make a directory
+	MODE                Set shell mode
+	MORe                Copy a file to the console
+	MoVe                Rename a file on a file system
+	NOEcho              Ignore command line
+	Pause               Pause command processing and wait for input
+	PRINTENV            Display current variable list
+	PROBE               Probe for available SOC units
+	PSCAN               Control uKernel port scanning.
+	PWD                 Print platform dependent working directory
+	RCCache             Save contents of an rc file in memory
+	RCLoad              Load commands from a file
+	REBOOT              Reboot the processor
+	RM                  Remove a file from a file system
+	RMDIR               Remove a directory
+	RPC                 Control BCM API RPC daemon.
+	SAVE                Write data to a file
+	SET                 Set various configuration options
+	SETENV              Create/Delete a variable in the global scope
+	SHell               Invoke a system dependent shell
+	SLeep               Suspend the CLI task for specified amount of time
+	TIME                Time the execution of one or more commands
+	Version             Print version and build information
+
+Commands for current mode:
+	AGE                 Set ESW hardware age timer
+	Attach              Attach SOC device(s)
+	Auth                Port-based network access control
+	BIST                Run on-chip memory built-in self tests
+	BPDU                Manage BPDU addresses
+	BTiMeout            Set BIST operation timeout in microseconds
+	BUFfer              MMU config
+	CABLEdiag           Run Cable Diagnotics
+	CACHE               Turn on/off software caching of tables
+	CHecK               Check a sorted memory table
+	CLEAR               Clear a memory table or counters
+	COLOR               Manage packet color
+	COMBO               Control combination copper/fiber ports
+	COS                 Manage classes of service
+	CounTeR             Enable/disable counter collection
+	CustomSTAT          Enable/disable counter collection
+	DELete              Delete entry by key from a sorted table
+	DETach              Detach SOC device(s)
+	DMA                 DMA Facilities Interface
+	DmaRomTest          Simple test of the SOC DMA ROM API
+	DMIRror             Manage directed port mirroring
+	DPLL                DPLL operations on SPI bus
+	DSCP                Map Diffserv Code Points
+	DTAG                Double Tagging
+	Dump                Dump an address space or registers
+	EditReg             Edit each field of SOC internal register
+	EGRess              Manage source-based egress enabling
+	EthernetAV          Set/Display the Ethernet AV characteristics
+	EXTernalTuning      External memory automatic tuning
+	EXTernalTuning2     External memory automatic tuning 2
+	EXTernalTuningSum   External memory automatic tuning (summary)
+	FieldProcessor      Manage Field Processor
+	FlowTracker         Flowtracker commands
+	Getreg              Get register
+	GPORT               Get a GPORT id
+	H2HIGIG             Convert hex words to higig info
+	H2HIGIG2            Convert hex words to higig2 info
+	HASH                Get or set hardware hash modes
+	HashDestination     Display Hash Destination
+	HeaderMode          Get or set packet tx header mode
+	HSP                 MMU HSP hierarchy
+	IbodSync            Enable/Disable IBOD sync process
+	INIT                Initialize SOC and S/W
+	Insert              Insert into a sorted table
+	INTR                Enable, disable, show interrupts
+	IPFIX               IPFIX
+	IPG                 Set default IPG values for ports
+	IPMC                Manage IPMC (IP Multicast) addresses
+	L2                  Manage L2 (MAC) addresses
+	L2MODE              Change ARL handling mode
+	L3                  Manage L3 (IP) addresses
+	LINKscan            Configure/Display link scanning
+	LISTmem             List the entry format for a given table
+	Listreg             List register fields
+	LLS                 MMU LLS hierarchy
+	LOOKup              Look up a table entry
+	MCAST               Manage multicast table
+	MemFirst            Displays first valid memory
+	MemNext             Displays next valid memory
+	MemSCAN             Turn on/off software memory error scanning
+	MemWatch            Turn on/off memory snooping
+	MIM                 Manage XGS4 Mac-in-MAC
+	MIRror              Manage port mirroring
+	MODify              Modify table entry by field names
+	ModMap              MODID Remapping
+	Modreg              Read/modify/write register
+	MPLS                Manage XGS4 MPLS
+	MSPI                MasterSPI Read / Write
+	MTiMeout            Set MIIM operation timeout in usec
+	MultiCast           Manage multicast operation
+	OAM                 Manage OAM groups and endpoints
+	PacketWatcher       Monitor ports for packets
+	PBMP                Convert port bitmap string to hex
+	PHY                 Set/Display phy characteristics
+	PKTIO               Set/Display TX/PacketWatcher with streamlined pktio driver type
+	POP                 Pop an entry from a FIFO
+	PORT                Set/Display port characteristics
+	PortRate            Set/Display port rate metering characteristics
+	PortSampRate        Set/Display sflow port sampling rate
+	PortStat            Display port status in table
+	PROBE               Probe for available SOC units
+	PUSH                Push an entry onto a FIFO
+	PVlan               Port VLAN settings
+	Qcm                 QCM commands
+	RATE                Manage packet rate controls
+	RateBw              Set/Display port bandwidth rate metering characteristics
+	RegCMp              Test a register value
+	RegWatch            Turn on/off register snooping
+	REMove              Delete entry by index from a sorted table
+	ResTest             Tests for resource manager
+	RXCfg               Configure RX settings
+	RXInit              Call bcm_rx_init
+	RXMon               Register an RX handler to dump received packets
+	SCHan               Send raw S-Channel message, get response
+	SEArch              Search a table for a byte pattern
+	SER                 Performs operations related to Soft Error Recovery
+	Setreg              Set register
+	SHOW                Show information on a subsystem
+	SOC                 Print internal Driver control information
+	SRAM                External DDR2_SRAM test control
+	STACKMode           Set/get the stack mode
+	StackPortGet        Get stacking characteristics of a port
+	StackPortSet        Set stacking characteristics of a port
+	STG                 Manage spanning tree groups
+	STiMeout            Set S-Channel timeout in microseconds
+	STKMode             Hardware Stacking Mode Control
+	StkTask             Stack task control
+	SwitchControl       General switch control
+	TCAM                TCAM control
+	TeCHSupport         Collects information required to debug a given feature or subfeature
+	TRUNK               Manage port aggregation
+	TX                  Transmit one or more packets
+	TXBeacon            txbeacon tests
+	TXCount             Print current TX statistics
+	TXSTArt             Transmit one or more packets in background
+	TXSTOp              Terminate a previous "txstart" command
+	VLAN                Manage virtual LANs
+	WARMBOOT            Optionally boot warm
+	WLAN                Manage XGS4 WLAN
+	Write               Write entry(s) into a table
+	XAUI                Run XAUI BERT on specified port pair
+
+Dynamic commands for all modes:
+	xmem                xmem r addr: read 4 bytes from address
+xmem w addr data: write 4 bytes data to address
+
+
+Number Formats:
+	[-]0x[0-9|A-F|a-f]+ -hex if number begins with "0x"
+	[-][0-9]+           -decimal integer
+	[-]0[0-7]+          -octal if number begins with "0"
+	[-]0b[0-1]+         -binary if number begins with "0b"
+
 ```
