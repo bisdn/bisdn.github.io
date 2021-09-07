@@ -123,5 +123,5 @@ Logging in ofagent can be controlled with the `-a <log level>` flag.
 
 ### FRR debug instructions
 
-Refer to the official FRR documentation for the instructions in activating the debug components [FRR documentation](http://docs.frrouting.org/en/latest/).
-
+You can check the service status and logs of FRR like we do for all other services above.
+For more information we refer to the official FRR documentation for the instructions in activating the debug components [FRR documentation](http://docs.frrouting.org/en/latest/).
