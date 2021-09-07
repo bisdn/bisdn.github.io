@@ -5,7 +5,7 @@ parent: Tools
 
 # Debugging
 
-For debug purposes, refer to this page for instructions in enabling the debug options in BISDN Linux.
+For debug purposes, refer to this page for instructions on enabling the debug options in BISDN Linux.
 
 ## Debug instructions
 
