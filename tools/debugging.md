@@ -30,7 +30,7 @@ Port  Type            Media   Status  Len    Vendor            Model            
 ----  --------------  ------  ------  -----  ----------------  ----------------  ----------------
 48  NONE
 ...
-51  1GBASE-CX       Copper          1m            SFP-10G-DAC     
+51  1GBASE-CX       Copper          1m            SFP-10G-DAC
 ```
 
 ## Debug files
@@ -67,10 +67,10 @@ When passing the baseboxd module names to `GLOG_vmodule`, which correspond to th
 ```
 GLOG_vmodule=<module name>=<log level>
 For example, setting logging to the main loop, the layer 3 and the controller classes,
-GLOG_vmodule=cnetlink=1,nl_l3=3,controller=2 
+GLOG_vmodule=cnetlink=1,nl_l3=3,controller=2
 ```
 
-### ofdpa debug files 
+### ofdpa debug files
 
 ofdpa is packaged with the configuration file `/etc/default/ofdpa`, visible below.
 
