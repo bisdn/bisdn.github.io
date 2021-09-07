@@ -9,19 +9,31 @@ For debug purposes, refer to this page for instructions on enabling the debug op
 
 ## Debug instructions
 
-When trying to configure a feature, please remember to verify if the version and plaform being tested does support the feature. There is a list of feature limitations [here](https://docs.bisdn.de/limitations.html).
-
-First check that all necessary services are up and running with the following command. To ensure proper operation of BISDN Linux, ``baseboxd``, ``ofdpa``, ``ofdpa-grpc`` and ``ofagent`` must be running.
+To ensure proper operation of BISDN Linux, the service ``baseboxd``, ``ofdpa``,
+``ofdpa-grpc`` and ``ofagent`` must be running.
+First check that these necessary services are up and running with the following
+command.
 
 ```
 systemctl status <service>
 ```
 
-To follow the logs from the service, use the following command. Check `man journalctl` for more information on the arguments.
+Before continuing the debugging process, you should then verify your network
+configuration. Make sure that the network configuration files are read and
+applied correctly, by checking the status and logs of services that you are
+using to apply network configuration. In most cases this will be
+``systemd-networkd``, and maybe ``frr``.
+
+To follow the logs from the service, use the following command.
 
 ```
 journalctl -u <service>
 ```
+Check `man journalctl` for more information on the arguments.
+
+When trying to configure a feature, please remember to verify if the version
+and plaform being tested does support the feature. Make sure to check the list
+of known [limitations](https://docs.bisdn.de/limitations.html).
 
 To debug the status on the ports, check `onlpdump -S` to get the state on the port. Similar output can be seen below. If the port information does not correspond to the physical connections, debug the physical connection by adding another cable or try another module, if available.
 
