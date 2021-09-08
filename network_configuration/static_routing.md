@@ -119,7 +119,7 @@ For ‘systemd-networkd’ the configuration file is done the same way.
 
 ## Static route example
 
-Here we will give a simple example of using static routes on four nodes. Two
+Here we show a simple example of using static routes on four nodes. Two
 switches and two server, as shown on the figure below.
 
 #
@@ -147,7 +147,7 @@ switches and two server, as shown on the figure below.
 
 # Setup switch-1
 
-This sets ``port2`` up and adds the ip address 10.0.1.1/24.
+Set ``port2`` up and add the ip address 10.0.1.1/24.
 
 `switch-1 /etc/systemd/network/30-port_left.network`
 ```
@@ -157,8 +157,8 @@ Network:
   Address: 10.0.1.1/24
 ```
 
-This sets ``port54`` up, adds ip address 10.0.3.1 and adds a route to the
-10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2
+Set ``port54`` up, add ip address 10.0.3.1 and add a route to the
+10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2.
 
 `switch-1 /etc/systemd/network/30-port_switch.network`
 ```
@@ -183,8 +183,8 @@ Network:
   Address: 10.0.2.1/24
 ```
 
-This sets ``port54`` up, adds ip address 10.0.3.2 and adds a route to the
-10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1
+Set ``port54`` up, add ip address 10.0.3.2 and add a route to the
+10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1.
 
 `switch-2 /etc/systemd/network/30-port_switch.network`
 ```
@@ -199,8 +199,8 @@ Route:
 
 # Setup server-1
 
-This adds ip address 10.0.1.2/24 to ``eno2`` and a route to the subnet
-10.0.2.0/24 (which is on ``server-2``) via 10.0.1.1
+Add ip address 10.0.1.2/24 to ``eno2`` and a route to the subnet
+10.0.2.0/24 (which is on ``server-2``) via 10.0.1.1.
 
 `server-1 /etc/systemd/network/30-eno2.network`
 ```
@@ -215,8 +215,8 @@ Route:
 
 # Setup server-2
 
-This adds ip address 10.0.2.2/24 to ``eno2`` and a route to the subnet
-10.0.1.0/24 (which is on ``server-1``) via 10.0.2.1
+Add ip address 10.0.2.2/24 to ``eno2`` and a route to the subnet
+10.0.1.0/24 (which is on ``server-1``) via 10.0.2.1.
 
 `server-2 /etc/systemd/network/30-eno2.network`
 ```
