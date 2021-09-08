@@ -149,52 +149,52 @@ switches and two server, as shown on the figure below.
 
 Set ``port2`` up and add the ip address 10.0.1.1/24.
 
-`switch-1 /etc/systemd/network/30-port_left.network`
+`switch-1 /etc/systemd/network/30-port2.network`
 ```
-Match:
-  Name: port_left
-Network:
-  Address: 10.0.1.1/24
+[Match]
+Name=port2
+[Network]
+Address=10.0.1.1/24
 ```
 
 Set ``port54`` up, add ip address 10.0.3.1 and add a route to the
 10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2.
 
-`switch-1 /etc/systemd/network/30-port_switch.network`
+`switch-1 /etc/systemd/network/30-port54.network`
 ```
-Match:
-  Name: port_switch
-Network:
-  Address: 10.0.3.1/24
-Route:
-  Destination: 10.0.2.0/24
-  Gateway: 10.0.3.2
+[Match]
+Name=port54
+[Network]
+Address=10.0.3.1/24
+[Route]
+Destination=10.0.2.0/24
+Gateway=10.0.3.2
 ```
 
 # Setup switch-2
 
 Set ``port2`` up and add ip address 10.0.2.1/24.
 
-`switch-2 /etc/systemd/network/30-port_left.network`
+`switch-2 /etc/systemd/network/30-port54.network`
 ```
-Match:
-  Name: port_left
-Network:
-  Address: 10.0.2.1/24
+[Match]
+Name=port2
+[Network]
+Address=10.0.2.1/24
 ```
 
 Set ``port54`` up, add ip address 10.0.3.2 and add a route to the
 10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1.
 
-`switch-2 /etc/systemd/network/30-port_switch.network`
+`switch-2 /etc/systemd/network/30-port54.network`
 ```
-Match:
-  Name: port_switch
-Network:
-  Address: 10.0.3.2/24
-Route:
-  Destination: 10.0.1.0/24
-  Gateway: 10.0.3.1
+[Match]
+Name=port54
+[Network]
+Address=10.0.3.2/24
+[Route]
+Destination=10.0.1.0/24
+Gateway=10.0.3.1
 ```
 
 # Setup server-1
@@ -204,13 +204,13 @@ Add ip address 10.0.1.2/24 to ``eno2`` and a route to the subnet
 
 `server-1 /etc/systemd/network/30-eno2.network`
 ```
-Match:
-  Name: eno2
-Network:
-  Address: 10.0.1.2/24
-Route:
-  Destination: 10.0.2.0/24
-  Gateway: 10.0.1.1
+[Match]
+Name=eno2
+[Network]
+Address=10.0.1.2/24
+[Route]
+Destination=10.0.2.0/24
+Gateway=10.0.1.1
 ```
 
 # Setup server-2
@@ -220,13 +220,13 @@ Add ip address 10.0.2.2/24 to ``eno2`` and a route to the subnet
 
 `server-2 /etc/systemd/network/30-eno2.network`
 ```
-Match:
-  Name: eno2
-Network:
-  Address: 10.0.2.2/24
-Route:
-  Destination: 10.0.1.0/24
-  Gateway: 10.0.2.1
+[Match]
+Name=eno2
+[Network]
+Address=10.0.2.2/24
+[Route]
+Destination=10.0.1.0/24
+Gateway=10.0.2.1
 ```
 
 Restart systemd-networkd or reboot the switches to apply network configuration.
