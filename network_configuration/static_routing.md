@@ -175,7 +175,7 @@ Gateway=10.0.3.2
 
 Set ``port2`` up and add ip address 10.0.2.1/24.
 
-`switch-2 /etc/systemd/network/30-port54.network`
+`switch-2 /etc/systemd/network/30-port2.network`
 ```
 [Match]
 Name=port2
