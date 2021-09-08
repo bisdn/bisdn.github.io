@@ -78,7 +78,7 @@ When passing the baseboxd module names to `GLOG_vmodule`, which correspond to th
 
 ```
 GLOG_vmodule=<module name>=<log level>
-For example, setting logging to the main loop, the layer 3 and the controller classes,
+set log levels of the cnetlink, nl_l3 and controller modules to 1, 3 and 2 respectively.
 GLOG_vmodule=cnetlink=1,nl_l3=3,controller=2
 ```
 
