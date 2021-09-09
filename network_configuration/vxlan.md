@@ -31,7 +31,7 @@ information.
 
 ```
 +-----------------------------------------------+         +-----------------------------------------------+
-|                       switch1                 |         |    switch2                                    |
+|                       switch-1                |         |    switch-2                                   |
 |   +--------------+                   +--------+         +--------+                   +------------+     |
 |   | vxlan50000   +-------------------+ port54 +---------+ port54 +-------------------+ vxlan50000 |     |
 |   ++-------------+    192.168.0.1/24 +--------|  vxlan  |--------+  192.168.0.2/24   +--------+---+     |
@@ -52,16 +52,15 @@ information.
 ```
 
 The configuration give below will create a VXLAN overlay with VNI=50000 between
-``port54`` on ``switch1`` and ``port54`` on ``switch2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
+``port54`` on ``switch-1`` and ``port54`` on ``switch-2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
-The configuration with systemd-networkd can be done with the following files,
-simply add them to the ``/etc/systemd/networkd`` directory on ``switch1``.
+The configuration with systemd-networkd can be done with the following files.
 
-Create bridge ``swbridge``, tag it with ``VLAN=300`` and set it up.
+Create bridge ``swbridge`` with no ``DefaultPVID``.
+
+`switch-1 /etc/systemd/networkd/20-swbridge.netdev`
 ```
-20-swbridge.netdev:
-
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -71,9 +70,10 @@ VLANFiltering=1
 DefaultPVID=none
 ```
 
-```
-20-swbridge.network:
+Tag ``swbridge`` with ``VLAN=300`` and set it up.
 
+`switch-1 /etc/systemd/networkd/20-swbridge.network`
+```
 [Match]
 Name=swbridge
 
@@ -82,9 +82,9 @@ VLAN=300
 ```
 
 Add VLAN tag ``VLAN=300`` on ``port2`` incoming traffic, untag the outgoing one, attach it to ``swbridge`` and set it up.
-```
-10-port2.network:
 
+`switch-1 /etc/systemd/networkd/10-port2.network`
+```
 [Match]
 Name=port2
 
@@ -97,9 +97,9 @@ EgressUntagged=300
 ```
 
 Add ip address 192.168.0.1/24 to ``port54``, define it as underlying interface for netdev vxlan50000 (created below) and set it up.
-```
-10-port54.network:
 
+`switch-1 /etc/systemd/networkd/10-port54.network`
+```
 [Match]
 Name=port54
 
@@ -110,9 +110,9 @@ Address=192.168.0.1/24
 
 Create netdev ``vxlan50000`` for VXLAN with the VNI 50000 and set local and remote VXLAN Tunnel
 Endpoints(VTEPs).
-```
-300-vxlan50000.netdev:
 
+`switch-1 /etc/systemd/networkd/300-vxlan50000.netdev`
+```
 [NetDev]
 Name=vxlan50000
 Kind=vxlan
@@ -135,9 +135,8 @@ set systemd will use the default Linux kernel value 8472.
 which means that every remote VTEP must use ``DestinationPort``=4789.
 {: .label .label-yellow }
 
+`switch-1 /etc/systemd/networkd/300-vxlan50000.network`
 ```
-300-vxlan50000.network:
-
 [Match]
 Name=vxlan50000
 
@@ -153,9 +152,8 @@ The configuration files for ``switch2`` are identical to those of ``switch1``
 with the execption that the IPv4 addresses for the VTEP, Remote and Local will
 switch. Therefore the files below are shown without additional explanation.
 
+`switch-2 /etc/systemd/networkd/20-swbridge.netdev`
 ```
-20-swbridge.netdev:
-
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -165,9 +163,8 @@ VLANFiltering=1
 DefaultPVID=none
 ```
 
+`switch-2 /etc/systemd/networkd/20-swbridge.network`
 ```
-20-swbridge.network:
-
 [Match]
 Name=swbridge
 
@@ -175,9 +172,8 @@ Name=swbridge
 VLAN=300
 ```
 
+`switch-2 /etc/systemd/networkd/10-port2.network`
 ```
-10-port2.network:
-
 [Match]
 Name=port2
 
@@ -189,9 +185,8 @@ PVID=300
 EgressUntagged=300
 ```
 
+`switch-2 /etc/systemd/networkd/10-port54.network`
 ```
-10-port54.network:
-
 [Match]
 Name=port54
 
@@ -200,9 +195,8 @@ VXLAN=vxlan50000
 Address=192.168.0.2/24
 ```
 
+`switch-2 /etc/systemd/networkd/300-vxlan50000.netdev`
 ```
-300-vxlan50000.netdev:
-
 [NetDev]
 Name=vxlan50000
 Kind=vxlan
@@ -214,9 +208,8 @@ Local=192.168.0.2
 Remote=192.168.0.1
 ```
 
+`switch-2 /etc/systemd/networkd/300-vxlan50000.network`
 ```
-300-vxlan50000.network:
-
 [Match]
 Name=vxlan50000
 
