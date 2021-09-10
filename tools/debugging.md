@@ -9,7 +9,7 @@ For debug purposes, refer to this page for instructions on enabling the debug op
 
 ## Debug instructions
 
-To ensure proper operation of BISDN Linux, the service ``baseboxd``, ``ofdpa``,
+To ensure proper operation of BISDN Linux, the services ``baseboxd``, ``ofdpa``,
 ``ofdpa-grpc`` and ``ofagent`` must be running.
 First check that these necessary services are up and running with the following
 command.
@@ -35,7 +35,7 @@ When trying to configure a feature, please remember to verify if the version
 and plaform being tested does support the feature. Make sure to check the list
 of known [limitations](https://docs.bisdn.de/limitations.html).
 
-To ensure that the link state itself is as expected, use `onlpdump -S` to get the state of all port (sample output below). If the port state and SFP information (not applicable to patch cables) does not correspond to the physical connections, debug the physical connection by adding another cable or try another module, if available.
+To ensure that the link state itself is as expected, use `onlpdump -S` to get the state of all ports (sample output below). If the port state and SFP information (not applicable to patch cables) does not correspond to the physical connections, debug the physical connection by adding another cable or try another module, if available.
 
 ```
 Port  Type            Media   Status  Len    Vendor            Model             S/N
