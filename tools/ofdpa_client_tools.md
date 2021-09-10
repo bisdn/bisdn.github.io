@@ -117,6 +117,7 @@ To troubleshoot errors on flow operations, the verbose setting from the `OFDB` m
 # OPTIONS="-c 1 -c 2 -d 2"
 OPTIONS="-c 4 -d 4"
 ```
+
 These changes are applied by restarting the `ofdpa` service:
 
 ```
