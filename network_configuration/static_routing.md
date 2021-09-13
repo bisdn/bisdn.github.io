@@ -119,8 +119,8 @@ For ‘systemd-networkd’ the configuration file is done the same way.
 
 ## Static route example
 
-Here we show a simple example of using static routes on four nodes. Two
-switches and two servers, as shown on the figure below.
+Here we show a simple example of using systemd-networkd to configure static
+routes on two switches and two servers.
 
 #
 #  +-------------------------------------------+   +-------------------------------------------+
@@ -144,6 +144,10 @@ switches and two servers, as shown on the figure below.
 #  | server-1                     |                             | server-2                     |
 #  +------------------------------+                             +------------------------------+
 #
+
+The port ``eno2`` on each server is connected to ``port2`` on its respective
+switch. Both switches are connected via ``port54``. Simply change the port
+names to fit your setup.
 
 # Setup switch-1
 
