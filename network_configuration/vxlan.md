@@ -52,7 +52,7 @@ information.
 ```
 
 The configuration give below will create a VXLAN overlay with VNI=50000 between
-``port54`` on ``switch-1`` and ``port54`` on ``switch-2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch1 and switch2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
+``port54`` on ``switch-1`` and ``port54`` on ``switch-2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch-1 and switch-2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
 The configuration with systemd-networkd can be done with the following files.
