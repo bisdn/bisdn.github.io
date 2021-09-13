@@ -233,4 +233,4 @@ Destination=10.0.1.0/24
 Gateway=10.0.2.1
 ```
 
-Restart systemd-networkd or reboot the switches to apply network configuration.
+Restart systemd-networkd or reboot all nodes to apply network configuration.
