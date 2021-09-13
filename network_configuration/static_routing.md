@@ -120,7 +120,7 @@ For ‘systemd-networkd’ the configuration file is done the same way.
 ## Static route example
 
 Here we show a simple example of using static routes on four nodes. Two
-switches and two server, as shown on the figure below.
+switches and two servers, as shown on the figure below.
 
 #
 #  +-------------------------------------------+   +-------------------------------------------+
@@ -147,7 +147,7 @@ switches and two server, as shown on the figure below.
 
 # Setup switch-1
 
-Set ``port2`` up and add the ip address 10.0.1.1/24.
+Set ``port2`` up and add the IP address 10.0.1.1/24.
 
 `switch-1 /etc/systemd/network/30-port2.network`
 ```
@@ -157,7 +157,7 @@ Name=port2
 Address=10.0.1.1/24
 ```
 
-Set ``port54`` up, add ip address 10.0.3.1 and add a route to the
+Set ``port54`` up, add IP address 10.0.3.1 and add a route to the
 10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2.
 
 `switch-1 /etc/systemd/network/30-port54.network`
@@ -173,7 +173,7 @@ Gateway=10.0.3.2
 
 # Setup switch-2
 
-Set ``port2`` up and add ip address 10.0.2.1/24.
+Set ``port2`` up and add IP address 10.0.2.1/24.
 
 `switch-2 /etc/systemd/network/30-port2.network`
 ```
@@ -183,7 +183,7 @@ Name=port2
 Address=10.0.2.1/24
 ```
 
-Set ``port54`` up, add ip address 10.0.3.2 and add a route to the
+Set ``port54`` up, add IP address 10.0.3.2 and add a route to the
 10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1.
 
 `switch-2 /etc/systemd/network/30-port54.network`
@@ -199,7 +199,7 @@ Gateway=10.0.3.1
 
 # Setup server-1
 
-Add ip address 10.0.1.2/24 to ``eno2`` and a route to the subnet
+Add IP address 10.0.1.2/24 to ``eno2`` and a route to the subnet
 10.0.2.0/24 (which is on ``server-2``) via 10.0.1.1.
 
 `server-1 /etc/systemd/network/30-eno2.network`
@@ -215,7 +215,7 @@ Gateway=10.0.1.1
 
 # Setup server-2
 
-Add ip address 10.0.2.2/24 to ``eno2`` and a route to the subnet
+Add IP address 10.0.2.2/24 to ``eno2`` and a route to the subnet
 10.0.1.0/24 (which is on ``server-1``) via 10.0.2.1.
 
 `server-2 /etc/systemd/network/30-eno2.network`
