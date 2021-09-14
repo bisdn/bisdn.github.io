@@ -119,8 +119,7 @@ For ‘systemd-networkd’ the configuration file is done the same way.
 
 ## Static route example
 
-Here we show a simple example of using systemd-networkd to configure static
-routes on two switches and two servers.
+Here we show a simple example of using systemd-networkd to configure static routes on two switches and two servers.
 
 #
 #  +-------------------------------------------+   +-------------------------------------------+
@@ -145,9 +144,7 @@ routes on two switches and two servers.
 #  +------------------------------+                             +------------------------------+
 #
 
-The port ``eno2`` on each server is connected to ``port2`` on its respective
-switch. Both switches are connected via ``port54``. Simply change the port
-names to fit your setup.
+The port ``eno2`` on each server is connected to ``port2`` on its respective switch. Both switches are connected via ``port54``. Simply change the port names to fit your setup.
 
 # Setup switch-1
 
@@ -161,8 +158,7 @@ Name=port2
 Address=10.0.1.1/24
 ```
 
-Set ``port54`` up, add IP address 10.0.3.1 and add a route to the
-10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2.
+Set ``port54`` up, add IP address 10.0.3.1 and add a route to the 10.0.2.0/24 subnet (which is on ``server-2``) via 10.0.3.2.
 
 `switch-1 /etc/systemd/network/30-port54.network`
 ```
@@ -187,8 +183,7 @@ Name=port2
 Address=10.0.2.1/24
 ```
 
-Set ``port54`` up, add IP address 10.0.3.2 and add a route to the
-10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1.
+Set ``port54`` up, add IP address 10.0.3.2 and add a route to the 10.0.1.0/24 subnet (which is on ``sever-1``) via 10.0.3.1.
 
 `switch-2 /etc/systemd/network/30-port54.network`
 ```
@@ -203,8 +198,7 @@ Gateway=10.0.3.1
 
 # Setup server-1
 
-Add IP address 10.0.1.2/24 to ``eno2`` and a route to the subnet
-10.0.2.0/24 (which is on ``server-2``) via 10.0.1.1.
+Add IP address 10.0.1.2/24 to ``eno2`` and a route to the subnet 10.0.2.0/24 (which is on ``server-2``) via 10.0.1.1.
 
 `server-1 /etc/systemd/network/30-eno2.network`
 ```
@@ -219,8 +213,7 @@ Gateway=10.0.1.1
 
 # Setup server-2
 
-Add IP address 10.0.2.2/24 to ``eno2`` and a route to the subnet
-10.0.1.0/24 (which is on ``server-1``) via 10.0.2.1.
+Add IP address 10.0.2.2/24 to ``eno2`` and a route to the subnet 10.0.1.0/24 (which is on ``server-1``) via 10.0.2.1.
 
 `server-2 /etc/systemd/network/30-eno2.network`
 ```
