@@ -9,6 +9,7 @@ nav_order: 2
 These tools enable you to interact with the OF-DPA layer and can be used to cross-check controller behavior and configuration. The following commands can be used to show the flow, group tables and ports, respectively:
 
 ```
+client_drivhsell
 client_flowtable_dump
 client_grouptable_dump
 client_port_table_dump
@@ -295,3 +296,12 @@ The following example matches IPv4 traffic from the 10.0.0.1 address, sends it t
 ```
 ofdpa_acl_flow_cli.py -a --cookie 10000 --etherType 0x800 --sourceIp4 10.0.0.1 --sourceIp4Mask 255.255.255.255 --meterId 20000 --gotoTable 65
 ```
+
+## client_drivshell
+``client_drivshell`` provides access to the Broadcom Shell (also called bcm-shell),
+and prints the output. ``client_drivshell help`` will print a list of available
+commands, and ``client_drivshell help <command>`` will print the usage of a
+certain command.
+
+**WARNING**: client_drivshell accesses the internal switch state and modifying it may break proper operation of the switch until reboot
+{: .label .label-yellow }
