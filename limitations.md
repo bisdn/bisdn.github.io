@@ -22,8 +22,7 @@ To avoid the issue completely, we recommend upgrading to release 4.1 or higher.
 
 ## Celestica Questone 2A port LEDs do not light up
 
-On Celestica Questone 2A port LEDs currently do not light up when a link is established.
-LED support will be implemented in a future update.
+In BISDN Linux prior to the release 4.1 the LEDs on Celestica Questone 2A ports do not light up when a link is established.
 
 ## Celestica Questone 2A fans spinning at 100%
 
