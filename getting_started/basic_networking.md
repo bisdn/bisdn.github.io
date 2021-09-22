@@ -87,6 +87,25 @@ There are two IP addresses associated by default with this interface: `127.0.0.1
 
 It is possible to configure the loopback interface with other IPv4 and IPv6 addresses, thus providing connectivity to the loopback interface itself. In order to reach this interface, a "via" route must be present.
 
+## Management interface
+
+BISDN Linux uses `systemd-networkd` to configure the management network interface. To allow users to ssh to and configure the switch without any further configuration after installing an image, our yocto build chain adds a default configuration file to `/lib/systemd/network/80-wired.network` (shown below), which configures all interfaces named "eth*" or "en*" to use DHCP. By using this configuration, the management network interface of all switch platforms automatically uses DHCP for its own address configuration. All other switch ports are unaffected by this configuration, since they are all named like `portX` and therefore not matched. To override this configuration file, you can add a custom file in the `/etc/systemd/network` directory, with a prefix number lower than `80`. The lower prefix will make sure this file is read first when starting systemd-networkd (only the first `Match` for each interface is applied). Please see the [systemd-networkd docs](https://www.freedesktop.org/software/systemd/man/systemd.network.html) for more information.
+
+`/lib/systemd/network/80-wired.network`
+```
+[Match]
+Name=en* eth*
+KernelCommandLine=!nfsroot
+KernelCommandLine=!ip
+
+[Network]
+DHCP=yes
+
+[DHCP]
+RouteMetric=10
+ClientIdentifier=mac
+```
+
 # Network configuration with iproute2
 
 To configure an interface on the switch, you have to configure the corresponding port (tap interface) created by baseboxd. If, for example, you have connected "port1" of the switch to "eno2" of your server and want to test a simple ping between these two, you can assign IP addresses to both interfaces in a very similar way:
