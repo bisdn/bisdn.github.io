@@ -14,9 +14,11 @@ The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
 ## DHCP packets not forwarded correctly
 
-The switch may sometimes stop forwarding DHCP packets correctly. The
-only known workaround (starting with BISDN Linux v4.0) is to
-[disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
+In BISDN Linux prior to the release 4.1, switches would sometimes stop
+forwarding DHCP packets correctly due to an issue in handling multicast
+subscriptions within OF-DPA. The only known workaround (starting with BISDN
+Linux v4.0) is to [disable IGMP/MLD Snooping](network_configuration/igmpmldsnooping.md#enablingdisablingigmpmldsnooping).
+To avoid the issue completely, we recommend upgrading to release 4.1 or higher.
 
 ## Celestica Questone 2A port LEDs do not light up
 
