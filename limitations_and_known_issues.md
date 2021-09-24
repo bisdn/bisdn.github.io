@@ -26,7 +26,6 @@ baseboxd is not compatible with [Linux namespaces](http://man7.org/linux/man-pag
 
 The script onie-bisdn-upgrade allows to use static IP configuration instead of DHCP. However, using the current ONIE installer, there is no route set towards the gateway, so images outside the configured network or, when using the “current” option, outside the switch management network (‘enp0s20f0’) can not be pulled and installed automatically.
 
-
 ## Enabling auto-negotiation on ports may not work as expected
 
 Depending on the switch and the link partner, we have observed the following behaviors:
@@ -44,16 +43,23 @@ In all of these cases forcing the port on the switch to the desired speed works 
 # Open issues
 
 ## No support for VXLAN and STP on bonded interfaces
+
+Affected versions: 3.5 - current
+
 Currently VXLAN is not supported on bonded interfaces. The same is true for the
 spanning tree protocols STP, RSTP and MSTP.
 
 ## Missing routes for EIGRP with flapping ports
+
+Affected versions: 3.0 - current
 
 As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
 
 # Resolved issues
 
 ## DHCP packets not forwarded correctly
+
+Affected versions: 3.0 - 4.0
 
 In BISDN Linux prior to the release 4.1, switches would sometimes stop
 forwarding DHCP packets correctly due to an issue in handling multicast
@@ -63,11 +69,13 @@ To avoid the issue completely, we recommend upgrading to release 4.1 or higher.
 
 ## Celestica Questone 2A port LEDs do not light up
 
+Affected versions: 4.0
+
 In BISDN Linux prior to the release 4.1 the LEDs on Celestica Questone 2A ports do not light up when a link is established.
 
 ## Agema-5648 PCIe Bus error
 
-**A workaround preventing the issue has been implemented in BISDN Linux 3.5.2.**
+Affected versions: 3.0 - 3.5.1
 
 The driver for the PCI bus may report an error leading to the controller not receiving any traffic and causing the platform to completely stop working until restarted. This is a sporadic bug and can be verified by running dmesg where the following logs are available to confirm the presence of the error.
 
@@ -81,6 +89,8 @@ The driver for the PCI bus may report an error leading to the controller not rec
 The message `AER: Device recovery successful` shown above is misleading, since the Error can only be resolved by fully rebooting the switch itself.
 
 ## Ports connected during boot may sometimes show as having no carrier in Linux
+
+Affected versions: 3.0 - 3.7.2
 
 All releases of BISDN Linux prior to version 3.7.3 suffer from an issue where
 the port state might end up out of sync.
