@@ -1,9 +1,9 @@
 ---
-title: Limitations
+title: Limitations and known issues
 nav_order: 9
 ---
 
-# Limitations
+# Limitations and known issues
 
 ## No support for VXLAN and STP on bonded interfaces
 Currently VXLAN is not supported on bonded interfaces. The same is true for the
