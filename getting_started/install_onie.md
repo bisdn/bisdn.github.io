@@ -24,6 +24,7 @@ Only the following ONIE versions are tested and supported. Installation on other
 | Delta AG7648           | GRUB       |[2017.08.01-V1.12](https://github.com/DeltaProducts/AG7648/tree/master/onie_image/) (Build date 20181109) |
 | Edgecore AS4610-30T/P  | U-Boot     |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360035081033-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
 | Edgecore AS4610-54T/P  | U-Boot     |[2016.05.00.04](https://support.edge-core.com/hc/en-us/articles/360033232494-AS4610-ONIE-v2016-05-00-04)<sup>1</sup> |
+| Edgecore AS7726-32X    | GRUB       |[2017.11.00.05](https://support.edge-core.com/hc/en-us/articles/360034394973-AS7726-32X-ONIE-v2017-11-00-05-latest-)<sup>1</sup> |
 
 <sup>1</sup> Edgecore support account required
 
