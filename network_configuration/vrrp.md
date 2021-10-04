@@ -79,6 +79,28 @@ As shared virtual IPv4 address you could use 10.0.0.1/32 (please be aware to NOT
 specifically set the /32 netmask in the keepalived.conf since this will be added
 automatically).
 
+Assuming that you want to configure the virtual IP on the `loopback` interface
+(lo), `123` is a free virtual router id and `10.0.0.1/32` can be used as virtual
+ip, a working keepalived.conf could look like this (please be aware, that if you
+choose priority `100` for both routers, the address assignment will be based on
+startup order):
+
+```
+vrrp_instance VIP_1 {
+    state MASTER
+    interface lo
+    priority 100
+    virtual_router_id 123
+    authentication {
+        auth_type PASS
+        auth_pass password
+    }
+    virtual_ipaddress {
+        10.0.0.1
+    }
+}
+```
+
 To find out more about how to configure IPv4 addresses in BISDN Linux, please
 refer to the section in [getting started](https://docs.bisdn.de/getting_started/basic_networking.html#persisting-network-configuration-with-systemd-networkd).
 We recommend to not use frr zebra in combination with keepalived, since both
