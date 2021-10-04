@@ -35,28 +35,28 @@ the example content in it with a configuration similar to this:
 ```
 vrrp_instance VIP_1 {
     state MASTER
-    interface {{ interface }}
-    priority {{ priority }}
-    virtual_router_id {{ virtual_router_id }}
+    interface $INTERFACE
+    priority $PRIORITY
+    virtual_router_id $VIRTUAL_ROUTER_ID
     authentication {
         auth_type PASS
         auth_pass password
     }
     virtual_ipaddress {
-        {{ virtual_ip }}
+        $VIRTUAL_IP
     }
 }
 ```
 
-In this example keepalived.conf, you need to replace `{{ interface }}` with the
-name of the interface on which the `{{ virtual_ip }}` should be configured. To
-define which of the switches/routers should have the `{{ virtual_ip }}` by
-default, you need to set a router specific `{{ priority }}` on each router,
+In this example keepalived.conf, you need to replace `$INTERFACE` with the
+name of the interface on which the `$VIRTUAL_IP` should be configured. To
+define which of the switches/routers should have the `$VIRTUAL_IP` by
+default, you need to set a router specific `$PRIORITY` on each router,
 where the one with the highest priority will get the IP as long as it is
 available. To be able to use multiple instance of VRRP within a layer-2 domain,
-you should also make sure to set a unique `{{ virtual_router_id }}` for each
-vrrp_instance.  Finally you need to replace `{{ virtual_ip }}` with the IPv4
-address that you want to use as the shared virtual IP on the `{{ interface }}`
+you should also make sure to set a unique `VIRTUAL_ROUTER_ID` for each
+vrrp_instance. Finally you need to replace `$VIRTUAL_IP` with the IPv4
+address that you want to use as the shared virtual IP on the `$INTERACE`
 configured earlier. 
 Although the above mentioned configuration already is a fully functional
 keepalived.conf, it is not sufficient for running VRRP between multiple routers.
@@ -64,7 +64,7 @@ In addition to the configuration for VRRP in keepalived.conf, you need to make
 sure that all routers are able to communicate with each other and exchange VRRP
 announcements. To do this, you can simply pick a unique IPv4 address out of the
 same network your shared virtual IPv4 address is out of for each of the routers
-and assign it to the same interface you used for `{{ interface }}`. 
+and assign it to the same interface you used for `$INTERACE`.
 An example setup could assign the following IPv4 addresses:
 
 ```
@@ -78,6 +78,28 @@ router-2:
 As shared virtual IPv4 address you could use 10.0.0.1/32 (please be aware to NOT
 specifically set the /32 netmask in the keepalived.conf since this will be added
 automatically).
+
+Assuming that you want to configure the virtual IP on the `loopback` interface
+(lo), `123` is a free virtual router id and `10.0.0.1/32` can be used as virtual
+ip, a working keepalived.conf could look like this (please be aware, that if you
+choose priority `100` for both routers, the address assignment will be based on
+startup order):
+
+```
+vrrp_instance VIP_1 {
+    state MASTER
+    interface lo
+    priority 100
+    virtual_router_id 123
+    authentication {
+        auth_type PASS
+        auth_pass password
+    }
+    virtual_ipaddress {
+        10.0.0.1
+    }
+}
+```
 
 To find out more about how to configure IPv4 addresses in BISDN Linux, please
 refer to the section in [getting started](https://docs.bisdn.de/getting_started/basic_networking.html#persisting-network-configuration-with-systemd-networkd).
