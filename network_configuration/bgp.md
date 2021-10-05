@@ -14,7 +14,7 @@ In this section, we provide examples on how to configure BGP for both [IPv4](#bg
 ## BGP configuration overview
 
 The FRR configuration files can be found in the /etc/frr/ directory. Each
-routing protocol is handeled by a specifc frr daemon (e.g. bgpd, ripd or eigrpd)
+routing protocol is handled by a specific frr daemon (e.g. bgpd, ripd or eigrpd)
 and can be configured via a specific configuration file. To get started with
 BGP, we first need to enable the corresponding daemon `bgpd` in
 /etc/frr/daemons by replacing the default `no` with `yes`.
@@ -276,7 +276,7 @@ unique within the system.  The `neighbor` lines configure the remote peer and
 how to connect to it. The `remote-as`, must match the AS number for the remote
 endpoint.  The option `ebgp-multihop 1` is used to ensure that the connection
 between the two routers from different AS (otherwise it would be iBGP and hops
-do not matter in iBGP connections) is a direct one without any additonal
+do not matter in iBGP connections) is a direct one without any additional
 routing hops. For more detailed descriptions and all available options please
 refer to the frr documentation linked on top.
 
