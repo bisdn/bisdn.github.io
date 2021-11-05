@@ -5,6 +5,14 @@ nav_order: 9
 
 # Limitations
 
+## Some Forward Error Correction (FEC) modes may be unavailable
+
+Depending on the switch ASIC used, some FEC modes may be unavailable to configure:
+
+- Helix 4 based switches like Accton AS4610 only support Base-R on their 20G ports.
+- Trident II+ based switches like the Agema AG7648 only support Base-R.
+- Tomahawk based switches like the Agema AG5648 (non V1) only support Base-R on 25G ports. RS support is limited to 100G ports. Tomahawk+ based switches like the Agema AG5648V1 does not have this limitation.
+
 ## No VxLAN support on Accton AS4610
 The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
@@ -41,6 +49,12 @@ Depending on the switch and the link partner, we have observed the following beh
 In all of these cases forcing the port on the switch to the desired speed works as expected.
 
 # Open issues
+
+## Ports default to no FEC even if the SFP module type inserted requires FEC
+
+Affected versions: 3.0 - current
+
+Currently ports will always default to no FEC regardless of the SFP module used. If the remote side follows the requirement, this can prevent the link from being established. In that case [configure the FEC mode manually](platform_configuration/forward_error_correction.md).
 
 ## No support for VXLAN and STP on bonded interfaces
 
