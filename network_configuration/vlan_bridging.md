@@ -63,7 +63,7 @@ ip link set ${PORTA} nomaster
 
 ## systemd-networkd
 
-The configuration with systemd-networkd can be done with the following files, under the /etc/systemd/networkd directory.
+The configuration with systemd-networkd can be done with the following files, under the /etc/systemd/network directory.
 
 ```
 10-swbridge.netdev:
@@ -186,7 +186,7 @@ ip link del swbridge
 ## systemd-networkd
 
 The configuration with systemd-networkd can be done by placing the following files,
-under the /etc/systemd/networkd directory. The first line of the snippet is
+under the /etc/systemd/network directory. The first line of the snippet is
 the file name.
 The first two files create the bridge and add VLAN 2 and 3 to it, completely
 analogous to ``iproute2``

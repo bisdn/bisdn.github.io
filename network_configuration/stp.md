@@ -30,7 +30,7 @@ An STP-enabled bridge can be created using iproute2 with the following command:
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
-or by copying following systemd-networkd configuration files into the /etc/systemd/networkd directory and restarting the `systemd-networkd` systemd-service.
+or by copying following systemd-networkd configuration files into the /etc/systemd/network directory and restarting the `systemd-networkd` systemd-service.
 ```
 10-swbridge.netdev:
 
