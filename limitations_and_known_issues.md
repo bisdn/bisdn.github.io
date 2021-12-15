@@ -69,6 +69,39 @@ Affected versions: 3.0 - current
 
 As documented in the currently open upstream FRR issue [#7299](https://github.com/FRRouting/frr/issues/7299), some routes may get dropped or are not correctly received when ports are flapping during EIGRP session establishment. For now, we recommend the workaround of restarting FRR after all ports are up if this behavior is observed.
 
+## Accton-AS4630-54PE: Link speed setting for interfaces connected with optical modules
+
+Affected versions: 4.4 - current
+  
+The Accton AS4630-54PE platform may not properly establish a link when using optical 100G modules. As a workaround, add the following configuration into `/etc/ofdpa/rc.soc`.
+
+```
+phy control 53-54 preemphasis=0x124106
+```
+
+## Accton-AS4630-54PE: LEDs for the SFP interfaces signal in white colour
+
+Affected versions: 4.4 - current
+
+The Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white.
+
+## Accton-AS4630-54PE: PoE driver does not read from the correct i2c path 
+
+Affected versions: 4.4 - current
+
+The `poectl` utility uses a wrong path to access the poe controller device.
+
+To work around this, edit `/usr/sbin/poectl` and change
+
+```
+systempath=/sys/kernel/debug/i2c-16-0020
+```
+to
+
+```
+systempath=/sys/kernel/debug/16-0020
+```
+
 # Resolved issues
 
 ## DHCP packets not forwarded correctly
