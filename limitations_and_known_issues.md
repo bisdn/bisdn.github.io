@@ -85,23 +85,6 @@ Affected versions: 4.4 - current
 
 The Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white.
 
-## Accton-AS4630-54PE: PoE driver does not read from the correct i2c path 
-
-Affected versions: 4.4 - current
-
-The `poectl` utility uses a wrong path to access the poe controller device.
-
-To work around this, edit `/usr/sbin/poectl` and change
-
-```
-systempath=/sys/kernel/debug/i2c-16-0020
-```
-to
-
-```
-systempath=/sys/kernel/debug/16-0020
-```
-
 # Resolved issues
 
 ## DHCP packets not forwarded correctly
@@ -165,3 +148,20 @@ using the OF-DPA api to first disable and then enable the port again.
 
 ``client_drivshell port 2 Enable=false``
 ``client_drivshell port 2 Enable=true``
+
+## Accton-AS4630-54PE: PoE driver does not read from the correct i2c path 
+
+Affected versions: 4.4 - 4.4.1
+
+The `poectl` utility uses a wrong path to access the poe controller device.
+
+To work around this, edit `/usr/sbin/poectl` and change
+
+```
+systempath=/sys/kernel/debug/i2c-16-0020
+```
+to
+
+```
+systempath=/sys/kernel/debug/16-0020
+```
