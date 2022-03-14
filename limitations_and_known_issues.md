@@ -56,12 +56,11 @@ Affected versions: 3.0 - current
 
 Currently ports will always default to no FEC regardless of the SFP module used. If the remote side follows the requirement, this can prevent the link from being established. In that case [configure the FEC mode manually](platform_configuration/forward_error_correction.md).
 
-## No support for VXLAN and STP on bonded interfaces
+## No support for VXLAN on bonded interfaces
 
 Affected versions: 3.5 - current
 
-Currently VXLAN is not supported on bonded interfaces. The same is true for the
-spanning tree protocols STP, RSTP and MSTP.
+Currently VXLAN is not supported on bonded interfaces.
 
 ## Missing routes for EIGRP with flapping ports
 
@@ -86,6 +85,12 @@ Affected versions: 4.4 - current
 The Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white.
 
 # Resolved issues
+
+## No support for STP on bonded interfaces
+
+Affected versions: 3.5 - 4.4
+
+In releases prior to 4.5, the spanning tree protocols STP, RSTP and MSTP were not supported on bonded interfaces.
 
 ## DHCP packets not forwarded correctly
 
