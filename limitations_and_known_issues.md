@@ -50,6 +50,18 @@ In all of these cases forcing the port on the switch to the desired speed works 
 
 # Open issues
 
+## MAC addresses of BCM KNET interfaces change on every boot
+
+Affected versions: 4.5 - current
+
+The MAC addresses on BCM KNET interfaces are currently randomly assigned with an OUI of 02:10:18. Due to the fixed OUI systemd does not recognize the address as randomized, and does not replace it with a stable mac address.
+
+## BCM KNET interfaces stay after stopping baseboxd
+
+Affected versions: 4.5 - current
+
+Due to the way BCM KNET interface control is implemented, baseboxd currently fails to remove them when stopping them. If you need to disable baseboxd, please reboot the switch to reset the state afterwards.
+
 ## Ports default to no FEC even if the SFP module type inserted requires FEC
 
 Affected versions: 3.0 - current
