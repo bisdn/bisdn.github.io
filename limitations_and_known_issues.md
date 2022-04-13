@@ -50,6 +50,13 @@ In all of these cases forcing the port on the switch to the desired speed works 
 
 # Open issues
 
+## Socket receive buffer size cause baseboxd to miss Netlink events.
+
+Affected versions: 3.0 - current
+
+The maximum receive buffer size ``net.core.rmem_max`` is lower than the specifically set default buffer size ``net.core.rmem_default``. Because baseboxd creates its Netlink read buffer based on the max value, Netlink events can be missed if a large burst of events happens. This can cause the ASIC state to be out of synch.
+A simple workaround for this is to add the line ``net.core.rmem_max=8388608`` to ``/etc/sysctl.d/20-network-io.conf``
+
 ## MAC addresses of BCM KNET interfaces change on every boot
 
 Affected versions: 4.5 - current
