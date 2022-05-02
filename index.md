@@ -25,6 +25,7 @@ The BISDN Linux Distribution is available for the following whitebox switch plat
 * Delta AG7648
 * Edgecore AS4610 series
 * Edgecore EPS202 (AS4630-54PE)
+* Edgecore DCS201 (AS5835-54X)
 * Edgecore AS7726-32X
 
 Download links to the latest BISDN Linux switch images can always be found on [repo.bisdn.de/pub/onie](http://repo.bisdn.de/pub/onie/)
