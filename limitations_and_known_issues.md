@@ -57,18 +57,6 @@ Affected versions: 3.0 - current
 BISDN Linux increases `net.core.rmem_default` while leaving `net.core.rmem_max` at the default value which is lower than the new `net.core.rmem_default`. Because baseboxd creates its netlink read buffer based on the max value, a large burst of netlink events may result in netlink messages being lost, with baseboxd failing to fully synchronize the ASIC state with the kernel state.
 The solution is to add the line `net.core.rmem_max=8388608` to `/etc/sysctl.d/20-network-io.conf`.
 
-## MAC addresses of BCM KNET interfaces change on every boot
-
-Affected versions: 4.5 - current
-
-The MAC addresses on BCM KNET interfaces are currently randomly assigned with an OUI of 02:10:18. Due to the fixed OUI systemd does not recognize the address as randomized, and does not replace it with a stable mac address.
-
-## BCM KNET interfaces stay after stopping baseboxd
-
-Affected versions: 4.5 - current
-
-Due to the way BCM KNET interface control is implemented, baseboxd currently fails to remove them when stopping them. If you need to disable baseboxd, please reboot the switch to reset the state afterwards.
-
 ## Ports default to no FEC even if the SFP module type inserted requires FEC
 
 Affected versions: 3.0 - current
@@ -104,6 +92,22 @@ Affected versions: 4.4 - current
 The Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white.
 
 # Resolved issues
+
+## MAC addresses of BCM KNET interfaces change on every boot
+
+Affected versions: 4.5
+
+In release 4.5 the MAC addresses on BCM KNET interfaces are randomly assigned with an OUI of 02:10:18. Due to the fixed OUI systemd does not recognize the address as randomized, and does not replace it with a stable MAC address.
+
+Starting with release 4.6 correctly tagged random mac addresses are assigned, which systemd now replaces with stable MAC addresses.
+
+## BCM KNET interfaces stay after stopping baseboxd
+
+Affected versions: 4.5
+
+In release 4.5, due to the way BCM KNET interface control is implemented, baseboxd fails to remove them when stopping. If you need to disable baseboxd, please reboot the switch to reset the state afterwards.
+
+In release 4.6 a new helper script for automatically removing BCM KNET interfaces was added and is run when stopping baseboxd.
 
 ## No support for STP on bonded interfaces
 
