@@ -6,7 +6,7 @@ nav_order: 7
 
 ## OF-DPA Table Sizes
 
-Broadcom Switches feature internal memory that can be freely assigned to increase available memory for various functions. BISDN Linux 4.5 and later support defining strategies how the memory should be used.
+Broadcom Switches feature internal memory that can be freely assigned to increase available memory for various functions. BISDN Linux 4.6 and later support defining strategies how the memory should be used.
 
 Currently four strategies are supported:
 
@@ -39,24 +39,23 @@ To apply the new configuration, reboot the switch.
 
 ### Resulting Table Sizes
 
-Depending on the selected mode, the following number of entries will be evailable:
+Depending on the selected mode, the following number of entries will be evailable for tables 30 (Unicast Routing) and 50 (Bridging):
 
 | Platform                      | default              | balanced             | layer2               |              layer 3 |
 |-------------------------------|----------------------|----------------------|----------------------|----------------------|
-| Celestica Questone 2 D3030    | L2:  32k<br>L3:  16k | L2: 160k<br>L3: 144k | L2: 288k<br>L3:  16k | L2:  16k<br>L3: 272k |
-| Delta AG5648                  | L2:  40k<br>L3:  40k | L2:  40k<br>L3:  40k | L2:  72k<br>L3:   8k | L2:   8k<br>L3:  72k |
-| Delta AG7648                  | L2:  32k<br>L3:  16k | L2: 160k<br>L3: 144k | L2: 288k<br>L3:  16k | L2:  96k<br>L3: 208k |
-| Edgecore AS4610 Series        | L2:  12k<br>L3:   6k | L2:  12k<br>L3:   6k | L2:  22k<br>L3:   1k | L2:   2k<br>L3:  11k |
-| Edgecore EPS202 (AS4630-54PE) | L2:  32k<br>L3:  16k | L2:  64k<br>L3:  64k | L2: 114k<br>L3:  16k | L2:  16k<br>L3: 114k |
-| Edgecore DCS201 (AS5835-54X)  | L2:  32k<br>L3:  16k | L2: 160k<br>L3: 144k | L2: 288k<br>L3:  16k | L2:  16k<br>L3: 272k |
-| Edgecore DCS204 (AS7726-32X)  | L2:  32k<br>L3:  16k | L2: 160k<br>L3: 144k | L2: 288k<br>L3:  16k | L2:  16k<br>L3: 272k |
+| Celestica Questone 2 D3030    | 30:  32k<br>50:  32k | 30: 160k<br>50: 160k | 30:  32k<br>50: 288k | 30: 288k<br>50:  32k |
+| Delta AG5648                  | 30:  48k<br>50:  40k | 30:  80k<br>50:  72k | 30:  16k<br>50: 136k | 30: 144k<br>50:  16k |
+| Delta AG7648                  | 30:  32k<br>50:  32k | 30: 160k<br>50: 160k | 30:  32k<br>50: 288k | 30: 224k<br>50:  96k |
+| Edgecore AS4610 Series        | 30:  32k<br>50:  24k | 30:  32k<br>50:  24k | 30:  12k<br>50:  44k | 30:  52k<br>50:   4k |
+| Edgecore EPS202 (AS4630-54PE) | 30:  24k<br>50:  32k | 30:  72k<br>50:  64k | 30:  24k<br>50: 112k | 30: 120k<br>50:  16k |
+| Edgecore DCS201 (AS5835-54X)  | 30:  32k<br>50:  32k | 30: 160k<br>50: 160k | 30:  32k<br>50: 288k | 30: 288k<br>50:  32k |
+| Edgecore DCS204 (AS7726-32X)  | 30:  32k<br>50:  32k | 30: 160k<br>50: 160k | 30:  32k<br>50: 288k | 30: 288k<br>50:  32k |
 
 These values can be verified with
 
 ```
-$ sudo client_drivshell config show l2_mem_entries
-    l2_mem_entries=32768
-$ sudo client_drivshell config show l3_mem_entries
-    l3_mem_entries=16384
-
+$ client_flowtable_dump -v 30
+Table ID 30 (Unicast Routing):   Retrieving all entries. Max entries = 32768, Current entries = 0.
+$ client_flowtable_dump -v 50
+Table ID 50 (Bridging):   Retrieving all entries. Max entries = 294911, Current entries = 0.
 ```
