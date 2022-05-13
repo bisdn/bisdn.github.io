@@ -78,7 +78,7 @@ As documented in the currently open upstream FRR issue [#7299](https://github.co
 ## Accton-AS4630-54PE: Link speed setting for interfaces connected with optical modules
 
 Affected versions: 4.4 - current
-  
+
 The Accton AS4630-54PE platform may not properly establish a link when using optical 100G modules. As a workaround, add the following configuration into `/etc/ofdpa/rc.soc`.
 
 ```
