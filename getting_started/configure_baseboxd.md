@@ -103,7 +103,7 @@ The section “OPTION=” should point to localhost (local controller) or to the
 
 ### Setup baseboxd
 
-baseboxd uses a file to store configuration data like log level and OpenFlow ports. On BISDN Linux this file is located in /etc/default/baseboxd and on Fedora systems in /etc/sysconfig/baseboxd. The example below shows the basic structure:
+The baseboxd configuration file located in '/etc/default/baseboxd' allows you to set flags for which ports to listen on and for enabling/disabling multicast and KNET interfaces. The default configuration file shows the basic structure:
 
 ```
 ### Configuration options for baseboxd
@@ -116,6 +116,9 @@ baseboxd uses a file to store configuration data like log level and OpenFlow por
 #
 # gRPC listening port:
 # FLAGS_ofdpa_grpc_port=50051
+#
+# Use KNET interfaces (experimental):
+# FLAGS_use_knet=false
 
 ### glog
 #
@@ -124,10 +127,26 @@ GLOG_logtostderr=1
 
 # verbose log level:
 # GLOG_v=0
+
+# verbose per-module log level:
+# GLOG_vmodule=
 ```
 
-After having made the necessary changes to this file, restart baseboxd to apply the changes:
+We use the [Google Logging Library](https://hpc.nih.gov/development/glog.html) for logging. This includes the [GLOG_vmodule](https://hpc.nih.gov/development/glog.html#verbose) that allows you to set the log level for specific sub-modules.
 
+For example, if you want to set the log levels for the [https://github.com/bisdn/basebox/blob/master/src/netlink/cnetlink.h](cnetlink) and [https://github.com/bisdn/basebox/blob/master/src/netlink/nl_bridge.h](nl_bridge) sub-modules to 3 and 2, respectively, simply add the following line to the configuration file:
+
+```
+GLOG_vmodule=cnetlink=3,nl_bridge=2
+```
+
+In order to apply changes in the baseboxd configuration you can either reboot the switch:
+
+```
+reboot
+```
+
+or restart the baseboxd service:
 ```
 sudo systemctl restart baseboxd
 ```
