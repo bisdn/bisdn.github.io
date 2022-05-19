@@ -95,7 +95,7 @@ To configure a remote OpenFlow controller with \<IP-address\> and \<OpenFlow-por
 sudo basebox-change-config -r <IP-address> <OpenFlow-port>
 ```
 
-### Verify your configuration
+### Verify your ofagent configuration
 
 You can check the results of your configuration in the following file: /etc/default/ofagent
 
