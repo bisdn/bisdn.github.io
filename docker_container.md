@@ -29,8 +29,8 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-To learn how to work with docker containers, please refer to the official docker
-documentation available [here](https://docs.docker.com/get-started/).
+To learn how to work with docker containers, please refer to the
+[official docker documentation](https://docs.docker.com/get-started/).
 
 If you want to run a simple nginx web server, you can ssh to the switch and run:
 
