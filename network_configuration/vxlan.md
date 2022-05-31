@@ -23,7 +23,7 @@ section as documented in
 {: .label .label-yellow }
 
 **WARNING**: The Accton AS4610 platform does not have VxLAN support. See our
-[Limitations page](/limitations.md#No-VxLAN-support-on-Accton-AS4610) for more
+[Limitations page](/limitations.html#No-VxLAN-support-on-Accton-AS4610) for more
 information.
 {: .label .label-red }
 
