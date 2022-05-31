@@ -134,7 +134,7 @@ GLOG_logtostderr=1
 
 We use the [Google Logging Library](https://hpc.nih.gov/development/glog.html) for logging. This includes the [GLOG_vmodule](https://hpc.nih.gov/development/glog.html#verbose) that allows you to set the log level for specific sub-modules.
 
-For example, if you want to set the log levels for the [https://github.com/bisdn/basebox/blob/master/src/netlink/cnetlink.h](cnetlink) and [https://github.com/bisdn/basebox/blob/master/src/netlink/nl_bridge.h](nl_bridge) sub-modules to 3 and 2, respectively, simply add the following line to the configuration file:
+For example, if you want to set the log levels for the [cnetlink](https://github.com/bisdn/basebox/blob/master/src/netlink/cnetlink.h) and [nl_bridge](https://github.com/bisdn/basebox/blob/master/src/netlink/nl_bridge.h) sub-modules to 3 and 2, respectively, simply add the following line to the configuration file:
 
 ```
 GLOG_vmodule=cnetlink=3,nl_bridge=2
