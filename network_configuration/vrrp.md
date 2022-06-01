@@ -12,8 +12,7 @@ assignment of "virtual" IP addresses to hosts that share at least one common
 network and operate with the same virtual routed ID. On BISDN Linux this feature
 is provided by [keepalived](https://github.com/acassen/keepalived) and
 comprehensive documentation on all the available configuration options within
-keepalived can be found in the official
-[docs](https://keepalived.readthedocs.io/en/latest/configuration_synopsis.html).
+keepalived can be found in the [official keepalived docs](https://keepalived.readthedocs.io/en/latest/configuration_synopsis.html).
 
 ## VRRP configuration overview
 

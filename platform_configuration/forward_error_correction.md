@@ -8,7 +8,7 @@ nav_order: 3
 
 By default Broadcom switches do not enable any Forward Error Correction on ports.
 
-To enable Forward Error Correction use the [client_drivshell](tools/ofdpa_client_tools.md#client_drivshell) tool.
+To enable Forward Error Correction use the [client_drivshell](/tools/ofdpa_client_tools.md#client_drivshell) tool.
 
 There are multiple algorithms supported:
 

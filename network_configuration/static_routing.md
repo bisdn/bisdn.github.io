@@ -99,7 +99,7 @@ interface ${PORT}
 };
 ```
 
-This configuration example selects the interface where to send the advertisements on, and the prefix it should announce. The interval between each message can also be fine tuned. Further documentation on this tool can be found in [here](https://linux.die.net/man/5/radvd.conf).
+This configuration example selects the interface where to send the advertisements on, and the prefix it should announce. The interval between each message can also be fine tuned. For more information please read the official [radvd daemon man pages](https://linux.die.net/man/5/radvd.conf).
 
 Adding a static IPv6 route is done via
 

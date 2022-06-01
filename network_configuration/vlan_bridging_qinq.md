@@ -25,7 +25,7 @@ ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1 vlan
 ip link set ${BRIDGE} up
 ```
 
-The rest of the configuration follows the same steps as the [802.1q bridging](/network_configuration/vlan_bridging.md#iproute2) section.
+The rest of the configuration follows the same steps as the [802.1q bridging](/network_configuration/vlan_bridging.html#iproute2) section.
 
 ## systemd-networkd
 
@@ -44,4 +44,4 @@ VLANFiltering=1
 VLANProtocol=802.1ad
 ```
 
-The remaining configurations follow the same steps from the instructions in the [802.1q bridging](/network_configuration/vlan_bridging.md#systemd-networkd) section.
+The remaining configurations follow the same steps from the instructions in the [802.1q bridging](/network_configuration/vlan_bridging.html#systemd-networkd) section.
