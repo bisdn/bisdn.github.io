@@ -28,7 +28,7 @@ The Agema AG7648 switch announces a maximum of 32k entries for the unicast routi
 
 ## Linux namespaces
 
-baseboxd is not compatible with [Linux namespaces](http://man7.org/linux/man-pages/man8/ip-netns.8.html). Moving basebox’s interfaces to a namespace will duplicate them.
+baseboxd is not compatible with [Linux namespaces](http://man7.org/linux/man-pages/man8/ip-netns.8.html). Moving baseboxd’s interfaces to a namespace will duplicate them.
 
 ## Upgrade of BISDN Linux via onie-bisdn-upgrade
 
