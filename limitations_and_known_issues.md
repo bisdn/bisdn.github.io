@@ -24,7 +24,7 @@ Please ensure that both PSUs are connected and have power. The switch will fall 
 
 There might be discrepancies in the maximum number of entries in the unicast routing table (30) announced by [of-dpa](https://github.com/Broadcom-Switch/of-dpa) and how many it accepts.
 
-The [AG7648](https://agema.deltaww.com/product-info.php?id=29) switch announces a maximum of 32k entries for the unicast routing table(30) and [of-dpa](https://github.com/Broadcom-Switch/of-dpa) takes 16k host routes and 16k network routes.
+The Agema AG7648 switch announces a maximum of 32k entries for the unicast routing table(30) and [of-dpa](https://github.com/Broadcom-Switch/of-dpa) takes 16k host routes and 16k network routes.
 
 ## Linux namespaces
 
@@ -44,7 +44,7 @@ Depending on the switch and the link partner, we have observed the following beh
 
 - There is an issue in the Broadcom SDK version 6.5.21 and following, which affects all BISDN Linux releases after 3.7, where the 10G ports on [AS4610](https://www.edge-core.com/productsList.php?cls=1&cls2=9&cls3=46) will not transfer packets when autonegotiating down to 1G after being configured for 10G. Forcing the speed to 1G with disabled autonegotiation avoids this issue.
 
-- The 25G ports on [AG5648](https://agema.deltaww.com/product-info.php?id=41) do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treat it as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
+- The 25G ports on Agema AG5648 do not support simultaneous detection of 1G with SGMII and 1G with KX, and will treat it as 1G with KX. If you use 1G SFP modules, configure the port to a fixed speed with 1G to work around this.
 
 In all of these cases forcing the port on the switch to the desired speed works as expected.
 
