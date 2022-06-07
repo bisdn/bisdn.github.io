@@ -76,15 +76,14 @@ The Accton AS4630-54PE platform may not properly establish a link when using opt
 
 ```
 phy control 53-54 preemphasis=0x124106
-```
+
+# Resolved issues
 
 ## Accton-AS4630-54PE: LEDs for the SFP interfaces signal in white colour
 
-Affected versions: 4.4 - current
+Affected versions: 4.4 - 4.6
 
-The Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white.
-
-# Resolved issues
+In releases 4.4 to 4.6 the Accton AS4630-54PE platform LEDs for the SFP interfaces are always stuck on white. In release 4.6.1 a fix was implemented, and the SFP LEDs now light up correctly.
 
 ## Socket receive buffer size causes baseboxd to miss netlink events
 
