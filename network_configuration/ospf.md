@@ -84,7 +84,7 @@ The zebra file will configure IP addresses on the interfaces, with the configura
 interface port1
   no shutdown
   no ipv6 nd suppress-ra
-  ipv6 nd prefix 2003:db01:1::/64
+  ipv6 nd prefix 2001:db8:1::/64
 ```
 
 Regarding /etc/frr/ospf6d.conf, the configuration here must specify the point-to-point parameter in the
