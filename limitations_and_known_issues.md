@@ -76,6 +76,7 @@ The Accton AS4630-54PE platform may not properly establish a link when using opt
 
 ```
 phy control 53-54 preemphasis=0x124106
+```
 
 # Resolved issues
 
