@@ -23,7 +23,10 @@ The BISDN Linux Distribution is available for the following whitebox switch plat
 * Celestica Questone 2 D3030 (Questone 2A)
 * Delta AG5648
 * Delta AG7648
-* Edgecore AS4610 series
+* Edgecore AS4610-30T
+* Edgecore AS4610-30P
+* Edgecore AS4610-54T
+* Edgecore AS4610-54P
 * Edgecore EPS202 (AS4630-54PE)
 * Edgecore DCS201 (AS5835-54X)
 * Edgecore AS7726-32X
