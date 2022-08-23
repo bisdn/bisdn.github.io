@@ -7,7 +7,7 @@
 #   podman run --rm -it -v $(pwd):/website:O -p4000:4000 jekyll
 # - Point browser to http://127.0.0.1:4000/
 
-FROM fedora:33
+FROM fedora:36
 
 # Preinstall build requirements for jekyll
 RUN dnf install -y ruby-devel redhat-rpm-config g++ zlib-devel
