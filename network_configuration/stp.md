@@ -4,7 +4,6 @@ parent: Network Configuration
 ---
 
 # Spanning Tree Protocol (STP)
-
 ## Introduction
 
 The Spanning Tree Protocol (STP) is meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure the STP implementation available in Linux.
@@ -110,10 +109,10 @@ mstpd is managed by systemd and is disabled by default. For documentation on how
 
 ## RSTP configuration
 
-When `mstpd` is enabled, any configured bridge will have STP enabled by default. Therefore, it is not required to specify the `stp_state` flag when creating a bridge:
+When `mstpd` is running, any stp enabled bridge will be managed by mstpd. By default it uses RSTP.
 
 ```
-ip link add name swbridge type bridge vlan_filtering 1
+ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
 
