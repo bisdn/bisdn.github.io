@@ -117,8 +117,8 @@ The baseboxd configuration file located in '/etc/default/baseboxd' allows you to
 # gRPC listening port:
 # FLAGS_ofdpa_grpc_port=50051
 #
-# Use KNET interfaces (experimental):
-# FLAGS_use_knet=false
+# Use KNET interfaces:
+# FLAGS_use_knet=true
 
 ### glog
 #
