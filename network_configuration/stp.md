@@ -24,6 +24,7 @@ An STP-enabled bridge can be created using iproute2 with the following command:
 
 ```
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
+ip link set swbridge up
 ```
 
 or by copying following systemd-networkd configuration files into the /etc/systemd/network directory and restarting the `systemd-networkd` systemd-service.
@@ -110,8 +111,8 @@ When `mstpd` is running, any stp enabled bridge will be managed by mstpd. By def
 
 ```
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
+ip link set swbridge up
 ```
-
 
 The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
