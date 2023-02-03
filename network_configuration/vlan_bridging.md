@@ -170,10 +170,10 @@ ip link set port54 up
 Finally, configuring the VLANs on the bridge member ports, and the bridge itself is done with the following commands.  The self flag is required when configuring the VLAN on the bridge interface itself.
 
 ```
-bridge vlan add vid 2 dev port2 pvid
-bridge vlan add vid 3 dev port3 pvid
-bridge vlan add vid 2 dev port54 untagged
-bridge vlan add vid 3 dev port54 untagged
+bridge vlan add vid 2 dev port2 pvid untagged
+bridge vlan add vid 3 dev port3 pvid untagged
+bridge vlan add vid 2 dev port54
+bridge vlan add vid 3 dev port54
 bridge vlan add vid 2 dev swbridge self
 bridge vlan add vid 3 dev swbridge self
 ```
