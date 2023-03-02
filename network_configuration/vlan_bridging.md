@@ -28,7 +28,7 @@ ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1
 ip link set ${BRIDGE} up
 ```
 
-The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The default, or primary VLAN identifier (PVID) is used to tag incoming traffic that does not have any VLAN tag. By using the vlan_default_pvid flag on creation, this value can be adjusted (default=1).
+The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The default, or primary VLAN identifier (PVID) is used to tag incoming traffic that does not have any VLAN tag. By using the vlan_default_pvid flag on creation, this value can be adjusted (default=1), with 0 as the special meaning to not set any default PVID and configure no VLANs on ports by default.
 
 To enslave interfaces to bridges refer to the following commands. The management interface should not be bridged with the rest of the baseboxd interfaces.
 
@@ -42,20 +42,33 @@ ip link set ${PORTB} master ${BRIDGE}
 ip link set ${PORTB} up
 ```
 
-Finally, configuring the VLANs on the bridge member ports, and the bridge itself is done with the following commands. The bridge port will inherit the VLANs and PVID from the bridge, unless specifically overwritten. The self flag is required when configuring the VLAN on the bridge interface itself.
+Configuring the VLANs on the bridge member ports is done with the following command
 
 ```
 bridge vlan add vid ${vid} dev ${PORTA}
-bridge vlan add vid ${vid} dev ${BRIDGE} self
 ```
 
-Removing VLANs from ports/ bridges is handled via the subsequent.
+While removing VLANs from ports is handled via the subsequent
 
 ```
 bridge vlan del vid ${vid} dev ${PORTA}
 ```
 
-And detaching the ports from the bridge is done via
+The bridge interface itself is also treated like a port, and needs its own VLAN configuration for any VLANs you want to receive on it. It is not required for simple forwarding between ports. Like other ports, it gets the default PVID assigned when configured.
+
+When configuring further VLANs on the bridge interface the `self` flag is required
+
+```
+bridge vlan add vid ${vid} dev ${BRIDGE} self
+```
+
+While removing VLANs works like other ports
+
+```
+bridge vlan del vid ${vid} dev ${BRIDGE}
+```
+
+Finally, detaching the ports from the bridge is done via
 
 ```
 ip link set ${PORTA} nomaster
@@ -77,21 +90,18 @@ DefaultPVID=1
 VLANFiltering=1
 ```
 
-For systemd-networkd, files with the .netdev extension specify the configuration for Virtual Network Devices. Under the [NetDev] section, the Name field specifies the name for the device to be created, and the Kind parameter specifies the type of interface that will be created. More information can be seen under the [systemd-networkd .netdev man page](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Supported%20netdev%20kinds). Under the [Bridge] field, similar parameters as the ones used for iproute2 are used. To configure VLANs in the Bridge interface, a .network file must be used, as the following example.
+For systemd-networkd, files with the .netdev extension specify the configuration for Virtual Network Devices. Under the [NetDev] section, the Name field specifies the name for the device to be created, and the Kind parameter specifies the type of interface that will be created. More information can be seen under the [systemd-networkd .netdev man page](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Supported%20netdev%20kinds). Under the [Bridge] field, similar parameters as the ones used for iproute2 are used.
+
+The bridge interface needs to be brought up for basic bridging functionality, so a basic .network file is required for the bridge itself.
 
 ```
 10-swbridge.network:
 
 [Match]
 Name=swbridge
-
-[BridgeVLAN]
-PVID=1
-EgressUntagged=1
-VLAN=1-10
 ```
 
-Attaching ports to a bridge with systemd-networkd is done similarly, using the .network files. The following example demonstrates how.
+Attaching ports to the bridge and configuring VLANs with systemd-networkd is also done using .network files. The following example demonstrates how.
 
 ```
 20-port1.network:
@@ -109,6 +119,20 @@ VLAN=1-10
 ```
 
 This file would configure a single slave port to the configured bridge. systemd-networkd allows for matching all ports as well, by using the Name=port\* alternative, which would match on every baseboxd port, and enslave them all to the bridge. The VLAN=1-10 will configure the range from VLAN=1 to VLAN=10. Single values can obviously be configured as well, by specifying just a single value.
+
+Configuring VLANs on the bridge interface itself is done similarily extending the above .network file with a `[BridgeVLAN]` block.
+
+```
+10-swbridge.network:
+
+[Match]
+Name=swbridge
+
+[BridgeVLAN]
+PVID=1
+EgressUntagged=1
+VLAN=1-10
+```
 
 # VLAN Trunking
 
@@ -132,7 +156,7 @@ provide configuration for a single server and a single switch, the configuration
 applies to both ``switch1`` and ``switch2``.
 
 PVID=2 and PVID=3 are configured on the access ports ``port2`` and ``port3``
-respectively. Additionally egress traffic is ungagged on these ports so the
+respectively. Additionally egress traffic is untagged on these ports so the
 server are not aware of the VLAN.
 VLAN=2 and VLAN=3 is set on the trunk port ``port54``.
 
@@ -148,10 +172,10 @@ ip link add name swbridge type bridge vlan_filtering 1 vlan_default_pvid 0
 ip link set swbridge up
 ```
 
-A bridge port will inherit the VLANs and PVID from the bridge, unless
-specifically overwritten. Since the ports which will be connected to the bridge
-have different PVIDs, the default will be set to none. Only in the case where
-all ports have the same PVID, should one set the default PVID on the bridge.
+A bridge port will be configured with the default PVID of the bridge, unless
+disabled. Since the ports in our example will have different PVIDs, we will
+set the bridge's default PVID to none. Only in the case where all ports have
+the same PVID, should one set the default PVID on the bridge.
 
 ```
 # port2
@@ -167,15 +191,13 @@ ip link set port54 master swbridge
 ip link set port54 up
 ```
 
-Finally, configuring the VLANs on the bridge member ports, and the bridge itself is done with the following commands.  The self flag is required when configuring the VLAN on the bridge interface itself.
+Finally, configuring the VLANs on the bridge member ports is done with the following commands.
 
 ```
 bridge vlan add vid 2 dev port2 pvid untagged
 bridge vlan add vid 3 dev port3 pvid untagged
 bridge vlan add vid 2 dev port54
 bridge vlan add vid 3 dev port54
-bridge vlan add vid 2 dev swbridge self
-bridge vlan add vid 3 dev swbridge self
 ```
 
 Removing the configuration can be done with a reboot, or by deleting the bridge.
@@ -188,7 +210,7 @@ ip link del swbridge
 The configuration with systemd-networkd can be done by placing the following files,
 under the /etc/systemd/network directory. The first line of the snippet is
 the file name.
-The first two files create the bridge and add VLAN 2 and 3 to it, completely
+The first file creates the bridge without any default PVID configured,
 analogous to ``iproute2``
 
 ```
@@ -203,15 +225,13 @@ VLANFiltering=1
 DefaultPVID=none
 ```
 
+Bring up the bridge, so forwarding will be enabled
+
 ```
 10-swbridge.network:
 
 [Match]
 Name=swbridge
-
-[BridgeVLAN]
-VLAN=2
-VLAN=3
 ```
 
 Attaching the access ports ``port2`` and ``port3`` is done as follows
@@ -243,6 +263,7 @@ Bridge=swbridge
 PVID=3
 EgressUntagged=3
 ```
+
 Configuring PVID for a port will enable the VLAN ID for ingress as well, as
 stated in the [documentation for systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.network.html#PVID=)
 
