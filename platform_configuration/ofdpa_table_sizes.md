@@ -39,7 +39,7 @@ To apply the new configuration, reboot the switch.
 
 ### Resulting Table Sizes
 
-Depending on the selected mode, the following number of entries will be evailable for tables 30 (Unicast Routing) and 50 (Bridging):
+Depending on the selected mode, the following number of entries will be available for tables 30 (Unicast Routing) and 50 (Bridging):
 
 | Platform                      | default              | balanced             | layer2               |              layer 3 |
 |-------------------------------|----------------------|----------------------|----------------------|----------------------|
