@@ -7,10 +7,15 @@ nav_order: 12
 
 ## BISDN Linux build system
 
-See the [BISDN Linux](https://github.com/bisdn/bisdn-linux#readme) repository
-for information on how to build BISDN Linux.
+BISDN Linux is based on the [Yocto Buildsystem], using a the [repo tool] for
+setting up its source tree.
 
-## Adding new platform support
+For information on how to build BISN Linux, see the [BISDN Linux](https://github.com/bisdn/bisdn-linux#readme)
+repository.
+
+For information on how to work with Yocto, see the [Yocto Documentation](https://docs.yoctoproject.org/4.0.10/).
+
+## Adding new platform support for ONL supported platforms
 
 To add support for a plaform, you need add changes to four places:
 
@@ -19,7 +24,7 @@ To add support for a plaform, you need add changes to four places:
 * Add a configuration file for the installer
 * Add configuration files to ofdpa-platform
 
-### Enabling a platform for ONL
+### Enabling the platform for ONL
 
 First, you will need to determine the ONIE platform name. To do that, enter the
 ONIE shell, and issue the following command:
@@ -28,15 +33,24 @@ ONIE shell, and issue the following command:
 onie-sysinfo -p
 ```
 
-This will print platform name according to ONIE, which is used for identifying
-the platform in various places.
+This will print the platform name according to ONIE, which is used for
+identifying the running platform by the installer.
 
-In the best case, all you then need is to extend [`ONL_PLATFORM_SUPPORT`](https://github.com/bisdn/meta-open-network-linux/blob/main/conf/machine/generic-x86-64.conf#L21) with this ONIE device
-name, and add the platform kernel modules to [`MACHINE_EXTRA_RDEPENDS`](https://github.com/bisdn/meta-open-network-linux/blob/main/conf/machine/generic-x86-64.conf#L35).
+While at it, also write down the ONIE version, as you will need that information
+later.
 
-More likely you will encounter build issues due to kernel modules written for
+In the best case, all you then need is to extend [`ONL_PLATFORM_SUPPORT`](https://github.com/bisdn/meta-open-network-linux/blob/main/conf/machine/generic-x86-64.conf#L21)
+with this ONIE platform name, and add the platform kernel modules to [`MACHINE_EXTRA_RDEPENDS`](https://github.com/bisdn/meta-open-network-linux/blob/main/conf/machine/generic-x86-64.conf#L35).
+
+Depending on the platform, you may also need to extend [`ONL_MODULE_VENDORS`](https://github.com/bisdn/meta-open-network-linux/blob/main/conf/machine/generic-x86-64.conf#L33),
+as some vendors share kernel modules across platforms.
+
+Likely you will encounter build issues due to kernel modules written for
 older kernels, or the platform code having issues newer GCC versions complain
 about.
+
+The following section will give an overview how to add patches to fix these
+issues.
 
 ### Patching ONL
 
@@ -49,7 +63,8 @@ can usually find it at
 packages/platforms/<vendor>/<arch>/<short-name>
 ```
 
-For some of the common issues we [provide coccinelle semantic patches](https://github.com/bisdn/meta-open-network-linux/tree/main/scripts/coccinelle) which can fix up various code issues.
+For some of the common issues we [provide coccinelle semantic patches](https://github.com/bisdn/meta-open-network-linux/tree/main/scripts/coccinelle)
+which can fix up various code issues automatically.
 
 You can apply them via
 
@@ -57,17 +72,22 @@ You can apply them via
 spatch --sp-file .cocci --in-place --dir packages/platforms/path/to/platform
 ```
 
-Then, create a patch for the code changes by first committing them, adding [nice
-commit message](https://www.kernel.org/doc/html/v4.10/process/submitting-patches.html#describe-your-changes) (don't forget to sign them off!), then add them to the ONL recipe,
-like [here](https://github.com/bisdn/meta-open-network-linux/commit/f1546428eac52b2391ad496ffa3f0f71b35863fa).
+Then, create a patch for the code changes by first committing them, adding a [nice commit message](https://www.kernel.org/doc/html/v4.10/process/submitting-patches.html#describe-your-changes)
+(don't forget to sign them off!), then add them to the ONL recipe, like [here](https://github.com/bisdn/meta-open-network-linux/commit/f1546428eac52b2391ad496ffa3f0f71b35863fa).
 
-If you encounter additional issue, fix them similarly with appropriate patches.
+If you encounter additional issues, fix them similarly with appropriate patches.
+
+It is also a good idea to check the [open pull requests at ONL](https://github.com/opencomputeproject/OpenNetworkLinux/pulls)
+for any pending updates or fixes for the platform you want to add.
 
 ### Adding a platform init script
 
-ONL uses a python2 based initialization code, but python2 is EOL, so the
-platform init code needs to be adapted. We chose to use simple bash scripts for
-that.
+ONL uses a python 2 based initialization code, but python 2 is EOL, so the
+platform init code would need to be updated, or python 2 provided in our images.
+
+Since shipping python 2 would be potential security issue, and updating the ONL
+code for python 3 would be a huge task, we chose to instead rewrite the
+individual platform init codes to simple bash scripts.
 
 The package providing them is [platform-onl-init](https://github.com/bisdn/meta-open-network-linux/tree/main/recipes-core/platform-onl-init), which automatically calls a
 script named after its ONL platform name, which is similar to the above ONIE
@@ -82,7 +102,7 @@ packages/platforms/path/to/platform/platform-config/r0/src/python/<platform>/__i
 Then take the ONL platform init code and transcribe it to bash. There are a few
 things to look out for:
 
-We do not load any of the I2C drivers on x86 platforms automatically, so you
+We do not load any of the I<sup>2</sup>C bus drivers on x86 platforms automatically, so you
 will need to manually do that in your script. Due to the way the ONL platform
 code works, the load order is important, as it influences the numbers assigned
 to the buses.
@@ -110,7 +130,7 @@ same arguments. E.g.
 self.new_i2c_device('pca9548', 0x77, 1)
 ```
 
-then becomes
+becomes
 
 ```
 create_i2c_dev 'pca9548' 0x77 1
@@ -135,8 +155,8 @@ for port in {49..52}; do
 done
 ```
 
-Be aware that ranges in bash are inclusive for the limit, while they are
-exclusive in python.
+Note that the limit in ranges is inclusive in bash, but exclusive in python, so
+you need to substract one.
 
 As we are adding devices for the (Q)SFP ports, we do not need to pass any
 addresses, as the SFF standards mandate the address to 0xA0 (0x50), so
@@ -220,3 +240,34 @@ may need to uncomment the command for loading it in the rc.soc:
 ```
 # m0 load 0 0x3800 /usr/share/ofdpa/platform/x86-64-accton-as5835-54x-r0/custom_led.bin
 ```
+
+### Testing the changes
+
+Once you are done with all steps, you are now ready for testing your changes.
+After building an image with your changes, you should be now able to install it
+via ONIE.
+
+### Update the documentation
+
+To tell the world that the new model is now supported, the documentation needs
+to be updated at several places:
+
+* Add the previously written down ONIE version to the [supported ONIE versions](getting_started/install_onie.md#supported-onie-versions).
+* Update the [OF-DPA Table sizes table](platform_configuration/ofdpa_table_sizes.md#resulting-table-sizes)
+  with the new model.
+* Finally, add the switch model to the [List of supported platforms](download_images.md).
+
+### Create pull requests for your changes
+
+Finally, after you have verified the new platform works, you are now ready to
+create pull requests for your changes.
+
+Please make sure to mark any dependencies between them, and describe your
+changes and testing method/results properly.
+
+You may need to update the pull requests based on review comments. In this case,
+please do not close them and create new ones, but rebase and squash in fixes
+into the commits as necessary.
+
+Note that the documentation changes will likely be merged only when the release
+containing the support is released.
