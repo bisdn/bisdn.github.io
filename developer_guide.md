@@ -247,6 +247,17 @@ Once you are done with all steps, you are now ready for testing your changes.
 After building an image with your changes, you should be now able to install it
 via ONIE.
 
+Once it successfully installed, check that it works as expected:
+
+* Does `onlpdump` show all expected information, without any errors?
+* Are all port interfaces present?
+* Do the port interfaces come up when you connect a cable and set the up?
+* Do the port interfaces transmit packets when up?
+* Do the port LEDs light up as expected?
+
+Play around with it, and maybe follow some of the configuration examples in this
+documentation.
+
 ### Update the documentation
 
 To tell the world that the new model is now supported, the documentation needs
