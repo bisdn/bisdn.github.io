@@ -136,7 +136,7 @@ becomes
 create_i2c_dev 'pca9548' 0x77 1
 ```
 
-For initialzing optoe devices, there is the helper `add_port` which can be used
+For initializing optoe devices, there is the helper `add_port` which can be used
 to easily create the device and set its name to port\<portnum\>.
 
 E.g.
@@ -234,8 +234,8 @@ If the device is supported by SONIC, you can use the device's
  `config.bcm`.
 
 Be aware that using also taking over the `custom_led.bin` used by Trident 3
-devices is currently not possible due to unresolved licencing issues, so you
-may need to uncomment the command for loading it in the rc.soc:
+devices is currently not possible due to unresolved licensing issues, so you
+may need to uncomment the command for loading it in the `rc.soc`:
 
 ```
 # m0 load 0 0x3800 /usr/share/ofdpa/platform/x86-64-accton-as5835-54x-r0/custom_led.bin
