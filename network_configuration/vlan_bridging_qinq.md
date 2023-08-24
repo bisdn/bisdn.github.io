@@ -14,6 +14,9 @@ Similarly to 802.1q bridging, it is possible to configure 802.1ad VLANs using [i
 **WARNING**: Any bridge configured to forward VLAN traffic with either protocol 802.1q or 802.1ad will only forward traffic of the selected VLAN protocol type.
 {: .label .label-red }
 
+**WARNING**: Stacking VLANs and switching based on both tags is currently not supported. See [stacked VLAN support](#stacked-vlan-support) for current behavior and limitations.
+{: .label .label-red }
+
 ## iproute2
 
 Creation of the 802.1ad bridge is done with the following commands.
@@ -45,3 +48,13 @@ VLANProtocol=802.1ad
 ```
 
 The remaining configurations follow the same steps from the instructions in the [802.1q bridging](/network_configuration/vlan_bridging.html#systemd-networkd) section.
+
+## stacked VLAN support
+
+Support for configuring stacked VLANs in any way is currently not implemented. The switch will still forward double tagged packets according to their outer VLAN tag, as long as the outer VLAN tag's protoctol matches the configured VLAN protocol of the bridge.
+
+The following limitations apply:
+
+* Learning is done based on the outer VLAN tag, so all inner VLANs share one learning database.
+* PVID port configuration only works for untagged packets. Single tagged packets with an unexpected VLAN protocol will not be converted to double tagged and will be dropped instead.
+* Adding VLAN interfaces of ports as bridge members is not supported and will not add or remove any additional VLAN tags on that port.
