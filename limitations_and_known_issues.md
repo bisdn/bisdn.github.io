@@ -50,6 +50,14 @@ In all of these cases forcing the port on the switch to the desired speed works 
 
 # Open issues
 
+## Using VLAN 1 on a bridge and ports outside of a bridge may lead to packet leakage
+
+Affected versions: 3.0 - current
+
+Internally, baseboxd uses VLAN 1 for untagged traffic on ports not part of a bridge. If using VLAN 1 on a bridge at the same time, some packets received on those ports may get flooded to ports that are part of the bridge regardless. This may cause connected switches to learn MAC addresses on the wrong ports or unexpected loops.
+
+With BISDN Linux 5.1.1 we added a new baseboxd option to change the internal VLAN for unbridged ports. Please use [FLAGS\_port\_untagged\_vid](getting_started/configure_baseboxd.md#setup-baseboxd) to move it to an unused VLAN to avoid this issue.
+
 ## Ports default to no FEC even if the SFP module type inserted requires FEC
 
 Affected versions: 3.0 - current
