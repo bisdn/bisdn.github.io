@@ -119,6 +119,9 @@ The baseboxd configuration file located in '/etc/default/baseboxd' allows you to
 #
 # Use KNET interfaces:
 # FLAGS_use_knet=true
+#
+# Mark switched packets as offloaded:
+# FLAGS_mark_fwd_offload=true
 
 ### glog
 #
