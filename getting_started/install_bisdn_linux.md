@@ -65,6 +65,23 @@ onie-nos-install http://repo.bisdn.de/pub/onie/agema-ag7648/onie-bisdn-agema-ag7
 
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
 
+### Default Installer Files
+
+**WARNING** Setting a default configuration will reset the file system to the initial state. Only use this if you are prepared to lose all modifications of your current BISDN Linux installation.
+
+BISDN Linux by default provides no network configuration for the switch ports. To allow a more switch like default configuration, it is possible to use the environment variable `BISDN_DEFAULT_CONFIG` while installing BISDN Linux to provide a default network configuration.
+
+```
+BISDN_DEFAULT_CONFIG="simple-l2-bridge" onie-nos-install http://repo.bisdn.de/pub/onie/generic-x86-64/onie-bisdn-generic-x86-64-v5.1.X.bin
+```
+
+The following table shows the supported configuration for `BISDN_DEFAULT_CONFIG` and the expected outcome.
+
+|`BISDN_DEFAULT_CONFIG` Value|Outcome                                                                                        |Default|
+|(Empty)                     |Use previous installation configuration                                                        |Y      |
+|`none`                      |Removes existing configuration and initializes the switch with all ports disabled              |       |
+|`simple-l2-bridge`          |Removes existing configuration and initializes the switch to forward traffic between all ports |       |
+
 ### Get the image via DHCP option 60
 
 Connect the management port to a DHCP server of your choice. The DHCP server uses “Vendor Class Identifier – Option 60” to tell the switch the URL of the image.
