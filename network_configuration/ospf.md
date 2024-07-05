@@ -96,10 +96,10 @@ on the router.
 interface port53
   ipv6 ospf6 mtu-ignore
   ipv6 ospf6 network point-to-point
+  ipv6 ospf6 area 10.10.10.10
 !
 router ospf6
       ospf6 router-id {{router_id}}
-      interface port53 area 10.10.10.10
       redistribute connected
 exit
 ```
