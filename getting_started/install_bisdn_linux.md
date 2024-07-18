@@ -68,6 +68,7 @@ More information about the ONIE CLI command can be found [here](https://opencomp
 ### Default Installer Files
 
 **WARNING** Setting a default configuration will reset the file system to the initial state. Only use this if you are prepared to lose all modifications of your current BISDN Linux installation.
+{: .label .label-red }
 
 BISDN Linux by default provides no network configuration for the switch ports. To allow a more switch like default configuration, it is possible to use the environment variable `BISDN_DEFAULT_CONFIG` while installing BISDN Linux to provide a default network configuration.
 
