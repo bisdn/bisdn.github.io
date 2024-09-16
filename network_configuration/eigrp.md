@@ -19,7 +19,7 @@ Configuring EIGRP in FRR starts by activating the daemon in `/etc/frr/daemons`.
 eigrpd=yes
 ```
 
-Then `/etc/frr/eigrpd.conf` can be configured as follows.
+Then `/etc/frr/frr.conf` can be configured as follows.
 
 ```
 router eigrp 65000
