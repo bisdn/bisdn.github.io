@@ -15,7 +15,7 @@ In this section, we provide examples on how to configure BGP for both [IPv4](#bg
 
 The FRR configuration files can be found in the /etc/frr/ directory. Each
 routing protocol is handled by a specific frr daemon (e.g. bgpd, ripd or eigrpd)
-and can be configured via a specific configuration file. To get started with
+and can be configured via the frr.conf configuration file. To get started with
 BGP, we first need to enable the corresponding daemon `bgpd` in
 /etc/frr/daemons by replacing the default `no` with `yes`.
 
@@ -69,39 +69,7 @@ Setting up the IP addresses on the interfaces on the switches and servers
 according to the diagram above, can also be done with frr by using zebra (which
 is enabled by default).
 
-`switch-1 /etc/frr/zebra.conf`
-```
-interface port7
-  ip address 10.0.1.1/24
-interface port54
-  ip address 10.0.0.1/24
-```
-
-`switch-2 /etc/frr/zebra.conf`
-```
-interface port7
-  ip address 10.0.2.1/24
-interface port54
-  ip address 10.0.0.2/24
-```
-
-`server-1 /etc/frr/zebra.conf`
-```
-interface eno7
-  ip address 10.0.1.2/24
-interface lo
-  ip address 10.0.100.2/32
-```
-
-`server-2 /etc/frr/zebra.conf`
-```
-interface eno7
-  ip address 10.0.2.2/24
-interface lo
-  ip address 10.0.101.2/32
-```
-
-The /etc/frr/bgpd.conf file has the protocol specific configurations, where the
+The /etc/frr/frr.conf file has the protocol specific configurations, where the
 routing information is set up. This routing information entails all the
 necessary next-hops, route announcements, and route-filters needed to achieve
 the configuration.
@@ -117,8 +85,18 @@ do not matter in iBGP connections) is a direct one without any additonal
 routing hops. For more detailed descriptions and all available options please
 refer to the frr documentation linked on top.
 
-`switch-1 /etc/frr/bgpd.conf`
+The last lines on the configuration file specify the networks that should be
+announced to the other peer. The other node will receive these networks, and
+learn the appropriate routes to the next-hop. For this example we just use
+`redistribute connected` to announce all routes from all connected routers.
+
+`switch-1 /etc/frr/frr.conf`
 ```
+interface port7
+  ip address 10.0.1.1/24
+interface port54
+  ip address 10.0.0.1/24
+
 router bgp 65000
 bgp router-id 10.0.1.1
   timers bgp 1 3
@@ -133,8 +111,13 @@ bgp router-id 10.0.1.1
   redistribute connected
 ```
 
-`switch-2 /etc/frr/bgpd.conf`
+`switch-2 /etc/frr/frr.conf`
 ```
+interface port7
+  ip address 10.0.2.1/24
+interface port54
+  ip address 10.0.0.2/24
+
 router bgp 65001
 bgp router-id 10.0.2.1
   timers bgp 1 3
@@ -149,8 +132,13 @@ bgp router-id 10.0.2.1
   redistribute connected
 ```
 
-`server-1 /etc/frr/bgpd.conf`
+`server-1 /etc/frr/frr.conf`
 ```
+interface eno7
+  ip address 10.0.1.2/24
+interface lo
+  ip address 10.0.100.2/32
+
 router bgp 65000
 bgp router-id 10.0.1.2
   timers bgp 1 3
@@ -161,8 +149,13 @@ bgp router-id 10.0.1.2
   network 10.0.100.2/32
 ```
 
-`server-2 /etc/frr/bgpd.conf`
+`server-2 /etc/frr/frr.conf`
 ```
+interface eno7
+  ip address 10.0.2.2/24
+interface lo
+  ip address 10.0.101.2/32
+
 router bgp 65001
 bgp router-id 10.0.2.2
   timers bgp 1 3
@@ -172,11 +165,6 @@ bgp router-id 10.0.2.2
   neighbor 10.0.2.1 peer-group left
   network 10.0.101.2/32
 ```
-
-The last lines on the configuration file specify the networks that should be
-announced to the other peer. The other node will receive these networks, and
-learn the appropriate routes to the next-hop. For this example we just use
-`redistribute connected` to announce all routes from all connected routers.
 
 After configuring all servers and switches, frr needs to be restarted to pick
 up the new configuration and apply it. Baseboxd will then pick up these changes
@@ -234,39 +222,7 @@ Setting up the IP addresses on the interfaces on the switches and servers
 according to the diagram above, can also be done with frr by using zebra (which
 is enabled by default).
 
-`switch-1 /etc/frr/zebra.conf`
-```
-interface port7
-  ip address 2001:0db8:0000:0001::0001/64
-interface port54
-  ip address 2001:0db8::0001/64
-```
-
-`switch-2 /etc/frr/zebra.conf`
-```
-interface port7
-  ip address 2001:0db8:0000:0002::0001/64
-interface port54
-  ip address 2001:0db8::0002/64
-```
-
-`server-1 /etc/frr/zebra.conf`
-```
-interface eno7
-  ip address 2001:0db8:0000:0001::0002/64
-interface lo
-  ip address 2001:0db8:0000:0100::0001/64
-```
-
-`server-2 /etc/frr/zebra.conf`
-```
-interface eno7
-  ip address 2001:0db8:0000:0002::0002/64
-interface lo
-  ip address 2001:0db8:0000:0101::0001/64
-```
-
-The /etc/frr/bgpd.conf file has the protocol specific configurations, where the routing information is set up. This routing
+The /etc/frr/frr.conf file has the protocol specific configurations, where the routing information is set up. This routing
 information entails all the necessary next-hops, route announcements, and route-filters needed to achieve the configuration.
 
 The parameter `router bgp <AS>` is the first configuration for bgpd, where we
@@ -280,8 +236,22 @@ do not matter in iBGP connections) is a direct one without any additional
 routing hops. For more detailed descriptions and all available options please
 refer to the frr documentation linked on top.
 
-`switch-1 /etc/frr/bgpd.conf`
+For ipv6 routing only configurations (like the one show above), we use the `no
+bgp default ipv4-unicast` option to specifically disable ipv4 peering.
+The last lines on the configuration file specify the networks that should be
+announced to the other peer. The other node will receive these networks, and
+learn the appropriate routes to the next-hop. For this example we use
+`redistribute connected` to announce all routes from all connected routers on
+the switches and only announce the specifc network configured on the loopback
+interface in the servers.
+
+`switch-1 /etc/frr/frr.conf`
 ```
+interface port7
+  ip address 2001:0db8:0000:0001::0001/64
+interface port54
+  ip address 2001:0db8::0001/64
+
 router bgp 65000
 bgp router-id 1.1.1.1
   timers bgp 1 3
@@ -301,8 +271,13 @@ bgp router-id 1.1.1.1
   exit-address-family
 ```
 
-`switch-2 /etc/frr/bgpd.conf`
+`switch-2 /etc/frr/frr.conf`
 ```
+interface port7
+  ip address 2001:0db8:0000:0002::0001/64
+interface port54
+  ip address 2001:0db8::0002/64
+
 router bgp 65001
 bgp router-id 2.2.2.2
   timers bgp 1 3
@@ -322,8 +297,13 @@ bgp router-id 2.2.2.2
   exit-address-family
 ```
 
-`server-1 /etc/frr/bgpd.conf`
+`server-1 /etc/frr/frr.conf`
 ```
+interface eno7
+  ip address 2001:0db8:0000:0001::0002/64
+interface lo
+  ip address 2001:0db8:0000:0100::0001/64
+
 router bgp 65000
 bgp router-id 3.3.3.3
   timers bgp 1 3
@@ -339,8 +319,13 @@ bgp router-id 3.3.3.3
   exit-address-family
 ```
 
-`server-2 /etc/frr/bgpd.conf`
+`server-2 /etc/frr/frr.conf`
 ```
+interface eno7
+  ip address 2001:0db8:0000:0002::0002/64
+interface lo
+  ip address 2001:0db8:0000:0101::0001/64
+
 router bgp 65001
 bgp router-id 4.4.4.4
   timers bgp 1 3
@@ -355,15 +340,6 @@ bgp router-id 4.4.4.4
     network 2001:0db8:0000:0101::0001/64
   exit-address-family
 ```
-
-For ipv6 routing only configurations (like the one show above), we use the `no
-bgp default ipv4-unicast` option to specifically disable ipv4 peering.
-The last lines on the configuration file specify the networks that should be
-announced to the other peer. The other node will receive these networks, and
-learn the appropriate routes to the next-hop. For this example we use
-`redistribute connected` to announce all routes from all connected routers on
-the switches and only announce the specifc network configured on the loopback
-interface in the servers.
 
 After configuring all servers and switches, frr needs to be restarted to pick
 up the new configuration and apply it. Baseboxd will then pick up these changes

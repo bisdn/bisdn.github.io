@@ -67,43 +67,6 @@ exchange routes for the two networks `10.0.100.2/32` and `10.0.101.2/32`
 configured on each of the loopback interfaces of the servers between all
 involved elements via IS-IS.
 
-
-`switch-1: /etc/frr/zebra.conf`
-
-```
-interface port7
-  ip address 10.0.1.1/24
-interface port54
-  ip address 10.0.0.1/24
-```
-
-`switch-2: /etc/frr/zebra.conf`
-
-```
-interface port7
-  ip address 10.0.2.1/24
-interface port54
-  ip address 10.0.0.2/24
-```
-
-`server-1: /etc/frr/zebra.conf`
-
-```
-interface eno7
-  ip address 10.0.1.2/24
-interface lo
-  ip address 10.0.100.2/32
-```
-
-`server-2: /etc/frr/zebra.conf`
-
-```
-interface eno7
-  ip address 10.0.2.2/24
-interface lo
-  ip address 10.0.101.2/32
-```
-
 To configure IS-IS between all elements shown in the topology above, we need to
 assign unique network entity titles in ISO format ("net") to all of them and
 configure which interfaces we want to use within the IS-IS routing domain. The
@@ -114,9 +77,14 @@ that the route to the /32 address configured on it will also be announced to
 all other routers.
 
 
-`switch-1: /etc/frr/isisd.conf`
+`switch-1: /etc/frr/frr.conf`
 
 ```
+interface port7
+  ip address 10.0.1.1/24
+interface port54
+  ip address 10.0.0.1/24
+
 router isis BISDN
   is-type level-1-2
   net 49.0001.0100.0100.0100.00
@@ -129,9 +97,14 @@ interface port7
   isis circuit-type level-2
 ```
 
-`switch-2: /etc/frr/isisd.conf`
+`switch-2: /etc/frr/frr.conf`
 
 ```
+interface port7
+  ip address 10.0.2.1/24
+interface port54
+  ip address 10.0.0.2/24
+
 router isis BISDN
   is-type level-1-2
   net 49.0001.0100.0100.0101.00
@@ -144,9 +117,14 @@ interface port7
   isis circuit-type level-2
 ```
 
-`server-1: /etc/frr/isisd.conf`
+`server-1: /etc/frr/frr.conf`
 
 ```
+interface eno7
+  ip address 10.0.1.2/24
+interface lo
+  ip address 10.0.100.2/32
+
 router isis BISDN
   is-type level-1-2
   net 49.0001.0200.0200.0200.0200.00
@@ -157,9 +135,14 @@ interface lo
   ip router isis BISDN
 ```
 
-`server-2: /etc/frr/isisd.conf`
+`server-2: /etc/frr/frr.conf`
 
 ```
+interface eno7
+  ip address 10.0.2.2/24
+interface lo
+  ip address 10.0.101.2/32
+
 router isis BISDN
   is-type level-1-2
   net 49.0001.0200.0200.0200.0201.00
