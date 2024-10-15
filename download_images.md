@@ -1,7 +1,7 @@
 ---
 title: Download Images
 nav_order: 2
-bisdn-linux-version: 5.2.0
+bisdn-linux-version: 5.2.1
 ---
 
 # BISDN Linux images
