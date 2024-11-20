@@ -31,8 +31,7 @@ This shows an example usage:
 onie-bisdn-upgrade http://example_webserver.com/onie/onie-bisdn-agema-ag7648.bin
 ```
 
-**Note**: All data is deleted during the upgrade process except for configuration files in /etc/systemd/network/ that apply on interfaces named `enp*`.
-{: .label .label-yellow }
+**Note**: All data except certain configuration data is deleted during upgrade. See [Backup files/folders across installations](getting_started/install_bisdn_linux.md#backup-filesfolders-across-installations) for details on which configuration files are retained and how to control the behavior.
 
 ## onie-bisdn-rescue
 
