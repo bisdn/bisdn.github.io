@@ -5,8 +5,9 @@ nav_order: 11
 
 # Support
 
-Get free community support in [our Slack
-community](https://baseboxd.slack.com/), or a paid commercial support plan.
+We offer free community support in
+[our Slack community](https://join.slack.com/t/baseboxd/shared_invite/zt-2z5vow4iq-3qk4vSjyLgftnBGZKhttcQ)
+channel.
 
 If you want to purchase a support contract with your BISDN Linux instance,
 please reach out to our sales team at [sales@bisdn.de](mailto:sales@bisdn.de).
