@@ -1,10 +1,10 @@
 ---
-title: VLAN Bridging and Trunking (802.1q)
+title: VLAN Bridging and Trunking (802.1q or 802.1ad)
 parent: Network Configuration
 nav_order: 1
 ---
 
-# VLAN Bridging (802.1q)
+# VLAN Bridging (802.1q or 802.1ad)
 
 ## Introduction
 
@@ -27,7 +27,20 @@ VLAN-Aware bridges only one is necessary. The following subsections contain
 instructions for configuring bridges using [iproute2](#iproute2) and
 [systemd-networkd](#systemd-networkd).
 
+QinQ VLANs, or 802.1ad is an extension to the VLAN standard that allows multiple
+VLAN tags to be attached to a single frame. Using stacked VLANs, providers are
+able to bundle traffic tagged with different VLAN into a single Service tag.
+
+Similarly to 802.1q bridging, it is possible to configure 802.1ad VLANs using
+[iproute2](#iproute2) or [systemd-networkd](#systemd-networkd).
+
+**WARNING**: Any bridge configured to forward VLAN traffic with either protocol
+802.1q or 802.1ad will only forward traffic of the selected VLAN protocol type.
+{: .label .label-red }
+
 ## iproute2
+
+### 802.1q
 
 Bridge creation is done with the following command:
 
@@ -94,7 +107,23 @@ Finally, detaching the ports from the bridge is done via
 ip link set ${PORTA} nomaster
 ```
 
+### 802.1ad
+
+Creation of the 802.1ad bridge is done with the following commands.
+
+```
+BRIDGE=${BRIDGE:-swbridge}
+...
+ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1 vlan_protocol 802.1ad
+ip link set ${BRIDGE} up
+```
+
+The rest of the configuration follows the same steps as shown above for the
+802.1q bridging section.
+
 ## systemd-networkd
+
+### 802.1q
 
 The configuration with systemd-networkd can be done with the following files,
 under the /etc/systemd/network directory.
@@ -169,6 +198,29 @@ PVID=1
 EgressUntagged=1
 VLAN=1-10
 ```
+
+### 802.1ad
+
+A `.netdev` file for the bridge needs to be created in `/etc/systemd/network/`,
+containing the device type (bridge) and its configurations. Specifically related
+to 802.1ad, we configure the bridge VLAN protocol with the `VLANProtocol`
+attribute:
+
+```
+10-swbridge.netdev
+
+[NetDev]
+Name=swbridge
+Kind=bridge
+
+[Bridge]
+DefaultPVID=0
+VLANFiltering=1
+VLANProtocol=802.1ad
+```
+
+The remaining configurations follow the same steps from the instructions in the
+802.1q bridging section above.
 
 # VLAN Trunking
 
