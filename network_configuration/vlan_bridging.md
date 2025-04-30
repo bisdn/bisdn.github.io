@@ -8,14 +8,24 @@ nav_order: 1
 
 ## Introduction
 
-In Linux systems, a bridge acts like a virtual switch that interconnects different network interfaces on the same host. Linux bridging supports VLAN filtering, which allows the configuration of different VLANs on the bridge ports.
+In Linux systems, a bridge acts like a virtual switch that interconnects
+different network interfaces on the same host. Linux bridging supports VLAN
+filtering, which allows the configuration of different VLANs on the bridge
+ports.
 
-The traditional bridging mode in Linux, created without VLAN filtering, accepts only one VLAN per bridge and the ports attached must have VLAN-subinterfaces configured. For a large number of VLANS, this poses an issue with scalability, which is the motivation for the usage of VLAN-aware bridges.
+The traditional bridging mode in Linux, created without VLAN filtering, accepts
+only one VLAN per bridge and the ports attached must have VLAN-subinterfaces
+configured. For a large number of VLANS, this poses an issue with scalability,
+which is the motivation for the usage of VLAN-aware bridges.
 
-**WARNING**: baseboxd supports only the VLAN-aware bridge mode. Creating traditional bridges will result in undefined behavior.
+**WARNING**: baseboxd supports only the VLAN-aware bridge mode. Creating
+traditional bridges will result in undefined behavior.
 {: .label .label-red }
 
-Only a single bridge is supported inside Basebox and due to the nature of VLAN-Aware bridges only one is necessary. The following subsections contain instructions for configuring bridges using [iproute2](#iproute2) and [systemd-networkd](#systemd-networkd).
+Only a single bridge is supported inside Basebox and due to the nature of
+VLAN-Aware bridges only one is necessary. The following subsections contain
+instructions for configuring bridges using [iproute2](#iproute2) and
+[systemd-networkd](#systemd-networkd).
 
 ## iproute2
 
@@ -28,9 +38,14 @@ ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1
 ip link set ${BRIDGE} up
 ```
 
-The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The default, or primary VLAN identifier (PVID) is used to tag incoming traffic that does not have any VLAN tag. By using the vlan_default_pvid flag on creation, this value can be adjusted (default=1), with 0 as the special meaning to not set any default PVID and configure no VLANs on ports by default.
+The vlan_filtering 1 flag sets the VLAN-aware bridge mode. The default, or
+primary VLAN identifier (PVID) is used to tag incoming traffic that does not
+have any VLAN tag. By using the vlan_default_pvid flag on creation, this value
+can be adjusted (default=1), with 0 as the special meaning to not set any
+default PVID and configure no VLANs on ports by default.
 
-To enslave interfaces to bridges refer to the following commands. The management interface should not be bridged with the rest of the baseboxd interfaces.
+To enslave interfaces to bridges refer to the following commands. The management
+interface should not be bridged with the rest of the baseboxd interfaces.
 
 ```
 # port A
@@ -42,7 +57,8 @@ ip link set ${PORTB} master ${BRIDGE}
 ip link set ${PORTB} up
 ```
 
-Configuring the VLANs on the bridge member ports is done with the following command
+Configuring the VLANs on the bridge member ports is done with the following
+command
 
 ```
 bridge vlan add vid ${vid} dev ${PORTA}
@@ -54,9 +70,13 @@ While removing VLANs from ports is handled via the subsequent
 bridge vlan del vid ${vid} dev ${PORTA}
 ```
 
-The bridge interface itself is also treated like a port, and needs its own VLAN configuration for any VLANs you want to receive on it. It is not required for simple forwarding between ports. Like other ports, it gets the default PVID assigned when configured.
+The bridge interface itself is also treated like a port, and needs its own VLAN
+configuration for any VLANs you want to receive on it. It is not required for
+simple forwarding between ports. Like other ports, it gets the default PVID
+assigned when configured.
 
-When configuring further VLANs on the bridge interface the `self` flag is required
+When configuring further VLANs on the bridge interface the `self` flag is
+required
 
 ```
 bridge vlan add vid ${vid} dev ${BRIDGE} self
@@ -76,7 +96,8 @@ ip link set ${PORTA} nomaster
 
 ## systemd-networkd
 
-The configuration with systemd-networkd can be done with the following files, under the /etc/systemd/network directory.
+The configuration with systemd-networkd can be done with the following files,
+under the /etc/systemd/network directory.
 
 ```
 10-swbridge.netdev:
@@ -90,9 +111,17 @@ DefaultPVID=1
 VLANFiltering=1
 ```
 
-For systemd-networkd, files with the .netdev extension specify the configuration for Virtual Network Devices. Under the [NetDev] section, the Name field specifies the name for the device to be created, and the Kind parameter specifies the type of interface that will be created. More information can be seen under the [systemd-networkd .netdev man page](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Supported%20netdev%20kinds). Under the [Bridge] field, similar parameters as the ones used for iproute2 are used.
+For systemd-networkd, files with the .netdev extension specify the configuration
+for Virtual Network Devices. Under the [NetDev] section, the Name field
+specifies the name for the device to be created, and the Kind parameter
+specifies the type of interface that will be created. More information can be
+seen under the [systemd-networkd .netdev man
+page](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Supported%20netdev%20kinds).
+Under the [Bridge] field, similar parameters as the ones used for iproute2 are
+used.
 
-The bridge interface needs to be brought up for basic bridging functionality, so a basic .network file is required for the bridge itself.
+The bridge interface needs to be brought up for basic bridging functionality, so
+a basic .network file is required for the bridge itself.
 
 ```
 10-swbridge.network:
@@ -101,7 +130,8 @@ The bridge interface needs to be brought up for basic bridging functionality, so
 Name=swbridge
 ```
 
-Attaching ports to the bridge and configuring VLANs with systemd-networkd is also done using .network files. The following example demonstrates how.
+Attaching ports to the bridge and configuring VLANs with systemd-networkd is
+also done using .network files. The following example demonstrates how.
 
 ```
 20-port1.network:
@@ -118,9 +148,15 @@ EgressUntagged=1
 VLAN=1-10
 ```
 
-This file would configure a single slave port to the configured bridge. systemd-networkd allows for matching all ports as well, by using the Name=port\* alternative, which would match on every baseboxd port, and enslave them all to the bridge. The VLAN=1-10 will configure the range from VLAN=1 to VLAN=10. Single values can obviously be configured as well, by specifying just a single value.
+This file would configure a single slave port to the configured bridge.
+systemd-networkd allows for matching all ports as well, by using the Name=port\*
+alternative, which would match on every baseboxd port, and enslave them all to
+the bridge. The VLAN=1-10 will configure the range from VLAN=1 to VLAN=10.
+Single values can obviously be configured as well, by specifying just a single
+value.
 
-Configuring VLANs on the bridge interface itself is done similarily extending the above .network file with a `[BridgeVLAN]` block.
+Configuring VLANs on the bridge interface itself is done similarily extending
+the above .network file with a `[BridgeVLAN]` block.
 
 ```
 10-swbridge.network:
@@ -144,7 +180,8 @@ an entry point for all VLANs configured on a switch, instead of one port per
 VLAN.
 
 Conversely, an access port is the special case where a trunk port has a single
-VLAN as its Native VLAN (PVID) and adds this PVID to all untagged packets it forwards.
+VLAN as its Native VLAN (PVID) and adds this PVID to all untagged packets it
+forwards.
 
 ## Example switch with uplink
 The example configuration below shows two switches connected with trunk ports.
@@ -191,7 +228,8 @@ ip link set port54 master swbridge
 ip link set port54 up
 ```
 
-Finally, configuring the VLANs on the bridge member ports is done with the following commands.
+Finally, configuring the VLANs on the bridge member ports is done with the
+following commands.
 
 ```
 bridge vlan add vid 2 dev port2 pvid untagged
@@ -207,9 +245,10 @@ ip link del swbridge
 
 ## systemd-networkd
 
-The configuration with systemd-networkd can be done by placing the following files,
-under the /etc/systemd/network directory. The first line of the snippet is
-the file name.
+The configuration with systemd-networkd can be done by placing the following
+files, under the /etc/systemd/network directory. The first line of the snippet
+is the file name.
+
 The first file creates the bridge without any default PVID configured,
 analogous to ``iproute2``
 
@@ -265,7 +304,8 @@ EgressUntagged=3
 ```
 
 Configuring PVID for a port will enable the VLAN ID for ingress as well, as
-stated in the [documentation for systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.network.html#PVID=)
+stated in the [documentation for
+systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.network.html#PVID=)
 
 The trunk port is created with the following network file.
 
