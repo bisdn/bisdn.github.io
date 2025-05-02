@@ -17,7 +17,8 @@ traffic that is redirected within the switch ASIC to the specified port without
 passing through the Linux kernel.
 
 Internally, this is done by adding an ACL table entry matching on the desired
-port with the [ACL table entry management tool](#acl-table-entry-management)
+port with the
+[ACL table entry management tool](ofdpa_client_tools.md#ACL-table-entry-management)
 and sending its traffic to controller, capturing traffic with `tcpdump`. Once
 the capture is done, the ACL table entry is removed again.
 
