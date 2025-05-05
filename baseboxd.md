@@ -3,14 +3,10 @@ title: Basebox
 nav_order: 3
 ---
 
-# Basebox
+# Baseboxd
 
-Basebox is the BISDN SDN controller bundle for data center networks with the
-following elements:
-
-* The BISDN Linux Distribution is a Yocto-based operating system for selected
-  whitebox switches
-* baseboxd is a controller daemon integrating whitebox switches into Linux
+Baseboxd is the BISDN SDN controller used for integrating whitebox switches
+into Linux.
 
 Based on [OpenFlow Data Path Abstraction (OF-DPA)](http://broadcom-switch.github.io/of-dpa/doc/html/index.html),
 it translates Linux netlink into switch rules. Our solution can be easily

@@ -1,4 +1,4 @@
-# Documentation on github pages for BISDN Linux and basebox
+# Documentation on github pages for BISDN Linux and baseboxd
 
 <!-- markdownlint-disable MD014 -->
 
