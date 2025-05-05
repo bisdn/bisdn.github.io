@@ -1,80 +1,12 @@
 ---
 title: Configure Baseboxd
-parent: Getting Started
-nav_order: 4
+parent: baseboxd
+nav_order: 1
 ---
 
 # Configure Baseboxd as SDN Controller
 
-## Getting started
-
-Log into the switch with the following credentials:
-
-```
-USER = "basebox"
-PASSWORD = "b-isdn"
-```
-
-You should then see the console of BISDN Linux. You can also display the OS
-information by running `cat /etc/os-release`.
-
-BISDN Linux, as most other Linux systems, requires superuser privileges to run
-commands that change system settings. The examples below must then be run via
-sudo to succeed.
-
-BISDN Linux makes use of [systemd](https://github.com/systemd/systemd). There
-are several systemd-enabled services required that turn a whitebox switch into
-a router:
-
-* ofdpa
-* ofdpa-grpc
-* ofagent
-* baseboxd
-* frr
-
-You may start/stop/query a service like this:
-
-```
-systemctl start | stop | restart | enable | disable | status SERVICE.service
-```
-
-where for example the command to show information about baseboxd would be
-`systemctl status baseboxd.service`.
-
-### System and component versions
-
-Checking the versions of packages, like the ones listed above, can be done
-using
-
-```
-sudo opkg info <package name>
-```
-
-You can also print all installed packages with their associated versions with
-
-```
-sudo opkg list_installed
-```
-
-For the current version of baseboxd, simply run
-
-```
-baseboxd --version
-```
-
-List information about the BISDN Linux release with
-
-```
-cat /etc/os-release
-```
-
-And information about the build date and linux kernel can be found via
-
-```
-uname -a
-```
-
-### Configure a local or remote controller
+## Configure a local or remote controller
 
 BISDN Linux contains the prerequisites to control the switch by either local or
 remote OpenFlow controllers. The default configuration is a local controller,
@@ -85,7 +17,7 @@ with BISDN Linux currently supporting
 Run the following scripts in the BISDN Linux shell to configure the local or
 remote controller.
 
-#### Local controller
+### Local controller
 
 To configure a local baseboxd controller using the default OpenFlow port 6653:
 
@@ -106,7 +38,7 @@ Please note that with Ryu the integration of Linux networking (netlink) events
 is not supported, as that is a feature from baseboxd.
 {: .label .label-yellow }
 
-#### Remote controller
+### Remote controller
 
 To configure a remote OpenFlow controller with \<IP-address\> and
 \<OpenFlow-port\>:
@@ -115,7 +47,7 @@ To configure a remote OpenFlow controller with \<IP-address\> and
 sudo basebox-change-config -r <IP-address> <OpenFlow-port>
 ```
 
-### Verify your ofagent configuration
+## Verify your ofagent configuration
 
 You can check the results of your configuration in the following file:
 /etc/default/ofagent
@@ -123,7 +55,7 @@ You can check the results of your configuration in the following file:
 The section “OPTION=” should point to localhost (local controller) or to the
 remote controller and respective port that you have configured.
 
-### Setup baseboxd
+## Setup baseboxd
 
 The baseboxd configuration file located in '/etc/default/baseboxd' allows you
 to set flags for which ports to listen on and for enabling/disabling multicast
@@ -162,7 +94,7 @@ GLOG_logtostderr=1
 # GLOG_vmodule=
 ```
 
-#### Logging options
+### Logging options
 
 We use the [Google Logging Library](https://hpc.nih.gov/development/glog.html)
 for logging. This includes the
@@ -185,7 +117,7 @@ GLOG_logtostderr=1
 GLOG_minloglevel=1 
 ```
 
-##### Verbose logging
+#### Verbose logging
 
 glog also supports verbose logging levels, asecending from 0.
 
@@ -211,7 +143,7 @@ configuration file:
 GLOG_vmodule=cnetlink=3,nl_bridge=2
 ```
 
-##### File-based logging
+#### File-based logging
 
 glog can also be configured to log to files.
 The default level is `INFO`. You can use the `stderrthreshold` to send the most
@@ -233,7 +165,7 @@ GLOG_stderrthreshold=2
 GLOG_log_dir=/var/log/baseboxd
 ```
 
-###### Creating log directory automatically
+##### Creating log directory automatically
 
 You can configure systemd to create the directory automatically by running
 `sudo systemctl edit baseboxd` and adding the below lines to the file.
@@ -249,7 +181,7 @@ LogsDirectory=baseboxd
 You can then apply the changes by running `sudo systemctl daemon-reload` and
 following the steps in the next section.
 
-## Applying configuration changes
+# Applying configuration changes
 
 In order to apply changes in the baseboxd configuration you can either reboot
 the switch:

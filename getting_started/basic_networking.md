@@ -18,9 +18,6 @@ representation via
 interfaces. These interfaces are special Linux software only devices, that are
 bound to a userspace program, specifically baseboxd in the case of BISDN Linux.
 
-If you followed the instructions from [Configure
-Baseboxd](configure_baseboxd.md), you should now be able to display all ports.
-
 ```
 $ ip link show
 ...
