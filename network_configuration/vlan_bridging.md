@@ -1,7 +1,6 @@
 ---
 title: VLAN Bridging and Trunking (802.1q or 802.1ad)
 parent: Network Configuration
-nav_order: 1
 ---
 
 # VLAN Bridging (802.1q or 802.1ad)

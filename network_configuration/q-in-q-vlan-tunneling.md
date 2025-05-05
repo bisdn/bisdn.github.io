@@ -1,7 +1,6 @@
 ---
 title: Q-in-Q VLAN Tunneling
 parent: Network Configuration
-nav_order: 1
 ---
 
 # Q-in-Q VLAN Tunneling (802.1q in 802.1ad)
