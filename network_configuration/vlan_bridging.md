@@ -43,7 +43,7 @@ Similarly to 802.1q bridging, it is possible to configure 802.1ad VLANs using
 
 Bridge creation is done with the following command:
 
-```
+```bash
 BRIDGE=${BRIDGE:-swbridge}
 ...
 ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1
@@ -59,7 +59,7 @@ default PVID and configure no VLANs on ports by default.
 To enslave interfaces to bridges refer to the following commands. The management
 interface should not be bridged with the rest of the baseboxd interfaces.
 
-```
+```bash
 # port A
 ip link set ${PORTA} master ${BRIDGE}
 ip link set ${PORTA} up
@@ -72,13 +72,13 @@ ip link set ${PORTB} up
 Configuring the VLANs on the bridge member ports is done with the following
 command
 
-```
+```bash
 bridge vlan add vid ${vid} dev ${PORTA}
 ```
 
 While removing VLANs from ports is handled via the subsequent
 
-```
+```bash
 bridge vlan del vid ${vid} dev ${PORTA}
 ```
 
@@ -90,19 +90,19 @@ assigned when configured.
 When configuring further VLANs on the bridge interface the `self` flag is
 required
 
-```
+```bash
 bridge vlan add vid ${vid} dev ${BRIDGE} self
 ```
 
 While removing VLANs works like other ports
 
-```
+```bash
 bridge vlan del vid ${vid} dev ${BRIDGE}
 ```
 
 Finally, detaching the ports from the bridge is done via
 
-```
+```bash
 ip link set ${PORTA} nomaster
 ```
 
@@ -110,7 +110,7 @@ ip link set ${PORTA} nomaster
 
 Creation of the 802.1ad bridge is done with the following commands.
 
-```
+```bash
 BRIDGE=${BRIDGE:-swbridge}
 ...
 ip link add name ${BRIDGE} type bridge vlan_filtering 1 vlan_default_pvid 1 vlan_protocol 802.1ad
@@ -127,9 +127,8 @@ The rest of the configuration follows the same steps as shown above for the
 The configuration with systemd-networkd can be done with the following files,
 under the /etc/systemd/network directory.
 
-```
-10-swbridge.netdev:
-
+`10-swbridge.netdev`
+```ini
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -151,9 +150,8 @@ used.
 The bridge interface needs to be brought up for basic bridging functionality, so
 a basic .network file is required for the bridge itself.
 
-```
-10-swbridge.network:
-
+`10-swbridge.network`
+```ini
 [Match]
 Name=swbridge
 ```
@@ -161,9 +159,8 @@ Name=swbridge
 Attaching ports to the bridge and configuring VLANs with systemd-networkd is
 also done using .network files. The following example demonstrates how.
 
-```
-20-port1.network:
-
+`20-port1.network`
+```ini
 [Match]
 Name=port1
 
@@ -186,9 +183,8 @@ value.
 Configuring VLANs on the bridge interface itself is done similarily extending
 the above .network file with a `[BridgeVLAN]` block.
 
-```
-10-swbridge.network:
-
+`10-swbridge.network`
+```ini
 [Match]
 Name=swbridge
 
@@ -205,9 +201,8 @@ containing the device type (bridge) and its configurations. Specifically related
 to 802.1ad, we configure the bridge VLAN protocol with the `VLANProtocol`
 attribute:
 
-```
-10-swbridge.netdev
-
+`10-swbridge.netdev`
+```ini
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -255,7 +250,7 @@ environments.
 
 Bridge creation is done with the following command.
 
-```
+```bash
 ip link add name swbridge type bridge vlan_filtering 1 vlan_default_pvid 0
 ip link set swbridge up
 ```
@@ -265,9 +260,9 @@ disabled. Since the ports in our example will have different PVIDs, we will
 set the bridge's default PVID to none. Only in the case where all ports have
 the same PVID, should one set the default PVID on the bridge.
 
-```
+```bash
 # port2
-ip link set port2 master swbridge 
+ip link set port2 master swbridge
 ip link set port2 up
 
 # port3
@@ -282,7 +277,7 @@ ip link set port54 up
 Finally, configuring the VLANs on the bridge member ports is done with the
 following commands.
 
-```
+```bash
 bridge vlan add vid 2 dev port2 pvid untagged
 bridge vlan add vid 3 dev port3 pvid untagged
 bridge vlan add vid 2 dev port54
@@ -290,7 +285,8 @@ bridge vlan add vid 3 dev port54
 ```
 
 Removing the configuration can be done with a reboot, or by deleting the bridge.
-```
+
+```bash
 ip link del swbridge
 ```
 
@@ -303,9 +299,8 @@ is the file name.
 The first file creates the bridge without any default PVID configured,
 analogous to ``iproute2``
 
-```
-10-swbridge.netdev:
-
+`10-swbridge.netdev`
+```ini
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -317,18 +312,16 @@ DefaultPVID=none
 
 Bring up the bridge, so forwarding will be enabled
 
-```
-10-swbridge.network:
-
+`10-swbridge.network`
+```ini
 [Match]
 Name=swbridge
 ```
 
 Attaching the access ports ``port2`` and ``port3`` is done as follows
 
-```
-20-port2.network:
-
+`20-port2.network`
+```ini
 [Match]
 Name=port2
 
@@ -340,9 +333,8 @@ PVID=2
 EgressUntagged=2
 ```
 
-```
-20-port3.network:
-
+`20-port3.network`
+```ini
 [Match]
 Name=port3
 
@@ -360,9 +352,8 @@ systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.networ
 
 The trunk port is created with the following network file.
 
-```
-20-port54.network:
-
+`20-port54.network`
+```ini
 [Match]
 Name=port54
 
