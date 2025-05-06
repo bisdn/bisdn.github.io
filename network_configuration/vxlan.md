@@ -14,7 +14,7 @@ The official VXLAN documentation can be found in
 
 **WARNING**: baseboxd does not yet support multicast groups for establishing
 communication among multiple VXLAN Tunnel Endpoints (VTEPs), only unicast is
-supported. This means you can not use the ``group`` key in the ``VXLAN``
+supported. This means you can not use the `group` key in the `VXLAN`
 section as documented in
 [systemd-netdev](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html#Group=)
 {: .label .label-yellow }
@@ -52,15 +52,17 @@ information.
 ```
 
 The configuration give below will create a VXLAN overlay with VNI=50000 between
-``port54`` on ``switch-1`` and ``port54`` on ``switch-2``. The layer 2 domain containing ``port2`` and ``port2`` bridged on the swbridge on switch-1 and switch-2 is extended via the before mentioned VXLAN overlay network with the VNI 50000.
+`port54` on `switch-1` and `port54` on `switch-2`. The layer 2 domain containing
+`port2` and `port2` bridged on the swbridge on switch-1 and switch-2 is extended
+via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
 The configuration with systemd-networkd can be done with the following files.
 
-Create bridge ``swbridge`` with no ``DefaultPVID``.
+Create bridge `swbridge` with no `DefaultPVID`.
 
 `switch-1 /etc/systemd/network/20-swbridge.netdev`
-```
+```ini
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -70,10 +72,10 @@ VLANFiltering=1
 DefaultPVID=none
 ```
 
-Tag ``swbridge`` with ``VLAN=300`` and set it up.
+Tag `swbridge` with `VLAN=300` and set it up.
 
 `switch-1 /etc/systemd/network/20-swbridge.network`
-```
+```ini
 [Match]
 Name=swbridge
 
@@ -81,10 +83,11 @@ Name=swbridge
 VLAN=300
 ```
 
-Add VLAN tag ``VLAN=300`` on ``port2`` incoming traffic, untag the outgoing one, attach it to ``swbridge`` and set it up.
+Add VLAN tag `VLAN=300` on `port2` incoming traffic, untag the outgoing one,
+attach it to `swbridge` and set it up.
 
 `switch-1 /etc/systemd/network/10-port2.network`
-```
+```ini
 [Match]
 Name=port2
 
@@ -96,10 +99,11 @@ PVID=300
 EgressUntagged=300
 ```
 
-Add ip address 192.168.0.1/24 to ``port54``, define it as underlying interface for netdev vxlan50000 (created below) and set it up.
+Add ip address 192.168.0.1/24 to `port54`, define it as underlying interface for
+netdev vxlan50000 (created below) and set it up.
 
 `switch-1 /etc/systemd/network/10-port54.network`
-```
+```ini
 [Match]
 Name=port54
 
@@ -108,11 +112,11 @@ VXLAN=vxlan50000
 Address=192.168.0.1/24
 ```
 
-Create netdev ``vxlan50000`` for VXLAN with the VNI 50000 and set local and remote VXLAN Tunnel
-Endpoints(VTEPs).
+Create netdev `vxlan50000` for VXLAN with the VNI 50000 and set local and remote
+VXLAN Tunnel Endpoints(VTEPs).
 
 `switch-1 /etc/systemd/network/300-vxlan50000.netdev`
-```
+```ini
 [NetDev]
 Name=vxlan50000
 Kind=vxlan
@@ -124,19 +128,19 @@ Local=192.168.0.1
 Remote=192.168.0.2
 ```
 
-Forward VLAN tagged traffic with ``VLAN=300`` on ``vxlan50000`` and attach it to
-``swbridge``. Bind ``port54`` as the carrier device to align the behaviour and
-state (up/down) of ``vxlan50000`` to its underlying interface.
-``DestinationPort=4789`` sets the destination UDP port to follow the IANA standard
+Forward VLAN tagged traffic with `VLAN=300` on `vxlan50000` and attach it to
+`swbridge`. Bind `port54` as the carrier device to align the behaviour and
+state (up/down) of `vxlan50000` to its underlying interface.
+`DestinationPort=4789` sets the destination UDP port to follow the IANA standard
 from [rfc7348](https://datatracker.ietf.org/doc/html/rfc7348). If no port is
 set systemd will use the default Linux kernel value 8472.
 
 **WARNING**: baseboxd currently sets the local VTEP Termination port to 4789,
-which means that every remote VTEP must use ``DestinationPort``=4789.
+which means that every remote VTEP must use `DestinationPort=4789`.
 {: .label .label-yellow }
 
 `switch-1 /etc/systemd/network/300-vxlan50000.network`
-```
+```ini
 [Match]
 Name=vxlan50000
 
@@ -148,12 +152,12 @@ Bridge=swbridge
 VLAN=300
 ```
 
-The configuration files for ``switch2`` are identical to those of ``switch1``
+The configuration files for `switch2` are identical to those of `switch1`
 with the execption that the IPv4 addresses for the VTEP, Remote and Local will
 switch. Therefore the files below are shown without additional explanation.
 
 `switch-2 /etc/systemd/network/20-swbridge.netdev`
-```
+```ini
 [NetDev]
 Name=swbridge
 Kind=bridge
@@ -164,7 +168,7 @@ DefaultPVID=none
 ```
 
 `switch-2 /etc/systemd/network/20-swbridge.network`
-```
+```ini
 [Match]
 Name=swbridge
 
@@ -173,7 +177,7 @@ VLAN=300
 ```
 
 `switch-2 /etc/systemd/network/10-port2.network`
-```
+```ini
 [Match]
 Name=port2
 
@@ -186,7 +190,7 @@ EgressUntagged=300
 ```
 
 `switch-2 /etc/systemd/network/10-port54.network`
-```
+```ini
 [Match]
 Name=port54
 
@@ -196,7 +200,7 @@ Address=192.168.0.2/24
 ```
 
 `switch-2 /etc/systemd/network/300-vxlan50000.netdev`
-```
+```ini
 [NetDev]
 Name=vxlan50000
 Kind=vxlan
@@ -209,7 +213,7 @@ Remote=192.168.0.1
 ```
 
 `switch-2 /etc/systemd/network/300-vxlan50000.network`
-```
+```ini
 [Match]
 Name=vxlan50000
 

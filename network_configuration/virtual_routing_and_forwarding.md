@@ -23,14 +23,14 @@ VRF can be configured using either [iproute2](#iproute2) or [systemd-networkd](#
 
 The creation of VRF interfaces is done via the following commands.
 
-```
+```bash
 ip link add ${VRF} type vrf table ${VRF_TABLE_ID}
 ip link set ${VRF} up
 ```
 
 After creation of the VRF device, follow the steps under Switch VLAN Interface (SVI) to configure a VLAN-aware bridge with the corresponding SVI layer 3 devices. Enslaving these links on the bridge to the VRF is possible with the below commands.
 
-```
+```bash
 ip link set ${BRIDGE}.${BR_VLAN} vrf ${VRF}
 ip link set ${BRIDGE}.${BR_VLAN2} vrf ${VRF}
 ```
@@ -41,8 +41,8 @@ Adding IP addresses to the enslaved SVIs must be done after enslavement to the V
 
 The file responsible to create the VRF device is the .netdev file below:
 
-```
-10-red.netdev
+`10-red.netdev`
+```ini
 [NetDev]
 Name=red
 Kind=vrf
@@ -53,8 +53,8 @@ TableId=10
 
 Considering the example topology given above, two SVIs are required, i.e. one per VLAN. Both need to be listed in the bridge network file:
 
-```
-10-swbridge.network
+`10-swbridge.network`
+```ini
 [Match]
 Name=swbridge
 
@@ -69,16 +69,18 @@ VLAN=swbridge.20
 
 Each SVI needs to be specified by creating a .netdev and a .network file. The following example assigns IP 10.0.10.2 to a SVI using VID 10 and VRF entry "red":
 
-```
-20-swbridge10.netdev
+`20-swbridge10.netdev`
+```ini
 [NetDev]
 Name=swbridge.10
 Kind=vlan
 
 [VLAN]
 Id=10
+```
 
-20-swbridge10.network
+`20-swbridge10.network`
+```ini
 [Match]
 Name=swbridge.10
 
@@ -89,16 +91,18 @@ VRF=red
 
 Similarly, a SVI is created for VID 20:
 
-```
-20-swbridge20.netdev
+`20-swbridge20.netdev`
+```ini
 [NetDev]
 Name=swbridge.20
 Kind=vlan
 
 [VLAN]
 Id=20
+```
 
-20-swbridge20.network
+`20-swbridge20.network`
+```ini
 [Match]
 Name=swbridge.20
 
@@ -109,8 +113,8 @@ VRF=red
 
 As a last step on the switch, ports 2 and 3 need to be added to the bridge. This is done by creating a .network file for each port:
 
-```
-20-port2.network
+`20-port2.network`
+```ini
 [Match]
 Name=port2
 
@@ -119,8 +123,10 @@ Bridge=swbridge
 
 [BridgeVLAN]
 VLAN=10
+```
 
-20-port3.network
+`20-port3.network`
+```ini
 [Match]
 Name=port3
 
@@ -133,6 +139,6 @@ VLAN=20
 
 This configuration is then applied and persisted after restarting systemd-networkd:
 
-```
+```bash
 sudo systemctl restart systemd-networkd
 ```

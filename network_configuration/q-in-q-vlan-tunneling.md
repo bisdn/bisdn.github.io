@@ -85,8 +85,7 @@ can be executed on both of them without any modifications.
 Create a switch bridge named `swbridge` with no default VLAN and allow it to
 forward and filter 802.1q tagged traffic.
 
-- 10-swbridge.netdev
-
+`10-swbridge.netdev`
 ```ini
 [NetDev]
 Name=swbridge
@@ -100,8 +99,7 @@ VLANProtocol=802.1q
 
 Automatically set the switch bridge `swbridge` administrative state to up.
 
-- 10-swbridge.network
-
+`10-swbridge.network`
 ```ini
 [Match]
 Name=swbridge
@@ -110,8 +108,7 @@ Name=swbridge
 Attach `port2` to the `swbridge` and allow it to forward VLAN traffic with the
 VLAN id 12 from (and to) the server across the bridge.
 
-- 20-port2.network
-
+`20-port2.network`
 ```ini
 [Match]
 Name=port2
@@ -126,8 +123,7 @@ VLAN=12
 Automatically set `port54` (connected to another switch) up and associate it to
 the VLAN interface `port54.33`.
 
-- 10-port54.network
-
+`10-port54.network`
 ```ini
 [Match]
 Name=port54
@@ -139,8 +135,7 @@ VLAN=port54.33
 Define the VLAN interface `port54.33` on top of `port54` and allow it to tag
 (egress) and untag (ingress) traffic with an 802.1ad VLAN tag with the id 33.
 
-- 20-port54.33.netdev
-
+`20-port54.33.netdev`
 ```ini
 [NetDev]
 Name=port54.33
@@ -154,8 +149,7 @@ Protocol=802.1ad
 Attach the VLAN interface `port54.33` to the `swbridge` and allow it to forward
 VLAN traffic with the VLAN id 12 across the bridge.
 
-- 20-port54.33.network
-
+`20-port54.33.network`
 ```ini
 [Match]
 Name=port54.33
@@ -177,8 +171,7 @@ last step.
 Automatically set `eno2` (connected to the switch) up and associate it to the
 VLAN interface `eno2.12`.
 
-- 20-eno2.network
-
+`20-eno2.network`
 ```ini
 [Match]
 Name=eno2
@@ -190,8 +183,7 @@ VLAN=eno2.12
 Define the VLAN interface `eno2.12` on top of `eno2` and allow it to tag
 (egress) and untag (ingress) traffic with an 802.1q VLAN tag with the id 12.
 
-- 20-eno2.12.netdev
-
+`20-eno2.12.netdev`
 ```ini
 [NetDev]
 Name=eno2.12
@@ -207,8 +199,7 @@ Automatically set `eno2.12` up and assign the IP address `10.0.0.1` from a
 topology shown above and the IP address has to be changed to `10.0.0.2` for
 `server-2`.
 
-- 30-eno2.12.network
-
+`30-eno2.12.network`
 ```ini
 [Match]
 Name=eno2.12

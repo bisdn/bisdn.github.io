@@ -11,7 +11,7 @@ Extending the layer 2 domain to a layer 3 routed network can be done via the Swi
 
 ## iproute2
 
-```
+```bash
 # add a link to the previously created bridge with the same VLAN as PORTX
 ip link add link ${BRIDGE} name ${BRIDGE}.${BR_VLAN} type vlan id ${BR_VLAN}
 
@@ -24,7 +24,7 @@ ip link set ${BRIDGE}.${BR_VLAN} up
 
 The IP address for this interface can then be set with.
 
-```
+```bash
 ip address add ${SVI_IP} dev ${BRIDGE}.${BR_VLAN}
 ```
 
@@ -32,9 +32,8 @@ ip address add ${SVI_IP} dev ${BRIDGE}.${BR_VLAN}
 
 The corresponding systemd-networkd configuration adds the [Network] section on the swbridge.network file:
 
-```
-10-swbridge.network:
-
+`10-swbridge.network`
+```ini
 [Match]
 Name=swbridge
 
@@ -48,9 +47,8 @@ VLAN=swbridge.10
 
 The interface swbridge.10 also has a .netdev and .network pair of files.
 
-```
-20-swbridge10.netdev:
-
+`20-swbridge10.netdev`
+```ini
 [NetDev]
 Name=swbridge.10
 Kind=vlan
@@ -66,5 +64,3 @@ Name=swbridge.10
 [Network]
 Address=10.0.10.1/24
 ```
-
-
