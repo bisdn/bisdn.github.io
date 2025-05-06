@@ -8,6 +8,9 @@ nav_order: 4
 
 ## Logging into the Switch
 
+After installation you are now ready to log into the switch. You can either use
+the serial port or connect via ssh on the management port.
+
 Log into the switch with the following credentials:
 
 ```
@@ -15,8 +18,10 @@ USER = "basebox"
 PASSWORD = "b-isdn"
 ```
 
-You should then see the console of BISDN Linux. You can also display the OS
-information by running `cat /etc/os-release`.
+You should then see the console of BISDN Linux. This is a standard login shell
+and no specialized CLI, so there are no restrictions to commands you can use.
+
+E.g. you can display the OS information by running `cat /etc/os-release`.
 
 BISDN Linux, as most other Linux systems, requires superuser privileges to run
 commands that change system settings. The examples below must then be run via
