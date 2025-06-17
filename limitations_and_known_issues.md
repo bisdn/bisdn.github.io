@@ -185,7 +185,7 @@ using the OF-DPA api to first disable and then enable the port again.
 ``client_drivshell port 2 Enable=false``
 ``client_drivshell port 2 Enable=true``
 
-## Accton-AS4630-54PE: PoE driver does not read from the correct i2c path 
+## Accton-AS4630-54PE: PoE driver does not read from the correct i2c path
 
 Affected versions: 4.4 - 4.4.1
 

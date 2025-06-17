@@ -43,4 +43,4 @@ man onie-bisdn-rescue
 onie-bisdn-rescue -h
 ```
 
-The ONIE-rescue shell provides troubleshooting. More information can be found here: [ONIE-rescue mode](https://opencomputeproject.github.io/onie/design-spec/nos_interface.html#rescue-and-recovery). 
+The ONIE-rescue shell provides troubleshooting. More information can be found here: [ONIE-rescue mode](https://opencomputeproject.github.io/onie/design-spec/nos_interface.html#rescue-and-recovery).

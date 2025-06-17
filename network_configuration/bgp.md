@@ -7,7 +7,7 @@ parent: Network Configuration
 
 ## Introduction
 
-The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was originally designed to support IPv4 networks in [RFC4721](https://tools.ietf.org/html/rfc4271.html), and later extended to support other protocols, such as IPv6, in [RFC2858](https://tools.ietf.org/html/rfc2858.html). Contrary to OSPF, where its IPv4 and IPv6 are defined in FRR with different daemons/files, the FRR BGP daemon can be configured for both protocols. Its complete documentation for FRR can be found [here](http://docs.frrouting.org/en/latest/bgp.html). 
+The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was originally designed to support IPv4 networks in [RFC4721](https://tools.ietf.org/html/rfc4271.html), and later extended to support other protocols, such as IPv6, in [RFC2858](https://tools.ietf.org/html/rfc2858.html). Contrary to OSPF, where its IPv4 and IPv6 are defined in FRR with different daemons/files, the FRR BGP daemon can be configured for both protocols. Its complete documentation for FRR can be found [here](http://docs.frrouting.org/en/latest/bgp.html).
 
 In this section, we provide examples on how to configure BGP for both [IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in BISDN Linux.
 

@@ -95,7 +95,7 @@ port8 (2)
 
 # Rapid Spanning Tree (RSTP)
 
-## Introduction 
+## Introduction
 
 Meant as an improvement to the original STP standard, RSTP improves Spanning Tree convergence after network topology changes. If the switch is configured for RSTP and receives a STP (802.1d) BPDU, then STP functionality is assumed.
 

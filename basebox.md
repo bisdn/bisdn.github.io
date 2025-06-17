@@ -35,7 +35,7 @@ baseboxd communicates northbound with the Linux kernel via netlink and southboun
 ```
 
 baseboxd is therefore an agent which listens for changes in the states of:
-    
+
 * The Switch (e.g. OpenFlow port status messages)
 * Linux tap interfaces (netlink messages)
 

@@ -56,7 +56,7 @@ available. To be able to use multiple instance of VRRP within a layer-2 domain,
 you should also make sure to set a unique `VIRTUAL_ROUTER_ID` for each
 vrrp_instance. Finally you need to replace `$VIRTUAL_IP` with the IPv4
 address that you want to use as the shared virtual IP on the `$INTERACE`
-configured earlier. 
+configured earlier.
 Although the above mentioned configuration already is a fully functional
 keepalived.conf, it is not sufficient for running VRRP between multiple routers.
 In addition to the configuration for VRRP in keepalived.conf, you need to make

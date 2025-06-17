@@ -6,7 +6,7 @@ nav_order: 2
 
 ### Configure source-MAC learning
 
-Source-MAC learning is enabled by default. It is a feature of L2 bridging. For more information on how a typical switch learns MAC adresses, please refer to this article: [transparent bridging](https://en.wikipedia.org/wiki/Bridging_(networking)). 
+Source-MAC learning is enabled by default. It is a feature of L2 bridging. For more information on how a typical switch learns MAC adresses, please refer to this article: [transparent bridging](https://en.wikipedia.org/wiki/Bridging_(networking)).
 
 In case you do not want the switch to learn MAC addresses automatically, e.g. when you want to learn them via a specific controller logic, you may disable this feature.
 

@@ -34,7 +34,7 @@ Please note, that configuring [PoE](../platform_configuration/power_over_etherne
 
 In the following configuration examples, we are going to use the topology shown below. It consists of two switches which are directly connected to each other on port 52 and 54. These two interfaces are then bonded using bond mode `802.3.ad` to achieve redundancy and bandwidth aggregation at the same time. The created bond is called `bond2` on each side.
 
-Additionally, each switch has port 7 and 8 bonded the same way into `bond1`. These links are directly connected to servers, which are considered source and sink for this scenario. 
+Additionally, each switch has port 7 and 8 bonded the same way into `bond1`. These links are directly connected to servers, which are considered source and sink for this scenario.
 To be able to send traffic between the two servers, all bonds on the switches are attached to a bridge called `swbridge`.
 
 The servers themselves also use LACP to create `bond1` out of their interfaces `eno7` and `eno8`.

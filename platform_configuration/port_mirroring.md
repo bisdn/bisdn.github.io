@@ -37,7 +37,7 @@ Then, set port 2 as the mirror source and configure the port type to only mirror
 grpc_cli call <IP>:50051 ofdpaMirrorSourcePortAdd "mirror_dst_port_num: { port_num: 8 }, mirror_src_port_num: { port_num: 2 }, config: { ofdpa_mirror_port_type: OFDPA_MIRROR_PORT_TYPE_INGRESS}"
 ```
 
-### Verifying mirror port configuration 
+### Verifying mirror port configuration
 
 See the mirror port configuration by running the following command on the whitebox switch:
 

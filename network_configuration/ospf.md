@@ -7,7 +7,7 @@ parent: Network Configuration
 
 ## Introduction
 
-The Open Shortest Path First (OSPF) protocol is a link state routing protocol. Its IPv4 networking version is specified as [OSPFv2](https://tools.ietf.org/html/rfc2328) and the IPv6 version is defined as [OSPFv3](https://tools.ietf.org/html/rfc5340). 
+The Open Shortest Path First (OSPF) protocol is a link state routing protocol. Its IPv4 networking version is specified as [OSPFv2](https://tools.ietf.org/html/rfc2328) and the IPv6 version is defined as [OSPFv3](https://tools.ietf.org/html/rfc5340).
 Both versions can be configured using FRR and their full documentation is available for both [OSPFv2](http://docs.frrouting.org/en/latest/ospfd.html) and [OSPFv3](http://docs.frrouting.org/en/latest/ospf6d.html) versions, respectively.
 
 This section provides an overview on how to configure both versions on BISDN Linux.

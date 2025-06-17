@@ -17,13 +17,13 @@ container").
 
 #### Host installation
 
-3. Make sure ruby is installed 
+3. Make sure ruby is installed
 
 ```
 $ ruby --version
 ```
 
-4. Package dependencies 
+4. Package dependencies
 
 4.1 Ensure fedora dependencies are installed
 
@@ -31,7 +31,7 @@ $ ruby --version
 $ sudo dnf install ruby-devel redhat-rpm-config gcc++ gcc-c++ zlib zlib-devel
 ```
 
-5. Install the gem dependencies 
+5. Install the gem dependencies
 
 ```
 $ bundle install
