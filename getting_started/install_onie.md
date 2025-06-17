@@ -42,6 +42,7 @@ device like in the example below.
 
 This example copies the .iso of the ONIE installer for AG7648 to the USB device
 on sdb:
+
 ```
 sudo dd if=20181109-onie-recovery-x86_64-delta_ag7648-r0.iso of=/dev/sdb bs=10M
 sync

@@ -39,6 +39,7 @@ The corresponding systemd-networkd configuration adds the [Network] section on
 the swbridge.network file:
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -54,6 +55,7 @@ VLAN=swbridge.10
 The interface swbridge.10 also has a .netdev and .network pair of files.
 
 `20-swbridge10.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge.10

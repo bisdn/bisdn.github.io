@@ -135,6 +135,7 @@ docs](https://www.freedesktop.org/software/systemd/man/systemd.network.html)
 for more information.
 
 `/lib/systemd/network/80-wired.network`
+
 ```
 [Match]
 Name=en* eth*
@@ -158,11 +159,13 @@ a simple ping between these two, you can assign IP addresses to both interfaces
 in a very similar way:
 
 On the switch:
+
 ```
 root@agema-ag7648: ip address add 192.168.0.1/24 dev port1
 ```
 
 On the server:
+
 ```
 root@myserver: ip address add 192.168.0.2/24 dev eno2
 ```
@@ -171,6 +174,7 @@ You should now be able to ping the IP address configured on "port1" on your
 switch from your server:
 
 On the server:
+
 ```
 root@myserver: ping 192.168.0.1
 ```

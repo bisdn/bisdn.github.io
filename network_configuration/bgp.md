@@ -100,6 +100,7 @@ learn the appropriate routes to the next-hop. For this example we just use
 `redistribute connected` to announce all routes from all connected routers.
 
 `switch-1 /etc/frr/frr.conf`
+
 ```
 interface port7
   ip address 10.0.1.1/24
@@ -121,6 +122,7 @@ bgp router-id 10.0.1.1
 ```
 
 `switch-2 /etc/frr/frr.conf`
+
 ```
 interface port7
   ip address 10.0.2.1/24
@@ -142,6 +144,7 @@ bgp router-id 10.0.2.1
 ```
 
 `server-1 /etc/frr/frr.conf`
+
 ```
 interface eno7
   ip address 10.0.1.2/24
@@ -159,6 +162,7 @@ bgp router-id 10.0.1.2
 ```
 
 `server-2 /etc/frr/frr.conf`
+
 ```
 interface eno7
   ip address 10.0.2.2/24
@@ -257,6 +261,7 @@ the switches and only announce the specifc network configured on the loopback
 interface in the servers.
 
 `switch-1 /etc/frr/frr.conf`
+
 ```
 interface port7
   ip address 2001:0db8:0000:0001::0001/64
@@ -283,6 +288,7 @@ bgp router-id 1.1.1.1
 ```
 
 `switch-2 /etc/frr/frr.conf`
+
 ```
 interface port7
   ip address 2001:0db8:0000:0002::0001/64
@@ -309,6 +315,7 @@ bgp router-id 2.2.2.2
 ```
 
 `server-1 /etc/frr/frr.conf`
+
 ```
 interface eno7
   ip address 2001:0db8:0000:0001::0002/64
@@ -331,6 +338,7 @@ bgp router-id 3.3.3.3
 ```
 
 `server-2 /etc/frr/frr.conf`
+
 ```
 interface eno7
   ip address 2001:0db8:0000:0002::0002/64

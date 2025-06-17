@@ -45,6 +45,7 @@ or by copying following systemd-networkd configuration files into the
 systemd-service.
 
 `10-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -56,6 +57,7 @@ STP=1
 ```
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge

@@ -213,6 +213,7 @@ the following logs are available to confirm the presence of the error.
 [...] linux-kernel-bde 0000:01:00.0: AER:    [14] CmpltTO                (First)
 [...] pcieport 0000:00:01.0: AER: Device recovery successful
 ```
+
 The message `AER: Device recovery successful` shown above is misleading, since
 the Error can only be resolved by fully rebooting the switch itself.
 
@@ -258,6 +259,7 @@ To work around this, edit `/usr/sbin/poectl` and change
 ```
 systempath=/sys/kernel/debug/i2c-16-0020
 ```
+
 to
 
 ```

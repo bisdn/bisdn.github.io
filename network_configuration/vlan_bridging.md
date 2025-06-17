@@ -128,6 +128,7 @@ The configuration with systemd-networkd can be done with the following files,
 under the /etc/systemd/network directory.
 
 `10-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -151,6 +152,7 @@ The bridge interface needs to be brought up for basic bridging functionality, so
 a basic .network file is required for the bridge itself.
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -160,6 +162,7 @@ Attaching ports to the bridge and configuring VLANs with systemd-networkd is
 also done using .network files. The following example demonstrates how.
 
 `20-port1.network`
+
 ```ini
 [Match]
 Name=port1
@@ -184,6 +187,7 @@ Configuring VLANs on the bridge interface itself is done similarily extending
 the above .network file with a `[BridgeVLAN]` block.
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -202,6 +206,7 @@ to 802.1ad, we configure the bridge VLAN protocol with the `VLANProtocol`
 attribute:
 
 `10-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -302,6 +307,7 @@ The first file creates the bridge without any default PVID configured,
 analogous to ``iproute2``
 
 `10-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -315,6 +321,7 @@ DefaultPVID=none
 Bring up the bridge, so forwarding will be enabled
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -323,6 +330,7 @@ Name=swbridge
 Attaching the access ports ``port2`` and ``port3`` is done as follows
 
 `20-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -336,6 +344,7 @@ EgressUntagged=2
 ```
 
 `20-port3.network`
+
 ```ini
 [Match]
 Name=port3
@@ -355,6 +364,7 @@ systemd.network](https://www.freedesktop.org/software/systemd/man/systemd.networ
 The trunk port is created with the following network file.
 
 `20-port54.network`
+
 ```ini
 [Match]
 Name=port54

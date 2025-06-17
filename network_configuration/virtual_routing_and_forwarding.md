@@ -58,6 +58,7 @@ VRFs.
 The file responsible to create the VRF device is the .netdev file below:
 
 `10-red.netdev`
+
 ```ini
 [NetDev]
 Name=red
@@ -71,6 +72,7 @@ Considering the example topology given above, two SVIs are required, i.e. one
 per VLAN. Both need to be listed in the bridge network file:
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -89,6 +91,7 @@ following example assigns IP 10.0.10.2 to a SVI using VID 10 and VRF entry
 "red":
 
 `20-swbridge10.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge.10
@@ -99,6 +102,7 @@ Id=10
 ```
 
 `20-swbridge10.network`
+
 ```ini
 [Match]
 Name=swbridge.10
@@ -111,6 +115,7 @@ VRF=red
 Similarly, a SVI is created for VID 20:
 
 `20-swbridge20.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge.20
@@ -121,6 +126,7 @@ Id=20
 ```
 
 `20-swbridge20.network`
+
 ```ini
 [Match]
 Name=swbridge.20
@@ -134,6 +140,7 @@ As a last step on the switch, ports 2 and 3 need to be added to the bridge.
 This is done by creating a .network file for each port:
 
 `20-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -146,6 +153,7 @@ VLAN=10
 ```
 
 `20-port3.network`
+
 ```ini
 [Match]
 Name=port3

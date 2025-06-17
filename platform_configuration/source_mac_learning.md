@@ -19,9 +19,11 @@ this feature.
 
 To permanently disable source-MAC learning, edit the file /etc/ofdpa-grpc.conf
 and add the flag --disable_srcmac_learning to the `OPTIONS=` line, e.g.
+
 ```
 OPTIONS="--disable_srcmac_learning"
 ```
+
 Restart ofdpa-grpc to apply changes.
 
 You can also run the following grpc calls to enable/disable source-MAC

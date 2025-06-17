@@ -36,6 +36,7 @@ setenv onie_boot_reason install && boot
 ```
 
 to install a switch image. To remove the image, enter
+
 ```
 run onie_uninstall
 ```
@@ -69,6 +70,7 @@ hosted in our [image repo](http://repo.bisdn.de/) while released images can be
 directly installed from [here](http://repo.bisdn.de/pub/onie/).
 
 This example installs BISDN Linux v3.3.0 for the AG7648 platform:
+
 ```
 onie-nos-install http://repo.bisdn.de/pub/onie/agema-ag7648/onie-bisdn-agema-ag7648-v3.3.0.bin
 ```

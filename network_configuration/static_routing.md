@@ -49,6 +49,7 @@ sections to the port .network file. In the [Route] section, the Gateway=
 section *must* be present in the case when DHCP is not used.
 
 `10-port1.network`
+
 ```ini
 [Match]
 Name=${PORT}
@@ -192,6 +193,7 @@ names to fit your setup.
 Set ``port2`` up and add the IP address 10.0.1.1/24.
 
 `switch-1 /etc/systemd/network/30-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -203,6 +205,7 @@ Set ``port54`` up, add IP address 10.0.3.1 and add a route to the 10.0.2.0/24
 subnet (which is on ``server-2``) via 10.0.3.2.
 
 `switch-1 /etc/systemd/network/30-port54.network`
+
 ```ini
 [Match]
 Name=port54
@@ -218,6 +221,7 @@ Gateway=10.0.3.2
 Set ``port2`` up and add IP address 10.0.2.1/24.
 
 `switch-2 /etc/systemd/network/30-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -229,6 +233,7 @@ Set ``port54`` up, add IP address 10.0.3.2 and add a route to the 10.0.1.0/24
 subnet (which is on ``sever-1``) via 10.0.3.1.
 
 `switch-2 /etc/systemd/network/30-port54.network`
+
 ```ini
 [Match]
 Name=port54
@@ -245,6 +250,7 @@ Add IP address 10.0.1.2/24 to ``eno2`` and a route to the subnet 10.0.2.0/24
 (which is on ``server-2``) via 10.0.1.1.
 
 `server-1 /etc/systemd/network/30-eno2.network`
+
 ```ini
 [Match]
 Name=eno2
@@ -261,6 +267,7 @@ Add IP address 10.0.2.2/24 to ``eno2`` and a route to the subnet 10.0.1.0/24
 (which is on ``server-1``) via 10.0.2.1.
 
 `server-2 /etc/systemd/network/30-eno2.network`
+
 ```ini
 [Match]
 Name=eno2

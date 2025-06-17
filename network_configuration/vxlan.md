@@ -67,6 +67,7 @@ The configuration with systemd-networkd can be done with the following files.
 Create bridge `swbridge` with no `DefaultPVID`.
 
 `switch-1 /etc/systemd/network/20-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -80,6 +81,7 @@ DefaultPVID=none
 Tag `swbridge` with `VLAN=300` and set it up.
 
 `switch-1 /etc/systemd/network/20-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -92,6 +94,7 @@ Add VLAN tag `VLAN=300` on `port2` incoming traffic, untag the outgoing one,
 attach it to `swbridge` and set it up.
 
 `switch-1 /etc/systemd/network/10-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -108,6 +111,7 @@ Add ip address 192.168.0.1/24 to `port54`, define it as underlying interface for
 netdev vxlan50000 (created below) and set it up.
 
 `switch-1 /etc/systemd/network/10-port54.network`
+
 ```ini
 [Match]
 Name=port54
@@ -121,6 +125,7 @@ Create netdev `vxlan50000` for VXLAN with the VNI 50000 and set local and remote
 VXLAN Tunnel Endpoints(VTEPs).
 
 `switch-1 /etc/systemd/network/300-vxlan50000.netdev`
+
 ```ini
 [NetDev]
 Name=vxlan50000
@@ -145,6 +150,7 @@ which means that every remote VTEP must use `DestinationPort=4789`.
 {: .label .label-yellow }
 
 `switch-1 /etc/systemd/network/300-vxlan50000.network`
+
 ```ini
 [Match]
 Name=vxlan50000
@@ -162,6 +168,7 @@ with the execption that the IPv4 addresses for the VTEP, Remote and Local will
 switch. Therefore the files below are shown without additional explanation.
 
 `switch-2 /etc/systemd/network/20-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -173,6 +180,7 @@ DefaultPVID=none
 ```
 
 `switch-2 /etc/systemd/network/20-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -182,6 +190,7 @@ VLAN=300
 ```
 
 `switch-2 /etc/systemd/network/10-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -195,6 +204,7 @@ EgressUntagged=300
 ```
 
 `switch-2 /etc/systemd/network/10-port54.network`
+
 ```ini
 [Match]
 Name=port54
@@ -205,6 +215,7 @@ Address=192.168.0.2/24
 ```
 
 `switch-2 /etc/systemd/network/300-vxlan50000.netdev`
+
 ```ini
 [NetDev]
 Name=vxlan50000
@@ -218,6 +229,7 @@ Remote=192.168.0.1
 ```
 
 `switch-2 /etc/systemd/network/300-vxlan50000.network`
+
 ```ini
 [Match]
 Name=vxlan50000

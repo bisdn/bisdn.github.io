@@ -30,6 +30,7 @@ To follow the logs from the service, use the following command.
 ```
 journalctl -u <service>
 ```
+
 Check `man journalctl` for more information on the arguments.
 
 When trying to configure a feature, please remember to verify if the version

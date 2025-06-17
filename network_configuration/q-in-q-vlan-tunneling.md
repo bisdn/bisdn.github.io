@@ -86,6 +86,7 @@ Create a switch bridge named `swbridge` with no default VLAN and allow it to
 forward and filter 802.1q tagged traffic.
 
 `10-swbridge.netdev`
+
 ```ini
 [NetDev]
 Name=swbridge
@@ -100,6 +101,7 @@ VLANProtocol=802.1q
 Automatically set the switch bridge `swbridge` administrative state to up.
 
 `10-swbridge.network`
+
 ```ini
 [Match]
 Name=swbridge
@@ -109,6 +111,7 @@ Attach `port2` to the `swbridge` and allow it to forward VLAN traffic with the
 VLAN id 12 from (and to) the server across the bridge.
 
 `20-port2.network`
+
 ```ini
 [Match]
 Name=port2
@@ -124,6 +127,7 @@ Automatically set `port54` (connected to another switch) up and associate it to
 the VLAN interface `port54.33`.
 
 `10-port54.network`
+
 ```ini
 [Match]
 Name=port54
@@ -136,6 +140,7 @@ Define the VLAN interface `port54.33` on top of `port54` and allow it to tag
 (egress) and untag (ingress) traffic with an 802.1ad VLAN tag with the id 33.
 
 `20-port54.33.netdev`
+
 ```ini
 [NetDev]
 Name=port54.33
@@ -150,6 +155,7 @@ Attach the VLAN interface `port54.33` to the `swbridge` and allow it to forward
 VLAN traffic with the VLAN id 12 across the bridge.
 
 `20-port54.33.network`
+
 ```ini
 [Match]
 Name=port54.33
@@ -172,6 +178,7 @@ Automatically set `eno2` (connected to the switch) up and associate it to the
 VLAN interface `eno2.12`.
 
 `20-eno2.network`
+
 ```ini
 [Match]
 Name=eno2
@@ -184,6 +191,7 @@ Define the VLAN interface `eno2.12` on top of `eno2` and allow it to tag
 (egress) and untag (ingress) traffic with an 802.1q VLAN tag with the id 12.
 
 `20-eno2.12.netdev`
+
 ```ini
 [NetDev]
 Name=eno2.12
@@ -200,6 +208,7 @@ topology shown above and the IP address has to be changed to `10.0.0.2` for
 `server-2`.
 
 `30-eno2.12.network`
+
 ```ini
 [Match]
 Name=eno2.12

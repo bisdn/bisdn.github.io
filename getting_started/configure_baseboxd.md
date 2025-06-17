@@ -51,21 +51,25 @@ sudo opkg info <package name>
 ```
 
 You can also print all installed packages with their associated versions with
+
 ```
 sudo opkg list_installed
 ```
 
 For the current version of baseboxd, simply run
+
 ```
 baseboxd --version
 ```
 
 List information about the BISDN Linux release with
+
 ```
 cat /etc/os-release
 ```
 
 And information about the build date and linux kernel can be found via
+
 ```
 uname -a
 ```
@@ -94,6 +98,7 @@ To configure a local Ryu controller:
 ```
 sudo basebox-change-config -l ryu-manager ryu.app.ofctl_rest
 ```
+
 where `ryu.app.ofctl_rest` is the Ryu application. If you have a file for a
 custom application, please use the absolute path to the application file.
 
@@ -254,6 +259,7 @@ reboot
 ```
 
 or restart the baseboxd service:
+
 ```
 sudo systemctl restart baseboxd
 ```
