@@ -3,6 +3,7 @@ title: GNU Free Documentation License
 parent: License
 nav_order: 1
 ---
+<!-- markdownlint-disable MD030 -->
 
 ### GNU Free Documentation License
 
