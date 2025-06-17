@@ -7,6 +7,7 @@ parent: Network Configuration
 # VxLAN
 
 ## Introduction
+
 Virtual eXtensible LAN (VXLAN) is a network overlay encapsulation protocol that
 aims to extend and distribute layer 2 networks on top of layer 3 topologies.
 Using a 12-bit Virtual Network Identifier (VNI) it allow to separate about 16
@@ -60,6 +61,7 @@ The configuration give below will create a VXLAN overlay with VNI=50000 between
 via the before mentioned VXLAN overlay network with the VNI 50000.
 
 ## systemd-networkd
+
 The configuration with systemd-networkd can be done with the following files.
 
 Create bridge `swbridge` with no `DefaultPVID`.

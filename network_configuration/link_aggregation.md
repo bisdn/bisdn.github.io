@@ -15,6 +15,7 @@ will use bonding to refer to it in this documentation. For more details about
 bonding in Linux, please refer to the official [kernel documentation](https://www.kernel.org/doc/Documentation/networking/bonding.txt).
 
 ## Suported bonding modes
+
 BISDN Linux currently supports bonding interfaces (excluding the management
 interface) in the bond modes `balanced-rr`, `active-backup` and `802.3.ad`. The
 following table illustrates the support for each mode in BISDN Linux supported

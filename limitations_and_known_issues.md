@@ -16,6 +16,7 @@ Depending on the switch ASIC used, some FEC modes may be unavailable to configur
   the Agema AG5648V1 does not have this limitation.
 
 ## No VxLAN support on Accton AS4610
+
 The Broadcom Switch ASIC used in Accton AS4610 does not support VxLAN.
 
 ## Celestica Questone 2A fans spinning at 100%

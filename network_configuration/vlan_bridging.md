@@ -230,6 +230,7 @@ VLAN as its Native VLAN (PVID) and adds this PVID to all untagged packets it
 forwards.
 
 ## Example switch with uplink
+
 The example configuration below shows two switches connected with trunk ports.
 Both switches are connected to a server via two access ports.
 ![vlan_trunk_image](/assets/img/vlan_trunk_network.svg)
@@ -246,6 +247,7 @@ VLAN=2 and VLAN=3 is set on the trunk port ``port54``.
 The configuration for this example can be done with either ``iproute2`` for
 testing or systemd-network files for persistency in production
 environments.
+
 ## iproute2
 
 Bridge creation is done with the following command.

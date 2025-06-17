@@ -4,6 +4,7 @@ parent: Network Configuration
 ---
 
 # Spanning Tree Protocol (STP)
+
 ## Introduction
 
 The Spanning Tree Protocol (STP) is meant to build loop-less topologies in

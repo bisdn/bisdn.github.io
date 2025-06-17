@@ -79,6 +79,7 @@ multicast database is correctly updated and the new entry is visible:
 7: swbridge  swbridge  ff02::6a  temp  vid 1
 7: swbridge  swbridge  ff02::1:ff67:6264  temp  vid 1
 ```
+
 ## Advanced configurations
 
 When using iproute2 instead of systemd-networkd to create a bridge, there are a
