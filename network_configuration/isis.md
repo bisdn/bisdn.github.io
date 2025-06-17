@@ -8,7 +8,8 @@ parent: Network Configuration
 ## Introduction
 
 IS-IS is an interior gateway protocol (IGP) widely used in large backbone
-provider networks and is defined in [ISO/IEC 10589:2002](https://www.iso.org/standard/30932.html).
+provider networks and is defined in [ISO/IEC
+10589:2002](https://www.iso.org/standard/30932.html).
 Within BISDN Linux, IS-IS can be configured and managed with the FRR daemon
 [isisd](http://docs.frrouting.org/en/latest/isisd.html).
 
@@ -174,6 +175,12 @@ official FRR documentation [here](http://docs.frrouting.org/en/latest/isisd.html
 
 ## Cisco Interoperability
 
-When connecting Cisco routers and switches running BISDN Linux and FRR with ISIS, it is essential to correctly configure
-the `metric-style` setting. Per default, the Cisco Routers have the `metric-style narrow` configuration,
-while FRR chooses the wide metrics. Refer to [CISCO docs](https://www.cisco.com/c/en/us/support/docs/ip/integrated-intermediate-system-to-intermediate-system-is-is/13795-is-is-ip-config.html) for further documentation on configuring Cisco routers with ISIS. For specific information on `metric-syle` configurations, refer to [CISCO](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-l1.html#wp1681001735) and [FRR](http://docs.frrouting.org/en/latest/isisd.html#clicmd-metric-style[narrow|transition|wide]).
+When connecting Cisco routers and switches running BISDN Linux and FRR with
+ISIS, it is essential to correctly configure the `metric-style` setting. Per
+default, the Cisco Routers have the `metric-style narrow` configuration, while
+FRR chooses the wide metrics. Refer to [CISCO docs](https://www.cisco.com/c/en/us/support/docs/ip/integrated-intermediate-system-to-intermediate-system-is-is/13795-is-is-ip-config.html)
+for further documentation on configuring Cisco routers with ISIS. For specific
+information on `metric-syle` configurations, refer to
+[CISCO](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-l1.html#wp1681001735)
+and
+[FRR](http://docs.frrouting.org/en/latest/isisd.html#clicmd-metric-style[narrow|transition|wide]).

@@ -18,8 +18,10 @@
 ###############
 # Rules by id #
 ###############
-MD013: false # Allow any line length
 MD014: false # Allow Commands without output
+MD013:
+  code_blocks: false # allow code blocks to exceed 80 characters
+  tables: false # allow tables to exceed 80 characters
 MD022: false # Don't require blank lines around headings
 MD024: false # Allow duplicate headings
 MD025: false # Allow multiple h1 headings

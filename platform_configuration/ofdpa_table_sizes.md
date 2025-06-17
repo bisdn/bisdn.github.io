@@ -6,7 +6,9 @@ nav_order: 7
 
 ## OF-DPA Table Sizes
 
-Broadcom Switches feature internal memory that can be freely assigned to increase available memory for various functions. BISDN Linux 4.6 and later support defining strategies how the memory should be used.
+Broadcom Switches feature internal memory that can be freely assigned to
+increase available memory for various functions. BISDN Linux 4.6 and later
+support defining strategies how the memory should be used.
 
 Currently four strategies are supported:
 
@@ -39,7 +41,8 @@ To apply the new configuration, reboot the switch.
 
 ### Resulting Table Sizes
 
-Depending on the selected mode, the following number of entries will be available for tables 30 (Unicast Routing) and 50 (Bridging):
+Depending on the selected mode, the following number of entries will be
+available for tables 30 (Unicast Routing) and 50 (Bridging):
 
 | Platform                      | default              | balanced             | layer2               |              layer 3 |
 |-------------------------------|----------------------|----------------------|----------------------|----------------------|

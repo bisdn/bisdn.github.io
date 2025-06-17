@@ -7,7 +7,10 @@ parent: Network Configuration
 # VxLAN
 
 ## Introduction
-Virtual eXtensible LAN (VXLAN) is a network overlay encapsulation protocol that aims to extend and distribute layer 2 networks on top of layer 3 topologies. Using a 12-bit Virtual Network Identifier (VNI) it allow to separate about 16 million logical network domains.
+Virtual eXtensible LAN (VXLAN) is a network overlay encapsulation protocol that
+aims to extend and distribute layer 2 networks on top of layer 3 topologies.
+Using a 12-bit Virtual Network Identifier (VNI) it allow to separate about 16
+million logical network domains.
 
 The official VXLAN documentation can be found in
 [RFC 7348](https://datatracker.ietf.org/doc/html/rfc7348)

@@ -6,17 +6,30 @@ parent: Network Configuration
 # Spanning Tree Protocol (STP)
 ## Introduction
 
-The Spanning Tree Protocol (STP) is meant to build loop-less topologies in Layer 2 networks. It works by distributively creating network paths without loops that could be harmful in case of e.g. flooding broadcast messages, by disabling (blocking) ports in the configured bridges. This document shows how to configure the STP implementation available in Linux.
+The Spanning Tree Protocol (STP) is meant to build loop-less topologies in
+Layer 2 networks. It works by distributively creating network paths without
+loops that could be harmful in case of e.g. flooding broadcast messages, by
+disabling (blocking) ports in the configured bridges. This document shows how
+to configure the STP implementation available in Linux.
 
-**WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d) and RSTP (IEEE Standard 802.1w). In most modern network topologies RSTP is used because it provides significantly faster recovery in case of topology changes. To configure RSTP you *have* to use the packaged [mstpd](https://github.com/mstpd/mstpd) instead of the default STP implementation in the Linux kernel.
+**WARNING**: BISDN Linux currently supports standard STP (IEEE Standard 802.1d)
+and RSTP (IEEE Standard 802.1w). In most modern network topologies RSTP is used
+because it provides significantly faster recovery in case of topology changes.
+To configure RSTP you *have* to use the packaged
+[mstpd](https://github.com/mstpd/mstpd) instead of the default STP
+implementation in the Linux kernel.
 {: .label .label-red}
 
-**Note**: BISDN Linux ships with [mstpd](https://github.com/mstpd/mstpd) disabled. Every STP enabled bridge will use the kernel implementation of STP, and can be managed using `brctl`. If mstpd is enabled (and running), STP will be enabled and handled by mstpd in user-space on EVERY bridge created.
+**Note**: BISDN Linux ships with [mstpd](https://github.com/mstpd/mstpd)
+disabled. Every STP enabled bridge will use the kernel implementation of STP,
+and can be managed using `brctl`. If mstpd is enabled (and running), STP will
+be enabled and handled by mstpd in user-space on EVERY bridge created.
 {: .label .label-yellow }
 
 ## STP Configuration Instructions
 
-The STP configuration examples below assume the following topology. Throughout all examples given here, only the switch configuration side is shown.
+The STP configuration examples below assume the following topology. Throughout
+all examples given here, only the switch configuration side is shown.
 
 ![Topology](/assets/img/stp-topology.png)
 
@@ -26,7 +39,9 @@ An STP-enabled bridge can be created using iproute2 with the following command:
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
-or by copying following systemd-networkd configuration files into the /etc/systemd/network directory and restarting the `systemd-networkd` systemd-service.
+or by copying following systemd-networkd configuration files into the
+/etc/systemd/network directory and restarting the `systemd-networkd`
+systemd-service.
 
 `10-swbridge.netdev`
 ```ini
@@ -45,11 +60,13 @@ STP=1
 Name=swbridge
 ```
 
-The necessary commands for configuring and attaching the ports to the bridge are documented here: [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
+The necessary commands for configuring and attaching the ports to the bridge
+are documented here: [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
 ## STP operation
 
-We can see the ports that are configured in bridges, along with their STP state, priority, and cost, with the following command:
+We can see the ports that are configured in bridges, along with their STP
+state, priority, and cost, with the following command:
 
 ```bash
 agema-ag4610:~$ bridge link
@@ -57,7 +74,9 @@ agema-ag4610:~$ bridge link
 16: port3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 master swbridge state forwarding priority 32 cost 2
 ```
 
-After setting up the bridge and bridge ports, the STP state on the bridge can be managed over the `brctl` utility. A complete reference can be found on the [brctl man page](https://linux.die.net/man/8/brctl).
+After setting up the bridge and bridge ports, the STP state on the bridge can
+be managed over the `brctl` utility. A complete reference can be found on the
+[brctl man page](https://linux.die.net/man/8/brctl).
 The following example shows the output of a `brctl` command:
 
 ```bash
@@ -97,27 +116,38 @@ port8 (2)
 
 ## Introduction
 
-Meant as an improvement to the original STP standard, RSTP improves Spanning Tree convergence after network topology changes. If the switch is configured for RSTP and receives a STP (802.1d) BPDU, then STP functionality is assumed.
+Meant as an improvement to the original STP standard, RSTP improves Spanning
+Tree convergence after network topology changes. If the switch is configured
+for RSTP and receives a STP (802.1d) BPDU, then STP functionality is assumed.
 
-There is currently no RSTP support in the Linux Kernel and therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure and manage RSTP.
+There is currently no RSTP support in the Linux Kernel and therefore BISDN
+Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure and manage
+RSTP.
 
-mstpd is managed by systemd and is disabled by default. For documentation on how to manage systemd services please refer to [systemd getting started](../getting_started/configure_baseboxd.md#getting-started).
+mstpd is managed by systemd and is disabled by default. For documentation on
+how to manage systemd services please refer to [systemd getting
+started](../getting_started/configure_baseboxd.md#getting-started).
 
 ## RSTP configuration
 
-When `mstpd` is running, any stp enabled bridge will be managed by mstpd. By default it uses RSTP.
+When `mstpd` is running, any stp enabled bridge will be managed by mstpd. By
+default it uses RSTP.
 
 ```bash
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
-The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
+The following steps of configuring the ports and attaching them to the bridge
+can be seen in [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
 ## RSTP operation
 
-After setting up the bridge and its ports, the RSTP state on the bridge can be managed with the `mstpdctl` utility. The following command shows an example command output.
+After setting up the bridge and its ports, the RSTP state on the bridge can be
+managed with the `mstpdctl` utility. The following command shows an example
+command output.
 
-**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`. Use `mstpctl` instead.
+**WARNING**: The `brctl` tool does not work with bridges managed by `mstpd`.
+Use `mstpctl` instead.
 {: .label .label-yellow }
 
 ```bash
@@ -169,10 +199,10 @@ started and enabled before MSTP can be configured and used.
 
 ## MSTP configuration
 
-To enable MSTP on a STP enabled bridge, you need to force the STP version of the
-bridge to mstp (instead of "rstp", which would be used by default when mstpd is
-managing the bridge). Assuming your bridge is named "swbridge", this can be done
-by running:
+To enable MSTP on a STP enabled bridge, you need to force the STP version of
+the bridge to mstp (instead of "rstp", which would be used by default when
+mstpd is managing the bridge). Assuming your bridge is named "swbridge", this
+can be done by running:
 
 ```bash
 root@accton-as4610:~# mstpctl setforcevers swbridge mstp
@@ -196,13 +226,13 @@ swbridge CIST info
   last topology change port  None
 ```
 
-In the next step, you should create as many individual trees (MSTIs) as you need
-to manage the VLANs bridged by each switch. Assuming you bridge `VLAN 2` and
-`VLAN 3` and want to manage the spanning trees of those individually, you can
-create two trees (MSTIs) named `2` and `3` (the names do not have to match the
-VLANs you want to mange in them and can be choosen in the range between 1-65,
-while 0 is already created by default to manage all VLANs not mapped to any
-other tree).
+In the next step, you should create as many individual trees (MSTIs) as you
+need to manage the VLANs bridged by each switch. Assuming you bridge `VLAN 2`
+and `VLAN 3` and want to manage the spanning trees of those individually, you
+can create two trees (MSTIs) named `2` and `3` (the names do not have to match
+the VLANs you want to mange in them and can be choosen in the range between
+1-65, while 0 is already created by default to manage all VLANs not mapped to
+any other tree).
 
 ```bash
 root@accton-as4610:~# mstpctl showmstilist swbridge
@@ -239,7 +269,8 @@ swbridge VID-to-FID allocation table:
   FID 3: 3
 ```
 
-Mapping MSTID to FID (please make sure to put MSTID and FID in the correct order):
+Mapping MSTID to FID (please make sure to put MSTID and FID in the correct
+order):
 
 ```bash
 Usage: mstpctl setfid2mstid <bridge> <mstid>:<FIDs List> [<mstid>:<FIDs List> ...]
@@ -259,13 +290,13 @@ swbridge FID-to-MSTID allocation table:
   MSTID 3: 3
 ```
 
-If you want to manage multiple switches in one MST region, you have to make sure
-that the mst configuration IDs ("Configuration Name" - by default created based on
-the MAC of the bridge that is manged), as well as the configuration itself
-("Configuration Digest" - digest of the mstp configuration applied on the
-bridge) are the same on all switches within that MST region. If you configured
-multiple switches with the commands shown above, your configuration might look
-similar to this ("Configuration Name" will be different for you):
+If you want to manage multiple switches in one MST region, you have to make
+sure that the mst configuration IDs ("Configuration Name" - by default created
+based on the MAC of the bridge that is manged), as well as the configuration
+itself ("Configuration Digest" - digest of the mstp configuration applied on
+the bridge) are the same on all switches within that MST region. If you
+configured multiple switches with the commands shown above, your configuration
+might look similar to this ("Configuration Name" will be different for you):
 
 ```bash
 root@accton-as4610-1:~# mstpctl showmstconfid swbridge
@@ -300,5 +331,6 @@ swbridge MST Configuration Identifier:
   Configuration Digest: 8A9442199657EA49D1124EA768B5D9A2
 ```
 
-After applying this configuration, each MSTI will be managed individually within
-each MST region and all connected MST regions will be managed in one CIST.
+After applying this configuration, each MSTI will be managed individually
+within each MST region and all connected MST regions will be managed in one
+CIST.

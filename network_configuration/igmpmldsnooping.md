@@ -5,21 +5,35 @@ parent: Network Configuration
 
 # IGMP/MLD Snooping
 
-BISDN Linux itself is capable of acting as a layer 2 multicast switch and with the help of frr can also be turned into a full fledged multicast router.
+BISDN Linux itself is capable of acting as a layer 2 multicast switch and with
+the help of frr can also be turned into a full fledged multicast router.
 
-In multicast switches and routers, the multicast group membership is managed by utilising the Internet Group Management Protocol (IGMP) or Multicast Listener Discovery (MLD). Both protocols report the interest of a host to receive a data stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a technique that allows multicast switches to maintain a map of which links need to receive IP multicast transmissions.
+In multicast switches and routers, the multicast group membership is managed by
+utilising the Internet Group Management Protocol (IGMP) or Multicast Listener
+Discovery (MLD). Both protocols report the interest of a host to receive a data
+stream, IGMP for IPv4 and MLD for IPv6 traffic. IGMP and MLD snooping is a
+technique that allows multicast switches to maintain a map of which links need
+to receive IP multicast transmissions.
 
 ## Enabling/disabling IGMP/MLD Snooping
 
-Multicast is enabled by default, but can be disabled by setting ''FLAGS_multicast=false'' in the [baseboxd configuration file](../getting_started/configure_baseboxd.html#setup-baseboxd).
+Multicast is enabled by default, but can be disabled by setting
+''FLAGS_multicast=false'' in the [baseboxd configuration file](../getting_started/configure_baseboxd.html#setup-baseboxd).
 
 ## Linux Configuration
 
-Linux implements IGMP/MLD snooping at the kernel level, and baseboxd listens for the changes (netlink messages) to the bridge multicast database triggered by IGMP/MLD snooping.
+Linux implements IGMP/MLD snooping at the kernel level, and baseboxd listens
+for the changes (netlink messages) to the bridge multicast database triggered
+by IGMP/MLD snooping.
 
-To enable multicast switching in BISDN Linux, we first have to connect the ports that will have multicast senders or receivers with a bridge. The bridge device will then receive the IGMP/MLD notifications and baseboxd will configure the new entries on the ASIC.
+To enable multicast switching in BISDN Linux, we first have to connect the
+ports that will have multicast senders or receivers with a bridge. The bridge
+device will then receive the IGMP/MLD notifications and baseboxd will configure
+the new entries on the ASIC.
 
-We first create the bridge with some ports attached like described above (for instructions on how to do that, please refer to [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q):
+We first create the bridge with some ports attached like described above (for
+instructions on how to do that, please refer to [VLAN
+Bridging](vlan_bridging.md#vlan-bridging-8021q):
 
 ```
 7: swbridge: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
@@ -49,7 +63,10 @@ After this initial setup the bridge multicast database should look like this:
 7: swbridge  swbridge  ff02::1:ff67:6264  temp  vid 1
 ```
 
-If a host if attached to port7, and it is interested in receiving a certain multicast stream for the multicast group `225.1.2.3`, it will send an IGMP notification to the switch. Via IGMP snooping, Linux then ensures that the multicast database is correctly updated and the new entry is visible:
+If a host if attached to port7, and it is interested in receiving a certain
+multicast stream for the multicast group `225.1.2.3`, it will send an IGMP
+notification to the switch. Via IGMP snooping, Linux then ensures that the
+multicast database is correctly updated and the new entry is visible:
 
 ```
 :~$ bridge mdb
@@ -64,6 +81,10 @@ If a host if attached to port7, and it is interested in receiving a certain mult
 ```
 ## Advanced configurations
 
-When using iproute2 instead of systemd-networkd to create a bridge, there are a couple of additional options for more fine grained configuration that are worth noting.
+When using iproute2 instead of systemd-networkd to create a bridge, there are a
+couple of additional options for more fine grained configuration that are worth
+noting.
 
-We can use these specific multicast configurations to control parameters like snooping or IGMP/MLD protocol versions. The options are available to consult in [man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/).
+We can use these specific multicast configurations to control parameters like
+snooping or IGMP/MLD protocol versions. The options are available to consult in
+[man ip-link](https://www.systutorials.com/docs/linux/man/8-ip-link/).

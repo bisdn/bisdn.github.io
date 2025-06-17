@@ -7,7 +7,12 @@ parent: Network Configuration
 
 ## Introduction
 
-Extending the layer 2 domain to a layer 3 routed network can be done via the Switch Virtual Interfaces (SVI). These interfaces allow for routing inter-VLAN traffic, removing the need for an external router. Attaching these interfaces to the bridge will provide as well a gateway for a certain VLAN. There is a 1:1 mapping between a VLAN and a SVI. Creating these interfaces is done with the following commands, after creation and port attachment to the bridge.
+Extending the layer 2 domain to a layer 3 routed network can be done via the
+Switch Virtual Interfaces (SVI). These interfaces allow for routing inter-VLAN
+traffic, removing the need for an external router. Attaching these interfaces
+to the bridge will provide as well a gateway for a certain VLAN. There is a 1:1
+mapping between a VLAN and a SVI. Creating these interfaces is done with the
+following commands, after creation and port attachment to the bridge.
 
 ## iproute2
 
@@ -30,7 +35,8 @@ ip address add ${SVI_IP} dev ${BRIDGE}.${BR_VLAN}
 
 ## systemd-networkd
 
-The corresponding systemd-networkd configuration adds the [Network] section on the swbridge.network file:
+The corresponding systemd-networkd configuration adds the [Network] section on
+the swbridge.network file:
 
 `10-swbridge.network`
 ```ini

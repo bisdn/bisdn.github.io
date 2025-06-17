@@ -6,17 +6,21 @@ nav_order: 2
 
 ## Install ONIE
 
-Check the current ONIE version of your switch by executing the following command in e.g. the ONIE-rescue shell:
+Check the current ONIE version of your switch by executing the following
+command in e.g. the ONIE-rescue shell:
 
 ```
 onie-sysinfo -v
 ```
 
-If your switch has the supported ONIE preinstalled you can skip this part and [Install BISDN Linux](install_bisdn_linux.md) right away. In the other case you can either install a complete ONIE or upgrade an existing one.
+If your switch has the supported ONIE preinstalled you can skip this part and
+[Install BISDN Linux](install_bisdn_linux.md) right away. In the other case you
+can either install a complete ONIE or upgrade an existing one.
 
 ### Supported ONIE versions
 
-Only the following ONIE versions are tested and supported. Installation on other versions may not work as expected.
+Only the following ONIE versions are tested and supported. Installation on
+other versions may not work as expected.
 
 | Device                 | Bootloader | ONIE version    |
 |------------------------|------------|-----------------|
@@ -32,18 +36,24 @@ Only the following ONIE versions are tested and supported. Installation on other
 
 ### Install ONIE
 
-Prepare a bootable USB device and copy the proper ONIE image to it. One way is to download the .iso file given by the links above. Copy the file to the USB device like in the example below.
+Prepare a bootable USB device and copy the proper ONIE image to it. One way is
+to download the .iso file given by the links above. Copy the file to the USB
+device like in the example below.
 
-This example copies the .iso of the ONIE installer for AG7648 to the USB device on sdb:
+This example copies the .iso of the ONIE installer for AG7648 to the USB device
+on sdb:
 ```
 sudo dd if=20181109-onie-recovery-x86_64-delta_ag7648-r0.iso of=/dev/sdb bs=10M
 sync
 ```
 
-**NOTE**: For installing ONIE on AG5648 platform please follow the instructions on github (see link above).
+**NOTE**: For installing ONIE on AG5648 platform please follow the instructions
+on github (see link above).
 {: .label .label-yellow }
 
-Attach the USB device to your switch and reboot it. Enter the ONIE boot menu then press `c` to get into the grub CLI. Enter the following commands to boot from a USB device.
+Attach the USB device to your switch and reboot it. Enter the ONIE boot menu
+then press `c` to get into the grub CLI. Enter the following commands to boot
+from a USB device.
 
 ```
 set root=(hd1)
@@ -51,7 +61,8 @@ chainloader +1
 boot
 ```
 
-Then select `ONIE: Embed ONIE` and the switch is going to install ONIE from the USB device.
+Then select `ONIE: Embed ONIE` and the switch is going to install ONIE from the
+USB device.
 
 ### Update ONIE
 
@@ -71,7 +82,9 @@ run onie_rescue
 
 to get into the ONIE CLI.
 
-Download the .bin file given by the links above and put it onto an http server that is reachable by the switch. Start the update via the CLI command `onie-self-update` as shown in the example below.
+Download the .bin file given by the links above and put it onto an http server
+that is reachable by the switch. Start the update via the CLI command
+`onie-self-update` as shown in the example below.
 
 ```
 onie-self-update -v http://local-http-server/onie-updater

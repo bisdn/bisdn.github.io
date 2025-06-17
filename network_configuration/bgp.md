@@ -7,9 +7,18 @@ parent: Network Configuration
 
 ## Introduction
 
-The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was originally designed to support IPv4 networks in [RFC4721](https://tools.ietf.org/html/rfc4271.html), and later extended to support other protocols, such as IPv6, in [RFC2858](https://tools.ietf.org/html/rfc2858.html). Contrary to OSPF, where its IPv4 and IPv6 are defined in FRR with different daemons/files, the FRR BGP daemon can be configured for both protocols. Its complete documentation for FRR can be found [here](http://docs.frrouting.org/en/latest/bgp.html).
+The Border Gateway Protocol (BGP) is a distance-vector routing protocol. It was
+originally designed to support IPv4 networks in
+[RFC4721](https://tools.ietf.org/html/rfc4271.html), and later extended to
+support other protocols, such as IPv6, in
+[RFC2858](https://tools.ietf.org/html/rfc2858.html). Contrary to OSPF, where
+its IPv4 and IPv6 are defined in FRR with different daemons/files, the FRR BGP
+daemon can be configured for both protocols. Its complete documentation for FRR
+can be found [here](http://docs.frrouting.org/en/latest/bgp.html).
 
-In this section, we provide examples on how to configure BGP for both [IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in BISDN Linux.
+In this section, we provide examples on how to configure BGP for both
+[IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in
+BISDN Linux.
 
 ## BGP configuration overview
 
@@ -222,8 +231,10 @@ Setting up the IP addresses on the interfaces on the switches and servers
 according to the diagram above, can also be done with frr by using zebra (which
 is enabled by default).
 
-The /etc/frr/frr.conf file has the protocol specific configurations, where the routing information is set up. This routing
-information entails all the necessary next-hops, route announcements, and route-filters needed to achieve the configuration.
+The /etc/frr/frr.conf file has the protocol specific configurations, where the
+routing information is set up. This routing information entails all the
+necessary next-hops, route announcements, and route-filters needed to achieve
+the configuration.
 
 The parameter `router bgp <AS>` is the first configuration for bgpd, where we
 define the Autonomous System (AS) for the routing daemon.  The `router id`

@@ -5,7 +5,8 @@ parent: Tools
 
 # onlpdump
 
-This tool can be used to show detailed information about the system/platform, the fan-control, the LEDs and the attached modules:
+This tool can be used to show detailed information about the system/platform,
+the fan-control, the LEDs and the attached modules:
 
 ```
 Usage: onlpdump [OPTIONS]

@@ -7,15 +7,22 @@ parent: Network Configuration
 
 ## Introduction
 
-The Open Shortest Path First (OSPF) protocol is a link state routing protocol. Its IPv4 networking version is specified as [OSPFv2](https://tools.ietf.org/html/rfc2328) and the IPv6 version is defined as [OSPFv3](https://tools.ietf.org/html/rfc5340).
-Both versions can be configured using FRR and their full documentation is available for both [OSPFv2](http://docs.frrouting.org/en/latest/ospfd.html) and [OSPFv3](http://docs.frrouting.org/en/latest/ospf6d.html) versions, respectively.
+The Open Shortest Path First (OSPF) protocol is a link state routing protocol.
+Its IPv4 networking version is specified as
+[OSPFv2](https://tools.ietf.org/html/rfc2328) and the IPv6 version is defined
+as [OSPFv3](https://tools.ietf.org/html/rfc5340).
+Both versions can be configured using FRR and their full documentation is
+available for both [OSPFv2](http://docs.frrouting.org/en/latest/ospfd.html) and
+[OSPFv3](http://docs.frrouting.org/en/latest/ospf6d.html) versions,
+respectively.
 
-This section provides an overview on how to configure both versions on BISDN Linux.
+This section provides an overview on how to configure both versions on BISDN
+Linux.
 
 ## OSPFv2 configuration
 
-OSPF must first be enabled in /etc/frr/daemons file. The relevant file for this test case must then be
-configured, /etc/frr/frr.conf.
+OSPF must first be enabled in /etc/frr/daemons file. The relevant file for this
+test case must then be configured, /etc/frr/frr.conf.
 
 ```
 zebra=yes
@@ -26,12 +33,15 @@ vtysh_enable=yes
 zebra_options="  -A 127.0.0.1 -s 90000000"
 ```
 
-The zebra configuration will set IP addresses on the interfaces with the configuration snippet. It is not required that the same tools are used, just that the system is correctly configured for the connectivity tests.
+The zebra configuration will set IP addresses on the interfaces with the
+configuration snippet. It is not required that the same tools are used, just
+that the system is correctly configured for the connectivity tests.
 
-Regarding OSPFv2, the configuration here must specify the point-to-point parameter in the
-interface specific section, to enable the protocol on the port53 link between the two Basebox routers.
-The redistribute connected command is a “smart” flag by FRR, that will redistribute every network configured
-on the router.
+Regarding OSPFv2, the configuration here must specify the point-to-point
+parameter in the interface specific section, to enable the protocol on the
+port53 link between the two Basebox routers.
+The redistribute connected command is a “smart” flag by FRR, that will
+redistribute every network configured on the router.
 
 ```
 interface port1
@@ -51,7 +61,8 @@ exit
 
 ### OSPF expected result and debugging
 
-Analogous to the previous protocols debugging commands, we can run the following commands to verify the configuration.
+Analogous to the previous protocols debugging commands, we can run the
+following commands to verify the configuration.
 
 ```
 ip route
@@ -63,8 +74,8 @@ ip route
 
 ## OSPFv3
 
-OSPFv3 must first be enabled in /etc/frr/daemons file. The relevant file for this test case must then be
-configured, /etc/frr/frr.conf.
+OSPFv3 must first be enabled in /etc/frr/daemons file. The relevant file for
+this test case must then be configured, /etc/frr/frr.conf.
 
 ```
 zebra=yes
@@ -76,12 +87,15 @@ zebra_options="  -A 127.0.0.1 -s 90000000"
 ...
 ```
 
-The zebra configuration will configure IP addresses on the interfaces, with the configuration snippet. The following configurations allow setting up the Router neighboring discover packets and IP address auto-configuration.
+The zebra configuration will configure IP addresses on the interfaces, with the
+configuration snippet. The following configurations allow setting up the Router
+neighboring discover packets and IP address auto-configuration.
 
-Regarding OSPFv3, the configuration here must specify the point-to-point parameter in the
-interface specific section, to enable the protocol on the port53 link between the two Basebox routers.
-The redistribute connected command is a “smart” flag by FRR, that will redistribute every network configured
-on the router.
+Regarding OSPFv3, the configuration here must specify the point-to-point
+parameter in the interface specific section, to enable the protocol on the
+port53 link between the two Basebox routers.
+The redistribute connected command is a “smart” flag by FRR, that will
+redistribute every network configured on the router.
 
 ```
 interface port1
@@ -102,7 +116,8 @@ exit
 
 ### OSPFv3 expected result and debugging
 
-Analogous to the previous protocols debugging commands, we can run the following commands to verify the configuration.
+Analogous to the previous protocols debugging commands, we can run the
+following commands to verify the configuration.
 
 ```
 (vtysh) show ip ospf sum
