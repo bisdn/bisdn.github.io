@@ -34,7 +34,6 @@ Only the following ONIE versions are tested and supported. Installation on other
 
 Prepare a bootable USB device and copy the proper ONIE image to it. One way is to download the .iso file given by the links above. Copy the file to the USB device like in the example below.
 
-
 This example copies the .iso of the ONIE installer for AG7648 to the USB device on sdb:
 ```
 sudo dd if=20181109-onie-recovery-x86_64-delta_ag7648-r0.iso of=/dev/sdb bs=10M
@@ -82,4 +81,3 @@ onie-self-update -v http://local-http-server/onie-updater
 {: .label .label-yellow }
 
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-self-update).
-

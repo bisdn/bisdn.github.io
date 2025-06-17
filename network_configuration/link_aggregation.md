@@ -276,4 +276,3 @@ systemctl restart systemd-networkd
 ```
 
 With these two addresses assigned, both servers should now be able to reach each other.
-

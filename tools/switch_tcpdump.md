@@ -56,7 +56,6 @@ See also the man page of `switch_tcpdump` for more information.
 **Note**: This tool needs to be executed with super user privileges.
 {: .label .label-yellow }
 
-
 ## Examples
 
 Capturing traffic on `port2` until user interruption (e.g. until the user

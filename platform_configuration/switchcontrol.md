@@ -25,4 +25,3 @@ To print the currently set value, you can run:
 ```
 client_drivshell SwitchControl L3UcastTtl1ToCpu
 ```
-

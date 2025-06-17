@@ -26,7 +26,6 @@ $ ip link show
 
 These interfaces can be managed via the [iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported Linux networking utility. The link state for these interfaces maps to the physical port state. Note that by default all data plane ports are disabled, so in order to see the physical port state a port needs to be enabled.
 
-
 ```
 $ sudo ip link set port1 up
 $ sudo ip link set port2 up
@@ -128,7 +127,6 @@ root@myserver: ping 192.168.0.1
 ```
 
 To configure more complex scenarios, please refer to the [Network Configuration](../network_configuration.md) section.
-
 
 # Persisting network configuration with systemd-networkd
 

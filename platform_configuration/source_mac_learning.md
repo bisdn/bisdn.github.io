@@ -30,4 +30,3 @@ Read the current state:
 ```
 grpc_cli call <IP>:50051 ofdpaSourceMacLearningGet ""
 ```
-

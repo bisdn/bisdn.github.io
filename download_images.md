@@ -8,7 +8,6 @@ bisdn-linux-version: 5.3.1
 
 The BISDN Linux distribution is available for the following whitebox switch platforms:
 
-
 | Platform                                 | Latest Release | Changelog | Previous Releases |
 |------------------------------------------|----------------|---------------|-------------------|
 | Celestica Questone 2 D3030 (Questone 2A) | [{{ page.bisdn-linux-version }}](http://repo.bisdn.de/pub/onie/generic-x86-64/onie-bisdn-generic-x86-64-v{{ page.bisdn-linux-version }}.bin) | [{{ page.bisdn-linux-version }}](http://repo.bisdn.de/pub/onie/generic-x86-64/onie-bisdn-generic-x86-64-v{{ page.bisdn-linux-version }}-changelog.txt) | [5.x](http://repo.bisdn.de/pub/onie/generic-x86-64/) [4.9 and earlier](http://repo.bisdn.de/pub/onie/cel-questone-2a/) |

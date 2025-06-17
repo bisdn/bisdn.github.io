@@ -10,7 +10,6 @@ Connect the CONSOLE port of the switch to a computer of your choice. If a Linux 
 
 Here, we provide instructions for [minicom](https://linux.die.net/man/1/minicom) and [ckermit](http://www.columbia.edu/kermit/ckututor.html), assuming the switch is connected in port `/dev/ttyUSB0`.
 
-
 ### minicom
 
 The default configurations of minicom can be used to connect to the switch, with exception of the console port and hardware flow control. Running minicom in a command line with the following command will start it in setup mode (omit the `-s` for skip setup):
@@ -20,8 +19,6 @@ sudo minicom -s -D /dev/ttyUSB0
 ```
 
 In `Serial port setup`, set hardware flow control to `No` by pressing `F`. Exit setup by pressing `esc` and minicom will then connect to the switch.
-
-
 
 ### ckermit
 

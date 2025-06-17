@@ -33,7 +33,6 @@ interface specific section, to enable the protocol on the port53 link between th
 The redistribute connected command is a “smart” flag by FRR, that will redistribute every network configured
 on the router.
 
-
 ```
 interface port1
   no shutdown

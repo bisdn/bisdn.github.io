@@ -89,7 +89,6 @@ ofdpa_acl_flow_cli.py -d --cookie 10001
 ofdpa_acl_flow_cli.py -d --cookie 10002
 ```
 
-
 ### Troubleshooting
 
 Failure on following the TTP guidelines will result in error messages in the `ofdpa_acl_flow_cli.py` tool.
@@ -130,7 +129,6 @@ With the new verbose option, error messages regarding the creation of new flows 
 sudo journalctl -fu ofdpa
 Apr 14 12:37:59 agema-ag7648 ofdpa[10452]: ofdbFlowPolicyAclEntryValidate: Invalid ethertype for IPv6 match fields.
 ```
-
 
 ## Metering
 

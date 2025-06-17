@@ -18,7 +18,6 @@
 ###############
 # Rules by id #
 ###############
-MD012: false # Allow multiple blank lines
 MD013: false # Allow any line length
 MD014: false # Allow Commands without output
 MD022: false # Don't require blank lines around headings

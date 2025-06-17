@@ -76,7 +76,6 @@ Additionally they add the `lo` interface to the BISDN router on the servers, so
 that the route to the /32 address configured on it will also be announced to
 all other routers.
 
-
 `switch-1: /etc/frr/frr.conf`
 
 ```
@@ -178,4 +177,3 @@ official FRR documentation [here](http://docs.frrouting.org/en/latest/isisd.html
 When connecting Cisco routers and switches running BISDN Linux and FRR with ISIS, it is essential to correctly configure
 the `metric-style` setting. Per default, the Cisco Routers have the `metric-style narrow` configuration,
 while FRR chooses the wide metrics. Refer to [CISCO docs](https://www.cisco.com/c/en/us/support/docs/ip/integrated-intermediate-system-to-intermediate-system-is-is/13795-is-is-ip-config.html) for further documentation on configuring Cisco routers with ISIS. For specific information on `metric-syle` configurations, refer to [CISCO](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-l1.html#wp1681001735) and [FRR](http://docs.frrouting.org/en/latest/isisd.html#clicmd-metric-style[narrow|transition|wide]).
-

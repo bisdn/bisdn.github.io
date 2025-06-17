@@ -111,7 +111,6 @@ When `mstpd` is running, any stp enabled bridge will be managed by mstpd. By def
 ip link add name swbridge type bridge vlan_filtering 1 stp_state 1
 ```
 
-
 The following steps of configuring the ports and attaching them to the bridge can be seen in [VLAN Bridging](vlan_bridging.md#vlan-bridging-8021q).
 
 ## RSTP operation
@@ -167,7 +166,6 @@ Similar to RSTP, there is currently no MSTP support in the Linux Kernel and
 therefore BISDN Linux uses [mstpd](https://github.com/mstpd/mstpd) to configure
 and manage it. Since the mstpd.service is disabled by default, it has to be
 started and enabled before MSTP can be configured and used.
-
 
 ## MSTP configuration
 

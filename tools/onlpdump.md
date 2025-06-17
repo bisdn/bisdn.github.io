@@ -28,4 +28,3 @@ Usage: onlpdump [OPTIONS]
   -l   API Lock test.
   -J   Decode ONIE JSON data.
 ```
-
