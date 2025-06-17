@@ -18,7 +18,6 @@
 ###############
 # Rules by id #
 ###############
-MD007: false # Don't require unordered list indentation
 MD009: false # Allow trailing spaces
 MD012: false # Allow multiple blank lines
 MD013: false # Allow any line length
