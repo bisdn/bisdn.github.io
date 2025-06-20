@@ -1,5 +1,7 @@
 # Documentation on github pages for BISDN Linux and basebox
 
+<!-- markdownlint-disable MD014 -->
+
 ## Installation
 
 ### Local installation

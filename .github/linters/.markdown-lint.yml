@@ -18,7 +18,6 @@
 ###############
 # Rules by id #
 ###############
-MD014: false # Allow Commands without output
 MD013:
   code_blocks: false # allow code blocks to exceed 80 characters
   tables: false # allow tables to exceed 80 characters
