@@ -79,7 +79,7 @@ FE80::202:B3FF:FE1E:8329 : short version
 ```
 
 Prefixes for IPv6 addresses can then be represented similarly to network masks
-in IPv4, with the notation <ip adddress>/<prefix>, where this prefix is an
+in IPv4, with the notation \<ip adddress\>/\<prefix\>, where this prefix is an
 integer between 1-128. Despite having the possibility of configuring prefixes
 with this entire range, many of the IPv6 advantages brings, like address
 auto-configuration works solely with the /64 prefix.
@@ -93,7 +93,7 @@ example.
 Similarly to IPv4, there are also some Linux sysctls present to control IPv6
 behavior. The forwarding sysctl, net.ipv6.conf.all.forwarding, is in BISDN
 Linux as well 1, allowing for the switch to forward IPv6 packets. This affects
-as well the net.ipv6.conf.<interface>.accept_ra sysctl, since routers are not
+as well the net.ipv6.conf.\<interface\>.accept\_ra sysctl, since routers are not
 designed to accept Router Advertisements, and using them to configure the IPv6
 address. Router advertisements (RA) are the periodically transmitted messages
 upon reception of Router Solicitations sent by hosts. The host then used the
