@@ -6,6 +6,7 @@ nav_order: 9
 
 1. Why do i get a latency above 1 ms when trying to ping the IP address
    assigned to a switch port from a directly connected server ?
+
 - This is the delay incurred by using the OpenFlow interface on-switch. The
   traffic destined to the controller is encapsulated in the OpenFlow PACKET_IN,
   destined to the tap interface created by baseboxd. This extra encapsulation and
@@ -13,6 +14,7 @@ nav_order: 9
   the switch port.
 
 2. Why do some packets with TTL=1 not reach my router?
+
 - Switches that forward packets may have a rule in the "Unicast Routing" table
   to route the packets to the CPU. In `eBGP` the packets carrying BGP messages
   have a TTL=1, which results in the packets being dropped when they would reach

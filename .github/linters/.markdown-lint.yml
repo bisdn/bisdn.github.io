@@ -26,7 +26,6 @@ MD024:
   siblings_only:  true # Require unique headings within one level
 MD025: false # Allow multiple h1 headings
 MD029: false # Don't require ordered list item prefix to be ordered
-MD032: false # Don't require blank lines around lists
 MD033: false # Allow inline HTML
 MD034: false # Allow bare URLs (misbehaves with templates)
 MD040: false # Don't require language for fenced codeblocks
