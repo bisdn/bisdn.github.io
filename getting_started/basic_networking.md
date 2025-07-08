@@ -6,9 +6,35 @@ nav_order: 5
 
 # Getting started with network configuration
 
-Before starting with actually configuring the switch interfaces, you should
-first familiarise yourself with how interfaces are created and how they fit
-into the BISDN Linux architecture.
+In contrast to many specialized switch operating systems, BISDN Linux does not
+provide a specialized CLI for network configuration.
+
+For run time network configuration you can use standard Linux command line
+tools. All our examples use the [iproute2](https://linux.die.net/man/8/ip)
+utilities, as they provide the most comprehensive options for network
+configuration.
+
+To configure persistent network configuration BISDN Linux provides
+[systemd-networkd](https://www.freedesktop.org/software/systemd/man/systemd-networkd.service.html).
+Systemd-networkd allows a variety of options for configuring static network
+configuration.
+
+To prevent ssh access from dataplane ports, the switch has an
+[iptables](https://linux.die.net/man/8/iptables) rule to block traffic destined
+to the default ssh port (TCP port 22) on all interfaces, except for the
+management interface. The management interface follows the Predictable
+Interface naming convention in Linux, and is usually enp\*.
+
+```
+:INPUT ACCEPT [176:40142]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [150:38898]
+-A INPUT ! -i enp+ -p tcp -m tcp --dport 22 -j DROP
+COMMIT
+```
+
+The default path for iptables configuration is ``/etc/iptables/iptables.rules``
+for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
 ## Interfaces
 
@@ -45,29 +71,6 @@ $ ip link show
     link/ether 96:98:0a:8c:0d:a2 brd ff:ff:ff:ff:ff:ff
   ...
 ```
-
-**WARNING**: Despite Linux providing multiple alternatives for network
-configuration, iproute2 is the preferred configuration tool for BISDN Linux.
-The usage of other network configuration tools (e.g. ifconfig) is not covered
-in our documentation and might lead to unintended results.
-{: .label .label-red }
-
-To prevent ssh access from dataplane ports, the switch has an
-[iptables](https://linux.die.net/man/8/iptables) rule to block traffic destined
-to the default ssh port (TCP port 22) on all interfaces, except for the
-management interface. The management interface follows the Predictable
-Interface naming convention in Linux, and is usually enp\*.
-
-```
-:INPUT ACCEPT [176:40142]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [150:38898]
--A INPUT ! -i enp+ -p tcp -m tcp --dport 22 -j DROP
-COMMIT
-```
-
-The default path for iptables configuration is ``/etc/iptables/iptables.rules``
-for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
 The physical link configuration (e.g. link speed) is reflected to the tap
 interface and can be checked using ethtool:
