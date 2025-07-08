@@ -36,13 +36,10 @@ COMMIT
 The default path for iptables configuration is ``/etc/iptables/iptables.rules``
 for IPv4 and ``/etc/iptables/ip6tables.rules`` for IPv6 traffic.
 
-## Interfaces
+## Port interfaces
 
-BISDN Linux maps the physical ports on the switch with an abstract
-representation via
-[tuntap](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
-interfaces. These interfaces are special Linux software only devices, that are
-bound to a userspace program, specifically baseboxd in the case of BISDN Linux.
+BISDN Linux exposes the physical ports on the switch as individual network
+interfaces, named port1, port2 and so on.
 
 ```
 $ ip link show
@@ -54,15 +51,23 @@ $ ip link show
   ...
 ```
 
-These interfaces can be managed via the
-[iproute2](https://linux.die.net/man/8/ip) utilities, or any netlink supported
-Linux networking utility. The link state for these interfaces maps to the
-physical port state. Note that by default all data plane ports are disabled, so
-in order to see the physical port state a port needs to be enabled.
+By default all ports are in a disabled and unconfigured state.
+
+Like any other network interface these can be managed via the
+[iproute2](https://linux.die.net/man/8/ip) utility, or any netlink supported
+Linux networking utility.
+
+For example, to set ports up, you can do
 
 ```
 $ sudo ip link set port1 up
 $ sudo ip link set port2 up
+````
+
+In our example, we have a device connected to port1, but not to port2. We can
+now see that both ports are enabled, and port1 has a link:
+
+````
 $ ip link show
 ...
 8: port1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
@@ -72,8 +77,7 @@ $ ip link show
   ...
 ```
 
-The physical link configuration (e.g. link speed) is reflected to the tap
-interface and can be checked using ethtool:
+We can check the physical link configuration (e.g. link speed) using ethtool:
 
 ```
 $ ethtool port1
@@ -98,7 +102,7 @@ Settings for port1:
 
 **WARNING**: All link configurations shown in ethtool are currently read-only
 and cannot be modified (meaning any changes done with ethtool will not be
-forwarded to the physical link, but just be shown on the tap interfaces without
+forwarded to the physical link, but just be shown on the port interfaces without
 having any effect on the ASIC). Configuring the link speed as in [Disable
 auto-negotiation](../platform_configuration/auto_negotiation.md#disable-auto-negotiation)
 however, will update the ethtool reported speed.
@@ -153,9 +157,9 @@ ClientIdentifier=mac
 # Network configuration with iproute2
 
 To configure an interface on the switch, you have to configure the
-corresponding port (tap interface) created by baseboxd. If, for example, you
-have connected "port1" of the switch to "eno2" of your server and want to test
-a simple ping between these two, you can assign IP addresses to both interfaces
+corresponding port interface created by baseboxd. If, for example, you have
+connected "port1" of the switch to "eno2" of your server and want to test a
+simple ping between these two, you can assign IP addresses to both interfaces
 in a very similar way:
 
 On the switch:
