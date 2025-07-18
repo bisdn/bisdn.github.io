@@ -59,15 +59,17 @@ Linux networking utility.
 
 For example, to set ports up, you can do
 
+<!-- markdownlint-disable MD014 -->
 ```
 $ sudo ip link set port1 up
 $ sudo ip link set port2 up
-````
+```
+<!-- markdownlint-enable MD014 -->
 
 In our example, we have a device connected to port1, but not to port2. We can
 now see that both ports are enabled, and port1 has a link:
 
-````
+```
 $ ip link show
 ...
 8: port1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
