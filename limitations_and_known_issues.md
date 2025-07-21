@@ -5,6 +5,11 @@ nav_order: 10
 
 # Limitations
 
+## Traffic redirected to controller via ACL flows is counted as dropped
+
+Traffic redirected to the controller via ACL flows that would have been dropped
+otherwise is still counted as dropped in port statistics.
+
 ## Some Forward Error Correction (FEC) modes may be unavailable
 
 Depending on the switch ASIC used, some FEC modes may be unavailable to configure:
@@ -78,6 +83,14 @@ In all of these cases forcing the port on the switch to the desired speed works
 as expected.
 
 # Open issues
+
+## Reserved multicast traffic (BPDUs, LACP, etc) is always counted as dropped
+
+Affected version: 3.0 - current
+
+Since BISDN Linux uses ACL flows to redirect STP and other protocols to the
+controller, their traffic is always counted as dropped due to [hardware
+limitations](#traffic-redirected-to-controller-via-acl-flows-is-counted-as-dropped).
 
 ## Using VLAN 1 on a bridge and ports outside of a bridge may lead to packet leakage
 
