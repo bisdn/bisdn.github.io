@@ -109,6 +109,117 @@ having any effect on the ASIC). Configuring the link speed as in [Disable
 auto-negotiation](../platform_configuration/auto_negotiation.md#disable-auto-negotiation)
 however, will update the ethtool reported speed.
 
+To see port statistics, you can use the `-s` flag when using `ip link show`:
+
+```
+$ ip -s link show dev port1
+8: port1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master swbridge state UP mode DEFAULT group default qlen 1000
+    link/ether ea:db:2b:c1:f6:06 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast
+    1122684910  741558      0       2       0      11
+    TX:  bytes packets errors dropped carrier collsns
+       3140380   47577      0       0       0       0
+
+```
+
+These statistics are directly taken from the hardware, and represent the actual
+traffic seen by the ASIC. They are updated once per second, so there is a small
+delay between traffic and the counters being updated.
+
+**Note**: Some traffic is counted as dropped although it received by the
+controller. See [known issues and
+limitations](../limitations_and_known_issues.md#reserved-multicast-traffic-bpdus-lacp-etc-is-always-counted-as-dropped)
+for details.
+{: .label .label-yellow }
+
+You can also see detailed error counters by specifying `-s` twice:
+
+```
+$ ip -s -s link show dev port1
+8: port1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master swbridge state UP mode DEFAULT group default qlen 1000
+    link/ether ea:db:2b:c1:f6:06 brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast
+    1122684910  741558      0       2       0      11
+    RX errors:  length    crc   frame    fifo overrun
+                     0      0       0       0       0
+    TX:  bytes packets errors dropped carrier collsns
+       3140380   47577      0       0       0       0
+    TX errors: aborted   fifo  window heartbt transns
+                     0      0       0       0       4
+
+```
+
+**Note**: The TX errors counter `transns` is not an actual error counter, but
+state transitions between up and down, so it is fine and expected to be
+non-zero for interfaces in use.
+
+The kernel provides a [description of the individual
+counters](https://docs.kernel.org/networking/statistics.html#c.rtnl_link_stats64).
+
+For additional statistics groups you can use the `ip stats` command:
+
+```
+$ ip stats show dev port1
+8: port1: group offload subgroup hw_stats_info
+    l3_stats off used off
+8: port1: group afstats subgroup mpls
+8: port1: group link
+    RX:  bytes packets errors dropped  missed   mcast
+    1122684910  741558      0       2       0      11
+    TX:  bytes packets errors dropped carrier collsns
+       3140380   47577      0       0       0       0
+8: port1: group offload subgroup l3_stats off used off
+8: port1: group offload subgroup cpu_hit
+    RX:  bytes packets errors dropped  missed   mcast
+           710      10      0       0       0       0
+    TX:  bytes packets errors dropped carrier collsns
+           180       2      0       0       0       0
+8: port1: group xstats_slave subgroup bond suite 802.3ad
+8: port1: group xstats subgroup bond suite 802.3ad
+8: port1: group xstats_slave subgroup bridge suite mcast
+                    IGMP queries:
+                      RX: v1 0 v2 0 v3 0
+                      TX: v1 0 v2 0 v3 0
+                    IGMP reports:
+                      RX: v1 0 v2 0 v3 0
+                      TX: v1 0 v2 0 v3 0
+                    IGMP leaves: RX: 0 TX: 0
+                    IGMP parse errors: 0
+                    MLD queries:
+                      RX: v1 0 v2 0
+                      TX: v1 0 v2 0
+                    MLD reports:
+                      RX: v1 0 v2 0
+                      TX: v1 0 v2 0
+                    MLD leaves: RX: 0 TX: 0
+                    MLD parse errors: 0
+
+8: port1: group xstats_slave subgroup bridge suite stp
+                    STP BPDU:  RX: 0 TX: 0
+                    STP TCN:   RX: 0 TX: 0
+                    STP Transitions: Blocked: 0 Forwarding: 0
+
+8: port1: group xstats subgroup bridge suite mcast
+8: port1: group xstats subgroup bridge suite stp
+```
+
+As with the `ip -s link show` command, you can add a `-s` flag to show the
+individual error counters.
+
+The most relevant statistics shown are
+
+* `group link`: These counters are the hardware counters, and are the same that
+  are shown by the `ip -s link show` command.
+* `group offload subgroup cpu_hit`: These counters are the software counters,
+  i.e. all packets that were copied or redirected to the controller.
+
+Be aware that for the `cpu_hit` counters we do not try to classify traffic so
+multicast traffic is not counted separately and the `mcast` counter is always
+0.
+
+For an explanation of each group, see the [ip-stats
+documentation](https://man7.org/linux/man-pages/man8/ip-stats.8.html).
+
 ## Loopback interface
 
 The loopback interface `lo` is a special type of device destined to allow the
