@@ -79,15 +79,27 @@ and KNET interfaces. The default configuration file shows the basic structure:
 # Mark switched packets as offloaded:
 # FLAGS_mark_fwd_offload=true
 #
+# Clear switch configuration on connect
+# FLAGS_clear_switch_configuration=true
+#
 # Vlan ID used for untagged traffic on unbridged ports (1-4095):
 # FLAGS_port_untagged_vid=1
+#
+# Set a Packets per Seconds rate limit for traffic to controller.
+#  -1 = auto (unlimited for KNET, 1024 for TAP)
+#   0 = force unlimited
+# Default is auto.
+# FLAGS_rx_rate_limit=-1
 
-### glog
+### glog logging configuration
 #
 # log to stderr by default:
 GLOG_logtostderr=1
 
-# verbose log level:
+# Adjust stderr log level (0 INFO, 1 WARNING, 2 ERROR, 3 FATAL)
+# GLOG_minloglevel=1
+
+# Configure verbose logging level (0 = least verbose, 4 = most verbose)
 # GLOG_v=0
 
 # verbose per-module log level:
