@@ -84,14 +84,6 @@ as expected.
 
 # Open issues
 
-## Reserved multicast traffic (BPDUs, LACP, etc) is always counted as dropped
-
-Affected version: 3.0 - current
-
-Since BISDN Linux uses ACL flows to redirect STP and other protocols to the
-controller, their traffic is always counted as dropped due to [hardware
-limitations](#traffic-redirected-to-controller-via-acl-flows-is-counted-as-dropped).
-
 ## Using VLAN 1 on a bridge and ports outside of a bridge may lead to packet leakage
 
 Affected versions: 3.0 - current
@@ -144,6 +136,18 @@ phy control 53-54 preemphasis=0x124106
 ```
 
 # Resolved issues
+
+## Reserved multicast traffic (BPDUs, LACP, etc) is always counted as dropped
+
+Affected version: 3.0 - 5.4
+
+In releases up to and including 5.4, BISDN Linux used ACL flows to redirect STP
+and other protocols to the controller and the corresponding traffic was always
+counted as dropped due to [hardware
+limitations](#traffic-redirected-to-controller-via-acl-flows-is-counted-as-dropped).
+
+With release 5.5.0 BISDN Linux switched to the intended way of allowing this
+traffic to controller, and it is no longer included in dropped counters.
 
 ## Accton-AS4630-54PE: LEDs for the SFP interfaces signal in white colour
 
