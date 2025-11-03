@@ -82,6 +82,12 @@ behaviors:
 In all of these cases forcing the port on the switch to the desired speed works
 as expected.
 
+## Bridge ageing time is effectively limited to 65535 seconds
+
+While the standard allows ageing times up to 1,000,000 seconds, due to Open
+Flow limitations BISDN Linux is limited to 65,535 seconds. Any higher values
+are interpreted as the maximum supported.
+
 # Open issues
 
 ## Using VLAN 1 on a bridge and ports outside of a bridge may lead to packet leakage
