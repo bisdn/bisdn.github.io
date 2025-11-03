@@ -106,6 +106,28 @@ Finally, detaching the ports from the bridge is done via
 ip link set ${PORTA} nomaster
 ```
 
+By default the bridge ages out learned entries after 300 seconds after the last
+time it saw a packet from a device.
+
+This can be changed during runtime via
+
+```bash
+ip link set dev swbridge type bridge ageing_time <time_in_centiseconds>
+```
+
+For example, to reduce the ageing time to 30 seconds, you would set
+
+```bash
+ip link set dev swbridge type bridge ageing_time 3000
+```
+
+The ageing time can also be configured at creation time by adding same
+arguments to `ip link add`.
+
+Be aware that BISDN Linux only supports ageing times between 1 to 65535
+seconds, in one second steps. Any other values will be rounded and clamped to
+these values.
+
 ### 802.1ad
 
 Creation of the 802.1ad bridge is done with the following commands.
