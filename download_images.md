@@ -35,8 +35,8 @@ bceed3852bc0a59e1d13961fe671fae4ab0bb9067267a8772cf3aad55919d0cd onie-bisdn-gene
 
 | Version | Image                                         | SHA256 checksum                                                  |
 |---------|-----------------------------------------------|------------------------------------------------------------------|
-| v5.5.0  | onie-bisdn-generic-armel-iproc-v5.4.0.bin     | b813f62ba522c0b10f7ef2dd259b0dc793a13706c36130bb9603c1b43eafee7a |
-| v5.5.0  | onie-bisdn-generic-x86-64-v5.4.0.bin          | 459cb59b897796a527014362d1ffff3a7b782dfb04cf14422d18421c2ceaaa3d |
+| v5.5.0  | onie-bisdn-generic-armel-iproc-v5.5.0.bin     | b813f62ba522c0b10f7ef2dd259b0dc793a13706c36130bb9603c1b43eafee7a |
+| v5.5.0  | onie-bisdn-generic-x86-64-v5.5.0.bin          | 459cb59b897796a527014362d1ffff3a7b782dfb04cf14422d18421c2ceaaa3d |
 |---------|-----------------------------------------------|------------------------------------------------------------------|
 | v5.4.0  | onie-bisdn-generic-armel-iproc-v5.4.0.bin     | 76043aff90537c227d532191abb51bbacc8c329cd716447821c929f9534b0e60 |
 | v5.4.0  | onie-bisdn-generic-x86-64-v5.4.0.bin          | fa1470a3dfa8a3d06b89c005ee43eb3c54d5ae965226f6ee2cb012b53a6c0920 |
