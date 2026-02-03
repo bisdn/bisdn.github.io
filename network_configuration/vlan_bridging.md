@@ -34,7 +34,9 @@ Similarly to 802.1q bridging, it is possible to configure 802.1ad VLANs using
 [iproute2](#iproute2) or [systemd-networkd](#systemd-networkd).
 
 **WARNING**: Any bridge configured to forward VLAN traffic with either protocol
-802.1q or 802.1ad will only forward traffic of the selected VLAN protocol type.
+802.1q or 802.1ad will only process VLAN tags of the selected VLAN protocol
+type. Packets tagged with the other VLAN protocol are treated like untagged
+packets and forwarded accordingly.
 {: .label .label-red }
 
 ## iproute2
