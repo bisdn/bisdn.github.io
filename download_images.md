@@ -1,7 +1,7 @@
 ---
 title: Download Images
 nav_order: 2
-bisdn-linux-version: 5.6.2
+bisdn-linux-version: 5.6.3
 ---
 
 # BISDN Linux images
@@ -34,6 +34,9 @@ bceed3852bc0a59e1d13961fe671fae4ab0bb9067267a8772cf3aad55919d0cd onie-bisdn-gene
 ```
 
 | Version | Image                                         | SHA256 checksum                                                  |
+|---------|-----------------------------------------------|------------------------------------------------------------------|
+| v5.6.3  | onie-bisdn-generic-armel-iproc-v5.6.3.bin     | 71a716b79738cc1031673b03ee9d4cfb54bebd8d5e43821eec50a81e065515fa |
+| v5.6.3  | onie-bisdn-generic-x86-64-v5.6.3.bin          | 3256ebc383bef5e52f7607a421565cbbedf67ba421d5d33317dac14028a71bd2 |
 |---------|-----------------------------------------------|------------------------------------------------------------------|
 | v5.6.2  | onie-bisdn-generic-armel-iproc-v5.6.2.bin     | 37031cdaa6aac621476e3354d792caa10fb56867534c2cf63a2299e623d24ce5 |
 | v5.6.2  | onie-bisdn-generic-x86-64-v5.6.2.bin          | 2cab0c8d038ec05bad60cf8d3fdee389534046358b361fc6aff769a28cf2c9c6 |
