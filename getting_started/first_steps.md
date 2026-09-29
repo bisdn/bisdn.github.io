@@ -1,5 +1,5 @@
 ---
-title: Configure Baseboxd
+title: First steps with BISDN Linux
 parent: Getting Started
 nav_order: 4
 ---
