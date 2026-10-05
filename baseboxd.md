@@ -1,6 +1,7 @@
 ---
 title: Basebox
 nav_order: 3
+has_children: true
 ---
 
 # Baseboxd
