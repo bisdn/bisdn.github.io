@@ -1,6 +1,6 @@
 ---
 title: Configure Baseboxd
-parent: baseboxd
+parent: Baseboxd
 nav_order: 1
 ---
 
