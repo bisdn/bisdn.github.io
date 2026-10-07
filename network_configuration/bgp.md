@@ -370,3 +370,224 @@ corresponding flowtable entries can be seen when running `client_flowtable_dump
 
 For further debugging using `vtysh`, please refer to the official frr
 documentation.
+
+### Unnumbered BGP
+
+BISDN Linux 6.0 introduces support for unnumbered BGP.
+
+Unnumbered BGP uses IPv6 link-local addresses to establish a session and
+can exchange both IPv6 and IPv4 routes with IPv6 next hops.
+
+The following example connects two switches directly through `port54`. Each
+switch advertises an IPv4 loopback address over the unnumbered link.
+
+```
+ +----------------------------+          +----------------------------+
+ | switch-1                   |          |                   switch-2 |
+ |                            |          |                            |
+ | loopback: 192.0.2.1/32     |          |     192.0.2.2/32 :loopback |
+ | router ID: 10.0.1.1        |          |        10.0.2.1 :router ID |
+ | AS 65000            port54 +----------+ port54            AS 65001 |
+ +----------------------------+          +----------------------------+
+                         IPv6 link-local
+```
+
+#### Configure the link
+
+Do not assign an IPv4 address to `port54`. Enable IPv6 link-local addressing in
+`/etc/systemd/network/10-port54.network` on both switches:
+
+```ini
+[Match]
+Name=port54
+
+[Network]
+LinkLocalAddressing=ipv6
+```
+
+Apply the network configuration and check the addresses:
+
+```shell
+networkctl reload
+ip address show dev port54
+```
+
+The interface should have an IPv6 link-local address (`fe80::…`) and no IPv4
+address. The link-local address may take a few seconds to appear after reloading
+the network configuration.
+
+#### Configure FRR
+
+Use the following configurations in `/etc/frr/frr.conf`. The neighbor is the
+interface name rather than an IP address. FRR discovers the peer through its
+IPv6 link-local address, while the IPv4 address family carries the advertised
+loopback route.
+
+`switch-1 /etc/frr/frr.conf`
+
+```
+interface lo
+  ip address 192.0.2.1/32
+
+router bgp 65000
+  bgp router-id 10.0.1.1
+  neighbor port54 interface remote-as 65001
+  address-family ipv4 unicast
+    network 192.0.2.1/32
+  exit-address-family
+```
+
+`switch-2 /etc/frr/frr.conf`
+
+```
+interface lo
+  ip address 192.0.2.2/32
+
+router bgp 65001
+  bgp router-id 10.0.2.1
+  neighbor port54 interface remote-as 65000
+  address-family ipv4 unicast
+    network 192.0.2.2/32
+  exit-address-family
+```
+
+Ensure that `bgpd=yes` is set in `/etc/frr/daemons`, as described in the
+[BGP configuration overview](#bgp-configuration-overview), then restart FRR on
+both switches:
+
+```shell
+systemctl restart frr
+```
+
+#### Verify
+
+```shell
+vtysh -c "show bgp ipv4 unicast summary"
+ip -4 route show proto bgp
+ping -c 3 192.0.2.2 # from switch 1
+```
+
+The session is up when `State/PfxRcd` shows a prefix count. The kernel route to
+the peer's loopback uses the peer's `fe80::` address on `port54` as next hop. The
+corresponding flowtable entries can be seen with `client_flowtable_dump 30`
+(where 30 is the table for unicast routing entries).
+
+### Unnumbered BGP with ECMP
+
+You can use ECMP (Equal Cost Multipath routing) to use multiple 
+unnumbered links between BISDN Linux switches. This increases
+throughput capacity by balancing flows between multiple links.
+
+This example builds on the previous one, adding one more link
+and showing you how to confirm it.
+
+```
+ +----------------------------+          +----------------------------+
+ | switch-1                   |          |                   switch-2 |
+ |                            |          |                            |
+ | loopback: 192.0.2.1/32     |          |     192.0.2.2/32 :loopback |
+ | router ID: 10.0.1.1        |          |        10.0.2.1 :router ID |
+ | AS 65000            port52 +----------+ port52            AS 65001 |
+ |                     port54 +----------+ port54                     | 
+ +----------------------------+          +----------------------------+
+                         IPv6 link-local
+```
+
+#### Add the additional link
+
+Add port52 with only an IPv6 link-local address to the file
+`/etc/systemd/network/10-port52.network` 
+
+```ini
+[Match]
+Name=port52
+
+[Network]
+LinkLocalAddressing=ipv6
+```
+
+Apply the network configuration and check the addresses:
+
+```shell
+networkctl reload
+ip address show dev port52
+```
+
+#### Add the additional link to FRR
+
+Add the additional neighbour to the `router bgp` block in `/etc/frr/frr.conf`,
+after the existing `port54` neighbour.
+
+On switch 1:
+
+```
+  neighbor port52 interface remote-as 65001
+```
+
+On switch 2:
+
+```
+  neighbor port52 interface remote-as 65000
+```
+
+```shell
+systemctl restart frr
+```
+
+#### Verify
+
+```shell
+vtysh -c "show bgp ipv4 unicast summary"
+vtysh -c "show bgp ipv4 unicast"
+ip -4 route show proto bgp
+client_grouptable_dump -t 0x7
+client_flowtable_dump 30
+```
+
+There should be an established session on both `port52` and `port54`, each
+showing a prefix count in `State/PfxRcd`.
+
+In `show bgp ipv4 unicast`, the peer's loopback has one path per link. One path
+is marked `*>` (best) and the other `*=` (multipath), so FRR uses both:
+
+```
+     Network          Next Hop            Metric LocPrf Weight Path
+ *>  192.0.2.2/32     port52                                 0 65001 i
+ *=                   port54                                 0 65001 i
+```
+
+The kernel route to the peer's loopback has two `nexthop` entries, one via the
+peer's `fe80::` address on each port:
+
+```
+192.0.2.2 nhid 50 metric 20
+	nexthop via inet6 fe80::218:23ff:fe30:e02c dev port54 weight 1
+	nexthop via inet6 fe80::218:23ff:fe30:e02a dev port52 weight 1
+```
+
+`client_grouptable_dump -t 0x7` lists the L3 ECMP groups in the ASIC. Each
+group has one bucket per link, each bucket referencing the L3 unicast group of
+one link. There are two groups, because FRR sends IPv6 router advertisements on
+the unnumbered links, so each switch also learns an IPv6 default route via the
+other switch over both links, which gets its own L3 ECMP group:
+
+```
+groupId = 0x70000001 (L3 ECMP, Index = 1): duration: 18, refCount:1
+	bucketIndex = 0: referenceGroupId = 0x20000001
+	bucketIndex = 1: referenceGroupId = 0x20000002
+groupId = 0x70000002 (L3 ECMP, Index = 2): duration: 16, refCount:1
+	bucketIndex = 0: referenceGroupId = 0x20000001
+	bucketIndex = 1: referenceGroupId = 0x20000002
+```
+
+In `client_flowtable_dump 30`, the entry for the peer's loopback points to one
+of these L3 ECMP groups (`groupId = 0x7…`). The group IDs depend on the order in
+which the groups were created:
+
+```
+--  etherType = 0x0800 vrf:mask = 0x0000:0x0000 dstIp4 = 192.0.2.2/255.255.255.255 dstIp6 = ::/:: | GoTo = 60 (ACL Policy) groupId = 0x70000002 | priority = 3 hard_time = 0 idle_time = 0 cookie = 155
+```
+
+When one of the links goes down, the route
+falls back to a single nexthop, the entry points to an L3 unicast group
+(`groupId = 0x2…`) instead, and its L3 ECMP group is removed.
