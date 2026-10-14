@@ -15,6 +15,75 @@ connection. To do this, please attach a network cable to the Management port of
 your switch.
 {: .label .label-red }
 
+## Customize the default configuration
+
+**Note**: Supported since BISDN Linux 6.0.
+
+You can change the initial configuration of the system by appending a
+configuration file to the image before installation.
+
+Just copy the following text into a file (e.g. `config.txt`) and fill it out:
+
+```
+# install-config 1.0
+#
+# BISDN Linux Installation configuration
+#
+# Customize the installation by uncommenting desired options and filling them
+# out, then appending this file to the installer via
+#   cat config.txt >> onie-bisdn-linux(...).bin
+
+# Control whether to keep configuration when installing with an existing BISDN
+# Linux installation present:
+#   "true"            take over configuration from previous installation
+#   "false"           reset to defaults
+# KEEP_CONFIG="true"
+
+# Set a default network configuration for the front ports:
+#   "none"             all front ports down, no configuration
+#   "simple-l2-bridge" all front ports up, bridged
+# DEFAULT_CONFIG="none"
+
+# Set a default password hash for the baseboxd user. This can be generated e.g.
+# via mkpasswd or openssl passwd.
+# DEFAULT_PASSWORD="$6$2zTHd7.l2MZBTq5j$LAwBkh6ILoFcqQyKhwzWe/jm.y/R3Mv0tsOhEbssq.ZLNiXivGpQUmKUWJSvoncQMj/jboLCQAH689wRfUy18."
+
+# Prepopulate /etc/basebox/.ssh/authorized_keys with the supplied content.
+# Multiple lines can be set using \ at the end, e.g.
+# AUTHORIZED_SSH_KEYS="key1 \
+# key2 \
+# key3"
+#
+# AUTHORIZED_SSH_KEYS=""
+```
+
+Then append it to the image e.g. via
+
+```
+cat config.txt >> onie-bisdn-generic-x86-64-v6.0.0.bin
+```
+
+BISDN Linux will then use these values during installation. During
+installation, it will print the used configuration:
+
+```
+#####################################################################
+Installing with the following configuration:
+  Keep existing configuration:          true
+  Default network configuration:        none
+  Default password:                     <default>
+  Authorized SSH keys:                  none
+#####################################################################
+```
+
+Be aware that unless `KEEP_CONFIG` is set to `false`, these values will only
+affect new installations. The configuration on normal upgrades remains
+untouched.
+
+**Note**: Setting `KEEP_CONFIG` to `false` works like a factory reset, and will
+discard any existing configuration, not just those parts that are controlled by
+this file.
+
 ## Install BISDN Linux via ONIE
 
 The recommended switch image installation is done via ONIE, a tool that allows
@@ -81,6 +150,9 @@ onie-nos-install http://repo.bisdn.de/pub/onie/agema-ag7648/onie-bisdn-agema-ag7
 More information about the ONIE CLI command can be found [here](https://opencomputeproject.github.io/onie/cli/index.html#onie-nos-install).
 
 ### Default Installer Files
+
+**WARNING** This option is deprecated since BISDN Linux 6.0 and will be removed
+in a future version.
 
 **WARNING** Setting a default configuration will reset the file system to the
 initial state. Only use this if you are prepared to lose all modifications of
