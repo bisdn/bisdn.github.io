@@ -17,8 +17,8 @@ daemon can be configured for both protocols. Its complete documentation for FRR
 can be found [here](http://docs.frrouting.org/en/latest/bgp.html).
 
 In this section, we provide examples on how to configure BGP for both
-[IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) networks in
-BISDN Linux.
+[IPv4](#bgp-for-ipv4-networks) and [IPv6](#bgp-for-ipv6-networks) or
+[Unnumbered BGP](#unnumbered-bgp) networks in BISDN Linux.
 
 ## BGP configuration overview
 
@@ -363,6 +363,201 @@ bgp router-id 4.4.4.4
 After configuring all servers and switches, frr needs to be restarted to pick
 up the new configuration and apply it. Baseboxd will then pick up these changes
 via the corresponding netlink events and forward this configuration do the ASIC.
+
+The routes received on the switch can be checked by using `ip route` and the
+corresponding flowtable entries can be seen when running `client_flowtable_dump
+30` (where 30 is the table for unicast routing entries)
+
+For further debugging using `vtysh`, please refer to the official frr
+documentation.
+
+### Unnumbered BGP
+
+BISDN Linux 6.0 introduces support for unnumbered BGP.
+
+Unnumbered BGP establishes BGP sessions over IPv6 link-local addresses, so the
+links do not need manually assigned IP addresses. FRR negotiates the extended next
+hop capability ([RFC 8950](https://tools.ietf.org/html/rfc8950.html), formerly
+RFC 5549), which allows IPv4 prefixes to be advertised with IPv6 next hops.
+
+This example exchanges IPv4 loopback routes over IPv6 link-local BGP sessions.
+Only the server loopbacks have IPv4 addresses; all links use IPv6 link-local
+addresses. Each server announces its loopback prefix to its directly connected
+switch over iBGP. The switches exchange these prefixes over eBGP,
+allowing the servers to reach each other's loopbacks without assigning IPv4
+addresses to any of the links.
+
+```
+ +-------------------------------------------------------------+        +----------------------------------------------------------------+
+ |                                                          +--+        +--+                                                             |
+ |                                                          |  |        |  |                                                             |
+ |  router-id 1.1.1.1                          (link-local) |  +--------+  | (link-local)                            router-id 2.2.2.2   |
+ |                 switch-1                          port54 |  |  eBGP  |  | port54                   switch-2                           |
+ |  (link-local)                                            +--+        +--+                                            (link-local)     |
+ |  +---+                                                      |        |                                                    +---+       |
+ |  |   | port7                                      ASN 65000 |        | ASN 65001                                    port7 |   |       |
+ +--+-+-+------------------------------------------------------+        +----------------------------------------------------+-+-+-------+
+      |                                                                                                                        |
+      |                                                                                                                        |
+      |iBGP                                                                                                                    |iBGP
+      |                                                                                                                        |
+      |                                                                                                                        |
+ +--+-+-+------------------------------------------------------+       +-----------------------------------------------------+-+-+-------+
+ |  |   | eno7                                       ASN 65000 |       |  ASN 65001                                     eno7 |   |       |
+ |  +---+                                                      |       |                                                     +---+       |
+ |  (link-local)                                               |       |                                                  (link-local)   |
+ |                           +---+                             |       |             +---+                                               |
+ |                 server-1  | lo|                             |       |             | lo|            server-2                           |
+ |                           +---+                             |       |             +---+                                               |
+ |                           10.0.100.2/32                     |       |             10.0.101.2/32                                       |
+ |                                                             |       |                                                                 |
+ +-------------------------------------------------------------+       +-----------------------------------------------------------------+
+```
+
+As in the previous examples, the switches connect through `port54`, and each
+server connects through `eno7` to `port7` on its switch. Switch-1 and server-1
+use ASN 65000, while switch-2 and server-2 use ASN 65001.
+
+Configure link-local addressing with systemd-networkd on all links.
+The `IPv6AcceptRA=no` setting prevents networkd from installing a
+default route from the router advertisements sent by FRR.
+
+`switch-1 and switch-2 /etc/systemd/network/10-port7.network`
+
+```ini
+[Match]
+Name=port7
+
+[Network]
+LinkLocalAddressing=ipv6
+IPv6AcceptRA=no
+```
+
+`switch-1 and switch-2 /etc/systemd/network/10-port54.network`
+
+```ini
+[Match]
+Name=port54
+
+[Network]
+LinkLocalAddressing=ipv6
+IPv6AcceptRA=no
+```
+
+`server-1 and server-2 /etc/systemd/network/20-eno7.network`
+
+```ini
+[Match]
+Name=eno7
+
+[Network]
+LinkLocalAddressing=ipv6
+IPv6AcceptRA=no
+```
+
+In FRR, an unnumbered neighbor is identified by its interface name instead
+of an IP address. The `left` peer group configures the iBGP session over
+`port7` on the switches and `eno7` on the servers. On each switch, the `port54`
+neighbor is the eBGP session to the other switch. The `ipv4 unicast` address
+family carries the server loopback prefixes using IPv6 link-local next hops.
+
+Each switch sets `neighbor left next-hop-self` when advertising routes to its
+server. A next hop learned from the other switch is a link-local address on that
+switch's `port54` and is not reachable from the server, so each switch replaces
+it with its own link-local address on `port7`. Only the servers originate
+prefixes with `network`; the switches announce the routes learned through BGP.
+
+The switches have no IPv4 address, so `bgp router-id` has to be set explicitly
+on them. The servers use their loopback address as router ID.
+
+`switch-1 /etc/frr/frr.conf`
+
+```
+router bgp 65000
+  bgp router-id 1.1.1.1
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor port7 interface peer-group left
+  neighbor port54 interface remote-as 65001
+  address-family ipv4 unicast
+    neighbor left activate
+    neighbor left next-hop-self
+    neighbor port54 activate
+  exit-address-family
+```
+
+`switch-2 /etc/frr/frr.conf`
+
+```
+router bgp 65001
+  bgp router-id 2.2.2.2
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor port7 interface peer-group left
+  neighbor port54 interface remote-as 65000
+  address-family ipv4 unicast
+    neighbor left activate
+    neighbor left next-hop-self
+    neighbor port54 activate
+  exit-address-family
+```
+
+`server-1 /etc/frr/frr.conf`
+
+```
+interface lo
+  ip address 10.0.100.2/32
+
+router bgp 65000
+  bgp router-id 10.0.100.2
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65000
+  neighbor eno7 interface peer-group left
+  address-family ipv4 unicast
+    neighbor left activate
+    network 10.0.100.2/32
+  exit-address-family
+```
+
+`server-2 /etc/frr/frr.conf`
+
+```
+interface lo
+  ip address 10.0.101.2/32
+
+router bgp 65001
+  bgp router-id 10.0.101.2
+  timers bgp 1 3
+  neighbor left peer-group
+  neighbor left remote-as 65001
+  neighbor eno7 interface peer-group left
+  address-family ipv4 unicast
+    neighbor left activate
+    network 10.0.101.2/32
+  exit-address-family
+```
+
+Apply the network configuration and restart FRR on all four nodes:
+
+```shell
+networkctl reload
+systemctl restart frr
+```
+
+The links should have IPv6 link-local addresses and no IPv4 or global IPv6
+addresses. Allow a few seconds for the link-local addresses to appear.
+
+To check traffic between the server loopbacks, run on server-1:
+
+```shell
+ping -I 10.0.100.2 -c 3 10.0.101.2
+```
+
+Check the BGP sessions with `vtysh -c "show bgp ipv4 unicast summary"`.
+Routes to the server loopbacks should use IPv6 link-local next hops.
 
 The routes received on the switch can be checked by using `ip route` and the
 corresponding flowtable entries can be seen when running `client_flowtable_dump
